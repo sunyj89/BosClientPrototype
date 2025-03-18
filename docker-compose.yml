@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  bos-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bos-client-prototype:latest
+    container_name: bos-client
+    ports:
+      - "8080:80"
+    restart: unless-stopped 

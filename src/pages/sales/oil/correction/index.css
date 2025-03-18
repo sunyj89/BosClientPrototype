@@ -1,0 +1,107 @@
+/* 数据冲正管理样式 */
+
+/* 容器样式 */
+.correction-management {
+  background-color: #f0f2f5;
+}
+
+/* 卡片样式 */
+.correction-management .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* 表格样式 */
+.correction-management .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.correction-management .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 标签样式 */
+.correction-management .ant-tag {
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-right: 8px;
+}
+
+/* 按钮样式 */
+.correction-management .ant-btn {
+  border-radius: 4px;
+}
+
+/* 搜索表单样式 */
+.correction-management .search-form {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.correction-management .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 统计卡片样式 */
+.correction-management .stats-card {
+  margin-bottom: 16px;
+}
+
+.correction-management .stats-card .ant-statistic-title {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.correction-management .stats-card .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* 详情抽屉样式 */
+.correction-management .detail-drawer .ant-descriptions-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.correction-management .detail-drawer .ant-descriptions-item-label {
+  font-weight: 500;
+  width: 120px;
+}
+
+.correction-management .detail-drawer h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.correction-management .detail-section {
+  margin-bottom: 24px;
+}
+
+.correction-management .approval-steps {
+  margin: 16px 0;
+}
+
+/* 标签页样式 */
+.correction-management .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .correction-management .ant-form-item {
+    margin-bottom: 12px;
+  }
+  
+  .correction-management .detail-drawer .ant-timeline-item-label {
+    width: 120px;
+  }
+  
+  .correction-management .detail-drawer .ant-descriptions-item-label {
+    width: 100px;
+  }
+} 

@@ -1,0 +1,96 @@
+/* 油品销售管理 Tab 样式 */
+.oil-sales-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.oil-sales-tabs .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  padding: 10px 20px;
+  transition: all 0.3s;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.oil-sales-tabs .ant-tabs-tab.ant-tabs-tab-active {
+  border-color: #32AF50;
+}
+
+.oil-sales-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #32AF50;
+  font-weight: 500;
+}
+
+.oil-sales-tabs .ant-tabs-content {
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  border-top: none;
+}
+
+.oil-sales-tabs .ant-tabs-nav::before {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.oil-sales-tabs .ant-tabs-nav-wrap {
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+
+.oil-sales-tabs .ant-tabs-nav-list {
+  flex-wrap: wrap;
+  padding: 4px 4px 0;
+}
+
+/* 二级 Tab 样式 */
+.oil-sales-subtabs .ant-tabs-nav {
+  padding: 0 16px;
+  flex-wrap: wrap;
+}
+
+.oil-sales-subtabs .ant-tabs-tab {
+  padding: 8px 16px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.oil-sales-subtabs .ant-tabs-tab.ant-tabs-tab-active {
+  font-weight: 500;
+}
+
+.oil-sales-subtabs .ant-tabs-ink-bar {
+  background-color: #32AF50;
+}
+
+.oil-sales-subtabs .ant-tabs-nav-wrap {
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+
+.oil-sales-subtabs .ant-tabs-nav-list {
+  flex-wrap: wrap;
+  padding: 4px 4px 0;
+}
+
+/* 移动端样式调整 */
+@media (max-width: 768px) {
+  .oil-sales-tabs .ant-tabs-tab {
+    padding: 8px 12px;
+    margin: 0 2px 2px 0;
+    height: 40px;
+  }
+  
+  .oil-sales-subtabs .ant-tabs-tab {
+    padding: 6px 10px;
+    margin: 0 2px 2px 0;
+    height: 36px;
+  }
+} 

@@ -1,0 +1,122 @@
+/* 油品销售任务目标样式 */
+
+/* 容器样式 */
+.target-application {
+  background-color: #f0f2f5;
+}
+
+/* 卡片样式 */
+.target-application .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+/* 表格样式 */
+.target-application .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.target-application .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 标签样式 */
+.target-application .ant-tag,
+.target-application .target-detail .ant-tag {
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-right: 8px;
+}
+
+/* 按钮样式 */
+.target-application .ant-btn,
+.target-application .target-detail .ant-btn {
+  border-radius: 4px;
+}
+
+/* 搜索表单样式 */
+.target-application .ant-form {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.target-application .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 模态框样式 */
+.target-application .ant-modal-footer,
+.target-application .target-detail .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+/* 详情页样式 */
+.target-application .target-detail .ant-descriptions-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.target-application .target-detail .ant-descriptions-item-label {
+  font-weight: 500;
+  width: 120px;
+}
+
+.target-application .target-detail h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* 统计卡片样式 */
+.target-application .target-detail .ant-statistic-title {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.target-application .target-detail .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+/* 步骤条样式 */
+.target-application .target-detail .ant-steps {
+  padding: 16px 0;
+}
+
+/* 时间线样式 */
+.target-application .target-detail .ant-timeline {
+  padding: 16px 0;
+}
+
+.target-application .target-detail .ant-timeline-item-label {
+  width: 180px;
+}
+
+/* 抽屉内容区域样式 */
+.target-application .detail-section {
+  margin-bottom: 24px;
+}
+
+.target-application .approval-steps {
+  margin: 16px 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .target-application .ant-form-item,
+  .target-application .target-detail .ant-form-item {
+    margin-bottom: 12px;
+  }
+  
+  .target-application .target-detail .ant-timeline-item-label {
+    width: 120px;
+  }
+  
+  .target-application .target-detail .ant-descriptions-item-label {
+    width: 100px;
+  }
+} 
