@@ -1,0 +1,115 @@
+.daily-report {
+  width: 100%;
+}
+
+.daily-report-search-form {
+  margin-bottom: 16px;
+  background-color: #fff;
+}
+
+.daily-report-search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.daily-report-statistics {
+  margin-bottom: 16px;
+}
+
+.daily-report-statistics .ant-card {
+  height: 100%;
+}
+
+.daily-report-statistics .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+}
+
+.daily-report-statistics .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.daily-report-charts {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.daily-report-charts .ant-tabs-nav {
+  margin-bottom: 0;
+  padding: 0 16px;
+}
+
+.daily-report-charts .ant-card {
+  border: none;
+  border-radius: 0;
+}
+
+.daily-report-chart-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 24px;
+  text-align: center;
+}
+
+.daily-report-chart-placeholder .placeholder-icon {
+  color: #d9d9d9;
+  margin-bottom: 16px;
+}
+
+.daily-report-chart-placeholder .placeholder-text {
+  color: #999;
+}
+
+.daily-report-chart-placeholder .placeholder-text p:first-child {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.daily-report-table {
+  background-color: #fff;
+}
+
+.daily-report-table .ant-table-thead > tr > th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+}
+
+.daily-report-table .ant-table-row:hover {
+  background-color: #f0f7ff;
+}
+
+.daily-report-table .ant-table-summary {
+  background-color: #f5f5f5;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .daily-report-search-form .ant-form-item {
+    margin-bottom: 12px;
+  }
+  
+  .daily-report-statistics {
+    margin-bottom: 8px;
+  }
+  
+  .daily-report-statistics .ant-col {
+    margin-bottom: 8px;
+  }
+  
+  .daily-report-statistics .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .daily-report-chart-placeholder {
+    height: 200px;
+  }
+  
+  .daily-report-table .ant-table {
+    font-size: 12px;
+  }
+} 

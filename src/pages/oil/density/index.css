@@ -1,0 +1,103 @@
+.oil-density-container {
+  padding: 16px;
+}
+
+.oil-density-card {
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.oil-density-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 16px;
+}
+
+.oil-density-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.density-tabs .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+.density-tabs .ant-tabs-tab {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.density-tabs .ant-tabs-content {
+  padding: 0;
+}
+
+/* 表格样式 */
+.density-table {
+  margin-top: 16px;
+}
+
+.density-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.density-table .ant-table-tbody > tr:hover > td {
+  background-color: #f0f7ff;
+}
+
+/* 表单样式 */
+.density-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.density-form .ant-form-item-label {
+  font-weight: 500;
+}
+
+/* 按钮样式 */
+.density-button {
+  margin-right: 8px;
+}
+
+.density-button-primary {
+  background-color: #32AF50;
+  border-color: #32AF50;
+}
+
+.density-button-primary:hover,
+.density-button-primary:focus {
+  background-color: #3ac762;
+  border-color: #3ac762;
+}
+
+/* 标签样式 */
+.density-tag {
+  min-width: 50px;
+  text-align: center;
+}
+
+/* 状态标签颜色 */
+.status-normal {
+  color: #32AF50;
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+.status-warning {
+  color: #fa8c16;
+  background-color: #fff7e6;
+  border-color: #ffd591;
+}
+
+.status-error {
+  color: #f5222d;
+  background-color: #fff1f0;
+  border-color: #ffa39e;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .density-form-inline .ant-form-item {
+    margin-right: 0;
+    width: 100%;
+  }
+} 

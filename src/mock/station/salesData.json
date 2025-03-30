@@ -1,0 +1,306 @@
+[
+  {
+    "id": "S001",
+    "date": "2023-03-01",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 2580.5,
+        "amount": 23224.5,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 1850.3,
+        "amount": 18503.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 680.7,
+        "amount": 7487.7,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1420.4,
+        "amount": 11363.2,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 18650.5,
+    "totalSales": 79228.9,
+    "cardTransactions": 56,
+    "cashTransactions": 32,
+    "mobilePayTransactions": 108,
+    "customerCount": 196
+  },
+  {
+    "id": "S002",
+    "date": "2023-03-02",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 2450.8,
+        "amount": 22057.2,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 1920.6,
+        "amount": 19206.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 720.3,
+        "amount": 7923.3,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1350.5,
+        "amount": 10804.0,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 19850.2,
+    "totalSales": 79840.7,
+    "cardTransactions": 62,
+    "cashTransactions": 25,
+    "mobilePayTransactions": 121,
+    "customerCount": 208
+  },
+  {
+    "id": "S003",
+    "date": "2023-03-01",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 2980.2,
+        "amount": 26821.8,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2150.5,
+        "amount": 21505.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 780.8,
+        "amount": 8588.8,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1680.3,
+        "amount": 13442.4,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 22450.8,
+    "totalSales": 92808.8,
+    "cardTransactions": 68,
+    "cashTransactions": 35,
+    "mobilePayTransactions": 142,
+    "customerCount": 245
+  },
+  {
+    "id": "S004",
+    "date": "2023-03-02",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 3050.6,
+        "amount": 27455.4,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2200.3,
+        "amount": 22003.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 810.4,
+        "amount": 8914.4,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1720.8,
+        "amount": 13766.4,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 23150.6,
+    "totalSales": 95289.8,
+    "cardTransactions": 72,
+    "cashTransactions": 30,
+    "mobilePayTransactions": 156,
+    "customerCount": 258
+  },
+  {
+    "id": "S005",
+    "date": "2023-03-01",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 3280.4,
+        "amount": 29523.6,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2450.7,
+        "amount": 24507.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 950.2,
+        "amount": 10452.2,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1850.6,
+        "amount": 14804.8,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 25680.3,
+    "totalSales": 104967.9,
+    "cardTransactions": 85,
+    "cashTransactions": 42,
+    "mobilePayTransactions": 178,
+    "customerCount": 305
+  },
+  {
+    "id": "S006",
+    "date": "2023-03-02",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 3350.8,
+        "amount": 30157.2,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2520.5,
+        "amount": 25205.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 980.6,
+        "amount": 10786.6,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1920.3,
+        "amount": 15362.4,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 26850.5,
+    "totalSales": 108361.7,
+    "cardTransactions": 92,
+    "cashTransactions": 38,
+    "mobilePayTransactions": 185,
+    "customerCount": 315
+  },
+  {
+    "id": "S007",
+    "date": "2023-03-01",
+    "stationId": "SH002",
+    "stationName": "上海浦东油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 3180.2,
+        "amount": 28621.8,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2380.6,
+        "amount": 23806.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 920.5,
+        "amount": 10125.5,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1780.4,
+        "amount": 14243.2,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 24550.2,
+    "totalSales": 101346.7,
+    "cardTransactions": 80,
+    "cashTransactions": 40,
+    "mobilePayTransactions": 168,
+    "customerCount": 288
+  },
+  {
+    "id": "S008",
+    "date": "2023-03-02",
+    "stationId": "SH002",
+    "stationName": "上海浦东油站",
+    "oilSales": [
+      {
+        "oilType": "92#汽油",
+        "volume": 3250.4,
+        "amount": 29253.6,
+        "price": 9.0
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 2420.8,
+        "amount": 24208.0,
+        "price": 10.0
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 950.3,
+        "amount": 10453.3,
+        "price": 11.0
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 1820.6,
+        "amount": 14564.8,
+        "price": 8.0
+      }
+    ],
+    "goodsSales": 25120.5,
+    "totalSales": 103600.2,
+    "cardTransactions": 83,
+    "cashTransactions": 36,
+    "mobilePayTransactions": 172,
+    "customerCount": 291
+  }
+] 

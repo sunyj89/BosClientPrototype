@@ -1,0 +1,494 @@
+/* 油站管理页面样式 */
+
+/* 主容器样式 */
+.station-container {
+  padding: 20px;
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 64px);
+}
+
+/* 组织结构卡片 */
+.org-card {
+  margin-bottom: 16px;
+  height: 100%;
+}
+
+/* 卡片通用样式 */
+.station-card {
+  margin-bottom: 16px;
+}
+
+/* 油站卡片样式 */
+.station-item-card {
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.station-item-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.station-card-cover {
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  position: relative;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.station-status-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* 分页器居中显示 */
+.station-pagination {
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* 统计卡片样式 */
+.stats-card {
+  padding: 20px;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+.stats-card-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.stats-card-value {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stats-card-footer {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.stats-card-blue {
+  background-color: #1890ff;
+}
+
+.stats-card-green {
+  background-color: #52c41a;
+}
+
+.stats-card-orange {
+  background-color: #fa8c16;
+}
+
+.stats-card-purple {
+  background-color: #722ed1;
+}
+
+/* 详情页样式 */
+.detail-container {
+  padding: 20px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.detail-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.info-label {
+  width: 100px;
+  color: #8c8c8c;
+}
+
+.info-value {
+  flex: 1;
+  font-weight: 500;
+}
+
+.employee-card {
+  margin-top: 16px;
+}
+
+.equipment-card {
+  margin-top: 16px;
+}
+
+.sales-card {
+  margin-top: 16px;
+}
+
+.delivery-card {
+  margin-top: 16px;
+}
+
+/* 搜索表单样式 */
+.station-search-form {
+  padding: 16px 16px 0;
+  margin-bottom: 16px;
+}
+
+.station-search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.station-search-form .ant-form-item-label {
+  text-align: left;
+}
+
+.station-search-form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.station-search-form .form-buttons button {
+  margin-left: 8px;
+}
+
+/* 表格样式 */
+.station-table {
+  margin-top: 16px;
+}
+
+.station-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.station-table .ant-table-row:hover {
+  background-color: #f5f5f5;
+}
+
+.station-table .operation-buttons {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.station-table .operation-buttons button {
+  margin-right: 8px;
+}
+
+/* 组织树样式 */
+.org-tree {
+  height: calc(100vh - 220px);
+  overflow: auto;
+  border-right: 1px solid #f0f0f0;
+  padding: 16px;
+}
+
+.org-tree .ant-tree-treenode {
+  width: 100%;
+  padding: 4px 0;
+}
+
+.org-tree .ant-tree-node-content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-tree .ant-tree-node-selected {
+  background-color: #e6f7ff;
+}
+
+/* 详情抽屉样式 */
+.station-drawer .ant-drawer-body {
+  padding: 24px;
+}
+
+.station-drawer .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.station-drawer .drawer-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #f0f0f0;
+  padding: 16px 24px;
+  background: #fff;
+  text-align: right;
+  left: 0;
+}
+
+.station-drawer .drawer-footer button {
+  margin-left: 8px;
+}
+
+/* 油站详情页面样式 */
+.station-detail-container {
+  padding: 16px;
+  background-color: #fff;
+}
+
+.station-detail-header {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 16px;
+}
+
+.station-detail-header h2 {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.station-detail-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.station-detail-info-item {
+  width: 25%;
+  margin-bottom: 16px;
+}
+
+.station-detail-info-label {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.station-detail-info-value {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.station-detail-tabs {
+  margin-top: 24px;
+}
+
+/* 油品销售图表样式 */
+.sales-chart-container {
+  height: 400px;
+  margin-bottom: 24px;
+}
+
+.sales-chart-card {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sales-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sales-chart-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 配送任务样式 */
+.delivery-task-detail {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.task-step {
+  margin-bottom: 24px;
+}
+
+.task-info-item {
+  margin-bottom: 16px;
+}
+
+.task-info-label {
+  color: #8c8c8c;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.task-info-value {
+  font-size: 14px;
+}
+
+/* 油品明细表格样式 */
+.oil-details-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .station-detail-info-item {
+    width: 50%;
+  }
+
+  .stats-card {
+    height: 100px;
+  }
+
+  .station-drawer .ant-drawer-content-wrapper {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .station-detail-info-item {
+    width: 100%;
+  }
+
+  .stats-card-value {
+    font-size: 20px;
+  }
+}
+
+/* 审批抽屉样式 */
+.audit-drawer .ant-drawer-body {
+  padding: 24px;
+  overflow: auto;
+}
+
+.audit-drawer-content {
+  padding-bottom: 64px;
+}
+
+.audit-section {
+  margin-bottom: 24px;
+}
+
+.audit-section h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.audit-history {
+  padding: 8px 0;
+}
+
+.audit-history-item {
+  margin-bottom: 12px;
+}
+
+.audit-form {
+  margin-top: 8px;
+}
+
+/* 审批状态标签颜色 */
+.status-pending {
+  color: #faad14;
+}
+
+.status-approved {
+  color: #32AF50;
+}
+
+.status-rejected {
+  color: #f5222d;
+}
+
+.status-cancelled {
+  color: #d9d9d9;
+}
+
+/* 待审批区域样式 */
+.pending-approval-card {
+  background-color: #fafafa;
+  border-left: 4px solid #1890ff;
+}
+
+.pending-approval-card .ant-card-head {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.pending-approval-card .ant-list-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pending-approval-card .ant-list-item:last-child {
+  border-bottom: none;
+}
+
+.pending-approval-card .ant-list-item-meta-title {
+  margin-bottom: 8px;
+}
+
+.pending-approval-card .ant-list-item-meta-description {
+  color: #8c8c8c;
+  font-size: 12px;
+}
+
+.pending-approval-card .ant-list-item-action {
+  margin-left: 48px;
+}
+
+/* Tab页样式 */
+.station-tabs .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+.station-tabs .ant-tabs-tab {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.station-tabs .ant-tabs-tab-active {
+  font-weight: 500;
+}
+
+.station-tabs .ant-tabs-content {
+  padding: 8px 0;
+}
+
+/* 筛选表单样式 */
+.filter-form {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* 批量操作区域样式 */
+.batch-actions {
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* 审批中心表格样式 */
+.approval-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.approval-table .ant-table-row:hover {
+  background-color: #f5f5f5;
+}
+
+/* 表格选择项样式 */
+.ant-table-row-selected > td {
+  background: #e6f7ff !important;
+} 

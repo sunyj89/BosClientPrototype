@@ -1,0 +1,113 @@
+.sales-performance {
+  width: 100%;
+}
+
+.sales-performance-search-form {
+  margin-bottom: 16px;
+  background-color: #fff;
+}
+
+.sales-performance-search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.sales-performance-statistics {
+  margin-bottom: 16px;
+}
+
+.sales-performance-statistics .ant-card {
+  height: 100%;
+}
+
+.sales-performance-statistics .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.sales-performance-statistics .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sales-performance-statistics .statistic-footer {
+  margin-top: 8px;
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+}
+
+.sales-performance-content {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.sales-performance-content .ant-tabs-nav {
+  margin-bottom: 0;
+  padding: 0 16px;
+}
+
+.sales-performance-table {
+  background-color: #fff;
+}
+
+.sales-performance-table .ant-table-thead > tr > th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+}
+
+.sales-performance-table .ant-table-row:hover {
+  background-color: #f0f7ff;
+}
+
+/* 进度条样式 */
+.sales-performance-table .ant-progress {
+  width: 80%;
+}
+
+/* 标签样式 */
+.sales-performance-table .ant-tag-success {
+  color: #52c41a;
+  background: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+.sales-performance-table .ant-tag-warning {
+  color: #faad14;
+  background: #fffbe6;
+  border-color: #ffe58f;
+}
+
+.sales-performance-table .ant-tag-error {
+  color: #f5222d;
+  background: #fff1f0;
+  border-color: #ffa39e;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .sales-performance-search-form .ant-form-item {
+    margin-bottom: 12px;
+  }
+  
+  .sales-performance-statistics {
+    margin-bottom: 8px;
+  }
+  
+  .sales-performance-statistics .ant-col {
+    margin-bottom: 8px;
+  }
+  
+  .sales-performance-statistics .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .sales-performance-table .ant-table {
+    font-size: 12px;
+  }
+  
+  .sales-performance-table .ant-progress {
+    width: 70%;
+  }
+} 

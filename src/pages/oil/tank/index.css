@@ -1,0 +1,141 @@
+.tank-management {
+  background-color: #f0f2f5;
+  padding: 0;
+  min-height: calc(100vh - 64px - 32px);
+}
+
+.tank-management .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.tank-management .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tank-management .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.tank-management .ant-tag {
+  border-radius: 2px;
+}
+
+.tank-management .ant-btn {
+  border-radius: 2px;
+}
+
+.tank-management .ant-input-search {
+  margin-right: 16px;
+}
+
+.tank-management .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.tank-management .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+.tank-management .ant-table-row:hover {
+  cursor: pointer;
+}
+
+/* 新增的Tab相关样式 */
+.tank-management .tank-tabs {
+  background-color: #fff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tank-management .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+.tank-management .ant-tabs-tab {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.tank-management .ant-tabs-tab.ant-tabs-tab-active {
+  font-weight: 500;
+}
+
+/* 筛选表单样式 */
+.tank-management .filter-form {
+  padding: 16px 0;
+  margin-bottom: 16px;
+}
+
+.tank-management .filter-form .ant-form-item {
+  margin-bottom: 16px;
+  margin-right: 16px;
+  display: flex;
+}
+
+.tank-management .filter-form .ant-form-item-label {
+  width: auto;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.tank-management .filter-form .ant-form-item-control {
+  flex: 1;
+}
+
+/* 组织筛选相关样式 */
+.tank-management .ant-tree-select {
+  width: 100%;
+}
+
+.tank-management .ant-form-inline .ant-form-item {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  width: auto;
+}
+
+.tank-management .ant-form-inline .ant-form-item-control-input {
+  min-width: 200px;
+}
+
+/* 解决TreeSelect下拉菜单问题 */
+.tank-management .ant-tree-select-dropdown {
+  max-width: 400px;
+}
+
+.tank-management .ant-select-tree {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.tank-management .ant-select-tree-list-holder-inner {
+  padding-right: 12px;
+}
+
+.tank-management .ant-form-inline .ant-form-item-label {
+  min-width: 80px;
+}
+
+/* 树选择器选项文本样式 */
+.tank-management .ant-select-tree-node-content-wrapper {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+/* 按钮组样式 */
+.tank-management .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.tank-management .form-buttons button {
+  margin-left: 8px;
+} 

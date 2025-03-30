@@ -1,0 +1,66 @@
+[
+  {
+    "id": "HQ",
+    "name": "总部",
+    "type": "organization",
+    "children": [
+      {
+        "id": "BJ",
+        "name": "北京区域",
+        "type": "organization",
+        "children": [
+          {
+            "id": "BJ001",
+            "name": "北京海淀油站",
+            "type": "station",
+            "address": "北京市海淀区中关村南大街12号"
+          },
+          {
+            "id": "BJ002",
+            "name": "北京朝阳油站",
+            "type": "station",
+            "address": "北京市朝阳区朝阳北路15号"
+          }
+        ]
+      },
+      {
+        "id": "SH",
+        "name": "上海区域",
+        "type": "organization",
+        "children": [
+          {
+            "id": "SH001",
+            "name": "上海黄浦油站",
+            "type": "station",
+            "address": "上海市黄浦区南京东路238号"
+          },
+          {
+            "id": "SH002",
+            "name": "上海浦东油站",
+            "type": "station",
+            "address": "上海市浦东新区张杨路500号"
+          }
+        ]
+      },
+      {
+        "id": "GZ",
+        "name": "广州区域",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GZ001",
+            "name": "广州天河油站",
+            "type": "station",
+            "address": "广州市天河区天河路385号"
+          },
+          {
+            "id": "GZ002",
+            "name": "广州海珠油站",
+            "type": "station",
+            "address": "广州市海珠区江南大道125号"
+          }
+        ]
+      }
+    ]
+  }
+] 
