@@ -491,4 +491,69 @@
 /* 表格选择项样式 */
 .ant-table-row-selected > td {
   background: #e6f7ff !important;
+}
+
+/* 审批中心Tab样式 */
+.approval-tabs .ant-tabs-nav {
+  margin-bottom: 0px;
+}
+
+.approval-tabs .ant-tabs-tab {
+  padding: 8px 16px;
+}
+
+.approval-tabs .ant-tabs-tab-active {
+  font-weight: 500;
+}
+
+/* 审批抽屉样式 */
+.audit-drawer .ant-drawer-body {
+  padding: 24px;
+}
+
+.audit-drawer .audit-form {
+  margin-top: 24px;
+}
+
+.audit-drawer .audit-history {
+  margin-top: 16px;
+}
+
+.audit-drawer .audit-actions {
+  margin-top: 24px;
+  text-align: right;
+}
+
+.audit-drawer .ant-timeline-item-content {
+  margin-bottom: 12px;
+}
+
+/* 状态标签样式 */
+.status-pending {
+  color: #faad14;
+  background-color: #fffbe6;
+  border-color: #ffe58f;
+}
+
+.status-approved {
+  color: #32AF50;
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+.status-rejected {
+  color: #f5222d;
+  background-color: #fff1f0;
+  border-color: #ffa39e;
+}
+
+/* 审批按钮样式 */
+.approve-btn {
+  background-color: #32AF50 !important;
+  border-color: #32AF50 !important;
+}
+
+.approve-btn:hover {
+  background-color: #3cbf5d !important;
+  border-color: #3cbf5d !important;
 } 

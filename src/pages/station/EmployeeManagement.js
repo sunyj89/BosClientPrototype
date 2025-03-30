@@ -675,57 +675,6 @@ const EmployeeManagement = () => {
     setModalVisible(false);
   };
 
-  // 处理模态框确认
-  const handleModalOk = () => {
-    modalForm.validateFields().then(values => {
-      
-      if (modalType === 'add') {
-        // 创建入职审批
-        const newApprovalItem = {
-          key: String(approvalData.length),
-          id: `A${2000 + approvalData.length}`,
-          type: '入职审批',
-          title: `入职审批-${values.name}`,
-          employeeName: values.name,
-          organization: values.organization,
-          applicant: '当前用户',
-          applyTime: new Date().toLocaleString(),
-          status: '待审核',
-          approver: '',
-          approveTime: '',
-          content: `申请新增员工：${values.name}`,
-          formValues: values
-        };
-        
-        setApprovalData([newApprovalItem, ...approvalData]);
-        message.success('入职申请已提交，等待审批');
-      } else {
-        // 创建编辑审批
-        const newApprovalItem = {
-          key: String(approvalData.length),
-          id: `A${2000 + approvalData.length}`,
-          type: '信息变更审批',
-          title: `信息变更审批-${values.name}`,
-          employeeName: values.name,
-          organization: values.organization,
-          applicant: '当前用户',
-          applyTime: new Date().toLocaleString(),
-          status: '待审核',
-          approver: '',
-          approveTime: '',
-          content: `申请修改员工：${values.name} 的信息`,
-          formValues: values,
-          originalRecord: currentRecord
-        };
-        
-        setApprovalData([newApprovalItem, ...approvalData]);
-        message.success('信息变更申请已提交，等待审批');
-      }
-      
-      setModalVisible(false);
-    });
-  };
-
   return (
     <div className="employee-management-container">
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
@@ -888,7 +837,7 @@ const EmployeeManagement = () => {
       <Modal
         title={modalType === 'add' ? '申请新增员工' : '申请编辑员工'}
         visible={modalVisible}
-        onOk={handleModalOk}
+        onOk={handleAuditSubmit}
         onCancel={handleModalCancel}
         width={700}
       >
