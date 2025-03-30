@@ -215,7 +215,7 @@ const renderApprovalCenterTab = () => {
 ```css
 /* Tab标签样式 */
 .approval-tabs .ant-tabs-nav {
-  margin-bottom: 16px;
+  margin-bottom: 0x;
 }
 
 .approval-tabs .ant-tabs-tab {
