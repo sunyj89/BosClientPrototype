@@ -16,6 +16,7 @@ import { fetchOrgStructure, fetchStationStats, deleteStation, batchAuditStations
 import { STATION_TABLE_COLUMNS, STATION_STATUS, PAGINATION_CONFIG, APPROVAL_STATUS } from './utils/constants';
 import StationForm from './components/StationForm';
 import AuditDrawer from './components/AuditDrawer';
+import { useLocation } from 'react-router-dom';
 import './index.css';
 
 const { confirm } = Modal;
@@ -24,6 +25,8 @@ const { SHOW_PARENT } = TreeSelect;
 const { TabPane } = Tabs;
 
 const StationManagement = () => {
+  const location = useLocation();
+  
   // 状态定义
   const [loading, setLoading] = useState(false);
   const [stationList, setStationList] = useState([]);
@@ -45,7 +48,9 @@ const StationManagement = () => {
   const [approvalFilterForm] = Form.useForm();
   const [auditDrawerVisible, setAuditDrawerVisible] = useState(false);
   const [currentStation, setCurrentStation] = useState(null);
-  const [activeTabKey, setActiveTabKey] = useState('1');
+  const [activeTabKey, setActiveTabKey] = useState(
+    location.state?.activeTabKey || '1'
+  );
   const [selectedPendingRows, setSelectedPendingRows] = useState([]);
   const [pendingLoading, setPendingLoading] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
@@ -55,6 +60,11 @@ const StationManagement = () => {
     fetchOrganizationData();
     fetchStationList();
     fetchPendingCount();
+    
+    // 清除location.state，防止刷新页面后仍然停留在审批中心选项卡
+    if (location.state?.activeTabKey) {
+      window.history.replaceState({}, document.title);
+    }
   }, []);
 
   // Tab切换时加载相应数据
@@ -88,41 +98,28 @@ const StationManagement = () => {
       setLoading(true);
       const result = await fetchOrgStructure();
       if (result && result.data) {
-        // 转换为TreeSelect可用的格式
-        const companyNode = {
-          title: "江西交投化石能源公司",
-          value: `company-${result.data.id}`,
-          key: `company-${result.data.id}`,
-          children: []
+        console.log('获取到的组织结构数据:', result.data);
+        
+        // 将导入的数据转换为TreeSelect可用的格式
+        const convertToTreeData = (nodes) => {
+          if (!nodes || nodes.length === 0) return [];
+          
+          return nodes.map(node => {
+            const treeNode = {
+              title: node.name,
+              value: `${node.type === 'organization' ? 'org' : node.type === 'serviceArea' ? 'area' : 'station'}-${node.id}`,
+              key: `${node.type === 'organization' ? 'org' : node.type === 'serviceArea' ? 'area' : 'station'}-${node.id}`,
+              type: node.type,
+              children: node.children ? convertToTreeData(node.children) : [],
+              isLeaf: node.type === 'station'
+            };
+            return treeNode;
+          });
         };
         
-        // 添加分公司节点
-        if (result.data.branches && result.data.branches.length > 0) {
-          result.data.branches.forEach(branch => {
-            const branchNode = {
-              title: branch.name,
-              value: `branch-${branch.id}`,
-              key: `branch-${branch.id}`,
-              children: []
-            };
-            
-            // 添加油站节点
-            if (branch.stations && branch.stations.length > 0) {
-              branch.stations.forEach(station => {
-                branchNode.children.push({
-                  title: station.name,
-                  value: `station-${station.id}`,
-                  key: `station-${station.id}`,
-                  isLeaf: true
-                });
-              });
-            }
-            
-            companyNode.children.push(branchNode);
-          });
-        }
-        
-        setTreeData([companyNode]);
+        const transformedData = convertToTreeData(result.data);
+        console.log('转换后的组织树数据:', transformedData);
+        setTreeData(transformedData);
       }
     } catch (error) {
       message.error('获取组织结构失败');
@@ -143,59 +140,114 @@ const StationManagement = () => {
       if (result && result.data) {
         let allStations = [];
         
-        // 收集所有油站
-        if (result.data.branches) {
-          result.data.branches.forEach(branch => {
-            if (branch.stations) {
-              // 为每个油站添加所属分公司名称
-              const stationsWithBranch = branch.stations.map(station => ({
-                ...station,
-                branchName: branch.name,
-                branchId: branch.id
-              }));
-              allStations = [...allStations, ...stationsWithBranch];
+        // 从新的组织结构中提取所有油站
+        const extractStations = (nodes, parentInfo = {}) => {
+          if (!nodes || nodes.length === 0) return;
+          
+          nodes.forEach(node => {
+            if (node.type === 'station') {
+              // 获取随机油站状态
+              const statusOptions = [
+                STATION_STATUS.NORMAL, 
+                STATION_STATUS.MAINTENANCE, 
+                STATION_STATUS.SHUTDOWN, 
+                STATION_STATUS.SUSPENDED
+              ];
+              const randomStatus = statusOptions[Math.floor(Math.random() * statusOptions.length)];
+              
+              // 生成随机数据
+              const stationIndex = allStations.length;
+              const oilGunCount = 4 + Math.floor(Math.random() * 8); // 4-12油枪
+              const oilTankCount = 2 + Math.floor(Math.random() * 4); // 2-6油罐
+              const employeeCount = 8 + Math.floor(Math.random() * 15); // 8-23员工
+              const dailySales = 40000 + Math.floor(Math.random() * 60000); // 4-10万日销售额
+              
+              // 生成手机号
+              const phonePrefix = ['138', '139', '135', '158', '187', '186', '150', '151', '189'];
+              const randomPrefix = phonePrefix[Math.floor(Math.random() * phonePrefix.length)];
+              const randomSuffix = String(1000000 + Math.floor(Math.random() * 9000000)).substring(1);
+              const randomPhone = `${randomPrefix}${randomSuffix}`;
+              
+              // 生成创建日期和更新日期
+              const currentDate = new Date();
+              const creationDate = new Date(currentDate);
+              creationDate.setMonth(currentDate.getMonth() - Math.floor(Math.random() * 24)); // 0-24个月前
+              
+              const updateDate = new Date(creationDate);
+              updateDate.setDate(updateDate.getDate() + Math.floor(Math.random() * 180)); // 0-180天后
+              
+              // 格式化日期
+              const formatDate = (date) => {
+                return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+              };
+              
+              // 提取油站信息，包括上级组织信息
+              allStations.push({
+                id: node.id,
+                name: node.name,
+                branchName: parentInfo.branchName || '未知分公司',
+                branchId: parentInfo.branchId || '',
+                serviceAreaName: parentInfo.serviceAreaName || '未知服务区',
+                serviceAreaId: parentInfo.serviceAreaId || '',
+                address: node.address || `江西省南昌市青山湖区昌东大道${stationIndex + 1}号`,
+                status: randomStatus,
+                approvalStatus: APPROVAL_STATUS.APPROVED, // 默认为已审批
+                // 以下为模拟数据
+                manager: `站长${String.fromCharCode(65 + (stationIndex % 26))}`,
+                contact: randomPhone,
+                oilGuns: oilGunCount,
+                oilTanks: oilTankCount,
+                employees: employeeCount,
+                dailySales: dailySales,
+                createTime: formatDate(creationDate),
+                updateTime: formatDate(updateDate),
+              });
+            } else if (node.children && node.children.length > 0) {
+              let newParentInfo = { ...parentInfo };
+              
+              if (node.type === 'organization' && node.id !== 'JXJTFS') {
+                // 记录分公司信息
+                newParentInfo.branchName = node.name;
+                newParentInfo.branchId = node.id;
+              } else if (node.type === 'serviceArea') {
+                // 记录服务区信息
+                newParentInfo.serviceAreaName = node.name;
+                newParentInfo.serviceAreaId = node.id;
+              }
+              
+              // 递归处理子节点
+              extractStations(node.children, newParentInfo);
             }
           });
-        }
+        };
+        
+        // 提取所有油站
+        extractStations(result.data);
         
         // 应用筛选条件
         let filteredStations = [...allStations];
         
         // 处理组织结构树选择
         if (filters.orgNodes && filters.orgNodes.length > 0) {
-          // 解析选中的节点
-          const selectedCompanies = [];
-          const selectedBranches = [];
-          const selectedStations = [];
+          // 对每个选择的节点进行判断
+          const orgFilter = (station) => {
+            for (const nodeValue of filters.orgNodes) {
+              // 解析节点类型和ID
+              const [nodeType, nodeId] = nodeValue.split('-');
+              
+              if (nodeType === 'org' && station.branchId === nodeId) {
+                return true; // 如果是该分公司下的油站
+              } else if (nodeType === 'area' && station.serviceAreaId === nodeId) {
+                return true; // 如果是该服务区下的油站
+              } else if (nodeType === 'station' && station.id === nodeId) {
+                return true; // 如果是指定的油站
+              }
+            }
+            return false;
+          };
           
-          filters.orgNodes.forEach(nodeId => {
-            if (nodeId.startsWith('company-')) {
-              selectedCompanies.push(nodeId.replace('company-', ''));
-            } else if (nodeId.startsWith('branch-')) {
-              selectedBranches.push(nodeId.replace('branch-', ''));
-            } else if (nodeId.startsWith('station-')) {
-              selectedStations.push(nodeId.replace('station-', ''));
-            }
-          });
-          
-          // 如果选中了总公司，显示所有油站
-          if (selectedCompanies.length === 0) {
-            // 如果选中了分公司，筛选这些分公司下的油站
-            if (selectedBranches.length > 0) {
-              filteredStations = filteredStations.filter(station => 
-                selectedBranches.includes(station.branchId)
-              );
-            }
-            
-            // 如果选中了具体油站，只显示这些油站
-            if (selectedStations.length > 0) {
-              filteredStations = filteredStations.filter(station => 
-                selectedStations.includes(station.id)
-              );
-            }
-            
-            // 如果既没选分公司也没选油站，显示所有油站
-          }
+          // 筛选满足条件的油站
+          filteredStations = filteredStations.filter(orgFilter);
         }
         
         // 状态筛选
@@ -238,12 +290,57 @@ const StationManagement = () => {
       // 调用API获取待审批数据
       const result = await fetchPendingApprovals({
         approvalType: filters.approvalType,
+        orgNodes: filters.orgNodes,
+        approvalStatus: filters.approvalStatus,
+        keyword: filters.keyword,
         current: pendingPagination.current,
         pageSize: pendingPagination.pageSize
       });
       
       if (result && result.data) {
-        setPendingStations(result.data.list);
+        // 处理关键字搜索
+        let filteredList = [...result.data.list];
+        
+        if (filters.keyword) {
+          const keyword = filters.keyword.toLowerCase();
+          filteredList = filteredList.filter(item => 
+            (item.id && item.id.toLowerCase().includes(keyword)) ||
+            (item.name && item.name.toLowerCase().includes(keyword)) ||
+            (item.branchName && item.branchName.toLowerCase().includes(keyword)) ||
+            (item.approvalType && item.approvalType.toLowerCase().includes(keyword)) ||
+            (item.submitter && item.submitter.toLowerCase().includes(keyword))
+          );
+        }
+        
+        // 处理组织筛选
+        if (filters.orgNodes && filters.orgNodes.length > 0) {
+          const orgFilter = (station) => {
+            for (const nodeValue of filters.orgNodes) {
+              // 解析节点类型和ID
+              const [nodeType, nodeId] = nodeValue.split('-');
+              
+              if (nodeType === 'org' && station.branchId === nodeId) {
+                return true; // 如果是该分公司下的油站
+              } else if (nodeType === 'area' && station.serviceAreaId === nodeId) {
+                return true; // 如果是该服务区下的油站
+              } else if (nodeType === 'station' && station.id === nodeId) {
+                return true; // 如果是指定的油站
+              }
+            }
+            return false;
+          };
+          
+          filteredList = filteredList.filter(orgFilter);
+        }
+        
+        // 处理审批状态筛选
+        if (filters.approvalStatus) {
+          filteredList = filteredList.filter(item => 
+            item.approvalStatus === filters.approvalStatus
+          );
+        }
+        
+        setPendingStations(filteredList);
         setPendingPagination({
           ...pendingPagination,
           total: result.data.total,
@@ -536,6 +633,12 @@ const StationManagement = () => {
       width: 150
     },
     {
+      title: '所属服务区',
+      dataIndex: 'serviceAreaName',
+      key: 'serviceAreaName',
+      width: 150
+    },
+    {
       title: '申请类型',
       dataIndex: 'approvalType',
       key: 'approvalType',
@@ -549,6 +652,32 @@ const StationManagement = () => {
            type === 'update' ? '修改' : '新增'}
         </Tag>
       )
+    },
+    {
+      title: '审批状态',
+      dataIndex: 'approvalStatus',
+      key: 'approvalStatus',
+      width: 100,
+      render: (status) => {
+        const color = getApprovalStatusColor(status);
+        let text = '';
+        
+        switch(status) {
+          case APPROVAL_STATUS.PENDING:
+            text = '待审批';
+            break;
+          case APPROVAL_STATUS.APPROVED:
+            text = '已批准';
+            break;
+          case APPROVAL_STATUS.REJECTED:
+            text = '已拒绝';
+            break;
+          default:
+            text = '未知状态';
+        }
+        
+        return <Tag color={color}>{text}</Tag>;
+      }
     },
     {
       title: '提交人',
@@ -655,6 +784,20 @@ const StationManagement = () => {
           onFinish={handleApprovalFilterSubmit}
           className="filter-form"
         >
+          <Form.Item name="orgNodes" label="组织/油站">
+            <TreeSelect
+              treeData={treeData}
+              placeholder="请选择组织或油站"
+              allowClear
+              showSearch
+              treeNodeFilterProp="title"
+              multiple
+              showCheckedStrategy={SHOW_PARENT}
+              treeCheckable
+              treeDefaultExpandAll
+              style={{ width: 300 }}
+            />
+          </Form.Item>
           <Form.Item name="approvalType" label="申请类型">
             <Select
               placeholder="请选择申请类型"
@@ -665,6 +808,24 @@ const StationManagement = () => {
               <Option value="update">修改</Option>
               <Option value="delete">删除</Option>
             </Select>
+          </Form.Item>
+          <Form.Item name="approvalStatus" label="审批状态">
+            <Select
+              placeholder="请选择审批状态"
+              allowClear
+              style={{ width: 120 }}
+            >
+              <Option value={APPROVAL_STATUS.PENDING}>待审批</Option>
+              <Option value={APPROVAL_STATUS.APPROVED}>已批准</Option>
+              <Option value={APPROVAL_STATUS.REJECTED}>已拒绝</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="keyword" label="关键词">
+            <Input 
+              placeholder="请输入关键词" 
+              style={{ width: 150 }}
+              allowClear
+            />
           </Form.Item>
           <Form.Item>
             <Space>

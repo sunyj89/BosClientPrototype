@@ -366,13 +366,6 @@ const AppSider = ({ collapsed }) => {
         },
       ],
     },
-
-    {
-      key: 'approval_center',
-      icon: <AuditOutlined />,
-      label: <MenuItemLabel text="审批中心" link="/approval/center" />,
-    },
-
     {
       key: 'system',
       icon: <SettingOutlined />,
@@ -382,6 +375,11 @@ const AppSider = ({ collapsed }) => {
           key: 'system_workflow',
           icon: <NodeIndexOutlined />,
           label: <MenuItemLabel text="工作流程管理" link="/system/workflow" />,
+        },
+        {
+          key: 'system_sitemap',
+          icon: <BranchesOutlined />,
+          label: <MenuItemLabel text="网站地图" link="/system/sitemap" />,
         },
       ],
     },
