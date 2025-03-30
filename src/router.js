@@ -18,6 +18,8 @@ import OilLossCost from './pages/purchase/oil-delivery/OilLossCost';
 import OilOverflowOrder from './pages/purchase/oil-delivery/OilOverflowOrder';
 import OilOverflowSummary from './pages/purchase/oil-delivery/OilOverflowSummary';
 import OilOrder from './pages/purchase/oil-order';
+import NonOilPurchaseOrder from './pages/purchase/non-oil-purchase-order';
+import OilPurchasePriceManagement from './pages/purchase/oil-purchase-price-management';
 
 // 供应商管理
 import SupplierManagement from './pages/supplier/index';
@@ -162,6 +164,12 @@ const AppRouter = () => {
         
         {/* 油品采购订单 */}
         <Route path="oil-order" element={<OilOrder />} />
+        
+        {/* 非油品采购订单 */}
+        <Route path="non-oil-purchase-order" element={<NonOilPurchaseOrder />} />
+        
+        {/* 油品进价管理 */}
+        <Route path="oil-purchase-price-management" element={<OilPurchasePriceManagement />} />
       </Route>
       
       {/* 商品管理路由 */}

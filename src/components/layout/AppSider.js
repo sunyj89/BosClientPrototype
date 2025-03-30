@@ -175,6 +175,21 @@ const AppSider = ({ collapsed }) => {
       label: '采购管理',
       children: [
         {
+          key: 'purchase_oil_order',
+          icon: <ShoppingCartOutlined />,
+          label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
+        },
+        {
+          key: 'purchase_non_oil_purchase_order',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="非油品采购订单" link="/purchase/non-oil-purchase-order" />,
+        },
+        {
+          key: 'purchase_oil_purchase_price_management',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
+        },
+        {
           key: 'purchase_oil_delivery',
           icon: <CarOutlined />,
           label: <MenuItemLabel text="油品配送管理" link="/purchase/oil-delivery" />,
@@ -184,11 +199,7 @@ const AppSider = ({ collapsed }) => {
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
         },
-        {
-          key: 'purchase_oil_order',
-          icon: <ShoppingCartOutlined />,
-          label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
-        },
+
       ],
     },
     {
@@ -249,16 +260,6 @@ const AppSider = ({ collapsed }) => {
           key: 'supplier_transport',
           icon: <CarOutlined />,
           label: <MenuItemLabel text="承运单位" link="/supplier/transport" />,
-        },
-        {
-          key: 'purchase_transport_settlement',
-          icon: <CarOutlined />,
-          label: <MenuItemLabel text="运费结算单" link="/purchase/transport-settlement" />,
-        },
-        {
-          key: 'purchase_transport_details',
-          icon: <NodeIndexOutlined />,
-          label: <MenuItemLabel text="运费明细" link="/purchase/transport-details" />,
         },
         {
           key: 'oil_depot',
