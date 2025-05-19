@@ -180,6 +180,11 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
         },
         {
+          key: 'purchase_non_oil_purchase_request',
+          icon: <FormOutlined />,
+          label: <MenuItemLabel text="非油品采购申请" link="/purchase/non-oil-purchase-request" />,
+        },
+        {
           key: 'purchase_non_oil_purchase_order',
           icon: <ShoppingOutlined />,
           label: <MenuItemLabel text="非油品采购订单" link="/purchase/non-oil-purchase-order" />,
@@ -188,6 +193,11 @@ const AppSider = ({ collapsed }) => {
           key: 'purchase_oil_purchase_price_management',
           icon: <DollarOutlined />,
           label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
+        },
+        {
+          key: 'purchase_oil_inquiry_management',
+          icon: <AuditOutlined />,
+          label: <MenuItemLabel text="油品询价管理" link="/purchase/oil-inquiry-management" />,
         },
         {
           key: 'purchase_oil_delivery',
@@ -199,7 +209,6 @@ const AppSider = ({ collapsed }) => {
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
         },
-
       ],
     },
     {

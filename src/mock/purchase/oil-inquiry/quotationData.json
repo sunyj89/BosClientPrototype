@@ -1,0 +1,90 @@
+[
+  {
+    "id": "QUO20240520001",
+    "inquiryId": "INQ20240501004",
+    "inquiryName": "5月份0#柴油询价单",
+    "status": "待确认",
+    "supplierId": "SP001",
+    "supplierName": "中石化北京分公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7850,
+    "quantity": 40000,
+    "deliveryTime": "2024-06-01 10:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-19 14:30:45",
+    "attachments": [
+      {
+        "name": "报价单详情.pdf",
+        "url": "/uploads/quo20240520001_details.pdf"
+      }
+    ],
+    "remarks": "价格含税，含运费，保证准时配送"
+  },
+  {
+    "id": "QUO20240520002",
+    "inquiryId": "INQ20240501004",
+    "inquiryName": "5月份0#柴油询价单",
+    "status": "已接受",
+    "supplierId": "SP004",
+    "supplierName": "中海油能源发展股份有限公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7820,
+    "quantity": 40000,
+    "deliveryTime": "2024-05-31 14:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-19 15:45:20",
+    "attachments": [
+      {
+        "name": "报价单文件.pdf",
+        "url": "/uploads/quo20240520002_file.pdf"
+      },
+      {
+        "name": "质量保证书.pdf",
+        "url": "/uploads/quo20240520002_quality.pdf"
+      }
+    ],
+    "remarks": "可以优先配送，保证油品质量"
+  },
+  {
+    "id": "QUO20240520003",
+    "inquiryId": "INQ20240501004",
+    "inquiryName": "5月份0#柴油询价单",
+    "status": "已拒绝",
+    "supplierId": "SP005",
+    "supplierName": "中化石油有限公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7950,
+    "quantity": 40000,
+    "deliveryTime": "2024-06-02 09:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": false,
+    "submitTime": "2024-05-19 16:20:10",
+    "attachments": [],
+    "remarks": "价格不含运费，需要另外支付",
+    "rejectReason": "价格过高且不含运费"
+  },
+  {
+    "id": "QUO20240522001",
+    "inquiryId": "INQ20240501004",
+    "inquiryName": "5月份0#柴油询价单",
+    "status": "待确认",
+    "supplierId": "SP002",
+    "supplierName": "中石油华东分公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7830,
+    "quantity": 40000,
+    "deliveryTime": "2024-06-01 13:30:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-22 09:15:30",
+    "attachments": [
+      {
+        "name": "报价说明.pdf",
+        "url": "/uploads/quo20240522001_desc.pdf"
+      }
+    ],
+    "remarks": "可以分批次配送，价格含税含运费"
+  }
+] 

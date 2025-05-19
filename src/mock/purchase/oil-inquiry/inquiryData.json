@@ -1,0 +1,68 @@
+[
+  {
+    "id": "INQ20240501001",
+    "name": "5月份92#汽油询价单",
+    "oilType": "92#汽油",
+    "quantity": 50000,
+    "status": "草稿",
+    "quoteStartTime": "2024-05-20 08:00:00",
+    "quoteEndTime": "2024-05-25 18:00:00",
+    "createTime": "2024-05-18 10:30:22",
+    "createdBy": "张三"
+  },
+  {
+    "id": "INQ20240501002",
+    "name": "5月份95#汽油询价单",
+    "oilType": "95#汽油",
+    "quantity": 30000,
+    "status": "待审批",
+    "quoteStartTime": "2024-05-21 08:00:00",
+    "quoteEndTime": "2024-05-26 18:00:00",
+    "createTime": "2024-05-18 11:20:15",
+    "createdBy": "张三"
+  },
+  {
+    "id": "INQ20240501003",
+    "name": "5月份98#汽油询价单",
+    "oilType": "98#汽油",
+    "quantity": 20000,
+    "status": "已审批",
+    "quoteStartTime": "2024-05-22 08:00:00",
+    "quoteEndTime": "2024-05-27 18:00:00",
+    "createTime": "2024-05-18 14:45:30",
+    "createdBy": "李四"
+  },
+  {
+    "id": "INQ20240501004",
+    "name": "5月份0#柴油询价单",
+    "oilType": "0#柴油",
+    "quantity": 40000,
+    "status": "询价中",
+    "quoteStartTime": "2024-05-19 08:00:00",
+    "quoteEndTime": "2024-05-24 18:00:00",
+    "createTime": "2024-05-17 16:30:00",
+    "createdBy": "李四"
+  },
+  {
+    "id": "INQ20240415001",
+    "name": "4月份92#汽油询价单",
+    "oilType": "92#汽油",
+    "quantity": 45000,
+    "status": "已撤回",
+    "quoteStartTime": "2024-04-20 08:00:00",
+    "quoteEndTime": "2024-04-25 18:00:00",
+    "createTime": "2024-04-18 09:15:40",
+    "createdBy": "王五"
+  },
+  {
+    "id": "INQ20240410001",
+    "name": "4月份0#柴油询价单",
+    "oilType": "0#柴油",
+    "quantity": 35000,
+    "status": "询价结束",
+    "quoteStartTime": "2024-04-12 08:00:00",
+    "quoteEndTime": "2024-04-17 18:00:00",
+    "createTime": "2024-04-10 14:20:30",
+    "createdBy": "李四"
+  }
+] 

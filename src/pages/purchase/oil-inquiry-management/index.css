@@ -1,0 +1,30 @@
+.inquiry-table {
+  margin-top: 16px;
+}
+
+.status-tag {
+  min-width: 60px;
+  text-align: center;
+}
+
+.price-section {
+  margin-top: 24px;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.table-operations {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tab-container {
+  margin-top: 8px;
+}
+
+.button-spacing {
+  margin-right: 8px;
+} 

@@ -1,0 +1,244 @@
+{
+  "approvalHistory": [
+    {
+      "id": 1,
+      "requestId": 1,
+      "timestamp": "2024-04-01 10:30:00",
+      "operator": "张三",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购10桶长城润滑油"
+    },
+    {
+      "id": 2,
+      "requestId": 2,
+      "timestamp": "2024-03-29 15:30:00",
+      "operator": "李四",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购20桶金龙鱼食用油"
+    },
+    {
+      "id": 3,
+      "requestId": 2,
+      "timestamp": "2024-03-30 09:15:00",
+      "operator": "王五",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，请总部审批"
+    },
+    {
+      "id": 4,
+      "requestId": 3,
+      "timestamp": "2024-03-28 09:15:00",
+      "operator": "赵六",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购1000升尿素溶液，库存紧张"
+    },
+    {
+      "id": 5,
+      "requestId": 3,
+      "timestamp": "2024-03-28 14:20:00",
+      "operator": "钱七",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，数量合理"
+    },
+    {
+      "id": 6,
+      "requestId": 3,
+      "timestamp": "2024-03-29 10:00:00",
+      "operator": "孙八",
+      "role": "总部审批人",
+      "action": "review",
+      "status": "head_review",
+      "comments": "正在审核中，请耐心等待"
+    },
+    {
+      "id": 7,
+      "requestId": 4,
+      "timestamp": "2024-03-27 14:20:00",
+      "operator": "周九",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购50箱矿泉水，用于夏季促销"
+    },
+    {
+      "id": 8,
+      "requestId": 4,
+      "timestamp": "2024-03-27 16:45:00",
+      "operator": "吴十",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，符合促销计划"
+    },
+    {
+      "id": 9,
+      "requestId": 4,
+      "timestamp": "2024-03-28 09:30:00",
+      "operator": "郑十一",
+      "role": "总部审批人",
+      "action": "approve",
+      "status": "approved",
+      "comments": "同意采购，已安排采购部门处理"
+    },
+    {
+      "id": 10,
+      "requestId": 5,
+      "timestamp": "2024-03-26 11:45:00",
+      "operator": "王十二",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购15桶壳牌润滑油"
+    },
+    {
+      "id": 11,
+      "requestId": 5,
+      "timestamp": "2024-03-26 15:20:00",
+      "operator": "李十三",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，请总部审批"
+    },
+    {
+      "id": 12,
+      "requestId": 5,
+      "timestamp": "2024-03-27 10:30:00",
+      "operator": "张十四",
+      "role": "总部审批人",
+      "action": "reject",
+      "status": "rejected",
+      "comments": "价格偏高，建议更换供应商或寻找替代品牌"
+    },
+    {
+      "id": 13,
+      "requestId": 6,
+      "timestamp": "2024-03-25 16:30:00",
+      "operator": "赵十五",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购15桶福临门食用油，常规库存补充"
+    },
+    {
+      "id": 14,
+      "requestId": 7,
+      "timestamp": "2024-03-24 13:45:00",
+      "operator": "钱十六",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购30桶蓝星尿素，客户需求量增加"
+    },
+    {
+      "id": 15,
+      "requestId": 7,
+      "timestamp": "2024-03-25 09:20:00",
+      "operator": "孙十七",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，确实需要补充库存"
+    },
+    {
+      "id": 16,
+      "requestId": 8,
+      "timestamp": "2024-03-23 09:20:00",
+      "operator": "周十八",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购40箱方便面，常规补货"
+    },
+    {
+      "id": 17,
+      "requestId": 8,
+      "timestamp": "2024-03-23 14:00:00",
+      "operator": "吴十九",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意常规补货"
+    },
+    {
+      "id": 18,
+      "requestId": 8,
+      "timestamp": "2024-03-24 10:15:00",
+      "operator": "郑二十",
+      "role": "总部审批人",
+      "action": "review",
+      "status": "head_review",
+      "comments": "正在审核采购计划"
+    },
+    {
+      "id": 19,
+      "requestId": 9,
+      "timestamp": "2024-03-22 14:30:00",
+      "operator": "李二十一",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购12桶美孚润滑油，高端客户需求增加"
+    },
+    {
+      "id": 20,
+      "requestId": 9,
+      "timestamp": "2024-03-22 16:45:00",
+      "operator": "王二十二",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，高端产品销售良好"
+    },
+    {
+      "id": 21,
+      "requestId": 9,
+      "timestamp": "2024-03-23 09:00:00",
+      "operator": "张二十三",
+      "role": "总部审批人",
+      "action": "approve",
+      "status": "approved",
+      "comments": "同意采购，已安排后续采购流程"
+    },
+    {
+      "id": 22,
+      "requestId": 10,
+      "timestamp": "2024-03-21 11:15:00",
+      "operator": "赵二十四",
+      "role": "申请人",
+      "action": "submit",
+      "status": "pending",
+      "comments": "申请采购18桶胡姬花花生油"
+    },
+    {
+      "id": 23,
+      "requestId": 10,
+      "timestamp": "2024-03-21 15:30:00",
+      "operator": "钱二十五",
+      "role": "部门经理",
+      "action": "approve",
+      "status": "branch_review",
+      "comments": "同意采购，请总部审批"
+    },
+    {
+      "id": 24,
+      "requestId": 10,
+      "timestamp": "2024-03-22 10:00:00",
+      "operator": "孙二十六",
+      "role": "总部审批人",
+      "action": "reject",
+      "status": "rejected",
+      "comments": "当前库存充足，暂不需要补充，请下月再申请"
+    }
+  ]
+} 
