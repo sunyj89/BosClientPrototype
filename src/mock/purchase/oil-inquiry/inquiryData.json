@@ -59,7 +59,7 @@
     "name": "4月份0#柴油询价单",
     "oilType": "0#柴油",
     "quantity": 35000,
-    "status": "询价结束",
+    "status": "询价完成",
     "quoteStartTime": "2024-04-12 08:00:00",
     "quoteEndTime": "2024-04-17 18:00:00",
     "createTime": "2024-04-10 14:20:30",

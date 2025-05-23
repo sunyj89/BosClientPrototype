@@ -13,7 +13,8 @@ import {
   DatePicker,
   Tabs,
   Tag,
-  Popconfirm
+  Popconfirm,
+  Descriptions
 } from 'antd';
 import { 
   PlusOutlined, 
@@ -27,7 +28,9 @@ import {
   RollbackOutlined,
   ExclamationCircleOutlined,
   FileTextOutlined,
-  ExportOutlined
+  ExportOutlined,
+  FilePdfOutlined,
+  FileExcelOutlined
 } from '@ant-design/icons';
 import moment from 'moment';
 import './index.css';
@@ -58,6 +61,8 @@ const OilInquiryManagement = () => {
   const [currentRecord, setCurrentRecord] = useState(null);
   const [quotationDetailVisible, setQuotationDetailVisible] = useState(false);
   const [currentQuotation, setCurrentQuotation] = useState(null);
+  const [inquiryReportVisible, setInquiryReportVisible] = useState(false);
+  const [reportData, setReportData] = useState([]);
 
   // 初始化数据
   useEffect(() => {
@@ -99,11 +104,12 @@ const OilInquiryManagement = () => {
       '已审批': 'green',
       '已发布': 'cyan',
       '询价中': 'geekblue',
-      '询价结束': 'purple',
+      '询价完成': 'purple',
       '已撤回': 'red',
       '待确认': 'blue',
       '已接受': 'green',
-      '已拒绝': 'red'
+      '已拒绝': 'red',
+      '中标报价单': 'gold'
     };
     return colorMap[status] || 'default';
   };
@@ -234,7 +240,7 @@ const OilInquiryManagement = () => {
                 </Button>
               </Space>
             );
-          case '询价结束':
+          case '询价完成':
             return (
               <Space size="small">
                 <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
@@ -242,6 +248,9 @@ const OilInquiryManagement = () => {
                 </Button>
                 <Button size="small" icon={<FileTextOutlined />} onClick={() => handleViewQuotationDetails(record)}>
                   报价单明细
+                </Button>
+                <Button type="primary" size="small" icon={<FileExcelOutlined />} onClick={() => handleViewInquiryReport(record)}>
+                  导出询价报告
                 </Button>
               </Space>
             );
@@ -383,6 +392,9 @@ const OilInquiryManagement = () => {
       dataIndex: 'unitPrice',
       key: 'unitPrice',
       width: 120,
+      sorter: (a, b) => a.unitPrice - b.unitPrice,
+      sortDirections: ['ascend', 'descend'],
+      defaultSortOrder: 'descend',
     },
     {
       title: '数量(吨)',
@@ -622,10 +634,58 @@ const OilInquiryManagement = () => {
     message.success(`已拒绝报价单: ${record.id}`);
   };
 
+  // 确认中标报价
+  const handleConfirmWinner = (record) => {
+    // 先检查同一询价单下是否已有中标报价
+    const hasWinner = quotations.some(item => 
+      item.inquiryId === record.inquiryId && 
+      item.status === '中标报价单' && 
+      item.id !== record.id
+    );
+
+    if (hasWinner) {
+      message.error(`询价单 ${record.inquiryId} 已有中标报价，不能重复设置`);
+      return;
+    }
+
+    // 更新状态为中标报价单
+    const newQuotations = quotations.map(item => {
+      if (item.id === record.id) {
+        return { ...item, status: '中标报价单' };
+      }
+      return item;
+    });
+    
+    setQuotations(newQuotations);
+    setQuotationDetailVisible(false);
+    message.success(`已确认 ${record.id} 为中标报价单`);
+  };
+
   // 导出报价单
   const handleExportQuotations = () => {
     message.success('报价单导出成功');
     // 实际实现应该是发送请求下载报价单数据
+  };
+
+  // 查看询价报告
+  const handleViewInquiryReport = (record) => {
+    // 获取与此询价单关联的所有报价单
+    const relatedQuotations = quotations.filter(q => q.inquiryId === record.id);
+    
+    if (relatedQuotations.length === 0) {
+      message.info('暂无报价单数据，无法生成询价报告');
+      return;
+    }
+
+    // 设置报告数据
+    setReportData({
+      inquiry: record,
+      quotations: relatedQuotations,
+      winnerQuotation: relatedQuotations.find(q => q.status === '中标报价单') || null
+    });
+    
+    // 显示询价报告弹窗
+    setInquiryReportVisible(true);
   };
 
   // 中止询价
@@ -739,7 +799,7 @@ const OilInquiryManagement = () => {
                   </Form.Item>
                 </Col>
                 <Col span={6}>
-                  <Form.Item name="dateRange" label="报价时间">
+                  <Form.Item name="dateRange" label="报价时间" labelCol={{ style: { marginRight: '12px' } }}>
                     <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
                   </Form.Item>
                 </Col>
@@ -750,7 +810,7 @@ const OilInquiryManagement = () => {
                       <Option value="待审批">待审批</Option>
                       <Option value="已审批">已审批</Option>
                       <Option value="询价中">询价中</Option>
-                      <Option value="询价结束">询价结束</Option>
+                      <Option value="询价完成">询价完成</Option>
                       <Option value="已撤回">已撤回</Option>
                     </Select>
                   </Form.Item>
@@ -825,6 +885,7 @@ const OilInquiryManagement = () => {
                       <Option value="待确认">待确认</Option>
                       <Option value="已接受">已接受</Option>
                       <Option value="已拒绝">已拒绝</Option>
+                      <Option value="中标报价单">中标报价单</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -855,6 +916,9 @@ const OilInquiryManagement = () => {
             loading={loading}
             pagination={{ pageSize: 10 }}
             scroll={{ x: 'max-content' }}
+            onChange={(pagination, filters, sorter) => {
+              console.log('排序参数:', sorter);
+            }}
           />
         </TabPane>
         
@@ -887,7 +951,145 @@ const OilInquiryManagement = () => {
         onCancel={() => setQuotationDetailVisible(false)}
         onAccept={handleAcceptQuotation}
         onReject={handleRejectQuotation}
+        onConfirmWinner={handleConfirmWinner}
       />
+
+      {/* 询价报告弹窗 */}
+      <Modal
+        title="询价报告"
+        open={inquiryReportVisible}
+        onCancel={() => setInquiryReportVisible(false)}
+        width={900}
+        footer={[
+          <Button key="close" onClick={() => setInquiryReportVisible(false)}>
+            关闭
+          </Button>,
+          <Button 
+            key="export" 
+            type="primary" 
+            icon={<FileExcelOutlined />}
+            onClick={() => {
+              message.success('询价报告已导出为Excel文件');
+              setInquiryReportVisible(false);
+            }}
+          >
+            导出询价报告
+          </Button>
+        ]}
+      >
+        {reportData && (
+          <div className="inquiry-report">
+            <div className="report-header">
+              <h2>{reportData.inquiry?.name} - 询价报告</h2>
+              <p>询价单ID: {reportData.inquiry?.id}</p>
+              <p>油品类型: {reportData.inquiry?.oilType}</p>
+              <p>预计采购数量: {reportData.inquiry?.quantity} L</p>
+              <p>报价时间: {reportData.inquiry?.quoteStartTime} 至 {reportData.inquiry?.quoteEndTime}</p>
+            </div>
+            
+            <div className="report-body">
+              <h3>报价单汇总</h3>
+              <Table
+                columns={[
+                  {
+                    title: '供应商名称',
+                    dataIndex: 'supplierName',
+                    key: 'supplierName',
+                    width: 180,
+                  },
+                  {
+                    title: '报价时间',
+                    dataIndex: 'submitTime',
+                    key: 'submitTime',
+                    width: 150,
+                  },
+                  {
+                    title: '单价(元/吨)',
+                    dataIndex: 'unitPrice',
+                    key: 'unitPrice',
+                    width: 120,
+                    sorter: (a, b) => a.unitPrice - b.unitPrice,
+                  },
+                  {
+                    title: '交货时间',
+                    dataIndex: 'deliveryTime',
+                    key: 'deliveryTime',
+                    width: 150,
+                  },
+                  {
+                    title: '交货地点',
+                    dataIndex: 'deliveryAddress',
+                    key: 'deliveryAddress',
+                    width: 200,
+                  },
+                  {
+                    title: '是否含运费',
+                    dataIndex: 'includeFreight',
+                    key: 'includeFreight',
+                    width: 100,
+                    render: (includeFreight) => includeFreight ? '是' : '否',
+                  },
+                  {
+                    title: '含运费总价(元)',
+                    key: 'totalWithFreight',
+                    width: 150,
+                    render: (_, record) => {
+                      if (record.includeFreight) {
+                        return (record.unitPrice * record.quantity).toLocaleString();
+                      } else {
+                        // 假设运费为单价的5%
+                        const freight = record.unitPrice * 0.05;
+                        return ((record.unitPrice + freight) * record.quantity).toLocaleString();
+                      }
+                    },
+                  },
+                  {
+                    title: '不含运费总价(元)',
+                    key: 'totalWithoutFreight',
+                    width: 150,
+                    render: (_, record) => (record.unitPrice * record.quantity).toLocaleString(),
+                  },
+                  {
+                    title: '状态',
+                    dataIndex: 'status',
+                    key: 'status',
+                    width: 100,
+                    render: (status) => (
+                      <Tag color={getStatusColor(status)} className="status-tag">
+                        {status}
+                      </Tag>
+                    ),
+                  }
+                ]}
+                dataSource={reportData.quotations}
+                rowKey="id"
+                pagination={false}
+                scroll={{ x: 'max-content' }}
+                size="small"
+              />
+              
+              {reportData.winnerQuotation && (
+                <div className="winner-section">
+                  <h3>中标供应商信息</h3>
+                  <Descriptions bordered size="small" column={2}>
+                    <Descriptions.Item label="供应商名称" span={2}>{reportData.winnerQuotation.supplierName}</Descriptions.Item>
+                    <Descriptions.Item label="联系人">{reportData.winnerQuotation.contactPerson || '暂无'}</Descriptions.Item>
+                    <Descriptions.Item label="联系电话">{reportData.winnerQuotation.contactPhone || '暂无'}</Descriptions.Item>
+                    <Descriptions.Item label="电子邮箱" span={2}>{reportData.winnerQuotation.contactEmail || '暂无'}</Descriptions.Item>
+                    <Descriptions.Item label="中标单价">{reportData.winnerQuotation.unitPrice} 元/吨</Descriptions.Item>
+                    <Descriptions.Item label="中标数量">{reportData.winnerQuotation.quantity} 吨</Descriptions.Item>
+                    <Descriptions.Item label="到货时间">{reportData.winnerQuotation.deliveryTime}</Descriptions.Item>
+                    <Descriptions.Item label="交货地点">{reportData.winnerQuotation.deliveryAddress}</Descriptions.Item>
+                    <Descriptions.Item label="是否含运费">{reportData.winnerQuotation.includeFreight ? '是' : '否'}</Descriptions.Item>
+                    <Descriptions.Item label="总价(元)">{(reportData.winnerQuotation.unitPrice * reportData.winnerQuotation.quantity).toLocaleString()}</Descriptions.Item>
+                    <Descriptions.Item label="备注" span={2}>{reportData.winnerQuotation.remarks || '无'}</Descriptions.Item>
+                  </Descriptions>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

@@ -25,8 +25,10 @@ import OilInquiryManagement from './pages/purchase/oil-inquiry-management';
 
 // 供应商管理
 import SupplierManagement from './pages/supplier/index';
-import OilSupplierManagement from './pages/supplier/OilSupplier';
+import OilSupplierManagement from './pages/supplier/OilSupplierManagement';
 import GoodsSupplierManagement from './pages/supplier/GoodsSupplier';
+import SupplierPortal from './pages/supplier/SupplierPortal';
+import WinningQuotation from './pages/supplier/WinningQuotation';
 
 // 商品管理
 import GoodsManagement from './pages/goods/GoodsManagement';
@@ -58,7 +60,6 @@ import DeviceDetailNew from './pages/device/DeviceDetail';
 
 // 审批中心和系统管理
 // import ApprovalCenter from './pages/approval/ApprovalCenter';
-import WorkflowManagement from './pages/system/WorkflowManagement';
 import SystemManagement from './pages/system/SystemManagement';
 import SiteMap from './pages/system/sitemap/SiteMap';
 
@@ -127,6 +128,8 @@ const AppRouter = () => {
         <Route index element={<SupplierManagement />} />
         <Route path="oil" element={<OilSupplierManagement />} />
         <Route path="goods" element={<GoodsSupplierManagement />} />
+        <Route path="portal" element={<SupplierPortal />} />
+        <Route path="winning-quotation" element={<WinningQuotation />} />
       </Route>
       
       {/* 油站管理路由 */}
@@ -268,7 +271,6 @@ const AppRouter = () => {
       
       {/* 系统管理路由 */}
       <Route path="/system" element={<SystemManagement />} />
-      <Route path="/system/workflow" element={<WorkflowManagement />} />
       <Route path="/system/sitemap" element={<SiteMap />} />
       
       {/* 油品库存管理路由 */}

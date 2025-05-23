@@ -13,6 +13,9 @@
     "deliveryAddress": "江西省南昌市高新区",
     "includeFreight": true,
     "submitTime": "2024-05-19 14:30:45",
+    "contactPerson": "张经理",
+    "contactPhone": "13912345678",
+    "contactEmail": "zhang@sinopec.com",
     "attachments": [
       {
         "name": "报价单详情.pdf",
@@ -25,7 +28,7 @@
     "id": "QUO20240520002",
     "inquiryId": "INQ20240501004",
     "inquiryName": "5月份0#柴油询价单",
-    "status": "已接受",
+    "status": "中标报价单",
     "supplierId": "SP004",
     "supplierName": "中海油能源发展股份有限公司",
     "oilType": "0#柴油",
@@ -35,6 +38,9 @@
     "deliveryAddress": "江西省南昌市高新区",
     "includeFreight": true,
     "submitTime": "2024-05-19 15:45:20",
+    "contactPerson": "李经理",
+    "contactPhone": "13678901234",
+    "contactEmail": "manager.li@cnooc.com",
     "attachments": [
       {
         "name": "报价单文件.pdf",
@@ -61,6 +67,9 @@
     "deliveryAddress": "江西省南昌市高新区",
     "includeFreight": false,
     "submitTime": "2024-05-19 16:20:10",
+    "contactPerson": "王经理",
+    "contactPhone": "13987654321",
+    "contactEmail": "wang@sinochem.com",
     "attachments": [],
     "remarks": "价格不含运费，需要另外支付",
     "rejectReason": "价格过高且不含运费"
@@ -79,6 +88,9 @@
     "deliveryAddress": "江西省南昌市高新区",
     "includeFreight": true,
     "submitTime": "2024-05-22 09:15:30",
+    "contactPerson": "赵经理",
+    "contactPhone": "13512345678",
+    "contactEmail": "zhao@cnpc.com",
     "attachments": [
       {
         "name": "报价说明.pdf",
@@ -86,5 +98,227 @@
       }
     ],
     "remarks": "可以分批次配送，价格含税含运费"
+  },
+  {
+    "id": "QUO20240515001",
+    "inquiryId": "INQ20240501001",
+    "inquiryName": "5月份92#汽油询价单",
+    "status": "待确认",
+    "supplierId": "SP001",
+    "supplierName": "中石化北京分公司",
+    "oilType": "92#汽油",
+    "unitPrice": 8250,
+    "quantity": 50000,
+    "deliveryTime": "2024-06-05 09:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-15 10:20:35",
+    "contactPerson": "张经理",
+    "contactPhone": "13912345678",
+    "contactEmail": "zhang@sinopec.com",
+    "attachments": [
+      {
+        "name": "报价单.pdf",
+        "url": "/uploads/quo20240515001.pdf"
+      }
+    ],
+    "remarks": "价格含税含运费，可提供优质服务"
+  },
+  {
+    "id": "QUO20240515002",
+    "inquiryId": "INQ20240501001",
+    "inquiryName": "5月份92#汽油询价单",
+    "status": "已接受",
+    "supplierId": "SP002",
+    "supplierName": "中石油华东分公司",
+    "oilType": "92#汽油",
+    "unitPrice": 8220,
+    "quantity": 50000,
+    "deliveryTime": "2024-06-04 14:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-15 11:30:20",
+    "contactPerson": "赵经理",
+    "contactPhone": "13512345678",
+    "contactEmail": "zhao@cnpc.com",
+    "attachments": [
+      {
+        "name": "报价明细.pdf",
+        "url": "/uploads/quo20240515002.pdf"
+      }
+    ],
+    "remarks": "可分批次配送，价格含13%增值税"
+  },
+  {
+    "id": "QUO20240516001",
+    "inquiryId": "INQ20240501002",
+    "inquiryName": "5月份95#汽油询价单",
+    "status": "待确认",
+    "supplierId": "SP001",
+    "supplierName": "中石化北京分公司",
+    "oilType": "95#汽油",
+    "unitPrice": 8650,
+    "quantity": 30000,
+    "deliveryTime": "2024-06-06 10:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-16 09:45:15",
+    "contactPerson": "张经理",
+    "contactPhone": "13912345678",
+    "contactEmail": "zhang@sinopec.com",
+    "attachments": [
+      {
+        "name": "报价单.pdf",
+        "url": "/uploads/quo20240516001.pdf"
+      }
+    ],
+    "remarks": "价格含税含运费，保证油品质量"
+  },
+  {
+    "id": "QUO20240516002",
+    "inquiryId": "INQ20240501002",
+    "inquiryName": "5月份95#汽油询价单",
+    "status": "中标报价单",
+    "supplierId": "SP004",
+    "supplierName": "中海油能源发展股份有限公司",
+    "oilType": "95#汽油",
+    "unitPrice": 8600,
+    "quantity": 30000,
+    "deliveryTime": "2024-06-05 13:30:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-16 10:20:40",
+    "contactPerson": "李经理",
+    "contactPhone": "13678901234",
+    "contactEmail": "manager.li@cnooc.com",
+    "attachments": [
+      {
+        "name": "报价明细.pdf",
+        "url": "/uploads/quo20240516002.pdf"
+      }
+    ],
+    "remarks": "保证按时配送，可提供全程物流跟踪"
+  },
+  {
+    "id": "QUO20240517001",
+    "inquiryId": "INQ20240501003",
+    "inquiryName": "5月份98#汽油询价单",
+    "status": "待确认",
+    "supplierId": "SP002",
+    "supplierName": "中石油华东分公司",
+    "oilType": "98#汽油",
+    "unitPrice": 9150,
+    "quantity": 20000,
+    "deliveryTime": "2024-06-07 09:30:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-05-17 14:25:30",
+    "contactPerson": "赵经理",
+    "contactPhone": "13512345678",
+    "contactEmail": "zhao@cnpc.com",
+    "attachments": [
+      {
+        "name": "报价单.pdf",
+        "url": "/uploads/quo20240517001.pdf"
+      }
+    ],
+    "remarks": "价格含税含运费，保证油品质量"
+  },
+  {
+    "id": "QUO20240517002",
+    "inquiryId": "INQ20240501003",
+    "inquiryName": "5月份98#汽油询价单",
+    "status": "已拒绝",
+    "supplierId": "SP005",
+    "supplierName": "中化石油有限公司",
+    "oilType": "98#汽油",
+    "unitPrice": 9250,
+    "quantity": 20000,
+    "deliveryTime": "2024-06-08 10:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": false,
+    "submitTime": "2024-05-17 15:40:25",
+    "contactPerson": "王经理",
+    "contactPhone": "13987654321",
+    "contactEmail": "wang@sinochem.com",
+    "attachments": [],
+    "remarks": "价格不含运费，需要另外支付",
+    "rejectReason": "价格过高且不含运费"
+  },
+  {
+    "id": "QUO20240412001",
+    "inquiryId": "INQ20240410001",
+    "inquiryName": "4月份0#柴油询价单",
+    "status": "中标报价单",
+    "supplierId": "SP001",
+    "supplierName": "中石化北京分公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7750,
+    "quantity": 35000,
+    "deliveryTime": "2024-04-20 09:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-04-12 10:15:40",
+    "contactPerson": "张经理",
+    "contactPhone": "13912345678",
+    "contactEmail": "zhang@sinopec.com",
+    "attachments": [
+      {
+        "name": "报价单.pdf",
+        "url": "/uploads/quo20240412001.pdf"
+      }
+    ],
+    "remarks": "价格含税含运费，保证油品质量"
+  },
+  {
+    "id": "QUO20240412002",
+    "inquiryId": "INQ20240410001",
+    "inquiryName": "4月份0#柴油询价单",
+    "status": "已拒绝",
+    "supplierId": "SP002",
+    "supplierName": "中石油华东分公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7800,
+    "quantity": 35000,
+    "deliveryTime": "2024-04-21 10:30:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-04-12 11:20:35",
+    "contactPerson": "赵经理",
+    "contactPhone": "13512345678",
+    "contactEmail": "zhao@cnpc.com",
+    "attachments": [
+      {
+        "name": "报价明细.pdf",
+        "url": "/uploads/quo20240412002.pdf"
+      }
+    ],
+    "remarks": "可分批次配送，价格含13%增值税",
+    "rejectReason": "交货时间不符合要求"
+  },
+  {
+    "id": "QUO20240413001",
+    "inquiryId": "INQ20240410001",
+    "inquiryName": "4月份0#柴油询价单",
+    "status": "已接受",
+    "supplierId": "SP004",
+    "supplierName": "中海油能源发展股份有限公司",
+    "oilType": "0#柴油",
+    "unitPrice": 7780,
+    "quantity": 35000,
+    "deliveryTime": "2024-04-19 14:00:00",
+    "deliveryAddress": "江西省南昌市高新区",
+    "includeFreight": true,
+    "submitTime": "2024-04-13 09:30:15",
+    "contactPerson": "李经理",
+    "contactPhone": "13678901234",
+    "contactEmail": "manager.li@cnooc.com",
+    "attachments": [
+      {
+        "name": "报价单.pdf",
+        "url": "/uploads/quo20240413001.pdf"
+      }
+    ],
+    "remarks": "可提供优质服务，保证按时配送"
   }
 ] 

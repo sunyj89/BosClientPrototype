@@ -41,8 +41,16 @@ const MenuItemLabel = ({ text, link, tooltip }) => {
   // 如果文本长度超过12个字符，显示tooltip
   const needTooltip = text.length > 12;
   
+  // 为"油品询价管理"添加红色文字样式
+  const linkStyle = {
+    whiteSpace: 'normal', 
+    lineHeight: '1.2', 
+    display: 'inline-block',
+    color: text === '油品询价管理' ? 'red' : 'inherit' // 添加条件样式
+  };
+  
   const content = (
-    <Link to={link} style={{ whiteSpace: 'normal', lineHeight: '1.2', display: 'inline-block' }}>
+    <Link to={link} style={linkStyle}>
       {text}
     </Link>
   );
@@ -89,7 +97,7 @@ const AppSider = ({ collapsed }) => {
     alignItems: 'center',
     justifyContent: collapsed ? 'center' : 'flex-start',
     padding: collapsed ? '0' : '0 24px',
-    background: '#32AF50', // 使用主题色作为Logo背景
+    background: '#32AF50', // 绿色背景
     color: '#fff',
     fontWeight: 'bold',
     fontSize: collapsed ? '16px' : '18px',
@@ -122,6 +130,11 @@ const AppSider = ({ collapsed }) => {
           key: 'supplier_goods',
           icon: <ShoppingOutlined />,
           label: <MenuItemLabel text="商品供应商" link="/supplier/goods" />,
+        },
+        {
+          key: 'supplier_portal',
+          icon: <BankOutlined />,
+          label: <MenuItemLabel text="供应商门户" link="/supplier/portal" />,
         },
       ],
     },
@@ -405,7 +418,7 @@ const AppSider = ({ collapsed }) => {
       className="app-sider-custom"
     >
       <div style={logoStyle}>
-        {!collapsed && '江西高速油站系统'}
+        {!collapsed && '江西交投化石能源'}
         {collapsed && 'BOS'}
       </div>
       <Menu
