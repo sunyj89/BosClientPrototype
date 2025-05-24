@@ -700,11 +700,9 @@ const SiteMap = () => {
           title: '工作流程管理',
           key: 'system_workflow',
           path: '/system/workflow',
-          file: 'src/pages/system/WorkflowManagement.js',
+          file: '未实现',
           dependencies: [
-            { type: '服务', path: 'src/services/workflowService.js' },
-            { type: '组件', path: 'src/pages/system/components/WorkflowDesigner.js' },
-            { type: '模拟数据', path: 'src/mock/system/workflows.json' }
+            { type: '状态', path: '功能尚未实现' }
           ]
         },
         {

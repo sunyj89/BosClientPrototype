@@ -1,0 +1,62 @@
+.inquiry-table {
+  margin-top: 16px;
+}
+
+.status-tag {
+  min-width: 60px;
+  text-align: center;
+}
+
+.price-section {
+  margin-top: 24px;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.table-operations {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tab-container {
+  margin-top: 8px;
+}
+
+.button-spacing {
+  margin-right: 8px;
+}
+
+/* 询价报告样式 */
+.inquiry-report {
+  padding: 0 10px;
+}
+
+.report-header {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.report-header h2 {
+  margin-bottom: 16px;
+  color: #1890ff;
+}
+
+.report-header p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.report-body h3 {
+  margin: 20px 0 12px 0;
+  color: #333;
+}
+
+.winner-section {
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+} 

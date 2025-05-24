@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Card, 
   Table, 
   Button, 
   Space, 
-  Breadcrumb, 
   Tag, 
   Input, 
   Select, 
@@ -14,11 +12,12 @@ import {
   Modal,
   message,
   Tabs,
-  Statistic,
-  DatePicker,
   Upload,
+  Checkbox,
+  Timeline,
+  Card,
   Descriptions,
-  Timeline
+  List
 } from 'antd';
 import { 
   PlusOutlined, 
@@ -26,107 +25,38 @@ import {
   DeleteOutlined, 
   SearchOutlined, 
   ReloadOutlined,
+  UploadOutlined,
+  EyeOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
-  ShopOutlined,
-  CarOutlined,
-  DollarOutlined,
-  FileTextOutlined,
-  UploadOutlined,
-  HistoryOutlined
+  LoadingOutlined,
+  FilePdfOutlined,
+  FileOutlined,
+  ContainerOutlined
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
+
+// 导入模拟数据
+import oilSupplierData from '../../mock/supplier/oilSupplierData.json';
+import oilSupplierChangeRecord from '../../mock/supplier/oilSupplierChangeRecord.json';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
-const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 
 const OilSupplierManagement = () => {
   // 状态定义
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('1');
   const [supplierData, setSupplierData] = useState([]);
-  const [inquiryData, setInquiryData] = useState([]);
-  const [contractData, setContractData] = useState([]);
+  const [changeRecords, setChangeRecords] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [inquiryModalVisible, setInquiryModalVisible] = useState(false);
-  const [contractModalVisible, setContractModalVisible] = useState(false);
+  const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
-  const [filterForm] = Form.useForm();
   const [form] = Form.useForm();
-
-  // 模拟数据 - 油品供应商
-  const mockSuppliers = [
-    {
-      key: '1',
-      id: 'OS001',
-      name: '中石化北京分公司',
-      category: 'A',
-      contactPerson: '张经理',
-      phone: '13800138001',
-      email: 'zhangsan@sinopec.com',
-      address: '北京市朝阳区朝阳门北大街22号',
-      status: '正常',
-      products: ['92#汽油', '95#汽油', '0#柴油'],
-      hasTransport: true,
-      contractEndDate: '2024-12-31',
-      lastInquiryDate: '2024-03-10',
-      lastQuotePrice: {
-        '92#汽油': '6.89',
-        '95#汽油': '7.32',
-        '0#柴油': '6.45'
-      }
-    }
-  ];
-
-  // 模拟数据 - 询价记录
-  const mockInquiries = [
-    {
-      key: '1',
-      id: 'INQ001',
-      supplierId: 'OS001',
-      supplierName: '中石化北京分公司',
-      inquiryDate: '2024-03-10',
-      products: [
-        { name: '92#汽油', quantity: 20000, unit: '升' },
-        { name: '95#汽油', quantity: 15000, unit: '升' },
-        { name: '0#柴油', quantity: 30000, unit: '升' }
-      ],
-      status: '已报价',
-      quotation: {
-        '92#汽油': '6.89',
-        '95#汽油': '7.32',
-        '0#柴油': '6.45'
-      },
-      quoteDate: '2024-03-11',
-      validUntil: '2024-03-18'
-    }
-  ];
-
-  // 模拟数据 - 合同记录
-  const mockContracts = [
-    {
-      key: '1',
-      id: 'CON001',
-      supplierId: 'OS001',
-      supplierName: '中石化北京分公司',
-      contractType: '年度框架协议',
-      startDate: '2024-01-01',
-      endDate: '2024-12-31',
-      status: '执行中',
-      products: ['92#汽油', '95#汽油', '0#柴油'],
-      terms: {
-        paymentTerm: '月结30天',
-        deliveryTerm: '供应商负责配送',
-        qualityTerm: 'GB国标'
-      },
-      attachments: [
-        { name: '框架协议.pdf', url: '#' },
-        { name: '质量保证协议.pdf', url: '#' }
-      ]
-    }
-  ];
+  const [filterForm] = Form.useForm();
+  const [fileList, setFileList] = useState([]);
+  const [contractFileList, setContractFileList] = useState([]);
+  const [approvalFlow, setApprovalFlow] = useState([]);
 
   // 初始化数据
   useEffect(() => {
@@ -136,19 +66,245 @@ const OilSupplierManagement = () => {
   // 获取数据
   const fetchData = () => {
     setLoading(true);
-    // 模拟API请求
-    setTimeout(() => {
-      setSupplierData(mockSuppliers);
-      setInquiryData(mockInquiries);
-      setContractData(mockContracts);
+    // 使用导入的模拟数据
+    try {
+      setSupplierData(oilSupplierData.oilSuppliers);
+      setChangeRecords(oilSupplierChangeRecord.changeRecords);
       setLoading(false);
-    }, 500);
+    } catch (err) {
+      console.error('获取数据失败:', err);
+      setLoading(false);
+      message.error('获取数据失败');
+    }
+  };
+
+  // 处理筛选
+  const handleFilter = (values) => {
+    setLoading(true);
+    
+    // 模拟筛选过程
+    setTimeout(() => {
+      let filtered = [...supplierData];
+      
+      if (values.supplierName) {
+        filtered = filtered.filter(item => 
+          item.name.includes(values.supplierName)
+        );
+      }
+      
+      if (values.supplierCode) {
+        filtered = filtered.filter(item => 
+          item.code.includes(values.supplierCode)
+        );
+      }
+      
+      if (values.oilTypes && values.oilTypes.length > 0) {
+        filtered = filtered.filter(item => 
+          values.oilTypes.some(type => item.oilTypes.includes(type))
+        );
+      }
+      
+      if (values.status) {
+        filtered = filtered.filter(item => 
+          item.status === values.status
+        );
+      }
+      
+      setSupplierData(filtered);
+      setLoading(false);
+    }, 300);
+  };
+
+  // 重置筛选
+  const resetFilter = () => {
+    filterForm.resetFields();
+    fetchData();
+  };
+
+  // 添加/编辑供应商
+  const handleAddEdit = (record = null) => {
+    setCurrentRecord(record);
+    if (record) {
+      form.setFieldsValue({
+        ...record
+      });
+    } else {
+      form.resetFields();
+    }
+    setFileList([]);
+    setContractFileList([]);
+    setModalVisible(true);
+  };
+
+  // 提交表单
+  const handleSubmit = () => {
+    form.validateFields().then(values => {
+      setLoading(true);
+      
+      // 处理文件上传
+      const formData = {
+        ...values,
+        attachments: fileList.map(file => ({
+          name: file.name,
+          url: file.url || file.response?.url || 'https://example.com/file'
+        })),
+        contracts: contractFileList.map(file => ({
+          name: file.name,
+          url: file.url || file.response?.url || 'https://example.com/contract'
+        }))
+      };
+      
+      // 模拟提交
+      setTimeout(() => {
+        if (currentRecord) {
+          // 更新现有记录
+          const newData = supplierData.map(item => 
+            item.id === currentRecord.id ? { ...item, ...formData } : item
+          );
+          setSupplierData(newData);
+          message.success('供应商信息已更新');
+        } else {
+          // 添加新记录
+          const newId = `OS${String(supplierData.length + 1).padStart(3, '0')}`;
+          const newSupplier = {
+            ...formData,
+            id: newId
+          };
+          setSupplierData([...supplierData, newSupplier]);
+          message.success('供应商已添加');
+        }
+        
+        setModalVisible(false);
+        setLoading(false);
+      }, 500);
+    });
+  };
+
+  // 文件上传的处理函数
+  const handleFileChange = (info) => {
+    let fileList = [...info.fileList];
+    fileList = fileList.map(file => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setFileList(fileList);
+  };
+
+  // 合同文件上传的处理函数
+  const handleContractFileChange = (info) => {
+    let fileList = [...info.fileList];
+    fileList = fileList.map(file => {
+      if (file.response) {
+        file.url = file.response.url;
+      }
+      return file;
+    });
+    setContractFileList(fileList);
+  };
+
+  // 删除记录
+  const handleDelete = (record) => {
+    Modal.confirm({
+      title: '确认删除',
+      content: `确定要删除供应商 ${record.name} 吗？`,
+      onOk() {
+        setLoading(true);
+        setTimeout(() => {
+          const newData = supplierData.filter(item => item.id !== record.id);
+          setSupplierData(newData);
+          setLoading(false);
+          message.success('供应商已删除');
+        }, 300);
+      }
+    });
+  };
+
+  // 查看详情
+  const handleViewDetail = (record) => {
+    setCurrentRecord(record);
+    // 模拟获取审批流程数据
+    const mockApprovalFlow = [
+      {
+        key: '1',
+        nodeName: '提交申请',
+        operator: '张三',
+        status: '已完成',
+        time: '2024-05-01 09:30:00',
+        comment: '已提交供应商申请'
+      },
+      {
+        key: '2',
+        nodeName: '部门经理审批',
+        operator: '李四',
+        status: record.status === '待审批' ? '进行中' : (record.status === '已驳回' ? '已驳回' : '已完成'),
+        time: record.status === '待审批' ? '' : '2024-05-01 14:15:00',
+        comment: record.status === '已驳回' ? '资质不符合要求，请补充相关材料' : '审核通过'
+      },
+      {
+        key: '3',
+        nodeName: '总经理审批',
+        operator: '王五',
+        status: record.status === '正常' ? '已完成' : '未开始',
+        time: record.status === '正常' ? '2024-05-02 10:25:00' : '',
+        comment: record.status === '正常' ? '同意合作' : ''
+      }
+    ];
+    
+    // 模拟附件和合同数据
+    if (!record.attachments) {
+      record.attachments = [
+        { name: '营业执照副本.pdf', url: 'https://example.com/license.pdf' },
+        { name: '资质证书.pdf', url: 'https://example.com/qualification.pdf' }
+      ];
+    }
+    
+    if (!record.contracts) {
+      record.contracts = [
+        { name: '框架合作协议.pdf', url: 'https://example.com/framework.pdf' },
+        { name: '供油协议2024.pdf', url: 'https://example.com/oil-supply-2024.pdf' }
+      ];
+    }
+    
+    setApprovalFlow(mockApprovalFlow);
+    setDetailModalVisible(true);
+  };
+
+  // 查看附件
+  const handleViewAttachment = (file) => {
+    Modal.info({
+      title: '附件预览',
+      content: (
+        <div>
+          <p>文件名: {file.name}</p>
+          <p>文件链接: <a href={file.url} target="_blank" rel="noopener noreferrer">{file.url}</a></p>
+          <p>在实际生产环境中，这里可以使用文档预览组件展示PDF或其他文档内容</p>
+        </div>
+      ),
+      width: 600,
+    });
+  };
+
+  // 查看合同
+  const handleViewContract = (file) => {
+    Modal.info({
+      title: '合同预览',
+      content: (
+        <div>
+          <p>合同名称: {file.name}</p>
+          <p>合同链接: <a href={file.url} target="_blank" rel="noopener noreferrer">{file.url}</a></p>
+          <p>在实际生产环境中，这里可以使用文档预览组件展示PDF或其他文档内容</p>
+        </div>
+      ),
+      width: 600,
+    });
   };
 
   // 供应商列表列配置
   const supplierColumns = [
     {
-      title: '供应商编号',
+      title: '供应商ID',
       dataIndex: 'id',
       key: 'id',
       width: 100,
@@ -157,586 +313,584 @@ const OilSupplierManagement = () => {
       title: '供应商名称',
       dataIndex: 'name',
       key: 'name',
-      width: 200,
-    },
-    {
-      title: '等级',
-      dataIndex: 'category',
-      key: 'category',
-      width: 80,
-      render: (text) => (
-        <Tag color={text === 'A' ? 'green' : text === 'B' ? 'blue' : 'orange'}>
-          {text}
-        </Tag>
-      ),
-    },
-    {
-      title: '供应产品',
-      dataIndex: 'products',
-      key: 'products',
-      width: 200,
-      render: (products) => (
-        <>
-          {products.map(product => (
-            <Tag color="blue" key={product}>
-              {product}
-            </Tag>
-          ))}
-        </>
-      ),
-    },
-    {
-      title: '最近询价日期',
-      dataIndex: 'lastInquiryDate',
-      key: 'lastInquiryDate',
-      width: 120,
-    },
-    {
-      title: '合同到期日',
-      dataIndex: 'contractEndDate',
-      key: 'contractEndDate',
-      width: 120,
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (status) => (
-        <Tag color={status === '正常' ? 'green' : 'red'}>
-          {status}
-        </Tag>
-      ),
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: 300,
-      render: (_, record) => (
-        <Space size="small">
-          <Button 
-            type="primary" 
-            icon={<DollarOutlined />} 
-            size="small"
-            onClick={() => handleInquiry(record)}
-          >
-            询价
-          </Button>
-          <Button 
-            type="default" 
-            icon={<FileTextOutlined />} 
-            size="small"
-            onClick={() => handleContract(record)}
-          >
-            合同
-          </Button>
-          <Button 
-            type="default" 
-            icon={<EditOutlined />} 
-            size="small"
-            onClick={() => handleEdit(record)}
-          >
-            编辑
-          </Button>
-          <Button 
-            type="default" 
-            icon={<HistoryOutlined />} 
-            size="small"
-            onClick={() => handleHistory(record)}
-          >
-            历史
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-
-  // 询价记录列配置
-  const inquiryColumns = [
-    {
-      title: '询价单号',
-      dataIndex: 'id',
-      key: 'id',
-      width: 100,
-    },
-    {
-      title: '供应商',
-      dataIndex: 'supplierName',
-      key: 'supplierName',
-      width: 200,
-    },
-    {
-      title: '询价日期',
-      dataIndex: 'inquiryDate',
-      key: 'inquiryDate',
-      width: 120,
-    },
-    {
-      title: '询价产品',
-      dataIndex: 'products',
-      key: 'products',
-      width: 300,
-      render: (products) => (
-        <>
-          {products.map(product => (
-            <Tag color="blue" key={product.name}>
-              {product.name}: {product.quantity}{product.unit}
-            </Tag>
-          ))}
-        </>
-      ),
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (status) => (
-        <Tag color={status === '已报价' ? 'green' : 'orange'}>
-          {status}
-        </Tag>
-      ),
-    },
-    {
-      title: '报价信息',
-      dataIndex: 'quotation',
-      key: 'quotation',
-      width: 300,
-      render: (quotation) => (
-        <>
-          {quotation && Object.entries(quotation).map(([product, price]) => (
-            <Tag color="green" key={product}>
-              {product}: ￥{price}/升
-            </Tag>
-          ))}
-        </>
-      ),
-    },
-    {
-      title: '报价有效期',
-      dataIndex: 'validUntil',
-      key: 'validUntil',
-      width: 120,
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: 200,
-      render: (_, record) => (
-        <Space size="small">
-          <Button 
-            type="primary" 
-            icon={<EditOutlined />} 
-            size="small"
-            onClick={() => handleEditInquiry(record)}
-          >
-            处理
-          </Button>
-          <Button 
-            type="default" 
-            icon={<FileTextOutlined />} 
-            size="small"
-            onClick={() => handleViewInquiry(record)}
-          >
-            详情
-          </Button>
-        </Space>
-      ),
-    },
-  ];
-
-  // 合同列配置
-  const contractColumns = [
-    {
-      title: '合同编号',
-      dataIndex: 'id',
-      key: 'id',
-      width: 100,
-    },
-    {
-      title: '供应商',
-      dataIndex: 'supplierName',
-      key: 'supplierName',
-      width: 200,
-    },
-    {
-      title: '合同类型',
-      dataIndex: 'contractType',
-      key: 'contractType',
       width: 150,
     },
     {
-      title: '生效日期',
-      dataIndex: 'startDate',
-      key: 'startDate',
+      title: '供应商代码',
+      dataIndex: 'code',
+      key: 'code',
       width: 120,
     },
     {
-      title: '到期日期',
-      dataIndex: 'endDate',
-      key: 'endDate',
-      width: 120,
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
+      title: '联系人',
+      dataIndex: 'contactPerson',
+      key: 'contactPerson',
       width: 100,
-      render: (status) => (
-        <Tag color={status === '执行中' ? 'green' : 'red'}>
-          {status}
-        </Tag>
-      ),
     },
     {
-      title: '合同产品',
-      dataIndex: 'products',
-      key: 'products',
+      title: '联系电话',
+      dataIndex: 'contactPhone',
+      key: 'contactPhone',
+      width: 130,
+    },
+    {
+      title: '油品类型',
+      dataIndex: 'oilTypes',
+      key: 'oilTypes',
       width: 250,
-      render: (products) => (
+      render: (oilTypes) => (
         <>
-          {products.map(product => (
-            <Tag color="blue" key={product}>
-              {product}
+          {oilTypes.map((type) => (
+            <Tag color="blue" key={type}>
+              {type}
             </Tag>
           ))}
         </>
       ),
     },
     {
+      title: '等级',
+      dataIndex: 'level',
+      key: 'level',
+      width: 80,
+      render: (level) => {
+        let color = level === 'A' ? 'green' : level === 'B' ? 'orange' : 'red';
+        return <Tag color={color}>{level}</Tag>;
+      },
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      width: 100,
+      render: (status) => {
+        const colorMap = {
+          '正常': 'green',
+          '暂停': 'red',
+          '待审批': 'blue',
+          '已驳回': 'orange'
+        };
+        return <Tag color={colorMap[status] || 'default'}>{status}</Tag>;
+      },
+    },
+    {
       title: '操作',
       key: 'action',
-      width: 250,
+      fixed: 'right',
+      width: 180,
       render: (_, record) => (
         <Space size="small">
           <Button 
             type="primary" 
-            icon={<FileTextOutlined />} 
+            icon={<EyeOutlined />} 
             size="small"
-            onClick={() => handleViewContract(record)}
+            onClick={() => handleViewDetail(record)}
           >
             查看
           </Button>
-          <Upload>
-            <Button 
-              type="default" 
-              icon={<UploadOutlined />} 
-              size="small"
-            >
-              上传附件
-            </Button>
-          </Upload>
           <Button 
-            type="default" 
-            icon={<EditOutlined />} 
+            danger 
+            icon={<DeleteOutlined />} 
             size="small"
-            onClick={() => handleEditContract(record)}
+            onClick={() => handleDelete(record)}
           >
-            编辑
+            删除
           </Button>
         </Space>
       ),
     },
   ];
 
-  // 处理询价
-  const handleInquiry = (record) => {
-    setCurrentRecord(record);
-    setInquiryModalVisible(true);
+  // 变更记录列配置
+  const changeRecordColumns = [
+    {
+      title: '记录ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 100,
+    },
+    {
+      title: '供应商名称',
+      dataIndex: 'supplierName',
+      key: 'supplierName',
+      width: 150,
+    },
+    {
+      title: '变更类型',
+      dataIndex: 'changeType',
+      key: 'changeType',
+      width: 120,
+    },
+    {
+      title: '变更字段',
+      dataIndex: 'changeField',
+      key: 'changeField',
+      width: 120,
+    },
+    {
+      title: '原值',
+      dataIndex: 'oldValue',
+      key: 'oldValue',
+      width: 150,
+    },
+    {
+      title: '新值',
+      dataIndex: 'newValue',
+      key: 'newValue',
+      width: 150,
+    },
+    {
+      title: '变更人',
+      dataIndex: 'changeUser',
+      key: 'changeUser',
+      width: 100,
+    },
+    {
+      title: '变更时间',
+      dataIndex: 'changeTime',
+      key: 'changeTime',
+      width: 150,
+    },
+    {
+      title: '审批状态',
+      dataIndex: 'approvalStatus',
+      key: 'approvalStatus',
+      width: 100,
+      render: (status) => (
+        <Tag color={status === '已审批' ? 'green' : 'orange'}>
+          {status}
+        </Tag>
+      ),
+    },
+    {
+      title: '审批人',
+      dataIndex: 'approver',
+      key: 'approver',
+      width: 100,
+    },
+    {
+      title: '审批时间',
+      dataIndex: 'approvalTime',
+      key: 'approvalTime',
+      width: 150,
+    }
+  ];
+
+  // 上传组件的属性
+  const uploadProps = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 模拟上传地址
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange: handleFileChange,
   };
 
-  // 处理合同
-  const handleContract = (record) => {
-    setCurrentRecord(record);
-    setContractModalVisible(true);
+  // 合同上传组件的属性
+  const contractUploadProps = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // 模拟上传地址
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange: handleContractFileChange,
   };
-
-  // 处理编辑
-  const handleEdit = (record) => {
-    setCurrentRecord(record);
-    form.setFieldsValue(record);
-    setModalVisible(true);
-  };
-
-  // 处理历史记录
-  const handleHistory = (record) => {
-    message.info(`查看${record.name}的历史记录`);
-  };
-
-  // 处理询价编辑
-  const handleEditInquiry = (record) => {
-    message.info(`编辑询价单：${record.id}`);
-  };
-
-  // 处理询价查看
-  const handleViewInquiry = (record) => {
-    message.info(`查看询价单：${record.id}`);
-  };
-
-  // 处理合同查看
-  const handleViewContract = (record) => {
-    message.info(`查看合同：${record.id}`);
-  };
-
-  // 处理合同编辑
-  const handleEditContract = (record) => {
-    message.info(`编辑合同：${record.id}`);
-  };
-
-  // 获取统计数据
-  const getStatistics = () => {
-    return {
-      totalSuppliers: supplierData.length,
-      activeSuppliers: supplierData.filter(s => s.status === '正常').length,
-      pendingInquiries: inquiryData.filter(i => i.status !== '已报价').length,
-      activeContracts: contractData.filter(c => c.status === '执行中').length
-    };
-  };
-
-  const stats = getStatistics();
 
   return (
-    <div>
-      <div className="page-header">
-        <Breadcrumb>
-          <Breadcrumb.Item><Link to="/dashboard">首页</Link></Breadcrumb.Item>
-          <Breadcrumb.Item><Link to="/supplier">供应商管理</Link></Breadcrumb.Item>
-          <Breadcrumb.Item>油品供应商</Breadcrumb.Item>
-        </Breadcrumb>
-        <h2>油品供应商管理</h2>
-      </div>
+    <div className="oil-supplier-page">
+      <Tabs activeKey={activeTab} onChange={setActiveTab}>
+        <TabPane tab="油品供应商列表" key="1">
+          <div className="filter-section" style={{ padding: '16px', marginBottom: '16px', background: '#f9f9f9' }}>
+            <Form
+              form={filterForm}
+              layout="inline"
+              onFinish={handleFilter}
+            >
+              <Row gutter={[16, 16]} style={{ width: '100%' }}>
+                <Col span={6}>
+                  <Form.Item
+                    name="supplierName"
+                    label="供应商名称"
+                  >
+                    <Input placeholder="请输入供应商名称" allowClear />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    name="supplierCode"
+                    label="供应商代码"
+                  >
+                    <Input placeholder="请输入供应商代码" allowClear />
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    name="oilTypes"
+                    label="油品类型"
+                  >
+                    <Select
+                      mode="multiple"
+                      placeholder="请选择油品类型"
+                      allowClear
+                    >
+                      <Option value="92#汽油">92#汽油</Option>
+                      <Option value="95#汽油">95#汽油</Option>
+                      <Option value="98#汽油">98#汽油</Option>
+                      <Option value="0#柴油">0#柴油</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col span={6}>
+                  <Form.Item
+                    name="status"
+                    label="状态"
+                  >
+                    <Select placeholder="请选择状态" allowClear>
+                      <Option value="待审批">待审批</Option>
+                      <Option value="已驳回">已驳回</Option>
+                      <Option value="正常">正常</Option>
+                      <Option value="暂停">暂停</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+                <Col span={24} style={{ textAlign: 'right' }}>
+                  <Form.Item>
+                    <Space>
+                      <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                        查询
+                      </Button>
+                      <Button icon={<ReloadOutlined />} onClick={resetFilter}>
+                        重置
+                      </Button>
+                      <Button type="primary" icon={<PlusOutlined />} onClick={() => handleAddEdit()}>
+                        新建
+                      </Button>
+                    </Space>
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Form>
+          </div>
 
-      <Card>
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <TabPane tab="供应商管理" key="1">
-            {/* 统计卡片 */}
-            <Row gutter={16} style={{ marginBottom: 16 }}>
-              <Col span={6}>
-                <Card>
-                  <Statistic 
-                    title="供应商总数" 
-                    value={stats.totalSuppliers} 
-                    valueStyle={{ color: '#1890ff' }}
-                    prefix={<ShopOutlined />}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
-                  <Statistic 
-                    title="正常合作" 
-                    value={stats.activeSuppliers} 
-                    valueStyle={{ color: '#52c41a' }}
-                    prefix={<CheckCircleOutlined />}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
-                  <Statistic 
-                    title="待处理询价" 
-                    value={stats.pendingInquiries} 
-                    valueStyle={{ color: '#faad14' }}
-                    prefix={<DollarOutlined />}
-                  />
-                </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
-                  <Statistic 
-                    title="执行中合同" 
-                    value={stats.activeContracts} 
-                    valueStyle={{ color: '#1890ff' }}
-                    prefix={<FileTextOutlined />}
-                  />
-                </Card>
-              </Col>
-            </Row>
+          <Table
+            columns={supplierColumns}
+            dataSource={supplierData}
+            rowKey="id"
+            loading={loading}
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: 'max-content' }}
+          />
+        </TabPane>
+        
+        <TabPane tab="供应商信息变更记录" key="2">
+          <Table
+            columns={changeRecordColumns}
+            dataSource={changeRecords}
+            rowKey="id"
+            loading={loading}
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: 'max-content' }}
+          />
+        </TabPane>
+      </Tabs>
 
-            {/* 过滤条件 */}
-            <Card style={{ marginBottom: 16 }}>
-              <Form form={filterForm} layout="inline">
-                <Form.Item name="name" label="供应商名称">
-                  <Input placeholder="请输入供应商名称" allowClear />
-                </Form.Item>
-                <Form.Item name="status" label="状态">
-                  <Select placeholder="请选择状态" allowClear style={{ width: 120 }}>
-                    <Option value="正常">正常</Option>
-                    <Option value="暂停">暂停</Option>
-                    <Option value="终止">终止</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item name="category" label="等级">
-                  <Select placeholder="请选择等级" allowClear style={{ width: 120 }}>
-                    <Option value="A">A</Option>
-                    <Option value="B">B</Option>
-                    <Option value="C">C</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item>
-                  <Space>
-                    <Button type="primary" icon={<SearchOutlined />}>
-                      查询
-                    </Button>
-                    <Button icon={<ReloadOutlined />}>
-                      重置
-                    </Button>
-                  </Space>
-                </Form.Item>
-              </Form>
-            </Card>
-
-            {/* 供应商列表 */}
-            <Table 
-              columns={supplierColumns} 
-              dataSource={supplierData}
-              loading={loading}
-              rowKey="id"
-              scroll={{ x: 1500 }}
-            />
-          </TabPane>
-
-          <TabPane tab="询价管理" key="2">
-            {/* 询价管理过滤条件 */}
-            <Card style={{ marginBottom: 16 }}>
-              <Form layout="inline">
-                <Form.Item name="dateRange" label="询价日期">
-                  <RangePicker />
-                </Form.Item>
-                <Form.Item name="supplier" label="供应商">
-                  <Select placeholder="请选择供应商" allowClear style={{ width: 200 }}>
-                    {supplierData.map(supplier => (
-                      <Option key={supplier.id} value={supplier.id}>{supplier.name}</Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item name="status" label="状态">
-                  <Select placeholder="请选择状态" allowClear style={{ width: 120 }}>
-                    <Option value="待报价">待报价</Option>
-                    <Option value="已报价">已报价</Option>
-                    <Option value="已确认">已确认</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item>
-                  <Space>
-                    <Button type="primary" icon={<SearchOutlined />}>
-                      查询
-                    </Button>
-                    <Button icon={<ReloadOutlined />}>
-                      重置
-                    </Button>
-                    <Button type="primary" icon={<PlusOutlined />}>
-                      新建询价
-                    </Button>
-                  </Space>
-                </Form.Item>
-              </Form>
-            </Card>
-
-            {/* 询价记录列表 */}
-            <Table 
-              columns={inquiryColumns} 
-              dataSource={inquiryData}
-              loading={loading}
-              rowKey="id"
-              scroll={{ x: 1500 }}
-            />
-          </TabPane>
-
-          <TabPane tab="合同管理" key="3">
-            {/* 合同管理过滤条件 */}
-            <Card style={{ marginBottom: 16 }}>
-              <Form layout="inline">
-                <Form.Item name="dateRange" label="合同期限">
-                  <RangePicker />
-                </Form.Item>
-                <Form.Item name="supplier" label="供应商">
-                  <Select placeholder="请选择供应商" allowClear style={{ width: 200 }}>
-                    {supplierData.map(supplier => (
-                      <Option key={supplier.id} value={supplier.id}>{supplier.name}</Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item name="status" label="状态">
-                  <Select placeholder="请选择状态" allowClear style={{ width: 120 }}>
-                    <Option value="执行中">执行中</Option>
-                    <Option value="已到期">已到期</Option>
-                    <Option value="已终止">已终止</Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item>
-                  <Space>
-                    <Button type="primary" icon={<SearchOutlined />}>
-                      查询
-                    </Button>
-                    <Button icon={<ReloadOutlined />}>
-                      重置
-                    </Button>
-                    <Button type="primary" icon={<PlusOutlined />}>
-                      新增合同
-                    </Button>
-                  </Space>
-                </Form.Item>
-              </Form>
-            </Card>
-
-            {/* 合同列表 */}
-            <Table 
-              columns={contractColumns} 
-              dataSource={contractData}
-              loading={loading}
-              rowKey="id"
-              scroll={{ x: 1500 }}
-            />
-          </TabPane>
-        </Tabs>
-      </Card>
-
-      {/* 供应商编辑模态框 */}
       <Modal
-        title={currentRecord ? '编辑供应商' : '新增供应商'}
-        visible={modalVisible}
-        onOk={() => {
-          form.validateFields().then(values => {
-            console.log(values);
-            setModalVisible(false);
-          });
-        }}
+        title={currentRecord ? '编辑供应商' : '添加供应商'}
+        open={modalVisible}
+        onOk={handleSubmit}
         onCancel={() => setModalVisible(false)}
         width={800}
+        confirmLoading={loading}
+        okText="提交审批"
+        cancelText="取消"
       >
         <Form
           form={form}
           layout="vertical"
         >
-          {/* 表单内容 */}
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="name"
+                label="供应商名称"
+                rules={[{ required: true, message: '请输入供应商名称' }]}
+              >
+                <Input placeholder="请输入供应商名称" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="code"
+                label="供应商代码"
+                rules={[{ required: true, message: '请输入供应商代码' }]}
+              >
+                <Input placeholder="请输入供应商代码" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="contactPerson"
+                label="联系人"
+                rules={[{ required: true, message: '请输入联系人' }]}
+              >
+                <Input placeholder="请输入联系人" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="contactPhone"
+                label="联系电话"
+                rules={[{ required: true, message: '请输入联系电话' }]}
+              >
+                <Input placeholder="请输入联系电话" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="email"
+                label="电子邮箱"
+                rules={[
+                  { type: 'email', message: '邮箱格式不正确' },
+                  { required: true, message: '请输入电子邮箱' }
+                ]}
+              >
+                <Input placeholder="请输入电子邮箱" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="level"
+                label="供应商等级"
+                rules={[{ required: true, message: '请选择供应商等级' }]}
+              >
+                <Select placeholder="请选择供应商等级">
+                  <Option value="A">A级</Option>
+                  <Option value="B">B级</Option>
+                  <Option value="C">C级</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="oilTypes"
+                label="油品类型"
+                rules={[{ required: true, message: '请选择油品类型' }]}
+              >
+                <Select mode="multiple" placeholder="请选择油品类型">
+                  <Option value="92#汽油">92#汽油</Option>
+                  <Option value="95#汽油">95#汽油</Option>
+                  <Option value="98#汽油">98#汽油</Option>
+                  <Option value="0#柴油">0#柴油</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="status"
+                label="状态"
+                rules={[{ required: true, message: '请选择状态' }]}
+              >
+                <Select placeholder="请选择状态">
+                  <Option value="正常">正常</Option>
+                  <Option value="暂停">暂停</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="address"
+                label="地址"
+                rules={[{ required: true, message: '请输入地址' }]}
+              >
+                <Input placeholder="请输入地址" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="qualificationNumber"
+                label="资质证书编号"
+              >
+                <Input placeholder="请输入资质证书编号" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="remarks"
+                label="备注"
+              >
+                <TextArea rows={4} placeholder="请输入备注信息" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                label="上传附件"
+              >
+                <Upload {...uploadProps} fileList={fileList}>
+                  <Button icon={<UploadOutlined />}>上传附件</Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                label="上传合同"
+              >
+                <Upload {...contractUploadProps} fileList={contractFileList}>
+                  <Button icon={<UploadOutlined />}>上传合同</Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Modal>
 
-      {/* 询价模态框 */}
+      {/* 供应商详情与审批流程模态框 */}
       <Modal
-        title="发起询价"
-        visible={inquiryModalVisible}
-        onOk={() => setInquiryModalVisible(false)}
-        onCancel={() => setInquiryModalVisible(false)}
+        title="供应商详情"
+        open={detailModalVisible}
+        onCancel={() => setDetailModalVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setDetailModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
         width={800}
       >
-        <Form layout="vertical">
-          {/* 询价表单内容 */}
-        </Form>
-      </Modal>
+        {currentRecord && (
+          <>
+            <Descriptions 
+              title="基本信息" 
+              bordered 
+              column={2}
+              style={{ marginBottom: 20 }}
+            >
+              <Descriptions.Item label="供应商ID">{currentRecord.id}</Descriptions.Item>
+              <Descriptions.Item label="供应商名称">{currentRecord.name}</Descriptions.Item>
+              <Descriptions.Item label="供应商代码">{currentRecord.code}</Descriptions.Item>
+              <Descriptions.Item label="联系人">{currentRecord.contactPerson}</Descriptions.Item>
+              <Descriptions.Item label="联系电话">{currentRecord.contactPhone}</Descriptions.Item>
+              <Descriptions.Item label="电子邮箱">{currentRecord.email}</Descriptions.Item>
+              <Descriptions.Item label="地址">{currentRecord.address}</Descriptions.Item>
+              <Descriptions.Item label="等级">{currentRecord.level}</Descriptions.Item>
+              <Descriptions.Item label="油品类型">
+                {currentRecord.oilTypes?.map(type => (
+                  <Tag color="blue" key={type}>{type}</Tag>
+                ))}
+              </Descriptions.Item>
+              <Descriptions.Item label="状态">
+                <Tag color={
+                  currentRecord.status === '正常' ? 'green' : 
+                  currentRecord.status === '暂停' ? 'red' :
+                  currentRecord.status === '待审批' ? 'blue' : 'orange'
+                }>
+                  {currentRecord.status}
+                </Tag>
+              </Descriptions.Item>
+            </Descriptions>
+            
+            <Card title="附件" style={{ marginTop: 20, marginBottom: 20 }}>
+              <List
+                itemLayout="horizontal"
+                dataSource={currentRecord.attachments || []}
+                renderItem={item => (
+                  <List.Item
+                    actions={[
+                      <Button 
+                        type="primary" 
+                        icon={<EyeOutlined />} 
+                        size="small" 
+                        onClick={() => handleViewAttachment(item)}
+                      >
+                        查看
+                      </Button>
+                    ]}
+                  >
+                    <List.Item.Meta
+                      avatar={<FilePdfOutlined style={{ fontSize: 24, color: '#ff4d4f' }} />}
+                      title={item.name}
+                      description={item.url}
+                    />
+                  </List.Item>
+                )}
+              />
+            </Card>
 
-      {/* 合同模态框 */}
-      <Modal
-        title="合同管理"
-        visible={contractModalVisible}
-        onOk={() => setContractModalVisible(false)}
-        onCancel={() => setContractModalVisible(false)}
-        width={800}
-      >
-        <Form layout="vertical">
-          {/* 合同表单内容 */}
-        </Form>
+            <Card title="合同" style={{ marginTop: 20, marginBottom: 20 }}>
+              <List
+                itemLayout="horizontal"
+                dataSource={currentRecord.contracts || []}
+                renderItem={item => (
+                  <List.Item
+                    actions={[
+                      <Button 
+                        type="primary" 
+                        icon={<EyeOutlined />} 
+                        size="small" 
+                        onClick={() => handleViewContract(item)}
+                      >
+                        查看
+                      </Button>
+                    ]}
+                  >
+                    <List.Item.Meta
+                      avatar={<ContainerOutlined style={{ fontSize: 24, color: '#1890ff' }} />}
+                      title={item.name}
+                      description={item.url}
+                    />
+                  </List.Item>
+                )}
+              />
+            </Card>
+            
+            <Card title="审批流程" style={{ marginTop: 20 }}>
+              <Timeline>
+                {approvalFlow.map(item => (
+                  <Timeline.Item
+                    key={item.key}
+                    color={
+                      item.status === '已完成' ? 'green' : 
+                      item.status === '进行中' ? 'blue' : 
+                      item.status === '已驳回' ? 'red' : 'gray'
+                    }
+                    dot={
+                      item.status === '已完成' ? <CheckCircleOutlined /> : 
+                      item.status === '进行中' ? <LoadingOutlined /> : 
+                      item.status === '已驳回' ? <CloseCircleOutlined /> : null
+                    }
+                  >
+                    <div style={{ marginBottom: 10 }}>
+                      <b>{item.nodeName}</b> - {item.operator}
+                      <div style={{ float: 'right' }}>
+                        <Tag color={
+                          item.status === '已完成' ? 'green' : 
+                          item.status === '进行中' ? 'blue' : 
+                          item.status === '已驳回' ? 'red' : 'default'
+                        }>
+                          {item.status}
+                        </Tag>
+                      </div>
+                    </div>
+                    {item.time && <div>时间: {item.time}</div>}
+                    {item.comment && <div>审批意见: {item.comment}</div>}
+                  </Timeline.Item>
+                ))}
+              </Timeline>
+            </Card>
+          </>
+        )}
       </Modal>
     </div>
   );

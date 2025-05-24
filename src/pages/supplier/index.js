@@ -1,23 +1,23 @@
 import React from 'react';
-import { Tabs } from 'antd';
-import OilSupplier from './OilSupplier';
-import GoodsSupplier from './GoodsSupplier';
+import { Routes, Route } from 'react-router-dom';
+import SupplierManagement from './SupplierManagement';
+import OilSupplierManagement from './OilSupplierManagement';
+import GoodsSupplierManagement from './GoodsSupplierManagement';
+import TransportUnitManagement from './TransportUnitManagement';
+import SupplierPortal from './SupplierPortal';
+import WinningQuotation from './WinningQuotation';
 
-const { TabPane } = Tabs;
-
-const SupplierManagement = () => {
+const SupplierRoutes = () => {
   return (
-    <div className="supplier-management">
-      <Tabs defaultActiveKey="1">
-        <TabPane tab="油品供应商" key="1">
-          <OilSupplier />
-        </TabPane>
-        <TabPane tab="商品供应商" key="2">
-          <GoodsSupplier />
-        </TabPane>
-      </Tabs>
-    </div>
+    <Routes>
+      <Route path="/" element={<SupplierManagement />} />
+      <Route path="/oil" element={<OilSupplierManagement />} />
+      <Route path="/goods" element={<GoodsSupplierManagement />} />
+      <Route path="/transport" element={<TransportUnitManagement />} />
+      <Route path="/portal" element={<SupplierPortal />} />
+      <Route path="/winning-quotation" element={<WinningQuotation />} />
+    </Routes>
   );
 };
 
-export default SupplierManagement; 
+export default SupplierRoutes; 

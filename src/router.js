@@ -19,12 +19,16 @@ import OilOverflowOrder from './pages/purchase/oil-delivery/OilOverflowOrder';
 import OilOverflowSummary from './pages/purchase/oil-delivery/OilOverflowSummary';
 import OilOrder from './pages/purchase/oil-order';
 import NonOilPurchaseOrder from './pages/purchase/non-oil-purchase-order';
+import NonOilPurchaseRequest from './pages/purchase/non-oil-purchase-request';
 import OilPurchasePriceManagement from './pages/purchase/oil-purchase-price-management';
+import OilInquiryManagement from './pages/purchase/oil-inquiry-management';
 
 // 供应商管理
 import SupplierManagement from './pages/supplier/index';
-import OilSupplierManagement from './pages/supplier/OilSupplier';
+import OilSupplierManagement from './pages/supplier/OilSupplierManagement';
 import GoodsSupplierManagement from './pages/supplier/GoodsSupplier';
+import SupplierPortal from './pages/supplier/SupplierPortal';
+import WinningQuotation from './pages/supplier/WinningQuotation';
 
 // 商品管理
 import GoodsManagement from './pages/goods/GoodsManagement';
@@ -56,7 +60,6 @@ import DeviceDetailNew from './pages/device/DeviceDetail';
 
 // 审批中心和系统管理
 // import ApprovalCenter from './pages/approval/ApprovalCenter';
-import WorkflowManagement from './pages/system/WorkflowManagement';
 import SystemManagement from './pages/system/SystemManagement';
 import SiteMap from './pages/system/sitemap/SiteMap';
 
@@ -125,6 +128,8 @@ const AppRouter = () => {
         <Route index element={<SupplierManagement />} />
         <Route path="oil" element={<OilSupplierManagement />} />
         <Route path="goods" element={<GoodsSupplierManagement />} />
+        <Route path="portal" element={<SupplierPortal />} />
+        <Route path="winning-quotation" element={<WinningQuotation />} />
       </Route>
       
       {/* 油站管理路由 */}
@@ -165,11 +170,17 @@ const AppRouter = () => {
         {/* 油品采购订单 */}
         <Route path="oil-order" element={<OilOrder />} />
         
+        {/* 非油品采购申请 */}
+        <Route path="non-oil-purchase-request" element={<NonOilPurchaseRequest />} />
+        
         {/* 非油品采购订单 */}
         <Route path="non-oil-purchase-order" element={<NonOilPurchaseOrder />} />
         
         {/* 油品进价管理 */}
         <Route path="oil-purchase-price-management" element={<OilPurchasePriceManagement />} />
+        
+        {/* 油品询价管理 */}
+        <Route path="oil-inquiry-management" element={<OilInquiryManagement />} />
       </Route>
       
       {/* 商品管理路由 */}
@@ -260,7 +271,6 @@ const AppRouter = () => {
       
       {/* 系统管理路由 */}
       <Route path="/system" element={<SystemManagement />} />
-      <Route path="/system/workflow" element={<WorkflowManagement />} />
       <Route path="/system/sitemap" element={<SiteMap />} />
       
       {/* 油品库存管理路由 */}

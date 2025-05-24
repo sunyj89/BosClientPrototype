@@ -41,8 +41,16 @@ const MenuItemLabel = ({ text, link, tooltip }) => {
   // 如果文本长度超过12个字符，显示tooltip
   const needTooltip = text.length > 12;
   
+  // 为"油品询价管理"添加红色文字样式
+  const linkStyle = {
+    whiteSpace: 'normal', 
+    lineHeight: '1.2', 
+    display: 'inline-block',
+    color: text === '油品询价管理' ? 'red' : 'inherit' // 添加条件样式
+  };
+  
   const content = (
-    <Link to={link} style={{ whiteSpace: 'normal', lineHeight: '1.2', display: 'inline-block' }}>
+    <Link to={link} style={linkStyle}>
       {text}
     </Link>
   );
@@ -89,7 +97,7 @@ const AppSider = ({ collapsed }) => {
     alignItems: 'center',
     justifyContent: collapsed ? 'center' : 'flex-start',
     padding: collapsed ? '0' : '0 24px',
-    background: '#32AF50', // 使用主题色作为Logo背景
+    background: '#32AF50', // 绿色背景
     color: '#fff',
     fontWeight: 'bold',
     fontSize: collapsed ? '16px' : '18px',
@@ -122,6 +130,11 @@ const AppSider = ({ collapsed }) => {
           key: 'supplier_goods',
           icon: <ShoppingOutlined />,
           label: <MenuItemLabel text="商品供应商" link="/supplier/goods" />,
+        },
+        {
+          key: 'supplier_portal',
+          icon: <BankOutlined />,
+          label: <MenuItemLabel text="供应商门户" link="/supplier/portal" />,
         },
       ],
     },
@@ -180,6 +193,11 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
         },
         {
+          key: 'purchase_non_oil_purchase_request',
+          icon: <FormOutlined />,
+          label: <MenuItemLabel text="非油品采购申请" link="/purchase/non-oil-purchase-request" />,
+        },
+        {
           key: 'purchase_non_oil_purchase_order',
           icon: <ShoppingOutlined />,
           label: <MenuItemLabel text="非油品采购订单" link="/purchase/non-oil-purchase-order" />,
@@ -188,6 +206,11 @@ const AppSider = ({ collapsed }) => {
           key: 'purchase_oil_purchase_price_management',
           icon: <DollarOutlined />,
           label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
+        },
+        {
+          key: 'purchase_oil_inquiry_management',
+          icon: <AuditOutlined />,
+          label: <MenuItemLabel text="油品询价管理" link="/purchase/oil-inquiry-management" />,
         },
         {
           key: 'purchase_oil_delivery',
@@ -199,7 +222,6 @@ const AppSider = ({ collapsed }) => {
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
         },
-
       ],
     },
     {
@@ -396,7 +418,7 @@ const AppSider = ({ collapsed }) => {
       className="app-sider-custom"
     >
       <div style={logoStyle}>
-        {!collapsed && '江西高速油站系统'}
+        {!collapsed && '江西交投化石能源'}
         {collapsed && 'BOS'}
       </div>
       <Menu
