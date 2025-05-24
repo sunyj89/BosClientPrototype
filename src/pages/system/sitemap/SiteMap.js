@@ -95,20 +95,7 @@ const SiteMap = () => {
           file: 'src/pages/station/index.js',
           dependencies: [
             { type: 'CSS', path: 'src/pages/station/index.css' },
-            { type: '服务', path: 'src/pages/station/services/stationService.js' },
-            { type: '组件', path: 'src/pages/station/components/StationForm.js' },
             { type: '模拟数据', path: 'src/mock/station/stations.json' },
-            { type: '模拟数据', path: 'src/mock/station/orgData.json' }
-          ]
-        },
-        {
-          title: '员工管理',
-          key: 'station_organization',
-          path: '/station/organization',
-          file: 'src/pages/station/EmployeeManagement.js',
-          dependencies: [
-            { type: '组件', path: 'src/pages/station/components/EmployeeAuditDrawer.js' },
-            { type: '模拟数据', path: 'src/mock/station/employees.json' },
             { type: '模拟数据', path: 'src/mock/station/orgData.json' }
           ]
         }

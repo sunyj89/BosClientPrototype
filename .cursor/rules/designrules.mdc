@@ -42,30 +42,22 @@ alwaysApply: true
 
 ### 列表页面布局
 - 页面结构自上而下：
-  1. 筛选区域
-  2. 操作按钮区
+  1. 筛选区域，包括主要操作按钮
+  2. 主要操作按钮区
   3. 数据表格区
 
 ### 筛选区域规范
-- 内边距：`padding: 16px`
-- 底部间距：`margin-bottom: 16px`
-- 表单项布局：
-  ```jsx
-  <Form layout="inline">
-    <Form.Item name="keyword" label="关键字">
-      <Input placeholder="请输入关键字" allowClear />
-    </Form.Item>
-    <Form.Item name="dateRange" label="日期范围">
-      <RangePicker />
-    </Form.Item>
-    // ... 其他筛选项
-  </Form>
-  ```
+- 所有的筛选条件在一行，按钮在下一行，这样确保筛选框长度不影响布局
+- 每个筛选框都有固定宽度，不会相互影响
+- 按钮组独立成行，与筛选条件保持适当间距，按钮右对齐
+- 使用 Space 组件确保按钮间距一致
+- 筛选区域的background color是白色
 
 ### 操作按钮区规范
 - 位置：筛选表单最后一行
 - 布局：使用 Space 组件包裹
 - 按钮顺序：查询、重置、新建/导出等功能按钮
+
 ```jsx
 <Form.Item>
   <Space>
@@ -94,9 +86,13 @@ alwaysApply: true
 
 ## 组件与模式
 
+### 创建，编辑，查看功能使用弹窗，不要使用抽屉
+
 ### 按钮样式规则
 
-#### 主要操作按钮
+- 所有按钮的css样式都需要包含 border-radius:2px;
+
+#### 主要操作按钮，位置在页面右侧
 ```jsx
 // 查询按钮
 <Button 
@@ -116,7 +112,7 @@ alwaysApply: true
 </Button>
 ```
 
-#### 次要操作按钮
+#### 次要操作按钮，与主要操作按钮位置一样
 ```jsx
 // 重置按钮
 <Button 
@@ -138,8 +134,26 @@ alwaysApply: true
 - 表格操作列：固定在右侧，宽度合适
 - 表格分页：默认每页10条
 - 表格空数据：显示友好的提示
-
-
+- 表格中的操作按钮采用以下风格
+```jsx
+ <Button
+            type="primary"
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openStationForm(record)}
+          >
+            编辑
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDeleteStation(record)}
+          >
+            删除
+          </Button>
+```
 
 主要特点：
 - 采用双Tab页设计（列表 + 审批中心）

@@ -7,6 +7,55 @@
   min-height: calc(100vh - 64px);
 }
 
+/* 筛选区域样式 */
+.filter-section {
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.filter-section .ant-form {
+  margin-bottom: 0;
+}
+
+.filter-section .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.filter-section .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 操作按钮区域样式 */
+.action-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.stats-info {
+  flex: 1;
+}
+
+.action-buttons {
+  flex-shrink: 0;
+}
+
+/* 统计信息区域样式 */
+.stats-section {
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.stats-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #262626;
+}
+
 /* 组织结构卡片 */
 .org-card {
   margin-bottom: 16px;
@@ -211,30 +260,6 @@
   background-color: #e6f7ff;
 }
 
-/* 详情抽屉样式 */
-.station-drawer .ant-drawer-body {
-  padding: 24px;
-}
-
-.station-drawer .ant-form-item {
-  margin-bottom: 16px;
-}
-
-.station-drawer .drawer-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid #f0f0f0;
-  padding: 16px 24px;
-  background: #fff;
-  text-align: right;
-  left: 0;
-}
-
-.station-drawer .drawer-footer button {
-  margin-left: 8px;
-}
-
 /* 油站详情页面样式 */
 .station-detail-container {
   padding: 16px;
@@ -337,223 +362,40 @@
 /* 响应式样式 */
 @media (max-width: 768px) {
   .station-detail-info-item {
-    width: 50%;
+    flex-direction: column;
   }
 
   .stats-card {
-    height: 100px;
+    margin-bottom: 16px;
   }
 
   .station-drawer .ant-drawer-content-wrapper {
     width: 100% !important;
   }
+  
+  .filter-section .ant-form {
+    flex-direction: column;
+  }
+  
+  .filter-section .ant-form-item {
+    width: 100%;
+  }
 }
 
 @media (max-width: 576px) {
   .station-detail-info-item {
-    width: 100%;
+    padding: 8px 0;
   }
 
   .stats-card-value {
     font-size: 20px;
   }
-}
 
-/* 审批抽屉样式 */
-.audit-drawer .ant-drawer-body {
-  padding: 24px;
-  overflow: auto;
-}
-
-.audit-drawer-content {
-  padding-bottom: 64px;
-}
-
-.audit-section {
-  margin-bottom: 24px;
-}
-
-.audit-section h3 {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 16px;
-}
-
-.audit-history {
-  padding: 8px 0;
-}
-
-.audit-history-item {
-  margin-bottom: 12px;
-}
-
-.audit-form {
-  margin-top: 8px;
-}
-
-/* 审批状态标签颜色 */
-.status-pending {
-  color: #faad14;
-}
-
-.status-approved {
-  color: #32AF50;
-}
-
-.status-rejected {
-  color: #f5222d;
-}
-
-.status-cancelled {
-  color: #d9d9d9;
-}
-
-/* 待审批区域样式 */
-.pending-approval-card {
-  background-color: #fafafa;
-  border-left: 4px solid #1890ff;
-}
-
-.pending-approval-card .ant-card-head {
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e8e8e8;
-}
-
-.pending-approval-card .ant-list-item {
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.pending-approval-card .ant-list-item:last-child {
-  border-bottom: none;
-}
-
-.pending-approval-card .ant-list-item-meta-title {
-  margin-bottom: 8px;
-}
-
-.pending-approval-card .ant-list-item-meta-description {
-  color: #8c8c8c;
-  font-size: 12px;
-}
-
-.pending-approval-card .ant-list-item-action {
-  margin-left: 48px;
-}
-
-/* Tab页样式 */
-.station-tabs .ant-tabs-nav {
-  margin-bottom: 16px;
-}
-
-.station-tabs .ant-tabs-tab {
-  padding: 8px 16px;
-  font-size: 14px;
-}
-
-.station-tabs .ant-tabs-tab-active {
-  font-weight: 500;
-}
-
-.station-tabs .ant-tabs-content {
-  padding: 8px 0;
-}
-
-/* 筛选表单样式 */
-.filter-form {
-  margin-bottom: 16px;
-  padding: 16px;
-  background: #f9f9f9;
-  border-radius: 4px;
-}
-
-/* 批量操作区域样式 */
-.batch-actions {
-  padding: 12px 16px;
-  background: #f9f9f9;
-  border-radius: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-/* 审批中心表格样式 */
-.approval-table .ant-table-thead > tr > th {
-  background-color: #fafafa;
-  font-weight: 500;
-}
-
-.approval-table .ant-table-row:hover {
-  background-color: #f5f5f5;
-}
-
-/* 表格选择项样式 */
-.ant-table-row-selected > td {
-  background: #e6f7ff !important;
-}
-
-/* 审批中心Tab样式 */
-.approval-tabs .ant-tabs-nav {
-  margin-bottom: 0px;
-}
-
-.approval-tabs .ant-tabs-tab {
-  padding: 8px 16px;
-}
-
-.approval-tabs .ant-tabs-tab-active {
-  font-weight: 500;
-}
-
-/* 审批抽屉样式 */
-.audit-drawer .ant-drawer-body {
-  padding: 24px;
-}
-
-.audit-drawer .audit-form {
-  margin-top: 24px;
-}
-
-.audit-drawer .audit-history {
-  margin-top: 16px;
-}
-
-.audit-drawer .audit-actions {
-  margin-top: 24px;
-  text-align: right;
-}
-
-.audit-drawer .ant-timeline-item-content {
-  margin-bottom: 12px;
-}
-
-/* 状态标签样式 */
-.status-pending {
-  color: #faad14;
-  background-color: #fffbe6;
-  border-color: #ffe58f;
-}
-
-.status-approved {
-  color: #32AF50;
-  background-color: #f6ffed;
-  border-color: #b7eb8f;
-}
-
-.status-rejected {
-  color: #f5222d;
-  background-color: #fff1f0;
-  border-color: #ffa39e;
-}
-
-/* 审批按钮样式 */
-.approve-btn {
-  background-color: #32AF50 !important;
-  border-color: #32AF50 !important;
-}
-
-.approve-btn:hover {
-  background-color: #3cbf5d !important;
-  border-color: #3cbf5d !important;
+  .station-container {
+    padding: 16px;
+  }
+  
+  .filter-section {
+    padding: 12px;
+  }
 } 
