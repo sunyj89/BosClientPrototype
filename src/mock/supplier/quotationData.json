@@ -4,10 +4,13 @@
     "inquiryId": "INQ20240501003",
     "inquiryName": "5月份98#汽油询价单",
     "oilType": "98#汽油",
-    "unitPrice": 9100,
+    "oilUnitPrice": 8900,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 9100,
     "quantity": 20000,
+    "totalAmount": 18200000000,
     "status": "已提交",
-    "includeFreight": true,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-06-05 10:00:00",
     "submitTime": "2024-05-19 14:30:22",
     "attachments": [
@@ -16,18 +19,20 @@
         "url": "/uploads/quotation_details.pdf"
       }
     ],
-    "remarks": "可提供优质服务，保证按时配送",
-    "rejectReason": ""
+    "remarks": "可提供优质服务，保证按时配送"
   },
   {
     "id": "QUO20240520001",
     "inquiryId": "INQ20240501004",
     "inquiryName": "5月份0#柴油询价单",
     "oilType": "0#柴油",
-    "unitPrice": 7800,
+    "oilUnitPrice": 7600,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 7800,
     "quantity": 40000,
+    "totalAmount": 31200000000,
     "status": "已确认",
-    "includeFreight": true,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-05-30 14:00:00",
     "submitTime": "2024-05-20 09:15:30",
     "attachments": [
@@ -40,18 +45,20 @@
         "url": "/uploads/quality_assurance.pdf"
       }
     ],
-    "remarks": "价格含税和运费，保证油品质量",
-    "rejectReason": ""
+    "remarks": "价格含税，运费单独计算，保证油品质量"
   },
   {
     "id": "QUO20240417001",
     "inquiryId": "INQ20240410001",
     "inquiryName": "4月份0#柴油询价单",
     "oilType": "0#柴油",
-    "unitPrice": 7750,
+    "oilUnitPrice": 7550,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 7750,
     "quantity": 35000,
+    "totalAmount": 27125000000,
     "status": "已中标",
-    "includeFreight": true,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-04-25 10:00:00",
     "submitTime": "2024-04-17 11:20:15",
     "attachments": [
@@ -60,33 +67,38 @@
         "url": "/uploads/quotation_apr.pdf"
       }
     ],
-    "remarks": "可提供优质服务，保证按时配送",
-    "rejectReason": ""
+    "remarks": "可提供优质服务，保证按时配送"
   },
   {
     "id": "QUO20240515001",
     "inquiryId": "INQ20240510001",
     "inquiryName": "5月份95#汽油询价单(第一批)",
     "oilType": "95#汽油",
-    "unitPrice": 8650,
+    "oilUnitPrice": 8450,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 8650,
     "quantity": 25000,
+    "totalAmount": 21625000000,
     "status": "已拒绝",
-    "includeFreight": false,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-05-20 09:00:00",
     "submitTime": "2024-05-15 16:45:30",
     "attachments": [],
-    "remarks": "价格不含运费，需另计",
-    "rejectReason": "价格过高且不含运费"
+    "remarks": "价格含税，运费单独计算",
+    "rejectReason": "价格过高"
   },
   {
     "id": "QUO20240510001",
     "inquiryId": "INQ20240505001",
     "inquiryName": "5月份92#汽油询价单(第一批)",
     "oilType": "92#汽油",
-    "unitPrice": 8200,
+    "oilUnitPrice": 8000,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 8200,
     "quantity": 30000,
+    "totalAmount": 24600000000,
     "status": "未中标",
-    "includeFreight": true,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-05-15 10:00:00",
     "submitTime": "2024-05-10 14:30:20",
     "attachments": [
@@ -95,22 +107,23 @@
         "url": "/uploads/quotation_may_92.pdf"
       }
     ],
-    "remarks": "价格含税和运费",
-    "rejectReason": ""
+    "remarks": "价格含税，运费单独计算"
   },
   {
     "id": "QUO20240522001",
     "inquiryId": "INQ20240501001",
     "inquiryName": "5月份92#汽油询价单",
     "oilType": "92#汽油",
-    "unitPrice": 8250,
+    "oilUnitPrice": 8050,
+    "freightUnitPrice": 200,
+    "stationUnitPrice": 8250,
     "quantity": 50000,
+    "totalAmount": 41250000000,
     "status": "草稿",
-    "includeFreight": true,
+    "deliveryAddress": "江西省南昌市高新区",
     "deliveryTime": "2024-06-01 09:00:00",
     "submitTime": "",
     "attachments": [],
-    "remarks": "价格含税和运费",
-    "rejectReason": ""
+    "remarks": "价格含税，运费单独计算"
   }
 ] 

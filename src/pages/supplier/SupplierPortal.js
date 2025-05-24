@@ -193,7 +193,7 @@ const SupplierPortal = () => {
       inquiryName: record.name,
       oilType: record.oilType,
       quantity: record.quantity,
-      includeFreight: true
+      deliveryAddress: record.deliveryAddress
     });
     
     setFileList([]);
@@ -345,8 +345,9 @@ const SupplierPortal = () => {
       inquiryName: record.inquiryName,
       oilType: record.oilType,
       quantity: record.quantity,
-      unitPrice: record.unitPrice,
-      includeFreight: record.includeFreight,
+      deliveryAddress: record.deliveryAddress,
+      oilUnitPrice: record.oilUnitPrice,
+      freightUnitPrice: record.freightUnitPrice,
       deliveryTime: record.deliveryTime ? moment(record.deliveryTime) : null,
       remarks: record.remarks
     });
@@ -650,16 +651,49 @@ const SupplierPortal = () => {
       width: 100,
     },
     {
-      title: '单价(元/吨)',
-      dataIndex: 'unitPrice',
-      key: 'unitPrice',
-      width: 120,
+      title: '油品单价（元/吨,不含运费）',
+      dataIndex: 'oilUnitPrice',
+      key: 'oilUnitPrice',
+      width: 180,
+      sorter: (a, b) => a.oilUnitPrice - b.oilUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
+    },
+    {
+      title: '运费单价(元/吨)',
+      dataIndex: 'freightUnitPrice',
+      key: 'freightUnitPrice',
+      width: 140,
+      sorter: (a, b) => a.freightUnitPrice - b.freightUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
+    },
+    {
+      title: '到站单价（元/吨）',
+      dataIndex: 'stationUnitPrice',
+      key: 'stationUnitPrice',
+      width: 150,
+      sorter: (a, b) => a.stationUnitPrice - b.stationUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
     },
     {
       title: '数量(吨)',
       dataIndex: 'quantity',
       key: 'quantity',
       width: 120,
+    },
+    {
+      title: '总金额（元）',
+      dataIndex: 'totalAmount',
+      key: 'totalAmount',
+      width: 150,
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
+      render: (amount) => `${(amount / 100)?.toLocaleString() || 0}`,
+    },
+    {
+      title: '到货地点',
+      dataIndex: 'deliveryAddress',
+      key: 'deliveryAddress',
+      width: 180,
+      ellipsis: true,
     },
     {
       title: '状态',
@@ -786,6 +820,7 @@ const SupplierPortal = () => {
                       <Option value="95#汽油">95#汽油</Option>
                       <Option value="98#汽油">98#汽油</Option>
                       <Option value="0#柴油">0#柴油</Option>
+                      <Option value="尿素">尿素</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -854,6 +889,7 @@ const SupplierPortal = () => {
                       <Option value="95#汽油">95#汽油</Option>
                       <Option value="98#汽油">98#汽油</Option>
                       <Option value="0#柴油">0#柴油</Option>
+                      <Option value="尿素">尿素</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -1012,7 +1048,6 @@ const SupplierPortal = () => {
         <Form
           form={quotationForm}
           layout="vertical"
-          requiredMark="optional"
         >
           <Row gutter={16}>
             <Col span={12}>
@@ -1053,27 +1088,34 @@ const SupplierPortal = () => {
             </Col>
             <Col span={12}>
               <Form.Item
-                label="单价(元/吨)"
-                name="unitPrice"
-                rules={[{ required: true, message: '请输入单价' }]}
+                label="到货地点"
+                name="deliveryAddress"
               >
-                <Input type="number" min={0} step={0.01} placeholder="请输入单价" />
+                <Input disabled />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="是否含运费"
-                name="includeFreight"
-                valuePropName="checked"
+                label="油品单价（元/吨,不含运费）"
+                name="oilUnitPrice"
+                rules={[{ required: true, message: '请输入油品单价' }]}
               >
-                <Select>
-                  <Option value={true}>是</Option>
-                  <Option value={false}>否</Option>
-                </Select>
+                <Input type="number" min={0} step={0.01} placeholder="请输入油品单价" />
               </Form.Item>
             </Col>
+            <Col span={12}>
+              <Form.Item
+                label="运费单价(元/吨)"
+                name="freightUnitPrice"
+                rules={[{ required: true, message: '请输入运费单价' }]}
+              >
+                <Input type="number" min={0} step={0.01} placeholder="请输入运费单价" />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 label="到货时间"
@@ -1096,7 +1138,7 @@ const SupplierPortal = () => {
                 label="备注"
                 name="remarks"
               >
-                <TextArea rows={4} placeholder="请输入备注信息（可选）" />
+                <TextArea rows={4} placeholder="请输入备注信息" />
               </Form.Item>
             </Col>
           </Row>
@@ -1157,9 +1199,12 @@ const SupplierPortal = () => {
               <Descriptions.Item label="询价单ID" span={1}>{currentQuotation.inquiryId}</Descriptions.Item>
               <Descriptions.Item label="询价单名称" span={2}>{currentQuotation.inquiryName}</Descriptions.Item>
               <Descriptions.Item label="油品类型" span={1}>{currentQuotation.oilType}</Descriptions.Item>
-              <Descriptions.Item label="单价(元/吨)" span={1}>{currentQuotation.unitPrice}</Descriptions.Item>
               <Descriptions.Item label="数量(吨)" span={1}>{currentQuotation.quantity}</Descriptions.Item>
-              <Descriptions.Item label="是否含运费" span={1}>{currentQuotation.includeFreight ? '是' : '否'}</Descriptions.Item>
+              <Descriptions.Item label="油品单价（元/吨,不含运费）" span={1}>{currentQuotation.oilUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+              <Descriptions.Item label="运费单价(元/吨)" span={1}>{currentQuotation.freightUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+              <Descriptions.Item label="到站单价（元/吨）" span={1}>{currentQuotation.stationUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+              <Descriptions.Item label="总金额（元）" span={1}>{(currentQuotation.totalAmount / 100)?.toLocaleString() || 0}</Descriptions.Item>
+              <Descriptions.Item label="到货地点" span={2}>{currentQuotation.deliveryAddress}</Descriptions.Item>
               <Descriptions.Item label="交货时间" span={1}>{currentQuotation.deliveryTime}</Descriptions.Item>
               <Descriptions.Item label="提交时间" span={1}>{currentQuotation.submitTime || '-'}</Descriptions.Item>
               

@@ -219,9 +219,11 @@ const QuotationDetail = ({ visible, record, onCancel, onAccept, onReject, onConf
           <Descriptions.Item label="联系电话" span={1}>{record.contactPhone || '暂无'}</Descriptions.Item>
           <Descriptions.Item label="电子邮箱" span={2}>{record.contactEmail || '暂无'}</Descriptions.Item>
           <Descriptions.Item label="油品类型" span={1}>{record.oilType}</Descriptions.Item>
-          <Descriptions.Item label="单价(元/吨)" span={1}>{record.unitPrice}</Descriptions.Item>
           <Descriptions.Item label="数量(吨)" span={1}>{record.quantity}</Descriptions.Item>
-          <Descriptions.Item label="是否包含运费" span={1}>{record.includeFreight ? '是' : '否'}</Descriptions.Item>
+          <Descriptions.Item label="油品单价（元/吨,不含运费）" span={1}>{record.oilUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+          <Descriptions.Item label="运费单价(元/吨)" span={1}>{record.freightUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+          <Descriptions.Item label="到站单价（元/吨）" span={1}>{record.stationUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+          <Descriptions.Item label="总金额（元）" span={1}>{(record.totalAmount / 100)?.toLocaleString() || 0}</Descriptions.Item>
           <Descriptions.Item label="到货时间" span={1}>{record.deliveryTime}</Descriptions.Item>
           <Descriptions.Item label="提交时间" span={1}>{record.submitTime}</Descriptions.Item>
           <Descriptions.Item label="交货地点" span={2}>{record.deliveryAddress}</Descriptions.Item>

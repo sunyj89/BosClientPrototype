@@ -1,0 +1,90 @@
+[
+  {
+    "id": "DL001",
+    "name": "江西省抚州市南城县上塘镇南城基地内",
+    "code": "NC_BASE",
+    "province": "江西省",
+    "city": "抚州市",
+    "district": "南城县",
+    "address": "上塘镇南城基地内",
+    "type": "基地",
+    "status": "正常"
+  },
+  {
+    "id": "DL002", 
+    "name": "宜春市袁州区袁州区工业园区",
+    "code": "YZ_INDUSTRIAL",
+    "province": "江西省",
+    "city": "宜春市",
+    "district": "袁州区",
+    "address": "袁州区工业园区",
+    "type": "工业园区",
+    "status": "正常"
+  },
+  {
+    "id": "DL003",
+    "name": "江西省宜春市铜鼓县带溪乡柳溪村铜鼓养护基地",
+    "code": "TG_MAINTENANCE",
+    "province": "江西省",
+    "city": "宜春市",
+    "district": "铜鼓县",
+    "address": "带溪乡柳溪村铜鼓养护基地",
+    "type": "养护基地",
+    "status": "正常"
+  },
+  {
+    "id": "DL004",
+    "name": "江西省新余市分宜县洞村乡高速养护基地（热再生专项）",
+    "code": "FY_MAINTENANCE_HOT",
+    "province": "江西省",
+    "city": "新余市",
+    "district": "分宜县",
+    "address": "洞村乡高速养护基地（热再生专项）",
+    "type": "养护基地",
+    "status": "正常"
+  },
+  {
+    "id": "DL005",
+    "name": "江西省赣州市于都县罗坳镇于都养护基地（罗坳收费站出口150米处）",
+    "code": "YD_MAINTENANCE",
+    "province": "江西省",
+    "city": "赣州市",
+    "district": "于都县",
+    "address": "罗坳镇于都养护基地（罗坳收费站出口150米处）",
+    "type": "养护基地",
+    "status": "正常"
+  },
+  {
+    "id": "DL006",
+    "name": "江西省上饶市万年县齐埠乡万年养护基地万年西收费站出口2KM处",
+    "code": "WN_MAINTENANCE",
+    "province": "江西省",
+    "city": "上饶市",
+    "district": "万年县",
+    "address": "齐埠乡万年养护基地万年西收费站出口2KM处",
+    "type": "养护基地",
+    "status": "正常"
+  },
+  {
+    "id": "DL007",
+    "name": "江西省上饶市婺源县紫阳镇金家庄（婺源基地拌合站）",
+    "code": "WY_MIXING",
+    "province": "江西省",
+    "city": "上饶市",
+    "district": "婺源县",
+    "address": "紫阳镇金家庄（婺源基地拌合站）",
+    "type": "拌合站",
+    "status": "正常"
+  },
+  {
+    "id": "DL008",
+    "name": "都九高速都昌养护所内都昌基地",
+    "code": "DC_MAINTENANCE",
+    "province": "江西省",
+    "city": "九江市",
+    "district": "都昌县",
+    "address": "都九高速都昌养护所内都昌基地",
+    "type": "养护基地",
+    "status": "正常"
+  }
+] 

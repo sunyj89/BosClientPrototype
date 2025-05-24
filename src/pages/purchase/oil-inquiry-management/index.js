@@ -39,7 +39,6 @@ import QuotationDetail from './QuotationDetail';
 
 // 导入模拟数据
 import inquiryData from '../../../mock/purchase/oil-inquiry/inquiryData.json';
-import approvalData from '../../../mock/purchase/oil-inquiry/approvalData.json';
 import quotationData from '../../../mock/purchase/oil-inquiry/quotationData.json';
 
 const { Option } = Select;
@@ -51,7 +50,6 @@ const OilInquiryManagement = () => {
   // 状态定义
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [approvals, setApprovals] = useState({ pending: [], history: [] });
   const [quotations, setQuotations] = useState([]);
   const [activeTab, setActiveTab] = useState('1');
   const [filterForm] = Form.useForm();
@@ -74,23 +72,7 @@ const OilInquiryManagement = () => {
     setLoading(true);
     // 模拟API请求
     setTimeout(() => {
-      // 扩展数据，增加供应商信息
-      const extendedData = inquiryData.map(item => ({
-        ...item,
-        suppliers: [
-          { id: 'SP001', name: '中石化北京分公司' },
-          { id: 'SP002', name: '中石油华东分公司' }
-        ],
-        expectedDeliveryTime: '2024-06-01 10:00:00',
-        deliveryAddress: '江西省南昌市高新区',
-        maxPrice: 8500
-      }));
-      
-      setData(extendedData);
-      setApprovals({
-        pending: approvalData.pendingApprovals,
-        history: approvalData.approvalHistory
-      });
+      setData(inquiryData);
       setQuotations(quotationData);
       setLoading(false);
     }, 500);
@@ -100,12 +82,11 @@ const OilInquiryManagement = () => {
   const getStatusColor = (status) => {
     const colorMap = {
       '草稿': 'default',
-      '待审批': 'blue',
-      '已审批': 'green',
-      '已发布': 'cyan',
+      '待发布': 'blue',
       '询价中': 'geekblue',
-      '询价完成': 'purple',
-      '已撤回': 'red',
+      '已取消': 'red',
+      '报价结束': 'orange',
+      '询价完成': 'green',
       '待确认': 'blue',
       '已接受': 'green',
       '已拒绝': 'red',
@@ -198,28 +179,11 @@ const OilInquiryManagement = () => {
                 </Popconfirm>
               </Space>
             );
-          case '待审批':
+          case '待发布':
             return (
               <Space size="small">
-                <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
-                  查看
-                </Button>
-                <Button size="small" icon={<StopOutlined />} onClick={() => handleStopApproval(record)}>
-                  中止审批
-                </Button>
-                <Button type="primary" size="small" icon={<CheckOutlined />} onClick={() => handleSubmitApproval(record)}>
-                  提交审批
-                </Button>
-              </Space>
-            );
-          case '已审批':
-            return (
-              <Space size="small">
-                <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
-                  查看
-                </Button>
-                <Button size="small" icon={<StopOutlined />} onClick={() => handleStopApproval(record)}>
-                  中止审批
+                <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
+                  编辑
                 </Button>
                 <Button type="primary" size="small" icon={<SendOutlined />} onClick={() => handlePublish(record)}>
                   发布询价
@@ -240,6 +204,31 @@ const OilInquiryManagement = () => {
                 </Button>
               </Space>
             );
+          case '已取消':
+            return (
+              <Space size="small">
+                <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
+                  编辑
+                </Button>
+              </Space>
+            );
+          case '报价结束':
+            return (
+              <Space size="small">
+                <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
+                  查看
+                </Button>
+                <Button size="small" icon={<StopOutlined />} onClick={() => handleStopInquiry(record)}>
+                  中止询价
+                </Button>
+                <Button size="small" icon={<FileTextOutlined />} onClick={() => handleViewQuotationDetails(record)}>
+                  报价单明细
+                </Button>
+                <Button type="primary" size="small" icon={<CheckOutlined />} onClick={() => handleCompleteInquiry(record)}>
+                  询价完成
+                </Button>
+              </Space>
+            );
           case '询价完成':
             return (
               <Space size="small">
@@ -254,104 +243,10 @@ const OilInquiryManagement = () => {
                 </Button>
               </Space>
             );
-          case '已撤回':
-            return (
-              <Space size="small">
-                <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
-                  查看
-                </Button>
-                <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
-                  编辑
-                </Button>
-                <Button type="primary" size="small" icon={<CheckOutlined />} onClick={() => handleSubmitApproval(record)}>
-                  提交审批
-                </Button>
-              </Space>
-            );
           default:
             return null;
         }
       },
-    },
-  ];
-
-  // 审批记录列配置
-  const approvalColumns = [
-    {
-      title: '审批ID',
-      dataIndex: 'id',
-      key: 'id',
-      width: 160,
-    },
-    {
-      title: '询价单ID',
-      dataIndex: 'inquiryId',
-      key: 'inquiryId',
-      width: 150,
-    },
-    {
-      title: '询价单名称',
-      dataIndex: 'inquiryName',
-      key: 'inquiryName',
-      width: 200,
-    },
-    {
-      title: '油品名称',
-      dataIndex: 'oilType',
-      key: 'oilType',
-      width: 120,
-    },
-    {
-      title: '提交人',
-      dataIndex: 'submitter',
-      key: 'submitter',
-      width: 100,
-    },
-    {
-      title: '提交时间',
-      dataIndex: 'submitTime',
-      key: 'submitTime',
-      width: 160,
-    },
-    {
-      title: '审批状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (status) => (
-        <Tag color={status === '待审批' ? 'blue' : 'green'} className="status-tag">
-          {status}
-        </Tag>
-      ),
-    },
-    {
-      title: '审批人',
-      dataIndex: 'approver',
-      key: 'approver',
-      width: 100,
-    },
-    {
-      title: '审批时间',
-      dataIndex: 'approveTime',
-      key: 'approveTime',
-      width: 160,
-    },
-    {
-      title: '备注',
-      dataIndex: 'remarks',
-      key: 'remarks',
-      width: 200,
-    },
-    {
-      title: '操作',
-      key: 'action',
-      width: 120,
-      fixed: 'right',
-      render: (_, record) => (
-        <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewApproval(record)}>
-          查看详情
-        </Button>
-      ),
     },
   ];
 
@@ -388,19 +283,43 @@ const OilInquiryManagement = () => {
       width: 120,
     },
     {
-      title: '单价(元/吨)',
-      dataIndex: 'unitPrice',
-      key: 'unitPrice',
-      width: 120,
-      sorter: (a, b) => a.unitPrice - b.unitPrice,
-      sortDirections: ['ascend', 'descend'],
-      defaultSortOrder: 'descend',
+      title: '油品单价（元/吨,不含运费）',
+      dataIndex: 'oilUnitPrice',
+      key: 'oilUnitPrice',
+      width: 180,
+      sorter: (a, b) => a.oilUnitPrice - b.oilUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
+    },
+    {
+      title: '运费单价(元/吨)',
+      dataIndex: 'freightUnitPrice',
+      key: 'freightUnitPrice',
+      width: 140,
+      sorter: (a, b) => a.freightUnitPrice - b.freightUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
+    },
+    {
+      title: '到站单价（元/吨）',
+      dataIndex: 'stationUnitPrice',
+      key: 'stationUnitPrice',
+      width: 150,
+      sorter: (a, b) => a.stationUnitPrice - b.stationUnitPrice,
+      render: (price) => `${price?.toLocaleString() || 0}`,
     },
     {
       title: '数量(吨)',
       dataIndex: 'quantity',
       key: 'quantity',
       width: 120,
+    },
+    {
+      title: '总金额（元）',
+      dataIndex: 'totalAmount',
+      key: 'totalAmount',
+      width: 150,
+      sorter: (a, b) => a.totalAmount - b.totalAmount,
+      sortDirections: ['ascend', 'descend'],
+      render: (amount) => `${(amount / 100)?.toLocaleString() || 0}`,
     },
     {
       title: '状态',
@@ -472,43 +391,9 @@ const OilInquiryManagement = () => {
 
   // 删除询价单
   const handleDelete = (record) => {
-    message.success(`已删除询价单: ${record.id}`);
-    // 模拟删除后刷新数据
     const newData = data.filter(item => item.id !== record.id);
     setData(newData);
-  };
-
-  // 中止审批
-  const handleStopApproval = (record) => {
-    confirm({
-      title: '确定要中止审批吗？',
-      icon: <ExclamationCircleOutlined />,
-      content: `询价单 ${record.id} 的审批将被中止`,
-      onOk() {
-        message.success(`已中止询价单 ${record.id} 的审批`);
-        // 这里应该有更新状态的逻辑
-        const newData = data.map(item => {
-          if (item.id === record.id) {
-            return { ...item, status: '草稿' };
-          }
-          return item;
-        });
-        setData(newData);
-      },
-    });
-  };
-
-  // 提交审批
-  const handleSubmitApproval = (record) => {
-    message.success(`已提交询价单 ${record.id} 的审批`);
-    // 这里应该有更新状态的逻辑
-    const newData = data.map(item => {
-      if (item.id === record.id) {
-        return { ...item, status: '待审批' };
-      }
-      return item;
-    });
-    setData(newData);
+    message.success(`已删除询价单 ${record.id}`);
   };
 
   // 发布询价
@@ -517,25 +402,25 @@ const OilInquiryManagement = () => {
     // 这里应该有更新状态的逻辑
     const newData = data.map(item => {
       if (item.id === record.id) {
-        return { ...item, status: '已发布' };
+        return { ...item, status: '询价中' };
       }
       return item;
     });
     setData(newData);
   };
 
-  // 撤回询价
-  const handleRevoke = (record) => {
+  // 中止询价
+  const handleStopInquiry = (record) => {
     confirm({
-      title: '确定要撤回此询价单吗？',
+      title: '确定要中止此询价吗？',
       icon: <ExclamationCircleOutlined />,
-      content: `询价单 ${record.id} 将被撤回`,
+      content: `询价单 ${record.id} 将被中止`,
       onOk() {
-        message.success(`已撤回询价单 ${record.id}`);
+        message.success(`已中止询价单 ${record.id}`);
         // 这里应该有更新状态的逻辑
         const newData = data.map(item => {
           if (item.id === record.id) {
-            return { ...item, status: '已撤回' };
+            return { ...item, status: '已取消' };
           }
           return item;
         });
@@ -544,60 +429,43 @@ const OilInquiryManagement = () => {
     });
   };
 
-  // 查看审批详情
-  const handleViewApproval = (record) => {
-    // 找到对应的询价单
-    const inquiryRecord = data.find(item => item.id === record.inquiryId);
-    if (inquiryRecord) {
-      setCurrentRecord(inquiryRecord);
-      setFormMode('view');
-      setFormVisible(true);
-    } else {
-      message.error(`找不到对应的询价单: ${record.inquiryId}`);
+  // 询价完成
+  const handleCompleteInquiry = (record) => {
+    // 检查是否有报价单
+    const relatedQuotations = quotations.filter(q => q.inquiryId === record.id);
+    if (relatedQuotations.length === 0) {
+      message.error('该询价单暂无报价，无法完成询价');
+      return;
     }
-  };
 
-  // 创建询价单
-  const handleCreate = () => {
-    setCurrentRecord(null);
-    setFormMode('create');
-    setFormVisible(true);
-  };
-
-  // 表单提交处理
-  const handleFormSubmit = (values, mode) => {
-    console.log('表单提交值:', values);
-    
-    if (mode === 'create') {
-      // 创建新询价单
-      const newRecord = {
-        ...values,
-        id: values.id || `INQ${moment().format('YYYYMMDDHHmmss')}`,
-        createTime: values.createTime || moment().format('YYYY-MM-DD HH:mm:ss'),
-        createdBy: values.createdBy || '当前用户'
-      };
-      
-      setData([newRecord, ...data]);
-      message.success(`创建询价单成功: ${newRecord.id}`);
-    } else if (mode === 'edit') {
-      // 更新询价单
-      const newData = data.map(item => {
-        if (item.id === values.id) {
-          return { ...item, ...values };
-        }
-        return item;
-      });
-      
-      setData(newData);
-      message.success(`更新询价单成功: ${values.id}`);
+    // 检查是否已选择中标报价
+    const winnerQuotation = relatedQuotations.find(q => q.status === '中标报价单');
+    if (!winnerQuotation) {
+      message.error('请先选择中标报价单');
+      return;
     }
-    
-    setFormVisible(false);
-  };
 
-  // Tab页切换处理
-  const handleTabChange = (key) => {
-    setActiveTab(key);
+    confirm({
+      title: '确定要完成此询价吗？',
+      icon: <ExclamationCircleOutlined />,
+      content: `询价单 ${record.id} 将标记为完成状态`,
+      onOk() {
+        message.success(`询价单 ${record.id} 已完成`);
+        const newData = data.map(item => {
+          if (item.id === record.id) {
+            return { 
+              ...item, 
+              status: '询价完成',
+              completedTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+              winnerSupplier: winnerQuotation.supplierName,
+              finalPrice: winnerQuotation.totalPrice
+            };
+          }
+          return item;
+        });
+        setData(newData);
+      },
+    });
   };
 
   // 查看报价单
@@ -688,25 +556,6 @@ const OilInquiryManagement = () => {
     setInquiryReportVisible(true);
   };
 
-  // 中止询价
-  const handleStopInquiry = (record) => {
-    confirm({
-      title: '确定要中止询价吗？',
-      icon: <ExclamationCircleOutlined />,
-      content: `询价单 ${record.id} 的询价过程将被中止`,
-      onOk() {
-        message.success(`已中止询价单 ${record.id} 的询价过程`);
-        const newData = data.map(item => {
-          if (item.id === record.id) {
-            return { ...item, status: '已撤回' };
-          }
-          return item;
-        });
-        setData(newData);
-      },
-    });
-  };
-
   // 查看报价明细
   const handleViewQuotationDetails = (record) => {
     // 获取与此询价单关联的所有报价单
@@ -775,6 +624,49 @@ const OilInquiryManagement = () => {
     setQuotations(quotationData);
   };
 
+  // 创建询价单
+  const handleCreate = () => {
+    setCurrentRecord(null);
+    setFormMode('create');
+    setFormVisible(true);
+  };
+
+  // 表单提交处理
+  const handleFormSubmit = (values, mode) => {
+    console.log('表单提交值:', values);
+    
+    if (mode === 'create') {
+      // 创建新询价单
+      const newRecord = {
+        ...values,
+        id: values.id || `INQ${moment().format('YYYYMMDDHHmmss')}`,
+        createTime: values.createTime || moment().format('YYYY-MM-DD HH:mm:ss'),
+        createdBy: values.createdBy || '当前用户'
+      };
+      
+      setData([newRecord, ...data]);
+      message.success(`创建询价单成功: ${newRecord.id}`);
+    } else if (mode === 'edit') {
+      // 更新询价单
+      const newData = data.map(item => {
+        if (item.id === values.id) {
+          return { ...item, ...values };
+        }
+        return item;
+      });
+      
+      setData(newData);
+      message.success(`更新询价单成功: ${values.id}`);
+    }
+    
+    setFormVisible(false);
+  };
+
+  // Tab页切换处理
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
+
   return (
     <div>
       <Tabs activeKey={activeTab} onChange={handleTabChange} className="tab-container">
@@ -807,11 +699,11 @@ const OilInquiryManagement = () => {
                   <Form.Item name="status" label="状态">
                     <Select placeholder="请选择状态" allowClear>
                       <Option value="草稿">草稿</Option>
-                      <Option value="待审批">待审批</Option>
-                      <Option value="已审批">已审批</Option>
+                      <Option value="待发布">待发布</Option>
                       <Option value="询价中">询价中</Option>
+                      <Option value="已取消">已取消</Option>
+                      <Option value="报价结束">报价结束</Option>
                       <Option value="询价完成">询价完成</Option>
-                      <Option value="已撤回">已撤回</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -876,6 +768,7 @@ const OilInquiryManagement = () => {
                       <Option value="95#汽油">95#汽油</Option>
                       <Option value="98#汽油">98#汽油</Option>
                       <Option value="0#柴油">0#柴油</Option>
+                      <Option value="尿素">尿素</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -919,18 +812,6 @@ const OilInquiryManagement = () => {
             onChange={(pagination, filters, sorter) => {
               console.log('排序参数:', sorter);
             }}
-          />
-        </TabPane>
-        
-        <TabPane tab="审批记录" key="3">
-          <Table
-            className="inquiry-table"
-            columns={approvalColumns}
-            dataSource={[...approvals.pending, ...approvals.history]}
-            rowKey="id"
-            loading={loading}
-            pagination={{ pageSize: 10 }}
-            scroll={{ x: 'max-content' }}
           />
         </TabPane>
       </Tabs>
@@ -1004,11 +885,27 @@ const OilInquiryManagement = () => {
                     width: 150,
                   },
                   {
-                    title: '单价(元/吨)',
-                    dataIndex: 'unitPrice',
-                    key: 'unitPrice',
-                    width: 120,
-                    sorter: (a, b) => a.unitPrice - b.unitPrice,
+                    title: '油品单价（元/吨,不含运费）',
+                    dataIndex: 'oilUnitPrice',
+                    key: 'oilUnitPrice',
+                    width: 180,
+                    sorter: (a, b) => a.oilUnitPrice - b.oilUnitPrice,
+                    render: (price) => `${price?.toLocaleString() || 0}`,
+                  },
+                  {
+                    title: '运费单价(元/吨)',
+                    dataIndex: 'freightUnitPrice',
+                    key: 'freightUnitPrice',
+                    width: 140,
+                    render: (price) => `${price?.toLocaleString() || 0}`,
+                  },
+                  {
+                    title: '到站单价（元/吨）',
+                    dataIndex: 'stationUnitPrice',
+                    key: 'stationUnitPrice',
+                    width: 150,
+                    sorter: (a, b) => a.stationUnitPrice - b.stationUnitPrice,
+                    render: (price) => `${price?.toLocaleString() || 0}`,
                   },
                   {
                     title: '交货时间',
@@ -1023,31 +920,12 @@ const OilInquiryManagement = () => {
                     width: 200,
                   },
                   {
-                    title: '是否含运费',
-                    dataIndex: 'includeFreight',
-                    key: 'includeFreight',
-                    width: 100,
-                    render: (includeFreight) => includeFreight ? '是' : '否',
-                  },
-                  {
-                    title: '含运费总价(元)',
-                    key: 'totalWithFreight',
+                    title: '总金额（元）',
+                    dataIndex: 'totalAmount',
+                    key: 'totalAmount',
                     width: 150,
-                    render: (_, record) => {
-                      if (record.includeFreight) {
-                        return (record.unitPrice * record.quantity).toLocaleString();
-                      } else {
-                        // 假设运费为单价的5%
-                        const freight = record.unitPrice * 0.05;
-                        return ((record.unitPrice + freight) * record.quantity).toLocaleString();
-                      }
-                    },
-                  },
-                  {
-                    title: '不含运费总价(元)',
-                    key: 'totalWithoutFreight',
-                    width: 150,
-                    render: (_, record) => (record.unitPrice * record.quantity).toLocaleString(),
+                    sorter: (a, b) => a.totalAmount - b.totalAmount,
+                    render: (amount) => `${(amount / 100)?.toLocaleString() || 0}`,
                   },
                   {
                     title: '状态',
@@ -1076,13 +954,14 @@ const OilInquiryManagement = () => {
                     <Descriptions.Item label="联系人">{reportData.winnerQuotation.contactPerson || '暂无'}</Descriptions.Item>
                     <Descriptions.Item label="联系电话">{reportData.winnerQuotation.contactPhone || '暂无'}</Descriptions.Item>
                     <Descriptions.Item label="电子邮箱" span={2}>{reportData.winnerQuotation.contactEmail || '暂无'}</Descriptions.Item>
-                    <Descriptions.Item label="中标单价">{reportData.winnerQuotation.unitPrice} 元/吨</Descriptions.Item>
-                    <Descriptions.Item label="中标数量">{reportData.winnerQuotation.quantity} 吨</Descriptions.Item>
+                    <Descriptions.Item label="油品单价（元/吨,不含运费）">{reportData.winnerQuotation.oilUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+                    <Descriptions.Item label="运费单价(元/吨)">{reportData.winnerQuotation.freightUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+                    <Descriptions.Item label="到站单价（元/吨）">{reportData.winnerQuotation.stationUnitPrice?.toLocaleString() || 0}</Descriptions.Item>
+                    <Descriptions.Item label="中标数量(吨)">{reportData.winnerQuotation.quantity}</Descriptions.Item>
                     <Descriptions.Item label="到货时间">{reportData.winnerQuotation.deliveryTime}</Descriptions.Item>
                     <Descriptions.Item label="交货地点">{reportData.winnerQuotation.deliveryAddress}</Descriptions.Item>
-                    <Descriptions.Item label="是否含运费">{reportData.winnerQuotation.includeFreight ? '是' : '否'}</Descriptions.Item>
-                    <Descriptions.Item label="总价(元)">{(reportData.winnerQuotation.unitPrice * reportData.winnerQuotation.quantity).toLocaleString()}</Descriptions.Item>
-                    <Descriptions.Item label="备注" span={2}>{reportData.winnerQuotation.remarks || '无'}</Descriptions.Item>
+                    <Descriptions.Item label="总金额（元）">{(reportData.winnerQuotation.totalAmount / 100)?.toLocaleString() || 0}</Descriptions.Item>
+                    <Descriptions.Item label="备注" span={1}>{reportData.winnerQuotation.remarks || '无'}</Descriptions.Item>
                   </Descriptions>
                 </div>
               )}
