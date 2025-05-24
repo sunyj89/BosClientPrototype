@@ -1,6 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import SupplierManagement from './SupplierManagement';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import OilSupplierManagement from './OilSupplierManagement';
 import GoodsSupplierManagement from './GoodsSupplierManagement';
 import TransportUnitManagement from './TransportUnitManagement';
@@ -10,7 +9,7 @@ import WinningQuotation from './WinningQuotation';
 const SupplierRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<SupplierManagement />} />
+      <Route path="/" element={<Navigate to="/supplier/oil" />} />
       <Route path="/oil" element={<OilSupplierManagement />} />
       <Route path="/goods" element={<GoodsSupplierManagement />} />
       <Route path="/transport" element={<TransportUnitManagement />} />

@@ -24,7 +24,6 @@ import OilPurchasePriceManagement from './pages/purchase/oil-purchase-price-mana
 import OilInquiryManagement from './pages/purchase/oil-inquiry-management';
 
 // 供应商管理
-import SupplierManagement from './pages/supplier/index';
 import OilSupplierManagement from './pages/supplier/OilSupplierManagement';
 import GoodsSupplierManagement from './pages/supplier/GoodsSupplier';
 import SupplierPortal from './pages/supplier/SupplierPortal';
@@ -52,14 +51,12 @@ import DensityReport from './pages/report/DensityReport';
 
 // 油站管理
 import StationManagement from './pages/station/index';
-import EmployeeManagement from './pages/station/EmployeeManagement';
 
 // 设备管理
 import DeviceManagementNew from './pages/device/DeviceManagement';
 import DeviceDetailNew from './pages/device/DeviceDetail';
 
-// 审批中心和系统管理
-// import ApprovalCenter from './pages/approval/ApprovalCenter';
+// 系统管理
 import SystemManagement from './pages/system/SystemManagement';
 import SiteMap from './pages/system/sitemap/SiteMap';
 
@@ -125,7 +122,7 @@ const AppRouter = () => {
       
       {/* 供应商管理路由 */}
       <Route path="/supplier">
-        <Route index element={<SupplierManagement />} />
+        <Route index element={<Navigate to="/supplier/oil" />} />
         <Route path="oil" element={<OilSupplierManagement />} />
         <Route path="goods" element={<GoodsSupplierManagement />} />
         <Route path="portal" element={<SupplierPortal />} />
@@ -135,7 +132,6 @@ const AppRouter = () => {
       {/* 油站管理路由 */}
       <Route path="/station">
         <Route index element={<StationManagement />} />
-        <Route path="organization" element={<EmployeeManagement />} />
       </Route>
       
       {/* 设备管理路由 */}
@@ -264,10 +260,6 @@ const AppRouter = () => {
         <Route path="gun/change" element={<GunChangeManagement />} />
         <Route path="density" element={<OilDensity />} />
       </Route>
-      
-      {/* 审批中心路由 - 重定向到油站管理的审批中心选项卡 */}
-      <Route path="/approval" element={<Navigate to="/station" state={{ activeTabKey: '2' }} />} />
-      <Route path="/approval/center" element={<Navigate to="/station" state={{ activeTabKey: '2' }} />} />
       
       {/* 系统管理路由 */}
       <Route path="/system" element={<SystemManagement />} />

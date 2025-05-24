@@ -117,11 +117,6 @@ const AppSider = ({ collapsed }) => {
       label: '供应商管理',
       children: [
         {
-          key: 'supplier_list',
-          icon: <TeamOutlined />,
-          label: <MenuItemLabel text="供应商列表" link="/supplier" />,
-        },
-        {
           key: 'supplier_oil',
           icon: <ShopOutlined />,
           label: <MenuItemLabel text="油品供应商" link="/supplier/oil" />,
@@ -147,11 +142,6 @@ const AppSider = ({ collapsed }) => {
           key: 'station_list',
           icon: <BankOutlined />,
           label: <MenuItemLabel text="油站列表" link="/station" />,
-        },
-        {
-          key: 'station_organization',
-          icon: <TeamOutlined />,
-          label: <MenuItemLabel text="员工管理" link="/station/organization" />,
         },
       ],
     },
