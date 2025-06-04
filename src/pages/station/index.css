@@ -1,0 +1,401 @@
+/* 油站管理页面样式 */
+
+/* 主容器样式 */
+.station-container {
+  padding: 20px;
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 64px);
+}
+
+/* 筛选区域样式 */
+.filter-section {
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.filter-section .ant-form {
+  margin-bottom: 0;
+}
+
+.filter-section .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.filter-section .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 操作按钮区域样式 */
+.action-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.stats-info {
+  flex: 1;
+}
+
+.action-buttons {
+  flex-shrink: 0;
+}
+
+/* 统计信息区域样式 */
+.stats-section {
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.stats-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #262626;
+}
+
+/* 组织结构卡片 */
+.org-card {
+  margin-bottom: 16px;
+  height: 100%;
+}
+
+/* 卡片通用样式 */
+.station-card {
+  margin-bottom: 16px;
+}
+
+/* 油站卡片样式 */
+.station-item-card {
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.station-item-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.station-card-cover {
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  position: relative;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.station-status-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* 分页器居中显示 */
+.station-pagination {
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* 统计卡片样式 */
+.stats-card {
+  padding: 20px;
+  border-radius: 4px;
+  color: #fff;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+}
+
+.stats-card-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.stats-card-value {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stats-card-footer {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.stats-card-blue {
+  background-color: #1890ff;
+}
+
+.stats-card-green {
+  background-color: #52c41a;
+}
+
+.stats-card-orange {
+  background-color: #fa8c16;
+}
+
+.stats-card-purple {
+  background-color: #722ed1;
+}
+
+/* 详情页样式 */
+.detail-container {
+  padding: 20px;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.detail-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.info-label {
+  width: 100px;
+  color: #8c8c8c;
+}
+
+.info-value {
+  flex: 1;
+  font-weight: 500;
+}
+
+.employee-card {
+  margin-top: 16px;
+}
+
+.equipment-card {
+  margin-top: 16px;
+}
+
+.sales-card {
+  margin-top: 16px;
+}
+
+.delivery-card {
+  margin-top: 16px;
+}
+
+/* 搜索表单样式 */
+.station-search-form {
+  padding: 16px 16px 0;
+  margin-bottom: 16px;
+}
+
+.station-search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.station-search-form .ant-form-item-label {
+  text-align: left;
+}
+
+.station-search-form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.station-search-form .form-buttons button {
+  margin-left: 8px;
+}
+
+/* 表格样式 */
+.station-table {
+  margin-top: 16px;
+}
+
+.station-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.station-table .ant-table-row:hover {
+  background-color: #f5f5f5;
+}
+
+.station-table .operation-buttons {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.station-table .operation-buttons button {
+  margin-right: 8px;
+}
+
+/* 组织树样式 */
+.org-tree {
+  height: calc(100vh - 220px);
+  overflow: auto;
+  border-right: 1px solid #f0f0f0;
+  padding: 16px;
+}
+
+.org-tree .ant-tree-treenode {
+  width: 100%;
+  padding: 4px 0;
+}
+
+.org-tree .ant-tree-node-content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-tree .ant-tree-node-selected {
+  background-color: #e6f7ff;
+}
+
+/* 油站详情页面样式 */
+.station-detail-container {
+  padding: 16px;
+  background-color: #fff;
+}
+
+.station-detail-header {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 16px;
+}
+
+.station-detail-header h2 {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.station-detail-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.station-detail-info-item {
+  width: 25%;
+  margin-bottom: 16px;
+}
+
+.station-detail-info-label {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.station-detail-info-value {
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.station-detail-tabs {
+  margin-top: 24px;
+}
+
+/* 油品销售图表样式 */
+.sales-chart-container {
+  height: 400px;
+  margin-bottom: 24px;
+}
+
+.sales-chart-card {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sales-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sales-chart-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 配送任务样式 */
+.delivery-task-detail {
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.task-step {
+  margin-bottom: 24px;
+}
+
+.task-info-item {
+  margin-bottom: 16px;
+}
+
+.task-info-label {
+  color: #8c8c8c;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.task-info-value {
+  font-size: 14px;
+}
+
+/* 油品明细表格样式 */
+.oil-details-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .station-detail-info-item {
+    flex-direction: column;
+  }
+
+  .stats-card {
+    margin-bottom: 16px;
+  }
+
+  .station-drawer .ant-drawer-content-wrapper {
+    width: 100% !important;
+  }
+  
+  .filter-section .ant-form {
+    flex-direction: column;
+  }
+  
+  .filter-section .ant-form-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .station-detail-info-item {
+    padding: 8px 0;
+  }
+
+  .stats-card-value {
+    font-size: 20px;
+  }
+
+  .station-container {
+    padding: 16px;
+  }
+  
+  .filter-section {
+    padding: 12px;
+  }
+} 

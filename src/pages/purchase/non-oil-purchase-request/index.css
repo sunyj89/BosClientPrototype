@@ -1,0 +1,151 @@
+.non-oil-purchase-request {
+  padding: 24px;
+}
+
+.non-oil-purchase-request .search-form {
+  margin-bottom: 16px;
+}
+
+.non-oil-purchase-request .ant-form-item {
+  margin-bottom: 16px;
+  max-width: 300px;
+}
+
+.non-oil-purchase-request .ant-table {
+  margin-top: 16px;
+}
+
+.search-card {
+  margin-bottom: 24px;
+}
+
+.filter-form {
+  width: 100%;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  margin-bottom: 8px;
+  max-width: 300px;
+}
+
+.filter-item {
+  margin-right: 16px;
+  margin-bottom: 16px;
+  min-width: 200px;
+}
+
+.org-filter {
+  min-width: 400px;
+  flex: 1;
+}
+
+.date-filter {
+  min-width: 300px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.action-button {
+  margin-right: 8px;
+}
+
+/* 表格样式 */
+.ant-table-fixed-right {
+  box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* 时间轴样式 */
+.approval-history-card .ant-timeline-item-content {
+  margin-left: 30px !important;
+}
+
+.timeline-content {
+  padding-bottom: 10px;
+}
+
+.timeline-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.action {
+  font-weight: bold;
+}
+
+.time {
+  color: #999;
+  font-size: 12px;
+}
+
+.timeline-info {
+  margin-bottom: 4px;
+}
+
+.operator {
+  margin-right: 8px;
+}
+
+.role {
+  color: #666;
+  font-size: 13px;
+}
+
+.timeline-comment {
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* 空内容容器 */
+.empty-container {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+/* 表单样式 */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+.form-item {
+  flex: 1 1 calc(50% - 16px);
+  margin: 0 8px 16px;
+  min-width: 200px;
+}
+
+/* 主页面tabs样式 */
+.main-tabs {
+  margin-bottom: 16px;
+}
+
+.main-tabs .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+/* 抽屉样式 */
+.ant-drawer-body {
+  padding: 24px;
+}
+
+.ant-drawer-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 24px;
+} 

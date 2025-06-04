@@ -1,0 +1,17 @@
+.non-oil-purchase-order-container {
+  padding: 16px;
+}
+
+.detail-item {
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-weight: bold;
+  margin-right: 8px;
+  color: #666;
+}
+
+.detail-value {
+  color: #333;
+} 

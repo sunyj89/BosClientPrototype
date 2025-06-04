@@ -1,0 +1,82 @@
+[
+  {
+    "id": "BJ001-01",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "tankNo": "01",
+    "oilType": "92#汽油",
+    "capacity": 50000,
+    "currentVolume": 32500,
+    "status": "正常"
+  },
+  {
+    "id": "BJ001-02",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "tankNo": "02",
+    "oilType": "95#汽油",
+    "capacity": 30000,
+    "currentVolume": 18750,
+    "status": "正常"
+  },
+  {
+    "id": "BJ001-03",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "tankNo": "03",
+    "oilType": "0#柴油",
+    "capacity": 20000,
+    "currentVolume": 12500,
+    "status": "正常"
+  },
+  {
+    "id": "BJ002-01",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "tankNo": "01",
+    "oilType": "92#汽油",
+    "capacity": 40000,
+    "currentVolume": 30000,
+    "status": "正常"
+  },
+  {
+    "id": "BJ002-02",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "tankNo": "02",
+    "oilType": "95#汽油",
+    "capacity": 30000,
+    "currentVolume": 22500,
+    "status": "正常"
+  },
+  {
+    "id": "SH001-01",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "tankNo": "01",
+    "oilType": "92#汽油",
+    "capacity": 50000,
+    "currentVolume": 35000,
+    "status": "正常"
+  },
+  {
+    "id": "SH001-02",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "tankNo": "02",
+    "oilType": "95#汽油",
+    "capacity": 40000,
+    "currentVolume": 28000,
+    "status": "正常"
+  },
+  {
+    "id": "SH001-03",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "tankNo": "03",
+    "oilType": "98#汽油",
+    "capacity": 20000,
+    "currentVolume": 12000,
+    "status": "正常"
+  }
+] 
