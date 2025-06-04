@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: prd-weicheche
+  name: bos-web-deployment
+  labels:
+    app: bos-web-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bos-web
+  template:
+    metadata:
+      name: bos-web
+      labels:
+        app: bos-web
+    spec:
+      volumes:
+        - name: bos-web-nginxlog-vol
+          nfs:
+            server: 10.0.0.7
+            path: /data/nfs/logs/nginx/bos-web/
+      containers:
+      - name: bos-web-nginx
+        image: 10.0.0.6:58080/prd-weicheche/bos_web_nginx:2025022501
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: bos-web-nginxlog-vol
+          mountPath: /data/logs/nginx
+        ports:
+        - containerPort: 80
+        env:
+          - name: ENVIRON
+            value: production
+      restartPolicy: Always
+        
+      imagePullSecrets:
+      - name: prd-weicheche-secret
+      restartPolicy: Always
+      nodeSelector:
+        webapp: all
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bos-web-service
+  namespace: prd-weicheche
+spec:
+  type: ClusterIP
+  ports:
+  - name: bos-web-nginx
+    port: 80
+    targetPort: 80
+  selector:
+    app: bos-web
