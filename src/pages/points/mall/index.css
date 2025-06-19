@@ -1,0 +1,107 @@
+/* 积分商城页面样式 */
+.points-mall-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.points-mall-tabs .ant-tabs-nav {
+  margin-bottom: 16px;
+}
+
+.points-mall-tabs .ant-tabs-tab {
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.filter-card {
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.filter-buttons {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.table-card {
+  border-radius: 6px;
+}
+
+.table-card .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.status-tag {
+  border-radius: 4px;
+}
+
+.banner-image {
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+.product-image {
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+}
+
+.points-text {
+  color: #f50;
+  font-weight: bold;
+}
+
+.price-text {
+  color: #333;
+  font-weight: 500;
+}
+
+.stock-low {
+  color: #faad14;
+}
+
+.stock-normal {
+  color: #52c41a;
+}
+
+.action-button {
+  border-radius: 2px;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.form-modal .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.banner-preview {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .points-mall-container {
+    padding: 16px;
+  }
+  
+  .filter-card .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .filter-buttons {
+    text-align: center;
+  }
+  
+  .ant-table {
+    font-size: 12px;
+  }
+} 

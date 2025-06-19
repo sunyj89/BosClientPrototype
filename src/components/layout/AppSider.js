@@ -32,6 +32,8 @@ import {
   FormOutlined,
   ReloadOutlined,
   SearchOutlined,
+  TrophyOutlined,
+  ApartmentOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -343,6 +345,39 @@ const AppSider = ({ collapsed }) => {
       ],
     },
     {
+      key: 'points',
+      icon: <TrophyOutlined />,
+      label: '积分管理',
+      children: [
+        {
+          key: 'points_dashboard',
+          icon: <DashboardOutlined />,
+          label: <MenuItemLabel text="积分看板" link="/points" />,
+        },
+
+        {
+          key: 'points_details',
+          icon: <FormOutlined />,
+          label: <MenuItemLabel text="积分明细" link="/points/details" />,
+        },
+        {
+          key: 'points_mall',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="积分商城" link="/points/mall" />,
+        },
+        {
+          key: 'points_reports',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="积分报表" link="/points/reports" />,
+        },
+        {
+          key: 'points_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="积分配置" link="/points/config" />,
+        },
+      ],
+    },
+    {
       key: 'report',
       icon: <BarChartOutlined />,
       label: '报表管理',
@@ -376,6 +411,33 @@ const AppSider = ({ collapsed }) => {
           key: 'report_density',
           icon: <StockOutlined />,
           label: <MenuItemLabel text="油品密度报表" link="/report/density" />,
+        },
+        {
+          key: 'report_station-inventory',
+          icon: <AccountBookOutlined />,
+          label: <MenuItemLabel text="9003油站进销存" link="/report/station-inventory" />,
+        },
+        {
+          key: 'report_station-sales-monthly',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="9020油站销售月报表" link="/report/station-sales-monthly" />,
+        },
+      ],
+    },
+    {
+      key: 'organization',
+      icon: <ApartmentOutlined />,
+      label: '组织架构管理',
+      children: [
+        {
+          key: 'organization_structure',
+          icon: <ApartmentOutlined />,
+          label: <MenuItemLabel text="组织架构" link="/organization" />,
+        },
+        {
+          key: 'organization_role_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="角色配置" link="/organization/role-configuration" />,
         },
       ],
     },

@@ -1,0 +1,626 @@
+{
+  "legalEntities": [
+    { "id": 1, "name": "A公司 (总公司)" },
+    { "id": 2, "name": "G公司" }
+  ],
+  "roles": [
+    { "id": 1, "name": "集团CEO" },
+    { "id": 2, "name": "部门总监" },
+    { "id": 3, "name": "分公司总经理" },
+    { "id": 4, "name": "服务区经理" },
+    { "id": 5, "name": "站长" },
+    { "id": 6, "name": "普通员工" }
+  ],
+  "permissions": {
+    "modules": [
+      {
+        "id": "dashboard",
+        "name": "工作台",
+        "path": "/dashboard",
+        "operations": [
+          { "id": "dashboard_view", "name": "访问工作台", "type": "access" },
+          { "id": "dashboard_query", "name": "查询数据", "type": "query" },
+          { "id": "dashboard_export", "name": "导出报表", "type": "export" }
+        ]
+      },
+      {
+        "id": "organization",
+        "name": "组织架构管理",
+        "path": "/organization",
+        "operations": [
+          { "id": "organization_view", "name": "访问组织架构", "type": "access" },
+          { "id": "organization_query", "name": "查询组织信息", "type": "query" },
+          { "id": "organization_add", "name": "新增组织", "type": "action" },
+          { "id": "organization_edit", "name": "编辑组织", "type": "action" },
+          { "id": "organization_delete", "name": "删除组织", "type": "action" },
+          { "id": "organization_user_add", "name": "新增用户", "type": "action" },
+          { "id": "organization_user_edit", "name": "编辑用户", "type": "action" },
+          { "id": "organization_user_delete", "name": "删除用户", "type": "action" },
+          { "id": "organization_export", "name": "导出组织架构", "type": "export" }
+        ]
+      },
+      {
+        "id": "organization_role",
+        "name": "角色配置",
+        "path": "/organization/role-configuration",
+        "operations": [
+          { "id": "role_view", "name": "访问角色配置", "type": "access" },
+          { "id": "role_query", "name": "查询角色", "type": "query" },
+          { "id": "role_add", "name": "新增角色", "type": "action" },
+          { "id": "role_edit", "name": "编辑角色", "type": "action" },
+          { "id": "role_delete", "name": "删除角色", "type": "action" },
+          { "id": "role_copy", "name": "复制角色", "type": "action" },
+          { "id": "role_export", "name": "导出角色配置", "type": "export" }
+        ]
+      },
+      {
+        "id": "supplier",
+        "name": "供应商管理",
+        "path": "/supplier",
+        "operations": [
+          { "id": "supplier_view", "name": "访问供应商管理", "type": "access" },
+          { "id": "supplier_query", "name": "查询供应商", "type": "query" },
+          { "id": "supplier_add", "name": "新增供应商", "type": "action" },
+          { "id": "supplier_edit", "name": "编辑供应商", "type": "action" },
+          { "id": "supplier_delete", "name": "删除供应商", "type": "action" },
+          { "id": "supplier_approve", "name": "审批供应商", "type": "action" },
+          { "id": "supplier_export", "name": "导出供应商", "type": "export" },
+          { "id": "supplier_import", "name": "导入供应商", "type": "import" }
+        ]
+      },
+      {
+        "id": "station",
+        "name": "油站管理",
+        "path": "/station",
+        "operations": [
+          { "id": "station_view", "name": "访问油站管理", "type": "access" },
+          { "id": "station_query", "name": "查询油站", "type": "query" },
+          { "id": "station_add", "name": "新增油站", "type": "action" },
+          { "id": "station_edit", "name": "编辑油站", "type": "action" },
+          { "id": "station_delete", "name": "删除油站", "type": "action" },
+          { "id": "station_config", "name": "油站配置", "type": "action" },
+          { "id": "station_export", "name": "导出油站信息", "type": "export" }
+        ]
+      },
+      {
+        "id": "device",
+        "name": "设备管理",
+        "path": "/device",
+        "operations": [
+          { "id": "device_view", "name": "访问设备管理", "type": "access" },
+          { "id": "device_query", "name": "查询设备", "type": "query" },
+          { "id": "device_add", "name": "新增设备", "type": "action" },
+          { "id": "device_edit", "name": "编辑设备", "type": "action" },
+          { "id": "device_delete", "name": "删除设备", "type": "action" },
+          { "id": "device_control", "name": "设备控制", "type": "action" },
+          { "id": "device_config", "name": "设备配置", "type": "action" },
+          { "id": "device_export", "name": "导出设备信息", "type": "export" }
+        ]
+      },
+      {
+        "id": "purchase",
+        "name": "采购管理",
+        "path": "/purchase",
+        "operations": [
+          { "id": "purchase_view", "name": "访问采购管理", "type": "access" },
+          { "id": "purchase_query", "name": "查询采购", "type": "query" },
+          { "id": "purchase_add", "name": "新增采购", "type": "action" },
+          { "id": "purchase_edit", "name": "编辑采购", "type": "action" },
+          { "id": "purchase_delete", "name": "删除采购", "type": "action" },
+          { "id": "purchase_approve", "name": "审批采购", "type": "action" },
+          { "id": "purchase_export", "name": "导出采购数据", "type": "export" }
+        ]
+      },
+      {
+        "id": "goods",
+        "name": "商品管理",
+        "path": "/goods",
+        "operations": [
+          { "id": "goods_view", "name": "访问商品管理", "type": "access" },
+          { "id": "goods_query", "name": "查询商品", "type": "query" },
+          { "id": "goods_add", "name": "新增商品", "type": "action" },
+          { "id": "goods_edit", "name": "编辑商品", "type": "action" },
+          { "id": "goods_delete", "name": "删除商品", "type": "action" },
+          { "id": "goods_price", "name": "价格调整", "type": "action" },
+          { "id": "goods_export", "name": "导出商品", "type": "export" },
+          { "id": "goods_import", "name": "导入商品", "type": "import" }
+        ]
+      },
+      {
+        "id": "membership",
+        "name": "会员管理",
+        "path": "/membership",
+        "operations": [
+          { "id": "membership_view", "name": "访问会员管理", "type": "access" },
+          { "id": "membership_query", "name": "查询会员", "type": "query" },
+          { "id": "membership_add", "name": "新增会员", "type": "action" },
+          { "id": "membership_edit", "name": "编辑会员", "type": "action" },
+          { "id": "membership_delete", "name": "删除会员", "type": "action" },
+          { "id": "membership_card", "name": "会员卡管理", "type": "action" },
+          { "id": "membership_export", "name": "导出会员", "type": "export" }
+        ]
+      },
+      {
+        "id": "points",
+        "name": "积分管理",
+        "path": "/points",
+        "operations": [
+          { "id": "points_view", "name": "访问积分管理", "type": "access" },
+          { "id": "points_query", "name": "查询积分", "type": "query" },
+          { "id": "points_add", "name": "积分充值", "type": "action" },
+          { "id": "points_edit", "name": "积分调整", "type": "action" },
+          { "id": "points_config", "name": "积分配置", "type": "action" },
+          { "id": "points_export", "name": "导出积分", "type": "export" }
+        ]
+      },
+      {
+        "id": "report",
+        "name": "报表管理",
+        "path": "/report",
+        "operations": [
+          { "id": "report_view", "name": "访问报表管理", "type": "access" },
+          { "id": "report_query", "name": "查询报表", "type": "query" },
+          { "id": "report_export", "name": "导出报表", "type": "export" },
+          { "id": "report_config", "name": "报表配置", "type": "action" }
+        ]
+      },
+      {
+        "id": "sales",
+        "name": "销售管理",
+        "path": "/sales",
+        "operations": [
+          { "id": "sales_view", "name": "访问销售管理", "type": "access" },
+          { "id": "sales_query", "name": "查询销售", "type": "query" },
+          { "id": "sales_add", "name": "新增销售", "type": "action" },
+          { "id": "sales_edit", "name": "编辑销售", "type": "action" },
+          { "id": "sales_approve", "name": "审批销售", "type": "action" },
+          { "id": "sales_export", "name": "导出销售数据", "type": "export" }
+        ]
+      },
+      {
+        "id": "inventory",
+        "name": "库存管理",
+        "path": "/inventory",
+        "operations": [
+          { "id": "inventory_view", "name": "访问库存管理", "type": "access" },
+          { "id": "inventory_query", "name": "查询库存", "type": "query" },
+          { "id": "inventory_add", "name": "入库操作", "type": "action" },
+          { "id": "inventory_edit", "name": "库存调整", "type": "action" },
+          { "id": "inventory_transfer", "name": "库存调拨", "type": "action" },
+          { "id": "inventory_export", "name": "导出库存", "type": "export" }
+        ]
+      },
+      {
+        "id": "oil",
+        "name": "油品管理",
+        "path": "/oil",
+        "operations": [
+          { "id": "oil_view", "name": "访问油品管理", "type": "access" },
+          { "id": "oil_query", "name": "查询油品", "type": "query" },
+          { "id": "oil_add", "name": "新增油品", "type": "action" },
+          { "id": "oil_edit", "name": "编辑油品", "type": "action" },
+          { "id": "oil_price", "name": "价格管理", "type": "action" },
+          { "id": "oil_tank", "name": "油罐管理", "type": "action" },
+          { "id": "oil_gun", "name": "油枪管理", "type": "action" },
+          { "id": "oil_export", "name": "导出油品数据", "type": "export" }
+        ]
+      },
+      {
+        "id": "system",
+        "name": "系统管理",
+        "path": "/system",
+        "operations": [
+          { "id": "system_view", "name": "访问系统管理", "type": "access" },
+          { "id": "system_query", "name": "查询系统信息", "type": "query" },
+          { "id": "system_config", "name": "系统配置", "type": "action" },
+          { "id": "system_user", "name": "用户管理", "type": "action" },
+          { "id": "system_log", "name": "日志管理", "type": "action" },
+          { "id": "system_backup", "name": "数据备份", "type": "action" },
+          { "id": "system_export", "name": "导出系统数据", "type": "export" }
+        ]
+      }
+    ],
+    "dataScopes": [
+      { "id": "all", "name": "全部数据" },
+      { "id": "self_org", "name": "本组织及子组织" },
+      { "id": "self_org_only", "name": "仅本组织" },
+      { "id": "self", "name": "仅本人" }
+    ],
+    "posDevices": [
+      { "id": "gun_config", "name": "加油枪配置" },
+      { "id": "tank_config", "name": "油罐配置" },
+      { "id": "price_config", "name": "价格配置" },
+      { "id": "device_control", "name": "设备控制" },
+      { "id": "report_print", "name": "报表打印" }
+    ]
+  },
+  "roleConfigurations": [
+    {
+      "id": 1,
+      "roleId": 1,
+      "roleName": "集团CEO",
+      "description": "集团CEO，拥有全部权限",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view", "dashboard_query", "dashboard_export",
+          "organization_view", "organization_query", "organization_add", "organization_edit", "organization_delete", "organization_user_add", "organization_user_edit", "organization_user_delete", "organization_export",
+          "role_view", "role_query", "role_add", "role_edit", "role_delete", "role_copy", "role_export",
+          "supplier_view", "supplier_query", "supplier_add", "supplier_edit", "supplier_delete", "supplier_approve", "supplier_export", "supplier_import",
+          "station_view", "station_query", "station_add", "station_edit", "station_delete", "station_config", "station_export",
+          "device_view", "device_query", "device_add", "device_edit", "device_delete", "device_control", "device_config", "device_export",
+          "purchase_view", "purchase_query", "purchase_add", "purchase_edit", "purchase_delete", "purchase_approve", "purchase_export",
+          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_delete", "goods_price", "goods_export", "goods_import",
+          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_delete", "membership_card", "membership_export",
+          "points_view", "points_query", "points_add", "points_edit", "points_config", "points_export",
+          "report_view", "report_query", "report_export", "report_config",
+          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_approve", "sales_export",
+          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_transfer", "inventory_export",
+          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_price", "oil_tank", "oil_gun", "oil_export",
+          "system_view", "system_query", "system_config", "system_user", "system_log", "system_backup", "system_export"
+        ],
+        "dataScope": "all",
+        "posDevices": ["gun_config", "tank_config", "price_config", "device_control", "report_print"]
+      },
+      "orgTypes": ["HEADQUARTER", "DEPARTMENT", "CITY_BRANCH", "SERVICE_AREA", "GAS_STATION"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "roleId": 2,
+      "roleName": "部门总监",
+      "description": "部门总监，负责部门管理和业务监督",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view", "dashboard_query", "dashboard_export",
+          "organization_view", "organization_query", "organization_export",
+          "supplier_view", "supplier_query", "supplier_add", "supplier_edit", "supplier_approve", "supplier_export",
+          "purchase_view", "purchase_query", "purchase_add", "purchase_edit", "purchase_approve", "purchase_export",
+          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_export",
+          "report_view", "report_query", "report_export",
+          "sales_view", "sales_query", "sales_export",
+          "inventory_view", "inventory_query", "inventory_export"
+        ],
+        "dataScope": "self_org",
+        "posDevices": []
+      },
+      "orgTypes": ["DEPARTMENT"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "roleId": 3,
+      "roleName": "分公司总经理",
+      "description": "分公司总经理，负责分公司全面管理",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view", "dashboard_query", "dashboard_export",
+          "organization_view", "organization_query", "organization_export",
+          "station_view", "station_query", "station_add", "station_edit", "station_delete", "station_config", "station_export",
+          "device_view", "device_query", "device_add", "device_edit", "device_config", "device_export",
+          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_delete", "goods_price", "goods_export",
+          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_card", "membership_export",
+          "points_view", "points_query", "points_add", "points_edit", "points_config", "points_export",
+          "report_view", "report_query", "report_export",
+          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_export",
+          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_transfer", "inventory_export",
+          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_price", "oil_tank", "oil_gun", "oil_export"
+        ],
+        "dataScope": "self_org",
+        "posDevices": ["gun_config", "tank_config", "price_config", "device_control"]
+      },
+      "orgTypes": ["CITY_BRANCH"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "roleId": 4,
+      "roleName": "服务区经理",
+      "description": "服务区经理，负责服务区运营管理",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view", "dashboard_query",
+          "station_view", "station_query", "station_add", "station_edit", "station_export",
+          "device_view", "device_query", "device_add", "device_edit", "device_export",
+          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_export",
+          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_export",
+          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_export",
+          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_export",
+          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_export"
+        ],
+        "dataScope": "self_org",
+        "posDevices": ["gun_config", "tank_config", "price_config"]
+      },
+      "orgTypes": ["SERVICE_AREA"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "roleId": 5,
+      "roleName": "站长",
+      "description": "加油站站长，负责加油站日常运营",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view", "dashboard_query",
+          "device_view", "device_query", "device_add", "device_edit",
+          "goods_view", "goods_query", "goods_add", "goods_edit",
+          "membership_view", "membership_query", "membership_add", "membership_edit",
+          "sales_view", "sales_query", "sales_add", "sales_edit",
+          "inventory_view", "inventory_query", "inventory_add", "inventory_edit",
+          "oil_view", "oil_query", "oil_add", "oil_edit"
+        ],
+        "dataScope": "self_org_only",
+        "posDevices": ["price_config", "device_control", "report_print"]
+      },
+      "orgTypes": ["GAS_STATION"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 6,
+      "roleId": 6,
+      "roleName": "普通员工",
+      "description": "普通员工，基础操作权限",
+      "isSystemRole": true,
+      "permissions": {
+        "modulePermissions": [
+          "dashboard_view",
+          "goods_view", "goods_query",
+          "membership_view", "membership_query",
+          "sales_view", "sales_query"
+        ],
+        "dataScope": "self",
+        "posDevices": []
+      },
+      "orgTypes": ["DEPARTMENT", "CITY_BRANCH", "SERVICE_AREA", "GAS_STATION"],
+      "createTime": "2024-01-01T00:00:00Z",
+      "updateTime": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "orgTreeData": [
+    {
+      "id": 1,
+      "name": "集团总部",
+      "parentId": null,
+      "parentName": null,
+      "orgType": "HEADQUARTER",
+      "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+      "children": [
+        {
+          "id": 2,
+          "name": "财务部",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "DEPARTMENT",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": []
+        },
+        {
+          "id": 3,
+          "name": "市场部",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "DEPARTMENT",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": []
+        },
+        {
+          "id": 4,
+          "name": "采购部",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "DEPARTMENT",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": []
+        },
+        {
+          "id": 5,
+          "name": "安全部",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "DEPARTMENT",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": []
+        },
+        {
+          "id": 6,
+          "name": "工程部",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "DEPARTMENT",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": []
+        },
+        {
+          "id": 7,
+          "name": "第1分公司",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "CITY_BRANCH",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": [
+            {
+              "id": 14,
+              "name": "第1分公司-服务区-1",
+              "parentId": 7,
+              "parentName": "第1分公司",
+              "orgType": "SERVICE_AREA",
+              "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+              "children": [
+                {
+                  "id": 15,
+                  "name": "加油站-A",
+                  "parentId": 14,
+                  "parentName": "第1分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                },
+                {
+                  "id": 16,
+                  "name": "加油站-B",
+                  "parentId": 14,
+                  "parentName": "第1分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": 17,
+              "name": "第1分公司-服务区-2",
+              "parentId": 7,
+              "parentName": "第1分公司",
+              "orgType": "SERVICE_AREA",
+              "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+              "children": [
+                {
+                  "id": 18,
+                  "name": "加油站-A",
+                  "parentId": 17,
+                  "parentName": "第1分公司-服务区-2",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                },
+                {
+                  "id": 19,
+                  "name": "加油站-B",
+                  "parentId": 17,
+                  "parentName": "第1分公司-服务区-2",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "第2分公司",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "CITY_BRANCH",
+          "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+          "children": [
+            {
+              "id": 20,
+              "name": "第2分公司-服务区-1",
+              "parentId": 8,
+              "parentName": "第2分公司",
+              "orgType": "SERVICE_AREA",
+              "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+              "children": [
+                {
+                  "id": 21,
+                  "name": "加油站-A",
+                  "parentId": 20,
+                  "parentName": "第2分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                },
+                {
+                  "id": 22,
+                  "name": "加油站-B",
+                  "parentId": 20,
+                  "parentName": "第2分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 1, "name": "A公司 (总公司)" },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "第3分公司",
+          "parentId": 1,
+          "parentName": "集团总部",
+          "orgType": "CITY_BRANCH",
+          "legalEntity": { "id": 2, "name": "G公司" },
+          "children": [
+            {
+              "id": 23,
+              "name": "第3分公司-服务区-1",
+              "parentId": 9,
+              "parentName": "第3分公司",
+              "orgType": "SERVICE_AREA",
+              "legalEntity": { "id": 2, "name": "G公司" },
+              "children": [
+                {
+                  "id": 24,
+                  "name": "加油站-A",
+                  "parentId": 23,
+                  "parentName": "第3分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 2, "name": "G公司" },
+                  "children": []
+                },
+                {
+                  "id": 25,
+                  "name": "加油站-B",
+                  "parentId": 23,
+                  "parentName": "第3分公司-服务区-1",
+                  "orgType": "GAS_STATION",
+                  "legalEntity": { "id": 2, "name": "G公司" },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "userData": [
+    { "id": 1, "name": "张三 (CEO)", "orgUnitId": 1, "role": { "id": 1, "name": "集团CEO" } },
+    { "id": 2, "name": "总监-财", "orgUnitId": 2, "role": { "id": 2, "name": "部门总监" } },
+    { "id": 3, "name": "总监-市", "orgUnitId": 3, "role": { "id": 2, "name": "部门总监" } },
+    { "id": 4, "name": "总监-采", "orgUnitId": 4, "role": { "id": 2, "name": "部门总监" } },
+    { "id": 5, "name": "总监-安", "orgUnitId": 5, "role": { "id": 2, "name": "部门总监" } },
+    { "id": 6, "name": "总监-工", "orgUnitId": 6, "role": { "id": 2, "name": "部门总监" } },
+    { "id": 7, "name": "总经理-1", "orgUnitId": 7, "role": { "id": 3, "name": "分公司总经理" } },
+    { "id": 8, "name": "总经理-2", "orgUnitId": 8, "role": { "id": 3, "name": "分公司总经理" } },
+    { "id": 9, "name": "总经理-3", "orgUnitId": 9, "role": { "id": 3, "name": "分公司总经理" } },
+    { "id": 10, "name": "经理-1区1", "orgUnitId": 14, "role": { "id": 4, "name": "服务区经理" } },
+    { "id": 11, "name": "经理-1区2", "orgUnitId": 17, "role": { "id": 4, "name": "服务区经理" } },
+    { "id": 12, "name": "经理-2区1", "orgUnitId": 20, "role": { "id": 4, "name": "服务区经理" } },
+    { "id": 13, "name": "经理-3区1", "orgUnitId": 23, "role": { "id": 4, "name": "服务区经理" } },
+    { "id": 14, "name": "站长-1区1站1", "orgUnitId": 15, "role": { "id": 5, "name": "站长" } },
+    { "id": 15, "name": "员工-1区1站1-1", "orgUnitId": 15, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 16, "name": "员工-1区1站1-2", "orgUnitId": 15, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 17, "name": "站长-1区1站2", "orgUnitId": 16, "role": { "id": 5, "name": "站长" } },
+    { "id": 18, "name": "员工-1区1站2-1", "orgUnitId": 16, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 19, "name": "员工-1区1站2-2", "orgUnitId": 16, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 20, "name": "站长-1区2站1", "orgUnitId": 18, "role": { "id": 5, "name": "站长" } },
+    { "id": 21, "name": "员工-1区2站1-1", "orgUnitId": 18, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 22, "name": "员工-1区2站1-2", "orgUnitId": 18, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 23, "name": "站长-1区2站2", "orgUnitId": 19, "role": { "id": 5, "name": "站长" } },
+    { "id": 24, "name": "员工-1区2站2-1", "orgUnitId": 19, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 25, "name": "员工-1区2站2-2", "orgUnitId": 19, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 26, "name": "站长-2区1站1", "orgUnitId": 21, "role": { "id": 5, "name": "站长" } },
+    { "id": 27, "name": "员工-2区1站1-1", "orgUnitId": 21, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 28, "name": "员工-2区1站1-2", "orgUnitId": 21, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 29, "name": "站长-2区1站2", "orgUnitId": 22, "role": { "id": 5, "name": "站长" } },
+    { "id": 30, "name": "员工-2区1站2-1", "orgUnitId": 22, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 31, "name": "员工-2区1站2-2", "orgUnitId": 22, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 32, "name": "站长-3区1站1", "orgUnitId": 24, "role": { "id": 5, "name": "站长" } },
+    { "id": 33, "name": "员工-3区1站1-1", "orgUnitId": 24, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 34, "name": "员工-3区1站1-2", "orgUnitId": 24, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 35, "name": "站长-3区1站2", "orgUnitId": 25, "role": { "id": 5, "name": "站长" } },
+    { "id": 36, "name": "员工-3区1站2-1", "orgUnitId": 25, "role": { "id": 6, "name": "普通员工" } },
+    { "id": 37, "name": "员工-3区1站2-2", "orgUnitId": 25, "role": { "id": 6, "name": "普通员工" } }
+  ]
+} 
