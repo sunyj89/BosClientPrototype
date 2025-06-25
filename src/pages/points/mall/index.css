@@ -87,6 +87,75 @@
   margin-top: 8px;
 }
 
+/* 商品编号选择器样式 */
+.master-product-option {
+  padding: 8px 0;
+}
+
+.master-product-option strong {
+  color: #1890ff;
+  font-size: 14px;
+}
+
+.master-product-option span {
+  color: #666;
+  font-size: 12px;
+  margin-top: 2px;
+  display: block;
+}
+
+.master-product-select .ant-select-disabled .ant-select-selector {
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
+}
+
+/* 商品状态开关样式 */
+.product-status-switch {
+  margin-left: 8px;
+}
+
+.product-status-switch .ant-switch-small {
+  min-width: 44px;
+  height: 20px;
+}
+
+.product-status-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 状态标签颜色 */
+.status-tag-sold-out {
+  background-color: #ff7a45;
+  border-color: #ff7a45;
+  color: #fff;
+}
+
+.status-tag-pending {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: #fff;
+}
+
+/* 订单金额显示样式 */
+.order-amount-display {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.order-amount-mixed {
+  color: #52c41a;
+}
+
+.order-amount-points {
+  color: #1890ff;
+}
+
+.order-amount-cash {
+  color: #fa541c;
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
   .points-mall-container {

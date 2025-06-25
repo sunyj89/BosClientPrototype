@@ -147,16 +147,13 @@ export const addOrgUnit = async (orgData) => {
 // ========== 角色配置相关API ==========
 
 // 获取权限定义
-export const getPermissions = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = JSON.parse(localStorage.getItem('organizationData')) || organizationData;
-      resolve({
-        success: true,
-        data: data.permissions
-      });
-    }, 300);
-  });
+export const getPermissions = async () => {
+  await delay(100);
+  return {
+    success: true,
+    data: organizationData.permissions,
+    message: '获取权限定义成功'
+  };
 };
 
 // 获取角色配置列表

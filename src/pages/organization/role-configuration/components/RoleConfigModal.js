@@ -1,280 +1,411 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, Select, Collapse, Checkbox, Row, Col, Divider } from 'antd';
-import { getPermissions } from '../../services/api';
+import { 
+  Modal, 
+  Form, 
+  Input, 
+  Select, 
+  Checkbox, 
+  Card, 
+  Row, 
+  Col, 
+  Divider,
+  Typography,
+  Space,
+  Alert,
+  Collapse,
+  Tag,
+  Tree
+} from 'antd';
+import { 
+  UserOutlined, 
+  SafetyOutlined, 
+  DesktopOutlined, 
+  SettingOutlined,
+  DatabaseOutlined
+} from '@ant-design/icons';
 
-const { Panel } = Collapse;
 const { Option } = Select;
+const { TextArea } = Input;
+const { Title, Text } = Typography;
+const { Panel } = Collapse;
 
-const RoleConfigModal = ({ visible, onCancel, onOk, roleData, title }) => {
+const RoleConfigModal = ({ 
+  visible, 
+  loading, 
+  editingRole, 
+  permissions, 
+  onSave, 
+  onCancel 
+}) => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
-  const [permissions, setPermissions] = useState({});
-  const [checkedModulePermissions, setCheckedModulePermissions] = useState([]);
+  const [selectedPageOperations, setSelectedPageOperations] = useState([]);
+  const [selectedDataScope, setSelectedDataScope] = useState('self');
+  const [selectedPosDevices, setSelectedPosDevices] = useState([]);
+  const [selectedOrgTypes, setSelectedOrgTypes] = useState([]);
+  const [expandedKeys, setExpandedKeys] = useState([]);
+  const [checkedKeys, setCheckedKeys] = useState([]);
 
-  useEffect(() => {
-    const fetchPermissions = async () => {
-      try {
-        const result = await getPermissions();
-        if (result.success) {
-          setPermissions(result.data);
-        }
-      } catch (error) {
-        console.error('获取权限失败:', error);
+  // 组织类型选项
+  const orgTypeOptions = [
+    { value: 'HEADQUARTER', label: '总部' },
+    { value: 'DEPARTMENT', label: '部门' },
+    { value: 'CITY_BRANCH', label: '分公司' },
+    { value: 'SERVICE_AREA', label: '服务区' },
+    { value: 'GAS_STATION', label: '加油站' }
+  ];
+
+  // 将权限数据转换为树形结构
+  const convertToTreeData = (pageOperations) => {
+    if (!pageOperations) return [];
+    
+    return pageOperations.map(page => {
+      const pageNode = {
+        title: page.name,
+        key: page.id,
+        children: []
+      };
+
+      // 添加操作权限作为子节点
+      if (page.operations && page.operations.length > 0) {
+        pageNode.children = page.operations.map(operation => ({
+          title: operation.name,
+          key: operation.id,
+          isLeaf: true
+        }));
       }
-    };
-    fetchPermissions();
-  }, []);
 
+      // 处理子页面
+      if (page.children && page.children.length > 0) {
+        const childPages = page.children.map(childPage => ({
+          title: childPage.name,
+          key: childPage.id,
+          children: childPage.operations ? childPage.operations.map(operation => ({
+            title: operation.name,
+            key: operation.id,
+            isLeaf: true
+          })) : []
+        }));
+        pageNode.children = [...pageNode.children, ...childPages];
+      }
+
+      return pageNode;
+    });
+  };
+
+  // 初始化表单数据
   useEffect(() => {
-    if (roleData && visible) {
-      form.setFieldsValue({
-        roleName: roleData.roleName,
-        description: roleData.description,
-        orgTypes: roleData.orgTypes,
-        dataScope: roleData.permissions?.dataScope,
-        posDevices: roleData.permissions?.posDevices || []
-      });
-      setCheckedModulePermissions(roleData.permissions?.modulePermissions || []);
-    } else if (visible) {
-      form.resetFields();
-      setCheckedModulePermissions([]);
+    if (visible) {
+      if (editingRole) {
+        // 编辑模式
+        form.setFieldsValue({
+          roleName: editingRole.roleName,
+          description: editingRole.description,
+          orgTypes: editingRole.orgTypes
+        });
+        setSelectedPageOperations(editingRole.permissions.pageOperations || []);
+        setCheckedKeys(editingRole.permissions.pageOperations || []);
+        setSelectedDataScope(editingRole.permissions.dataScope || 'self');
+        setSelectedPosDevices(editingRole.permissions.posDevices || []);
+        setSelectedOrgTypes(editingRole.orgTypes || []);
+        // 设置展开的节点（展开所有页面节点）
+        if (permissions.pageOperations) {
+          const expandKeys = permissions.pageOperations.map(page => page.id);
+          setExpandedKeys(expandKeys);
+        }
+      } else {
+        // 新增模式
+        form.resetFields();
+        setSelectedPageOperations([]);
+        setCheckedKeys([]);
+        setSelectedDataScope('self');
+        setSelectedPosDevices([]);
+        setSelectedOrgTypes([]);
+        setExpandedKeys([]);
+      }
     }
-  }, [roleData, visible, form]);
+  }, [visible, editingRole, form, permissions]);
 
-  const handleOk = async () => {
+  // 处理表单提交
+  const handleSubmit = async () => {
     try {
-      setLoading(true);
       const values = await form.validateFields();
-      
       const formData = {
         ...values,
         permissions: {
-          modulePermissions: checkedModulePermissions,
-          dataScope: values.dataScope,
-          posDevices: values.posDevices || []
-        }
+          pageOperations: checkedKeys,
+          dataScope: selectedDataScope,
+          posDevices: selectedPosDevices
+        },
+        orgTypes: selectedOrgTypes
       };
-
-      await onOk(formData);
-      form.resetFields();
-      setCheckedModulePermissions([]);
+      onSave(formData);
     } catch (error) {
       console.error('表单验证失败:', error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  const handleCancel = () => {
-    form.resetFields();
-    setCheckedModulePermissions([]);
-    onCancel();
+  // 树形权限选择变化处理
+  const handleTreeCheck = (checkedKeys, info) => {
+    setCheckedKeys(checkedKeys);
+    setSelectedPageOperations(checkedKeys);
   };
 
-  // 处理模块权限选择
-  const handleModulePermissionChange = (moduleId, operationId, checked) => {
-    if (checked) {
-      setCheckedModulePermissions(prev => [...prev, operationId]);
-    } else {
-      setCheckedModulePermissions(prev => prev.filter(id => id !== operationId));
-    }
+  // POS设备权限变化处理
+  const handlePosDeviceChange = (checkedValues) => {
+    setSelectedPosDevices(checkedValues);
   };
 
-  // 处理模块全选
-  const handleModuleSelectAll = (moduleId, checked) => {
-    const module = permissions.modules?.find(m => m.id === moduleId);
-    if (!module) return;
-
-    const operationIds = module.operations.map(op => op.id);
-    
-    if (checked) {
-      setCheckedModulePermissions(prev => {
-        const filtered = prev.filter(id => !operationIds.includes(id));
-        return [...filtered, ...operationIds];
+  // 获取所有权限ID（用于全选）
+  const getAllPermissionIds = () => {
+    const allIds = [];
+    const traverse = (nodes) => {
+      nodes.forEach(node => {
+        allIds.push(node.key);
+        if (node.children && node.children.length > 0) {
+          traverse(node.children);
+        }
       });
+    };
+    
+    if (permissions.pageOperations) {
+      const treeData = convertToTreeData(permissions.pageOperations);
+      traverse(treeData);
+    }
+    return allIds;
+  };
+
+  // 全选/取消全选页面权限
+  const handleSelectAllPageOperations = (checked) => {
+    if (checked) {
+      const allIds = getAllPermissionIds();
+      setCheckedKeys(allIds);
+      setSelectedPageOperations(allIds);
     } else {
-      setCheckedModulePermissions(prev => 
-        prev.filter(id => !operationIds.includes(id))
-      );
+      setCheckedKeys([]);
+      setSelectedPageOperations([]);
     }
   };
 
-  // 检查模块是否全选
-  const isModuleAllSelected = (moduleId) => {
-    const module = permissions.modules?.find(m => m.id === moduleId);
-    if (!module) return false;
-    
-    const operationIds = module.operations.map(op => op.id);
-    return operationIds.every(id => checkedModulePermissions.includes(id));
-  };
-
-  // 检查模块是否部分选择
-  const isModuleIndeterminate = (moduleId) => {
-    const module = permissions.modules?.find(m => m.id === moduleId);
-    if (!module) return false;
-    
-    const operationIds = module.operations.map(op => op.id);
-    const selectedCount = operationIds.filter(id => checkedModulePermissions.includes(id)).length;
-    return selectedCount > 0 && selectedCount < operationIds.length;
-  };
-
-  // 权限类型颜色映射
-  const getOperationTypeColor = (type) => {
-    const colors = {
-      access: '#52c41a',
-      query: '#1890ff',
-      action: '#faad14',
-      export: '#722ed1',
-      import: '#f5222d'
-    };
-    return colors[type] || '#666';
+  // 全选/取消全选POS设备权限
+  const handleSelectAllPosDevices = (checked) => {
+    if (checked) {
+      setSelectedPosDevices(permissions.posDevices?.map(d => d.id) || []);
+    } else {
+      setSelectedPosDevices([]);
+    }
   };
 
   return (
     <Modal
-      title={title}
+      title={
+        <Space>
+          <UserOutlined />
+          {editingRole ? '编辑角色配置' : '新增角色配置'}
+        </Space>
+      }
       open={visible}
-      onOk={handleOk}
-      onCancel={handleCancel}
-      width={800}
+      onOk={handleSubmit}
+      onCancel={onCancel}
       confirmLoading={loading}
+      width={900}
       destroyOnClose
+      bodyStyle={{ maxHeight: '70vh', overflow: 'auto' }}
     >
       <Form
         form={form}
         layout="vertical"
-        initialValues={{
-          dataScope: 'self_org',
-          orgTypes: [],
-          posDevices: []
-        }}
+        requiredMark={false}
       >
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="roleName"
-              label="角色名称"
-              rules={[{ required: true, message: '请输入角色名称' }]}
-            >
-              <Input placeholder="请输入角色名称" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="dataScope"
-              label="数据权限范围"
-              rules={[{ required: true, message: '请选择数据权限范围' }]}
-            >
-              <Select placeholder="请选择数据权限范围">
+        {/* 基本信息 */}
+        <Card 
+          size="small" 
+          title={
+            <Space>
+              <UserOutlined style={{ color: '#1890ff' }} />
+              基本信息
+            </Space>
+          }
+          style={{ marginBottom: 16 }}
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="roleName"
+                label="角色名称"
+                rules={[{ required: true, message: '请输入角色名称' }]}
+              >
+                <Input placeholder="请输入角色名称" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="orgTypes"
+                label="适用组织类型"
+                rules={[{ required: true, message: '请选择适用的组织类型' }]}
+              >
+                <Select
+                  mode="multiple"
+                  placeholder="请选择适用的组织类型"
+                  onChange={setSelectedOrgTypes}
+                >
+                  {orgTypeOptions.map(option => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item
+            name="description"
+            label="角色描述"
+            rules={[{ required: true, message: '请输入角色描述' }]}
+          >
+            <TextArea 
+              placeholder="请输入角色描述" 
+              rows={3}
+            />
+          </Form.Item>
+        </Card>
+
+        {/* 权限配置 */}
+        <Collapse defaultActiveKey={['1', '2', '3']} ghost>
+          {/* 页面与操作权限 */}
+          <Panel 
+            header={
+              <Space>
+                <DesktopOutlined style={{ color: '#52c41a' }} />
+                <Text strong>页面与操作权限</Text>
+                <Tag color="green">{checkedKeys.length} 个已选择</Tag>
+              </Space>
+            } 
+            key="1"
+          >
+            <Card size="small">
+              <Alert
+                message="权限说明"
+                description="选择页面即可访问该功能模块，选择具体操作可控制在该模块中的操作权限。"
+                type="info"
+                showIcon
+                style={{ marginBottom: 16 }}
+              />
+              <div style={{ marginBottom: 16 }}>
+                <Checkbox
+                  indeterminate={
+                    checkedKeys.length > 0 && 
+                    checkedKeys.length < getAllPermissionIds().length
+                  }
+                  checked={checkedKeys.length === getAllPermissionIds().length}
+                  onChange={(e) => handleSelectAllPageOperations(e.target.checked)}
+                >
+                  全选所有权限
+                </Checkbox>
+              </div>
+              <Tree
+                checkable
+                checkedKeys={checkedKeys}
+                expandedKeys={expandedKeys}
+                onCheck={handleTreeCheck}
+                onExpand={setExpandedKeys}
+                treeData={convertToTreeData(permissions.pageOperations)}
+                style={{ 
+                  maxHeight: 400, 
+                  overflow: 'auto',
+                  border: '1px solid #f0f0f0',
+                  borderRadius: 6,
+                  padding: 16,
+                  background: '#fafafa'
+                }}
+              />
+            </Card>
+          </Panel>
+
+          {/* 数据权限 */}
+          <Panel 
+            header={
+              <Space>
+                <DatabaseOutlined style={{ color: '#fa8c16' }} />
+                <Text strong>数据权限</Text>
+                <Tag color="orange">
+                  {permissions.dataScopes?.find(ds => ds.id === selectedDataScope)?.name}
+                </Tag>
+              </Space>
+            } 
+            key="2"
+          >
+            <Card size="small">
+              <Alert
+                message="数据权限说明"
+                description="数据权限控制用户可以查看和操作的数据范围，请根据角色职责谨慎选择。"
+                type="info"
+                showIcon
+                style={{ marginBottom: 16 }}
+              />
+              <Select
+                value={selectedDataScope}
+                onChange={setSelectedDataScope}
+                style={{ width: '100%' }}
+                placeholder="请选择数据权限范围"
+              >
                 {permissions.dataScopes?.map(scope => (
                   <Option key={scope.id} value={scope.id}>
                     {scope.name}
                   </Option>
                 ))}
               </Select>
-            </Form.Item>
-          </Col>
-        </Row>
+            </Card>
+          </Panel>
 
-        <Form.Item
-          name="description"
-          label="角色描述"
-        >
-          <Input.TextArea 
-            placeholder="请输入角色描述" 
-            rows={3}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="orgTypes"
-          label="适用组织类型"
-        >
-          <Select
-            mode="multiple"
-            placeholder="请选择适用的组织类型"
-            allowClear
+          {/* POS设备权限 */}
+          <Panel 
+            header={
+              <Space>
+                <SettingOutlined style={{ color: '#722ed1' }} />
+                <Text strong>POS设备权限</Text>
+                <Tag color="purple">{selectedPosDevices.length} 个已选择</Tag>
+              </Space>
+            } 
+            key="3"
           >
-            <Option value="HEADQUARTER">集团总部</Option>
-            <Option value="DEPARTMENT">部门</Option>
-            <Option value="CITY_BRANCH">分公司</Option>
-            <Option value="SERVICE_AREA">服务区</Option>
-            <Option value="GAS_STATION">加油站</Option>
-          </Select>
-        </Form.Item>
-
-        <Divider>功能权限配置</Divider>
-
-        <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-          <Collapse ghost>
-            {permissions.modules?.map(module => (
-              <Panel
-                key={module.id}
-                header={
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Checkbox
-                      checked={isModuleAllSelected(module.id)}
-                      indeterminate={isModuleIndeterminate(module.id)}
-                      onChange={(e) => handleModuleSelectAll(module.id, e.target.checked)}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <strong>{module.name}</strong>
-                    </Checkbox>
-                    <span style={{ marginLeft: '8px', color: '#999', fontSize: '12px' }}>
-                      ({module.operations.length}个权限)
-                    </span>
-                  </div>
-                }
+            <Card size="small">
+              <Alert
+                message="POS设备权限说明"
+                description="POS设备权限控制用户对加油站设备的配置和操作权限，请根据实际需要选择。"
+                type="warning"
+                showIcon
+                style={{ marginBottom: 16 }}
+              />
+              <div style={{ marginBottom: 16 }}>
+                <Checkbox
+                  indeterminate={
+                    selectedPosDevices.length > 0 && 
+                    selectedPosDevices.length < (permissions.posDevices?.length || 0)
+                  }
+                  checked={selectedPosDevices.length === (permissions.posDevices?.length || 0)}
+                  onChange={(e) => handleSelectAllPosDevices(e.target.checked)}
+                >
+                  全选POS设备权限
+                </Checkbox>
+              </div>
+              <Checkbox.Group
+                value={selectedPosDevices}
+                onChange={handlePosDeviceChange}
+                style={{ width: '100%' }}
               >
-                <div style={{ paddingLeft: '24px' }}>
-                  <Row gutter={[8, 8]}>
-                    {module.operations.map(operation => (
-                      <Col span={8} key={operation.id}>
-                        <Checkbox
-                          checked={checkedModulePermissions.includes(operation.id)}
-                          onChange={(e) => handleModulePermissionChange(module.id, operation.id, e.target.checked)}
-                        >
-                          <span 
-                            style={{ 
-                              color: getOperationTypeColor(operation.type),
-                              fontSize: '12px'
-                            }}
-                          >
-                            {operation.name}
-                          </span>
-                        </Checkbox>
-                      </Col>
-                    ))}
-                  </Row>
-                </div>
-              </Panel>
-            ))}
-          </Collapse>
-        </div>
-
-        <Divider>POS设备权限</Divider>
-
-        <Form.Item
-          name="posDevices"
-          label="POS设备权限"
-        >
-          <Checkbox.Group>
-            <Row gutter={[16, 8]}>
-              {permissions.posDevices?.map(device => (
-                <Col span={12} key={device.id}>
-                  <Checkbox value={device.id}>
-                    {device.name}
-                    {device.description && (
-                      <span style={{ color: '#999', fontSize: '12px', marginLeft: '4px' }}>
-                        ({device.description})
-                      </span>
-                    )}
-                  </Checkbox>
-                </Col>
-              ))}
-            </Row>
-          </Checkbox.Group>
-        </Form.Item>
+                <Row gutter={[8, 8]}>
+                  {permissions.posDevices?.map(device => (
+                    <Col span={8} key={device.id}>
+                      <Checkbox value={device.id}>
+                        {device.name}
+                      </Checkbox>
+                    </Col>
+                  ))}
+                </Row>
+              </Checkbox.Group>
+            </Card>
+          </Panel>
+        </Collapse>
       </Form>
     </Modal>
   );

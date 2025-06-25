@@ -189,16 +189,6 @@ const RoleConfiguration = () => {
     }
   };
 
-  // 计算权限统计
-  const getPermissionStats = (permissions) => {
-    if (!permissions) return '无权限';
-    
-    const moduleCount = permissions.modulePermissions?.length || 0;
-    const posDeviceCount = permissions.posDevices?.length || 0;
-    
-    return `模块权限: ${moduleCount}个, POS设备: ${posDeviceCount}个`;
-  };
-
   // 表格列定义
   const columns = [
     {
@@ -228,7 +218,7 @@ const RoleConfiguration = () => {
       width: 200,
       render: (orgTypes) => (
         <Space wrap>
-          {orgTypes.map(type => {
+          {(orgTypes || []).map(type => {
             const typeMap = {
               'HEADQUARTER': '总部',
               'DEPARTMENT': '部门',
@@ -246,6 +236,15 @@ const RoleConfiguration = () => {
       )
     },
     {
+      title: '页面权限',
+      dataIndex: 'permissions',
+      key: 'pagePermissions',
+      width: 120,
+      render: (permissions) => (
+        <Tag color="green">{permissions.pageOperations?.length || 0} 个</Tag>
+      )
+    },
+    {
       title: '数据权限',
       dataIndex: 'permissions',
       key: 'dataScope',
@@ -257,15 +256,8 @@ const RoleConfiguration = () => {
           'self_org_only': '仅本组织',
           'self': '仅本人'
         };
-        return <Tag color="orange">{scopeMap[permissions.dataScope]}</Tag>;
+        return <Tag color="orange">{scopeMap[permissions?.dataScope] || '未设置'}</Tag>;
       }
-    },
-    {
-      title: '权限统计',
-      dataIndex: 'permissions',
-      key: 'permissions',
-      render: (permissions) => getPermissionStats(permissions),
-      width: 200,
     },
     {
       title: '创建时间',
@@ -371,9 +363,10 @@ const RoleConfiguration = () => {
       {/* 角色配置弹窗 */}
       <RoleConfigModal
         visible={modalVisible}
-        title={editingRole ? '编辑角色' : '新增角色'}
-        roleData={editingRole}
-        onOk={handleSave}
+        loading={modalLoading}
+        editingRole={editingRole}
+        permissions={permissions}
+        onSave={handleSave}
         onCancel={() => setModalVisible(false)}
       />
 

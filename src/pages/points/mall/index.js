@@ -47,6 +47,10 @@ import masterCategoryData from '../../../mock/points/masterCategoryData.json';
 import productsData from '../../../mock/points/productsData.json';
 // 引入订单数据
 import orderData from '../../../mock/points/orderData.json';
+// 引入商品主数据
+import masterProductData from '../../../mock/points/masterProductData.json';
+// 引入分类数据
+import categoryData from '../../../mock/points/categoryData.json';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -119,6 +123,10 @@ const PointsMall = () => {
     level2: null,
     level3: null
   });
+
+  // 商品主数据相关状态
+  const [masterProductOptions, setMasterProductOptions] = useState([]);
+  const [selectedMasterProduct, setSelectedMasterProduct] = useState(null);
 
   // 积分商城规则相关状态
   const [rulesForm] = Form.useForm();
@@ -787,16 +795,177 @@ const PointsMall = () => {
     loadData();
   };
 
+  // 加载商品主数据
+  const loadMasterProductOptions = () => {
+    // 模拟加载商品主数据，只显示启用状态的商品
+    const options = masterProductData
+      .filter(item => item.status === 'active')
+      .map(item => ({
+        value: item.productCode,
+        label: `${item.productCode} - ${item.productName}`,
+        productName: item.productName,
+        categoryName: item.categoryName
+      }));
+    setMasterProductOptions(options);
+  };
+
+  // 商品编号选择处理
+  const handleMasterProductSelect = (value, option) => {
+    setSelectedMasterProduct(option);
+    // 自动填充商品名称
+    modalForm.setFieldsValue({ 
+      name: option.productName
+    });
+  };
+
+  // 商品编号搜索过滤
+  const filterMasterProduct = (input, option) => {
+    return (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  };
+
+  // 商品状态处理函数
+  const getProductStatus = (record) => {
+    const now = new Date();
+    const autoOnlineTime = record.autoOnlineTime ? new Date(record.autoOnlineTime) : null;
+    const autoOfflineTime = record.autoOfflineTime ? new Date(record.autoOfflineTime) : null;
+    
+    // 计算可销售库存
+    const availableStock = record.totalStock - (record.safetyStock || 0);
+    
+    // 如果可销售库存为0，则显示售罄
+    if (availableStock <= 0) {
+      return { status: 'sold_out', text: '售罄', color: 'orange' };
+    }
+    
+    // 如果商品状态为下架，则显示已下架
+    if (record.status === 'inactive') {
+      return { status: 'inactive', text: '已下架', color: 'red' };
+    }
+    
+    // 如果商品状态为上架
+    if (record.status === 'active') {
+      // 检查是否有自动下架时间且已到期
+      if (autoOfflineTime && now > autoOfflineTime) {
+        return { status: 'inactive', text: '已下架', color: 'red' };
+      }
+      return { status: 'active', text: '已上架', color: 'green' };
+    }
+    
+    // 如果有自动上架时间且尚未到期，则显示待上架
+    if (autoOnlineTime && now < autoOnlineTime) {
+      return { status: 'pending', text: '待上架', color: 'blue' };
+    }
+    
+    // 默认状态
+    return { status: record.status, text: '未知状态', color: 'default' };
+  };
+
+  // 商品状态快速切换处理
+  const handleStatusToggle = async (record, checked) => {
+    try {
+      const newStatus = checked ? 'active' : 'inactive';
+      console.log(`切换商品 ${record.name} 状态为: ${newStatus}`);
+      
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      message.success(`商品${checked ? '上架' : '下架'}成功`);
+      loadData();
+    } catch (error) {
+      message.error(`商品状态切换失败`);
+    }
+  };
+
+  // 格式化订单金额显示（根据支付方式显示不同格式）
+  const formatOrderAmount = (record) => {
+    const { totalAmount, pointsUsed, wechatAmount, cashAmount } = record;
+    const actualCashAmount = (wechatAmount || 0) + (cashAmount || 0);
+    
+    if (pointsUsed > 0 && actualCashAmount > 0) {
+      // 混合支付：显示现金金额+积分
+      return (
+        <span className="order-amount-display order-amount-mixed">
+          ￥{actualCashAmount.toFixed(2)}+{pointsUsed}积分
+        </span>
+      );
+    } else if (pointsUsed > 0) {
+      // 纯积分支付：只显示积分
+      return (
+        <span className="order-amount-display order-amount-points">
+          {pointsUsed}积分
+        </span>
+      );
+    } else {
+      // 纯现金支付：只显示金额
+      return (
+        <span className="order-amount-display order-amount-cash">
+          ￥{actualCashAmount.toFixed(2)}
+        </span>
+      );
+    }
+  };
+
+  // 格式化商品明细中的支付信息
+  const formatProductPayment = (product, record) => {
+    const { pointsUsed, wechatAmount, cashAmount } = record;
+    const actualCashAmount = (wechatAmount || 0) + (cashAmount || 0);
+    
+    if (pointsUsed > 0 && actualCashAmount > 0) {
+      // 混合支付
+      return `${product.points}积分+￥${product.actualPrice.toFixed(2)}`;
+    } else if (pointsUsed > 0) {
+      // 纯积分支付
+      return `${product.points}积分`;
+    } else {
+      // 纯现金支付
+      return `￥${product.actualPrice.toFixed(2)}`;
+    }
+  };
+
+  // 判断订单是否需要现金支付（用于显示开票状态）
+  const needsCashPayment = (record) => {
+    const actualCashAmount = (record.wechatAmount || 0) + (record.cashAmount || 0);
+    return actualCashAmount > 0;
+  };
+
+  // 格式化开票状态
+  const formatInvoiceStatus = (record) => {
+    if (!needsCashPayment(record)) {
+      return null; // 纯积分支付不需要开票
+    }
+    
+    const statusConfig = {
+      'not_invoiced': { text: '未开票', color: 'default' },
+      'invoicing': { text: '开票中', color: 'processing' },
+      'invoiced': { text: '已开票', color: 'success' },
+      'invoice_failed': { text: '开票失败', color: 'error' }
+    };
+    
+    const status = record.invoiceStatus || 'not_invoiced';
+    const config = statusConfig[status] || statusConfig['not_invoiced'];
+    
+    return <Tag color={config.color}>{config.text}</Tag>;
+  };
+
+  // 处理重试开票
+  const handleRetryInvoice = async (record) => {
+    try {
+      console.log('重试开票:', record.orderNo);
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      message.success('开票申请已提交，请稍后查看结果');
+      loadOrderData();
+    } catch (error) {
+      message.error('重试开票失败');
+    }
+  };
+
   // 新增商品
   const handleAdd = () => {
     setEditingRecord(null);
     modalForm.resetFields();
-    
-    // 自动生成商品编号
-    const timestamp = Date.now();
-    const productCode = `PSG${String(timestamp).slice(-6)}`;
-    modalForm.setFieldsValue({ productCode });
-    
+    setSelectedMasterProduct(null);
+    loadMasterProductOptions();
     setModalVisible(true);
   };
 
@@ -822,6 +991,20 @@ const PointsMall = () => {
         status: 'done',
         url: record.image
       }];
+    }
+    
+    // 加载商品主数据选项
+    loadMasterProductOptions();
+    
+    // 设置选中的商品主数据
+    const masterProduct = masterProductData.find(item => item.productCode === record.productCode);
+    if (masterProduct) {
+      setSelectedMasterProduct({
+        value: masterProduct.productCode,
+        label: `${masterProduct.productCode} - ${masterProduct.productName}`,
+        productName: masterProduct.productName,
+        categoryName: masterProduct.categoryName
+      });
     }
     
     // 处理时间格式和商品编号
@@ -948,6 +1131,7 @@ const PointsMall = () => {
       setModalVisible(false);
       modalForm.resetFields();
       setEditingRecord(null);
+      setSelectedMasterProduct(null);
       loadData();
     } catch (error) {
       console.error('Validation failed:', error);
@@ -1202,27 +1386,42 @@ const PointsMall = () => {
       render: (value) => `￥${value.toFixed(2)}`,
     },
     {
-      title: '总库存',
-      dataIndex: 'totalStock',
-      width: 80,
-      render: (value) => (
-        <span style={{ color: value > 50 ? '#52c41a' : value > 10 ? '#faad14' : '#ff4d4f' }}>
-          {value}
-        </span>
-      ),
+      title: '可销售库存',
+      dataIndex: 'availableStock',
+      width: 100,
+      render: (value, record) => {
+        // 计算可销售库存：总库存 - 安全库存
+        const availableStock = record.totalStock - (record.safetyStock || 0);
+        return (
+          <span style={{ color: availableStock > 50 ? '#52c41a' : availableStock > 10 ? '#faad14' : '#ff4d4f' }}>
+            {availableStock}
+          </span>
+        );
+      },
     },
     {
       title: '状态',
       dataIndex: 'status',
-      width: 100,
-      render: (value) => {
-        const statusConfig = {
-          active: { text: '已上架', color: 'green' },
-          scheduled: { text: '定时上架', color: 'blue' },
-          inactive: { text: '已下架', color: 'red' }
-        };
-        const config = statusConfig[value] || { text: value, color: 'default' };
-        return <Tag color={config.color}>{config.text}</Tag>;
+      width: 140,
+      render: (value, record) => {
+        const statusInfo = getProductStatus(record);
+        const isControllable = statusInfo.status === 'active' || statusInfo.status === 'inactive';
+        
+        return (
+          <div className="product-status-container">
+            <Tag color={statusInfo.color}>{statusInfo.text}</Tag>
+            {isControllable && (
+              <Switch
+                size="small"
+                checked={statusInfo.status === 'active'}
+                onChange={(checked) => handleStatusToggle(record, checked)}
+                checkedChildren="上架"
+                unCheckedChildren="下架"
+                className="product-status-switch"
+              />
+            )}
+          </div>
+        );
       },
     },
     {
@@ -1393,8 +1592,10 @@ const PointsMall = () => {
           
           <Form.Item name="status" label="状态">
             <Select placeholder="请选择" style={{ width: 100 }} allowClear>
-              <Option value="active">上架</Option>
-              <Option value="inactive">下架</Option>
+              <Option value="active">已上架</Option>
+              <Option value="inactive">已下架</Option>
+              <Option value="pending">待上架</Option>
+              <Option value="sold_out">售罄</Option>
             </Select>
           </Form.Item>
         </Form>
@@ -1530,7 +1731,42 @@ const PointsMall = () => {
     setOrderDetailVisible(true);
   };
 
+  // 检查订单是否可以退款
+  const canRefund = (record) => {
+    // 已开票、开票中、开票失败的订单不能退款
+    if (needsCashPayment(record)) {
+      const blockingStatuses = ['invoiced', 'invoicing', 'invoice_failed'];
+      if (blockingStatuses.includes(record.invoiceStatus)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // 处理申请退款
+  const handleRefundApply = async (record) => {
+    if (!canRefund(record)) {
+      message.warning('该订单已开票或正在开票过程中，无法退款');
+      return;
+    }
+    
+    try {
+      console.log('申请退款:', record.orderNo);
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      message.success('退款申请已提交，请等待审核');
+      // 刷新订单列表
+      loadOrderData();
+    } catch (error) {
+      message.error('退款申请提交失败');
+    }
+  };
+
   const handleRefundApproval = (record) => {
+    if (!canRefund(record)) {
+      message.warning('该订单已开票或正在开票过程中，无法退款');
+      return;
+    }
     setSelectedOrder(record);
     setRefundModalVisible(true);
   };
@@ -1892,16 +2128,7 @@ const PointsMall = () => {
       dataIndex: 'displayOrder',
       width: 100,
     },
-    {
-      title: '商品数量',
-      dataIndex: 'productCount',
-      width: 100,
-      render: (value) => (
-        <span style={{ color: value > 0 ? '#52c41a' : '#999' }}>
-          {value}
-        </span>
-      ),
-    },
+
     {
       title: '状态',
       dataIndex: 'status',
@@ -2010,13 +2237,8 @@ const PointsMall = () => {
     },
     {
       title: '订单金额',
-      width: 120,
-      render: (_, record) => (
-        <div>
-          <div>￥{record.totalAmount.toFixed(2)}</div>
-          <div style={{ fontSize: '12px', color: '#f50' }}>{record.pointsUsed}积分</div>
-        </div>
-      ),
+      width: 140,
+      render: (_, record) => formatOrderAmount(record),
     },
     {
       title: '配送方式',
@@ -2043,7 +2265,6 @@ const PointsMall = () => {
           cancelled: { color: 'red', text: '取消支付' },
           pending_refund: { color: 'orange', text: '待退款' },
           refunded: { color: 'purple', text: '退款完成' },
-          exception: { color: 'red', text: '异常订单' },
         };
         const config = statusConfig[value] || { color: 'default', text: record.statusText };
         return <Tag color={config.color}>{config.text}</Tag>;
@@ -2051,23 +2272,14 @@ const PointsMall = () => {
     },
     {
       title: '配送信息',
-      width: 180,
+      width: 150,
       render: (_, record) => {
         if (record.deliveryMethod === 'jd_express') {
           return (
             <div>
-              <div style={{ fontSize: '12px', fontWeight: 'bold', color: '#fa8c16' }}>
+              <Tag color="orange" style={{ fontSize: '12px' }}>
                 京东配送
-              </div>
-              {/* 移除京东发货信息显示，因为系统无法获取京东物流状态 */}
-              {record.deliveryAddress && (
-                <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
-                  {record.deliveryAddress.length > 20 
-                    ? record.deliveryAddress.substring(0, 20) + '...'
-                    : record.deliveryAddress
-                  }
-                </div>
-              )}
+              </Tag>
             </div>
           );
         } else {
@@ -2090,9 +2302,14 @@ const PointsMall = () => {
       },
     },
     {
+      title: '开票状态',
+      width: 100,
+      render: (_, record) => formatInvoiceStatus(record),
+    },
+    {
       title: '操作',
       key: 'action',
-      width: 180,
+      width: 240,
       fixed: 'right',
       render: (_, record) => (
         <Space>
@@ -2105,13 +2322,28 @@ const PointsMall = () => {
           >
             详情
           </Button>
+          {record.status === 'paid' && (
+            <Button
+              type="primary"
+              size="small"
+              danger
+              onClick={() => handleRefundApply(record)}
+              disabled={!canRefund(record)}
+              style={{ borderRadius: '2px' }}
+              title={!canRefund(record) ? '该订单已开票或正在开票过程中，无法退款' : ''}
+            >
+              退款
+            </Button>
+          )}
           {record.status === 'pending_refund' && (
             <Button
               type="primary"
               size="small"
               icon={<CheckOutlined />}
               onClick={() => handleRefundApproval(record)}
+              disabled={!canRefund(record)}
               style={{ borderRadius: '2px' }}
+              title={!canRefund(record) ? '该订单已开票或正在开票过程中，无法退款' : ''}
             >
               退款审批
             </Button>
@@ -2218,7 +2450,6 @@ const PointsMall = () => {
             <Option value="cancelled">取消支付</Option>
             <Option value="pending_refund">待退款</Option>
             <Option value="refunded">退款完成</Option>
-            <Option value="exception">异常订单</Option>
           </Select>
         </Form.Item>
         
@@ -2934,7 +3165,10 @@ const PointsMall = () => {
         title={editingRecord ? '编辑商品' : '新增商品'}
         open={modalVisible}
         onOk={handleModalOk}
-        onCancel={() => setModalVisible(false)}
+        onCancel={() => {
+          setModalVisible(false);
+          setSelectedMasterProduct(null);
+        }}
         width={1000}
         destroyOnClose
       >
@@ -2958,18 +3192,28 @@ const PointsMall = () => {
               <Form.Item
                 name="productCode"
                 label="商品编号"
-                rules={[{ required: true, message: '请输入商品编号' }]}
+                rules={[{ required: true, message: '请选择商品编号' }]}
               >
-                <Input 
-                  placeholder="PSG开头的商品编号" 
-                  maxLength={10}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    if (value && !value.startsWith('PSG')) {
-                      modalForm.setFieldsValue({ productCode: 'PSG' + value.replace(/^PSG/, '') });
-                    }
-                  }}
-                />
+                <Select
+                  showSearch
+                  placeholder="搜索并选择商品编号"
+                  optionFilterProp="children"
+                  filterOption={filterMasterProduct}
+                  onSelect={handleMasterProductSelect}
+                  disabled={!!editingRecord} // 编辑时禁用商品编号修改
+                  notFoundContent="暂无可用商品"
+                  className="master-product-select"
+                  style={{ width: '100%' }}
+                >
+                  {masterProductOptions.map(option => (
+                    <Option key={option.value} value={option.value} label={option.label}>
+                      <div className="master-product-option">
+                        <strong>{option.value}</strong>
+                        <span>{option.productName}</span>
+                      </div>
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
             </Col>
             <Col span={16}>
@@ -2978,7 +3222,10 @@ const PointsMall = () => {
                 label="商品名称"
                 rules={[{ required: true, message: '请输入商品名称' }]}
               >
-                <Input placeholder="请输入商品名称" />
+                <Input 
+                  placeholder="请输入商品名称" 
+                  disabled={!editingRecord && selectedMasterProduct} // 新建时选择商品编号后自动填充，不可编辑
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -3265,12 +3512,18 @@ const PointsMall = () => {
 
        
           {/* 商品状态 - 单独一行 */}
-          <Form.Item name="status" label="商品状态" style={{ width: '100%' }}>
-            <Select placeholder="请选择商品状态" style={{ width: '20%' }}>
-              <Option value="active">已上架</Option>
-              <Option value="scheduled">定时上架</Option>
-              <Option value="inactive">已下架</Option>
-            </Select>
+          <Form.Item 
+            name="status" 
+            label="商品状态" 
+            valuePropName="checked"
+            getValueFromEvent={(checked) => checked ? 'active' : 'inactive'}
+            getValueProps={(value) => ({ checked: value === 'active' })}
+          >
+            <Switch
+              checkedChildren="上架"
+              unCheckedChildren="下架"
+              style={{ marginRight: '8px' }}
+            />
           </Form.Item>
           <Row gutter={16}>
             <Col span={12}>
@@ -3283,6 +3536,7 @@ const PointsMall = () => {
                   showTime
                   format="YYYY-MM-DD HH:mm:ss"
                   placeholder="请选择自动上架时间"
+                  disabled={!!editingRecord} // 编辑时禁用修改自动上架时间
                 />
               </Form.Item>
             </Col>
@@ -3290,12 +3544,42 @@ const PointsMall = () => {
               <Form.Item
                 name="autoOfflineTime"
                 label="自动下架时间"
+                rules={[
+                  {
+                    validator: (_, value) => {
+                      if (value && value.isBefore(dayjs())) {
+                        return Promise.reject(new Error('自动下架时间不能早于当前时间'));
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
               >
                 <DatePicker 
                   style={{ width: '100%' }}
                   showTime
                   format="YYYY-MM-DD HH:mm:ss"
                   placeholder="请选择自动下架时间"
+                  disabledDate={(current) => {
+                    // 禁用早于今天的日期
+                    return current && current < dayjs().startOf('day');
+                  }}
+                  disabledTime={(current) => {
+                    // 如果选择的是今天，禁用早于当前时间的时间
+                    if (current && current.isSame(dayjs(), 'day')) {
+                      const now = dayjs();
+                      return {
+                        disabledHours: () => Array.from({ length: now.hour() }, (_, i) => i),
+                        disabledMinutes: (selectedHour) => {
+                          if (selectedHour === now.hour()) {
+                            return Array.from({ length: now.minute() }, (_, i) => i);
+                          }
+                          return [];
+                        },
+                      };
+                    }
+                    return {};
+                  }}
                 />
               </Form.Item>
             </Col>
@@ -3675,9 +3959,12 @@ const PointsMall = () => {
               </Descriptions.Item>
               {selectedOrder.deliveryMethod === 'jd_express' ? (
                 <>
-                  <Descriptions.Item label="配送地址">{selectedOrder.deliveryAddress}</Descriptions.Item>
-                  <Descriptions.Item label="配送时间">{selectedOrder.deliveryTime || '未配送'}</Descriptions.Item>
-                  {/* 移除京东物流相关信息显示，因为系统无法获取京东物流状态 */}
+                  <Descriptions.Item label="配送信息">
+                    <Tag color="orange">京东配送</Tag>
+                    <div style={{ marginTop: '4px', fontSize: '12px', color: '#666' }}>
+                      京东负责配送，详细配送信息请在京东平台查看
+                    </div>
+                  </Descriptions.Item>
                 </>
               ) : (
                 <>
@@ -3699,18 +3986,45 @@ const PointsMall = () => {
                 />
               </Descriptions.Item>
               <Descriptions.Item label="支付方式">{selectedOrder.paymentMethodText}</Descriptions.Item>
-              {selectedOrder.exceptionReason && (
-                <Descriptions.Item label="异常原因">{selectedOrder.exceptionReason}</Descriptions.Item>
+              {needsCashPayment(selectedOrder) && (
+                <>
+                  <Descriptions.Item label="开票状态">
+                    {formatInvoiceStatus(selectedOrder)}
+                    {selectedOrder.invoiceStatus === 'invoice_failed' && (
+                      <Button 
+                        size="small" 
+                        type="link" 
+                        onClick={() => handleRetryInvoice(selectedOrder)}
+                        style={{ padding: '0 4px', marginLeft: '8px' }}
+                      >
+                        重试开票
+                      </Button>
+                    )}
+                  </Descriptions.Item>
+                  {selectedOrder.invoiceStatus === 'invoiced' && selectedOrder.invoiceNumber && (
+                    <Descriptions.Item label="发票号">{selectedOrder.invoiceNumber}</Descriptions.Item>
+                  )}
+                  {selectedOrder.invoiceStatus === 'invoiced' && selectedOrder.invoiceTime && (
+                    <Descriptions.Item label="开票时间">{selectedOrder.invoiceTime}</Descriptions.Item>
+                  )}
+                </>
               )}
             </Descriptions>
 
             <Divider />
 
             <Descriptions title="费用明细" column={2} bordered>
-              <Descriptions.Item label="订单总金额">￥{selectedOrder.totalAmount.toFixed(2)}</Descriptions.Item>
-              <Descriptions.Item label="使用积分">{selectedOrder.pointsUsed}积分</Descriptions.Item>
+              <Descriptions.Item label="订单金额" span={2}>
+                <div style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                  {formatOrderAmount(selectedOrder)}
+                </div>
+              </Descriptions.Item>
               <Descriptions.Item label="现金支付">￥{selectedOrder.cashAmount.toFixed(2)}</Descriptions.Item>
               <Descriptions.Item label="微信支付">￥{selectedOrder.wechatAmount.toFixed(2)}</Descriptions.Item>
+              <Descriptions.Item label="使用积分">{selectedOrder.pointsUsed}积分</Descriptions.Item>
+              <Descriptions.Item label="订单商品总原价">
+                ￥{selectedOrder.products?.reduce((sum, product) => sum + product.originalPrice * product.quantity, 0).toFixed(2) || selectedOrder.totalAmount.toFixed(2)}
+              </Descriptions.Item>
             </Descriptions>
 
             <Divider />
@@ -3728,7 +4042,10 @@ const PointsMall = () => {
                         )}
                       </div>
                       <div style={{ fontSize: '12px', color: '#999' }}>
-                        数量：{product.quantity} | 积分：{product.points} | 原价：￥{product.originalPrice.toFixed(2)}
+                        数量：{product.quantity} | 原价：￥{product.originalPrice.toFixed(2)}
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#1890ff', marginTop: '2px' }}>
+                        实付：{formatProductPayment(product, selectedOrder)}
                       </div>
                       {product.categoryId === 4 && (
                         <div style={{ fontSize: '11px', color: '#666', marginTop: '4px' }}>
@@ -3749,21 +4066,36 @@ const PointsMall = () => {
                         </div>
                       )}
                     </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div>实付：￥{product.actualPrice.toFixed(2)}</div>
-                    </div>
                   </div>
                 </Card>
               ))}
             </div>
+
+            {selectedOrder.invoiceFailureInfo && selectedOrder.invoiceStatus === 'invoice_failed' && (
+              <>
+                <Divider />
+                <Descriptions title="开票失败信息" column={1} bordered>
+                  <Descriptions.Item label="失败原因">{selectedOrder.invoiceFailureInfo.reason}</Descriptions.Item>
+                  <Descriptions.Item label="错误码">{selectedOrder.invoiceFailureInfo.errorCode}</Descriptions.Item>
+                  <Descriptions.Item label="失败时间">{selectedOrder.invoiceFailureInfo.failureTime}</Descriptions.Item>
+                  <Descriptions.Item label="重试次数">{selectedOrder.invoiceFailureInfo.retryCount || 0}</Descriptions.Item>
+                </Descriptions>
+              </>
+            )}
 
             {selectedOrder.refundInfo && (
               <>
                 <Divider />
                 <Descriptions title="退款信息" column={1} bordered>
                   <Descriptions.Item label="退款原因">{selectedOrder.refundInfo.refundReason}</Descriptions.Item>
-                  <Descriptions.Item label="退款金额">￥{selectedOrder.refundInfo.refundAmount.toFixed(2)}</Descriptions.Item>
-                  <Descriptions.Item label="退款积分">{selectedOrder.refundInfo.refundPoints}积分</Descriptions.Item>
+                                                    <Descriptions.Item label="退款金额">
+                    {formatOrderAmount({
+                      totalAmount: selectedOrder.refundInfo.refundAmount || 0,
+                      pointsUsed: selectedOrder.refundInfo.refundPoints || 0,
+                      wechatAmount: selectedOrder.refundInfo.refundAmount || 0,
+                      cashAmount: 0
+                    })}
+                  </Descriptions.Item>
                   <Descriptions.Item label="申请时间">{selectedOrder.refundInfo.applyTime}</Descriptions.Item>
                   <Descriptions.Item label="审批状态">
                     <Badge 
@@ -3815,16 +4147,23 @@ const PointsMall = () => {
               <Descriptions.Item label="用户信息">
                 {selectedOrder.userName} / {selectedOrder.userPhone}
               </Descriptions.Item>
-              <Descriptions.Item label="订单金额">￥{selectedOrder.totalAmount.toFixed(2)}</Descriptions.Item>
-              <Descriptions.Item label="使用积分">{selectedOrder.pointsUsed}积分</Descriptions.Item>
+              <Descriptions.Item label="订单金额">
+                {formatOrderAmount(selectedOrder)}
+              </Descriptions.Item>
             </Descriptions>
 
             <Divider />
 
             <Descriptions title="退款申请" column={1} bordered>
               <Descriptions.Item label="退款原因">{selectedOrder.refundInfo.refundReason}</Descriptions.Item>
-              <Descriptions.Item label="申请退款金额">￥{selectedOrder.refundInfo.refundAmount.toFixed(2)}</Descriptions.Item>
-              <Descriptions.Item label="申请退款积分">{selectedOrder.refundInfo.refundPoints}积分</Descriptions.Item>
+              <Descriptions.Item label="申请退款金额">
+                {formatOrderAmount({
+                  totalAmount: selectedOrder.refundInfo.refundAmount || 0,
+                  pointsUsed: selectedOrder.refundInfo.refundPoints || 0,
+                  wechatAmount: selectedOrder.refundInfo.refundAmount || 0,
+                  cashAmount: 0
+                })}
+              </Descriptions.Item>
               <Descriptions.Item label="申请时间">{selectedOrder.refundInfo.applyTime}</Descriptions.Item>
             </Descriptions>
 

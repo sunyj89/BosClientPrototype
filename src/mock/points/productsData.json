@@ -161,14 +161,16 @@
     "supportPaymentMethod": "wechat",
     "promotionTags": [],
     "displayOrder": 6,
-    "safetyStock": 5,
-    "autoOnlineTime": "2024-03-01 00:00:00",
+    "safetyStock": 8,
+    "autoOnlineTime": "2024-01-01 00:00:00",
     "autoOfflineTime": "2024-12-31 23:59:59",
-    "status": "inactive",
-    "totalStock": 0,
+    "status": "active",
+    "totalStock": 8,
     "purchaseLimit": 4,
-    "availableStations": [],
-    "stationStocks": [],
+    "availableStations": ["ST001"],
+    "stationStocks": [
+      { "stationCode": "ST001", "stationName": "江西交投加油站001", "realTimeStock": 8, "safetyStock": 8, "availableStock": 0 }
+    ],
     "createTime": "2024-01-20 12:15:00",
     "updateTime": "2024-01-20 12:15:00"
   },

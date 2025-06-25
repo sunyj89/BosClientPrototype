@@ -12,15 +12,13 @@
     { "id": 6, "name": "普通员工" }
   ],
   "permissions": {
-    "modules": [
+    "pageOperations": [
       {
         "id": "dashboard",
         "name": "工作台",
         "path": "/dashboard",
         "operations": [
-          { "id": "dashboard_view", "name": "访问工作台", "type": "access" },
-          { "id": "dashboard_query", "name": "查询数据", "type": "query" },
-          { "id": "dashboard_export", "name": "导出报表", "type": "export" }
+          { "id": "dashboard:view", "name": "查看" }
         ]
       },
       {
@@ -28,29 +26,27 @@
         "name": "组织架构管理",
         "path": "/organization",
         "operations": [
-          { "id": "organization_view", "name": "访问组织架构", "type": "access" },
-          { "id": "organization_query", "name": "查询组织信息", "type": "query" },
-          { "id": "organization_add", "name": "新增组织", "type": "action" },
-          { "id": "organization_edit", "name": "编辑组织", "type": "action" },
-          { "id": "organization_delete", "name": "删除组织", "type": "action" },
-          { "id": "organization_user_add", "name": "新增用户", "type": "action" },
-          { "id": "organization_user_edit", "name": "编辑用户", "type": "action" },
-          { "id": "organization_user_delete", "name": "删除用户", "type": "action" },
-          { "id": "organization_export", "name": "导出组织架构", "type": "export" }
-        ]
-      },
-      {
-        "id": "organization_role",
-        "name": "角色配置",
-        "path": "/organization/role-configuration",
-        "operations": [
-          { "id": "role_view", "name": "访问角色配置", "type": "access" },
-          { "id": "role_query", "name": "查询角色", "type": "query" },
-          { "id": "role_add", "name": "新增角色", "type": "action" },
-          { "id": "role_edit", "name": "编辑角色", "type": "action" },
-          { "id": "role_delete", "name": "删除角色", "type": "action" },
-          { "id": "role_copy", "name": "复制角色", "type": "action" },
-          { "id": "role_export", "name": "导出角色配置", "type": "export" }
+          { "id": "organization:view", "name": "查看" },
+          { "id": "organization:add", "name": "新增组织" },
+          { "id": "organization:edit", "name": "编辑组织" },
+          { "id": "organization:delete", "name": "删除组织" },
+          { "id": "organization:user_add", "name": "新增用户" },
+          { "id": "organization:user_edit", "name": "编辑用户" },
+          { "id": "organization:user_delete", "name": "删除用户" }
+        ],
+        "children": [
+          {
+            "id": "organization_role",
+            "name": "角色配置",
+            "path": "/organization/role-configuration",
+            "operations": [
+              { "id": "organization_role:view", "name": "查看" },
+              { "id": "organization_role:add", "name": "新增角色" },
+              { "id": "organization_role:edit", "name": "编辑角色" },
+              { "id": "organization_role:delete", "name": "删除角色" },
+              { "id": "organization_role:copy", "name": "复制角色" }
+            ]
+          }
         ]
       },
       {
@@ -58,14 +54,12 @@
         "name": "供应商管理",
         "path": "/supplier",
         "operations": [
-          { "id": "supplier_view", "name": "访问供应商管理", "type": "access" },
-          { "id": "supplier_query", "name": "查询供应商", "type": "query" },
-          { "id": "supplier_add", "name": "新增供应商", "type": "action" },
-          { "id": "supplier_edit", "name": "编辑供应商", "type": "action" },
-          { "id": "supplier_delete", "name": "删除供应商", "type": "action" },
-          { "id": "supplier_approve", "name": "审批供应商", "type": "action" },
-          { "id": "supplier_export", "name": "导出供应商", "type": "export" },
-          { "id": "supplier_import", "name": "导入供应商", "type": "import" }
+          { "id": "supplier:view", "name": "查看" },
+          { "id": "supplier:add", "name": "新增" },
+          { "id": "supplier:edit", "name": "编辑" },
+          { "id": "supplier:delete", "name": "删除" },
+          { "id": "supplier:approve", "name": "审批" },
+          { "id": "supplier:export", "name": "导出" }
         ]
       },
       {
@@ -73,13 +67,11 @@
         "name": "油站管理",
         "path": "/station",
         "operations": [
-          { "id": "station_view", "name": "访问油站管理", "type": "access" },
-          { "id": "station_query", "name": "查询油站", "type": "query" },
-          { "id": "station_add", "name": "新增油站", "type": "action" },
-          { "id": "station_edit", "name": "编辑油站", "type": "action" },
-          { "id": "station_delete", "name": "删除油站", "type": "action" },
-          { "id": "station_config", "name": "油站配置", "type": "action" },
-          { "id": "station_export", "name": "导出油站信息", "type": "export" }
+          { "id": "station:view", "name": "查看" },
+          { "id": "station:add", "name": "新增" },
+          { "id": "station:edit", "name": "编辑" },
+          { "id": "station:delete", "name": "删除" },
+          { "id": "station:config", "name": "配置" }
         ]
       },
       {
@@ -87,14 +79,11 @@
         "name": "设备管理",
         "path": "/device",
         "operations": [
-          { "id": "device_view", "name": "访问设备管理", "type": "access" },
-          { "id": "device_query", "name": "查询设备", "type": "query" },
-          { "id": "device_add", "name": "新增设备", "type": "action" },
-          { "id": "device_edit", "name": "编辑设备", "type": "action" },
-          { "id": "device_delete", "name": "删除设备", "type": "action" },
-          { "id": "device_control", "name": "设备控制", "type": "action" },
-          { "id": "device_config", "name": "设备配置", "type": "action" },
-          { "id": "device_export", "name": "导出设备信息", "type": "export" }
+          { "id": "device:view", "name": "查看" },
+          { "id": "device:add", "name": "新增" },
+          { "id": "device:edit", "name": "编辑" },
+          { "id": "device:delete", "name": "删除" },
+          { "id": "device:config", "name": "配置" }
         ]
       },
       {
@@ -102,13 +91,12 @@
         "name": "采购管理",
         "path": "/purchase",
         "operations": [
-          { "id": "purchase_view", "name": "访问采购管理", "type": "access" },
-          { "id": "purchase_query", "name": "查询采购", "type": "query" },
-          { "id": "purchase_add", "name": "新增采购", "type": "action" },
-          { "id": "purchase_edit", "name": "编辑采购", "type": "action" },
-          { "id": "purchase_delete", "name": "删除采购", "type": "action" },
-          { "id": "purchase_approve", "name": "审批采购", "type": "action" },
-          { "id": "purchase_export", "name": "导出采购数据", "type": "export" }
+          { "id": "purchase:view", "name": "查看" },
+          { "id": "purchase:add", "name": "新增" },
+          { "id": "purchase:edit", "name": "编辑" },
+          { "id": "purchase:delete", "name": "删除" },
+          { "id": "purchase:approve", "name": "审批" },
+          { "id": "purchase:export", "name": "导出" }
         ]
       },
       {
@@ -116,14 +104,12 @@
         "name": "商品管理",
         "path": "/goods",
         "operations": [
-          { "id": "goods_view", "name": "访问商品管理", "type": "access" },
-          { "id": "goods_query", "name": "查询商品", "type": "query" },
-          { "id": "goods_add", "name": "新增商品", "type": "action" },
-          { "id": "goods_edit", "name": "编辑商品", "type": "action" },
-          { "id": "goods_delete", "name": "删除商品", "type": "action" },
-          { "id": "goods_price", "name": "价格调整", "type": "action" },
-          { "id": "goods_export", "name": "导出商品", "type": "export" },
-          { "id": "goods_import", "name": "导入商品", "type": "import" }
+          { "id": "goods:view", "name": "查看" },
+          { "id": "goods:add", "name": "新增" },
+          { "id": "goods:edit", "name": "编辑" },
+          { "id": "goods:delete", "name": "删除" },
+          { "id": "goods:price_adjust", "name": "价格调整" },
+          { "id": "goods:export", "name": "导出" }
         ]
       },
       {
@@ -131,13 +117,11 @@
         "name": "会员管理",
         "path": "/membership",
         "operations": [
-          { "id": "membership_view", "name": "访问会员管理", "type": "access" },
-          { "id": "membership_query", "name": "查询会员", "type": "query" },
-          { "id": "membership_add", "name": "新增会员", "type": "action" },
-          { "id": "membership_edit", "name": "编辑会员", "type": "action" },
-          { "id": "membership_delete", "name": "删除会员", "type": "action" },
-          { "id": "membership_card", "name": "会员卡管理", "type": "action" },
-          { "id": "membership_export", "name": "导出会员", "type": "export" }
+          { "id": "membership:view", "name": "查看" },
+          { "id": "membership:add", "name": "新增" },
+          { "id": "membership:edit", "name": "编辑" },
+          { "id": "membership:delete", "name": "删除" },
+          { "id": "membership:export", "name": "导出" }
         ]
       },
       {
@@ -145,12 +129,10 @@
         "name": "积分管理",
         "path": "/points",
         "operations": [
-          { "id": "points_view", "name": "访问积分管理", "type": "access" },
-          { "id": "points_query", "name": "查询积分", "type": "query" },
-          { "id": "points_add", "name": "积分充值", "type": "action" },
-          { "id": "points_edit", "name": "积分调整", "type": "action" },
-          { "id": "points_config", "name": "积分配置", "type": "action" },
-          { "id": "points_export", "name": "导出积分", "type": "export" }
+          { "id": "points:view", "name": "查看" },
+          { "id": "points:config", "name": "配置" },
+          { "id": "points:adjust", "name": "积分调整" },
+          { "id": "points:export", "name": "导出" }
         ]
       },
       {
@@ -158,10 +140,9 @@
         "name": "报表管理",
         "path": "/report",
         "operations": [
-          { "id": "report_view", "name": "访问报表管理", "type": "access" },
-          { "id": "report_query", "name": "查询报表", "type": "query" },
-          { "id": "report_export", "name": "导出报表", "type": "export" },
-          { "id": "report_config", "name": "报表配置", "type": "action" }
+          { "id": "report:view", "name": "查看" },
+          { "id": "report:export", "name": "导出" },
+          { "id": "report:config", "name": "配置" }
         ]
       },
       {
@@ -169,12 +150,12 @@
         "name": "销售管理",
         "path": "/sales",
         "operations": [
-          { "id": "sales_view", "name": "访问销售管理", "type": "access" },
-          { "id": "sales_query", "name": "查询销售", "type": "query" },
-          { "id": "sales_add", "name": "新增销售", "type": "action" },
-          { "id": "sales_edit", "name": "编辑销售", "type": "action" },
-          { "id": "sales_approve", "name": "审批销售", "type": "action" },
-          { "id": "sales_export", "name": "导出销售数据", "type": "export" }
+          { "id": "sales:view", "name": "查看" },
+          { "id": "sales:add", "name": "新增" },
+          { "id": "sales:edit", "name": "编辑" },
+          { "id": "sales:delete", "name": "删除" },
+          { "id": "sales:approve", "name": "审批" },
+          { "id": "sales:export", "name": "导出" }
         ]
       },
       {
@@ -182,12 +163,11 @@
         "name": "库存管理",
         "path": "/inventory",
         "operations": [
-          { "id": "inventory_view", "name": "访问库存管理", "type": "access" },
-          { "id": "inventory_query", "name": "查询库存", "type": "query" },
-          { "id": "inventory_add", "name": "入库操作", "type": "action" },
-          { "id": "inventory_edit", "name": "库存调整", "type": "action" },
-          { "id": "inventory_transfer", "name": "库存调拨", "type": "action" },
-          { "id": "inventory_export", "name": "导出库存", "type": "export" }
+          { "id": "inventory:view", "name": "查看" },
+          { "id": "inventory:add", "name": "新增" },
+          { "id": "inventory:edit", "name": "编辑" },
+          { "id": "inventory:transfer", "name": "调拨" },
+          { "id": "inventory:export", "name": "导出" }
         ]
       },
       {
@@ -195,14 +175,11 @@
         "name": "油品管理",
         "path": "/oil",
         "operations": [
-          { "id": "oil_view", "name": "访问油品管理", "type": "access" },
-          { "id": "oil_query", "name": "查询油品", "type": "query" },
-          { "id": "oil_add", "name": "新增油品", "type": "action" },
-          { "id": "oil_edit", "name": "编辑油品", "type": "action" },
-          { "id": "oil_price", "name": "价格管理", "type": "action" },
-          { "id": "oil_tank", "name": "油罐管理", "type": "action" },
-          { "id": "oil_gun", "name": "油枪管理", "type": "action" },
-          { "id": "oil_export", "name": "导出油品数据", "type": "export" }
+          { "id": "oil:view", "name": "查看" },
+          { "id": "oil:add", "name": "新增" },
+          { "id": "oil:edit", "name": "编辑" },
+          { "id": "oil:config", "name": "配置" },
+          { "id": "oil:export", "name": "导出" }
         ]
       },
       {
@@ -210,13 +187,8 @@
         "name": "系统管理",
         "path": "/system",
         "operations": [
-          { "id": "system_view", "name": "访问系统管理", "type": "access" },
-          { "id": "system_query", "name": "查询系统信息", "type": "query" },
-          { "id": "system_config", "name": "系统配置", "type": "action" },
-          { "id": "system_user", "name": "用户管理", "type": "action" },
-          { "id": "system_log", "name": "日志管理", "type": "action" },
-          { "id": "system_backup", "name": "数据备份", "type": "action" },
-          { "id": "system_export", "name": "导出系统数据", "type": "export" }
+          { "id": "system:view", "name": "查看" },
+          { "id": "system:config", "name": "配置" }
         ]
       }
     ],
@@ -242,23 +214,7 @@
       "description": "集团CEO，拥有全部权限",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view", "dashboard_query", "dashboard_export",
-          "organization_view", "organization_query", "organization_add", "organization_edit", "organization_delete", "organization_user_add", "organization_user_edit", "organization_user_delete", "organization_export",
-          "role_view", "role_query", "role_add", "role_edit", "role_delete", "role_copy", "role_export",
-          "supplier_view", "supplier_query", "supplier_add", "supplier_edit", "supplier_delete", "supplier_approve", "supplier_export", "supplier_import",
-          "station_view", "station_query", "station_add", "station_edit", "station_delete", "station_config", "station_export",
-          "device_view", "device_query", "device_add", "device_edit", "device_delete", "device_control", "device_config", "device_export",
-          "purchase_view", "purchase_query", "purchase_add", "purchase_edit", "purchase_delete", "purchase_approve", "purchase_export",
-          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_delete", "goods_price", "goods_export", "goods_import",
-          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_delete", "membership_card", "membership_export",
-          "points_view", "points_query", "points_add", "points_edit", "points_config", "points_export",
-          "report_view", "report_query", "report_export", "report_config",
-          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_approve", "sales_export",
-          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_transfer", "inventory_export",
-          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_price", "oil_tank", "oil_gun", "oil_export",
-          "system_view", "system_query", "system_config", "system_user", "system_log", "system_backup", "system_export"
-        ],
+        "pageOperations": ["dashboard:view", "organization:view", "organization:add", "organization:edit", "organization:delete", "organization:user_add", "organization:user_edit", "organization:user_delete", "organization_role:view", "organization_role:add", "organization_role:edit", "organization_role:delete", "organization_role:copy", "supplier:view", "supplier:add", "supplier:edit", "supplier:delete", "supplier:approve", "supplier:export", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "purchase:view", "purchase:add", "purchase:edit", "purchase:delete", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:price_adjust", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:delete", "membership:export", "points:view", "points:config", "points:adjust", "points:export", "report:view", "report:export", "report:config", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:approve", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:transfer", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export", "system:view", "system:config"],
         "dataScope": "all",
         "posDevices": ["gun_config", "tank_config", "price_config", "device_control", "report_print"]
       },
@@ -273,16 +229,7 @@
       "description": "部门总监，负责部门管理和业务监督",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view", "dashboard_query", "dashboard_export",
-          "organization_view", "organization_query", "organization_export",
-          "supplier_view", "supplier_query", "supplier_add", "supplier_edit", "supplier_approve", "supplier_export",
-          "purchase_view", "purchase_query", "purchase_add", "purchase_edit", "purchase_approve", "purchase_export",
-          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_export",
-          "report_view", "report_query", "report_export",
-          "sales_view", "sales_query", "sales_export",
-          "inventory_view", "inventory_query", "inventory_export"
-        ],
+        "pageOperations": ["dashboard:view", "organization:view", "supplier:view", "supplier:add", "supplier:edit", "supplier:approve", "supplier:export", "purchase:view", "purchase:add", "purchase:edit", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:export", "report:view", "report:export", "sales:view", "sales:add", "sales:edit", "sales:approve", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export"],
         "dataScope": "self_org",
         "posDevices": []
       },
@@ -297,19 +244,7 @@
       "description": "分公司总经理，负责分公司全面管理",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view", "dashboard_query", "dashboard_export",
-          "organization_view", "organization_query", "organization_export",
-          "station_view", "station_query", "station_add", "station_edit", "station_delete", "station_config", "station_export",
-          "device_view", "device_query", "device_add", "device_edit", "device_config", "device_export",
-          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_delete", "goods_price", "goods_export",
-          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_card", "membership_export",
-          "points_view", "points_query", "points_add", "points_edit", "points_config", "points_export",
-          "report_view", "report_query", "report_export",
-          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_export",
-          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_transfer", "inventory_export",
-          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_price", "oil_tank", "oil_gun", "oil_export"
-        ],
+        "pageOperations": ["dashboard:view", "organization:view", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:delete", "membership:export", "points:view", "points:config", "points:export", "report:view", "report:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
         "dataScope": "self_org",
         "posDevices": ["gun_config", "tank_config", "price_config", "device_control"]
       },
@@ -324,16 +259,7 @@
       "description": "服务区经理，负责服务区运营管理",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view", "dashboard_query",
-          "station_view", "station_query", "station_add", "station_edit", "station_export",
-          "device_view", "device_query", "device_add", "device_edit", "device_export",
-          "goods_view", "goods_query", "goods_add", "goods_edit", "goods_export",
-          "membership_view", "membership_query", "membership_add", "membership_edit", "membership_export",
-          "sales_view", "sales_query", "sales_add", "sales_edit", "sales_export",
-          "inventory_view", "inventory_query", "inventory_add", "inventory_edit", "inventory_export",
-          "oil_view", "oil_query", "oil_add", "oil_edit", "oil_export"
-        ],
+        "pageOperations": ["dashboard:view", "station:view", "station:add", "station:edit", "device:view", "device:add", "device:edit", "goods:view", "goods:add", "goods:edit", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:export", "sales:view", "sales:add", "sales:edit", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:export"],
         "dataScope": "self_org",
         "posDevices": ["gun_config", "tank_config", "price_config"]
       },
@@ -348,15 +274,7 @@
       "description": "加油站站长，负责加油站日常运营",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view", "dashboard_query",
-          "device_view", "device_query", "device_add", "device_edit",
-          "goods_view", "goods_query", "goods_add", "goods_edit",
-          "membership_view", "membership_query", "membership_add", "membership_edit",
-          "sales_view", "sales_query", "sales_add", "sales_edit",
-          "inventory_view", "inventory_query", "inventory_add", "inventory_edit",
-          "oil_view", "oil_query", "oil_add", "oil_edit"
-        ],
+        "pageOperations": ["dashboard:view", "device:view", "device:config", "goods:view", "goods:add", "goods:edit", "membership:view", "membership:add", "membership:edit", "sales:view", "sales:add", "sales:edit", "inventory:view", "inventory:add", "inventory:edit", "oil:view", "oil:add", "oil:edit"],
         "dataScope": "self_org_only",
         "posDevices": ["price_config", "device_control", "report_print"]
       },
@@ -371,12 +289,7 @@
       "description": "普通员工，基础操作权限",
       "isSystemRole": true,
       "permissions": {
-        "modulePermissions": [
-          "dashboard_view",
-          "goods_view", "goods_query",
-          "membership_view", "membership_query",
-          "sales_view", "sales_query"
-        ],
+        "pageOperations": ["dashboard:view", "goods:view", "membership:view", "sales:view"],
         "dataScope": "self",
         "posDevices": []
       },
