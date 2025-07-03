@@ -11,50 +11,7 @@ import {
 import ReactECharts from 'echarts-for-react';
 
 const GoodsManagement = () => {
-  // 商品类别分布图表配置
-  const goodsCategoryChartOption = {
-    title: {
-      text: '商品类别分布',
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 10,
-      data: ['饮料', '食品', '日用品', '汽车用品', '其他']
-    },
-    series: [
-      {
-        name: '商品数量',
-        type: 'pie',
-        radius: ['50%', '70%'],
-        avoidLabelOverlap: false,
-        label: {
-          show: false,
-          position: 'center'
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: '18',
-            fontWeight: 'bold'
-          }
-        },
-        labelLine: {
-          show: false
-        },
-        data: [
-          { value: 120, name: '饮料' },
-          { value: 80, name: '食品' },
-          { value: 60, name: '日用品' },
-          { value: 40, name: '汽车用品' },
-          { value: 20, name: '其他' }
-        ]
-      }
-    ]
-  };
+
 
   // 商品销售统计图表配置
   const goodsSalesChartOption = {
@@ -136,17 +93,17 @@ const GoodsManagement = () => {
         <h2>商品管理</h2>
       </div>
 
-      {/* 功能卡片区域 */}
+            {/* 功能卡片区域 */}
       <Row gutter={16}>
         <Col xs={24} sm={12} md={8} lg={6}>
-          <Link to="/goods/category">
+          <Link to="/goods/master-data">
             <Card hoverable className="function-card">
               <div className="card-icon" style={{ backgroundColor: '#1890ff' }}>
                 <AppstoreOutlined />
               </div>
               <div className="card-content">
-                <h3>商品类别</h3>
-                <p>管理商品类别信息</p>
+                <h3>商品主数据</h3>
+                <p>商品维护、分类管理、组合商品</p>
               </div>
             </Card>
           </Link>
@@ -203,15 +160,7 @@ const GoodsManagement = () => {
             />
           </Card>
         </Col>
-        <Col xs={24} sm={12} md={6}>
-          <Card>
-            <Statistic
-              title="商品类别数"
-              value={15}
-              prefix={<AppstoreOutlined />}
-            />
-          </Card>
-        </Col>
+
         <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic
@@ -237,12 +186,7 @@ const GoodsManagement = () => {
 
       {/* 图表区域 */}
       <Row gutter={16} style={{ marginTop: '20px' }}>
-        <Col xs={24} md={12}>
-          <Card title="商品类别分布">
-            <ReactECharts option={goodsCategoryChartOption} style={{ height: 300 }} />
-          </Card>
-        </Col>
-        <Col xs={24} md={12}>
+        <Col xs={24}>
           <Card title="商品销售统计">
             <ReactECharts option={goodsSalesChartOption} style={{ height: 300 }} />
           </Card>

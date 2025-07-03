@@ -34,6 +34,7 @@ import {
   SearchOutlined,
   TrophyOutlined,
   ApartmentOutlined,
+  AppstoreOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -185,16 +186,6 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
         },
         {
-          key: 'purchase_non_oil_purchase_request',
-          icon: <FormOutlined />,
-          label: <MenuItemLabel text="非油品采购申请" link="/purchase/non-oil-purchase-request" />,
-        },
-        {
-          key: 'purchase_non_oil_purchase_order',
-          icon: <ShoppingOutlined />,
-          label: <MenuItemLabel text="非油品采购订单" link="/purchase/non-oil-purchase-order" />,
-        },
-        {
           key: 'purchase_oil_purchase_price_management',
           icon: <DollarOutlined />,
           label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
@@ -213,6 +204,11 @@ const AppSider = ({ collapsed }) => {
           key: 'purchase_oil_loss',
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
+        },
+        {
+          key: 'purchase_non_oil_procurement',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="非油商品采购管理" link="/purchase/non-oil-procurement" />,
         },
       ],
     },
@@ -311,9 +307,9 @@ const AppSider = ({ collapsed }) => {
       label: '商品管理',
       children: [
         {
-          key: 'goods_category',
-          icon: <BranchesOutlined />,
-          label: <MenuItemLabel text="商品类别" link="/goods/category" />,
+          key: 'goods_master_data',
+          icon: <AppstoreOutlined />,
+          label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
         },
         {
           key: 'goods_inventory',

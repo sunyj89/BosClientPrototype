@@ -580,7 +580,7 @@ const PointsMall = () => {
     setEditingBanner(record);
     bannerModalForm.setFieldsValue({
       ...record,
-      status: record.status === 'active',
+      status: record.status === 'ACTIVE',
       startTime: record.startTime ? dayjs(record.startTime) : null,
       endTime: record.endTime ? dayjs(record.endTime) : null,
       image: record.image ? [{ url: record.image }] : []
@@ -615,7 +615,7 @@ const PointsMall = () => {
         ...values,
         startTime: values.startTime ? values.startTime.format('YYYY-MM-DD HH:mm:ss') : null,
         endTime: values.endTime ? values.endTime.format('YYYY-MM-DD HH:mm:ss') : null,
-        status: values.status ? 'active' : 'inactive'
+        status: values.status ? 'ACTIVE' : 'INACTIVE'
       };
       
       console.log('Banner提交数据:', bannerData);
@@ -799,7 +799,7 @@ const PointsMall = () => {
   const loadMasterProductOptions = () => {
     // 模拟加载商品主数据，只显示启用状态的商品
     const options = masterProductData
-      .filter(item => item.status === 'active')
+      .filter(item => item.status === 'ACTIVE')
       .map(item => ({
         value: item.productCode,
         label: `${item.productCode} - ${item.productName}`,
@@ -837,18 +837,18 @@ const PointsMall = () => {
       return { status: 'sold_out', text: '售罄', color: 'orange' };
     }
     
-    // 如果商品状态为下架，则显示已下架
-    if (record.status === 'inactive') {
-      return { status: 'inactive', text: '已下架', color: 'red' };
+    // 如果商品状态为停用，则显示已下架
+    if (record.status === 'INACTIVE') {
+      return { status: 'INACTIVE', text: '已下架', color: 'red' };
     }
     
-    // 如果商品状态为上架
-    if (record.status === 'active') {
+    // 如果商品状态为生效
+    if (record.status === 'ACTIVE') {
       // 检查是否有自动下架时间且已到期
       if (autoOfflineTime && now > autoOfflineTime) {
-        return { status: 'inactive', text: '已下架', color: 'red' };
+        return { status: 'INACTIVE', text: '已下架', color: 'red' };
       }
-      return { status: 'active', text: '已上架', color: 'green' };
+      return { status: 'ACTIVE', text: '已上架', color: 'green' };
     }
     
     // 如果有自动上架时间且尚未到期，则显示待上架
@@ -863,7 +863,7 @@ const PointsMall = () => {
   // 商品状态快速切换处理
   const handleStatusToggle = async (record, checked) => {
     try {
-      const newStatus = checked ? 'active' : 'inactive';
+      const newStatus = checked ? 'ACTIVE' : 'INACTIVE';
       console.log(`切换商品 ${record.name} 状态为: ${newStatus}`);
       
       // 模拟API调用
@@ -1405,7 +1405,7 @@ const PointsMall = () => {
       width: 140,
       render: (value, record) => {
         const statusInfo = getProductStatus(record);
-        const isControllable = statusInfo.status === 'active' || statusInfo.status === 'inactive';
+        const isControllable = statusInfo.status === 'ACTIVE' || statusInfo.status === 'INACTIVE';
         
         return (
           <div className="product-status-container">
@@ -1413,7 +1413,7 @@ const PointsMall = () => {
             {isControllable && (
               <Switch
                 size="small"
-                checked={statusInfo.status === 'active'}
+                checked={statusInfo.status === 'ACTIVE'}
                 onChange={(checked) => handleStatusToggle(record, checked)}
                 checkedChildren="上架"
                 unCheckedChildren="下架"
@@ -1524,9 +1524,9 @@ const PointsMall = () => {
         
         <Form.Item name="status" label="状态">
           <Select placeholder="请选择" style={{ width: 120 }} allowClear>
-            <Option value="active">已上线</Option>
+            <Option value="ACTIVE">已上线</Option>
             <Option value="scheduled">定时上线</Option>
-            <Option value="inactive">已下线</Option>
+            <Option value="INACTIVE">已下线</Option>
           </Select>
         </Form.Item>
         
@@ -1592,8 +1592,8 @@ const PointsMall = () => {
           
           <Form.Item name="status" label="状态">
             <Select placeholder="请选择" style={{ width: 100 }} allowClear>
-              <Option value="active">已上架</Option>
-              <Option value="inactive">已下架</Option>
+              <Option value="ACTIVE">已上架</Option>
+              <Option value="INACTIVE">已下架</Option>
               <Option value="pending">待上架</Option>
               <Option value="sold_out">售罄</Option>
             </Select>
@@ -1660,7 +1660,7 @@ const PointsMall = () => {
     setEditingCategory(record);
     categoryModalForm.setFieldsValue({
       ...record,
-      status: record.status === 'active',
+      status: record.status === 'ACTIVE',
       level1Selection: record.level1Code,
       level2Selection: record.level2Code,
       level3Selection: record.level3Code,
@@ -1696,7 +1696,7 @@ const PointsMall = () => {
       
       const categoryData = {
         ...values,
-        status: values.status ? 'active' : 'inactive'
+        status: values.status ? 'ACTIVE' : 'INACTIVE'
       };
       
       console.log('分类提交数据:', categoryData);
@@ -3176,7 +3176,7 @@ const PointsMall = () => {
           form={modalForm}
           layout="vertical"
           initialValues={{
-            status: 'active',
+            status: 'ACTIVE',
             displayOrder: 1,
             safetyStock: 0,
             supportPaymentMethod: 'points',
