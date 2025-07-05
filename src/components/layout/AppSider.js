@@ -32,6 +32,9 @@ import {
   FormOutlined,
   ReloadOutlined,
   SearchOutlined,
+  TrophyOutlined,
+  ApartmentOutlined,
+  AppstoreOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -183,16 +186,6 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
         },
         {
-          key: 'purchase_non_oil_purchase_request',
-          icon: <FormOutlined />,
-          label: <MenuItemLabel text="非油品采购申请" link="/purchase/non-oil-purchase-request" />,
-        },
-        {
-          key: 'purchase_non_oil_purchase_order',
-          icon: <ShoppingOutlined />,
-          label: <MenuItemLabel text="非油品采购订单" link="/purchase/non-oil-purchase-order" />,
-        },
-        {
           key: 'purchase_oil_purchase_price_management',
           icon: <DollarOutlined />,
           label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
@@ -211,6 +204,11 @@ const AppSider = ({ collapsed }) => {
           key: 'purchase_oil_loss',
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
+        },
+        {
+          key: 'purchase_non_oil_procurement',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="非油商品采购管理" link="/purchase/non-oil-procurement" />,
         },
       ],
     },
@@ -309,9 +307,9 @@ const AppSider = ({ collapsed }) => {
       label: '商品管理',
       children: [
         {
-          key: 'goods_category',
-          icon: <BranchesOutlined />,
-          label: <MenuItemLabel text="商品类别" link="/goods/category" />,
+          key: 'goods_master_data',
+          icon: <AppstoreOutlined />,
+          label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
         },
         {
           key: 'goods_inventory',
@@ -339,6 +337,39 @@ const AppSider = ({ collapsed }) => {
           key: 'membership_points',
           icon: <GiftOutlined />,
           label: <MenuItemLabel text="积分管理" link="/membership/points" />,
+        },
+      ],
+    },
+    {
+      key: 'points',
+      icon: <TrophyOutlined />,
+      label: '积分管理',
+      children: [
+        {
+          key: 'points_dashboard',
+          icon: <DashboardOutlined />,
+          label: <MenuItemLabel text="积分看板" link="/points" />,
+        },
+
+        {
+          key: 'points_details',
+          icon: <FormOutlined />,
+          label: <MenuItemLabel text="积分明细" link="/points/details" />,
+        },
+        {
+          key: 'points_mall',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="积分商城" link="/points/mall" />,
+        },
+        {
+          key: 'points_reports',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="积分报表" link="/points/reports" />,
+        },
+        {
+          key: 'points_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="积分配置" link="/points/config" />,
         },
       ],
     },
@@ -376,6 +407,33 @@ const AppSider = ({ collapsed }) => {
           key: 'report_density',
           icon: <StockOutlined />,
           label: <MenuItemLabel text="油品密度报表" link="/report/density" />,
+        },
+        {
+          key: 'report_station-inventory',
+          icon: <AccountBookOutlined />,
+          label: <MenuItemLabel text="9003油站进销存" link="/report/station-inventory" />,
+        },
+        {
+          key: 'report_station-sales-monthly',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="9020油站销售月报表" link="/report/station-sales-monthly" />,
+        },
+      ],
+    },
+    {
+      key: 'organization',
+      icon: <ApartmentOutlined />,
+      label: '组织架构管理',
+      children: [
+        {
+          key: 'organization_structure',
+          icon: <ApartmentOutlined />,
+          label: <MenuItemLabel text="组织架构" link="/organization" />,
+        },
+        {
+          key: 'organization_role_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="角色配置" link="/organization/role-configuration" />,
         },
       ],
     },

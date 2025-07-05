@@ -22,7 +22,12 @@
     "start": "react-scripts start --host 127.0.0.1",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@stagewise/toolbar-react": "^0.1.2"
+    "@stagewise/toolbar-react": "^0.4.9",
+    "@playwright/test": "^1.40.0"
   }
 }

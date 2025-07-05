@@ -600,10 +600,10 @@ const SiteMap = () => {
       key: 'goods',
       children: [
         {
-          title: '商品类别',
-          key: 'goods_category',
-          path: '/goods/category',
-          file: 'src/pages/goods/GoodsCategoryManagement.js'
+          title: '商品主数据',
+          key: 'goods_master_data',
+          path: '/goods/master-data',
+          file: 'src/pages/goods/ProductMasterData.js'
         },
         {
           title: '库存管理',

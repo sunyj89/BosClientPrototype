@@ -1,0 +1,25 @@
+{
+    "dashboard": {
+      "totalPointsPool": 2856420,
+      "issuedAmount": {
+        "today": 45820,
+        "week": 321450,
+        "month": 1425600
+      },
+      "consumedAmount": {
+        "today": 38650,
+        "week": 275380,
+        "month": 1186420
+      },
+      "utilizationRate": {
+        "today": 84.35,
+        "week": 85.66,
+        "month": 83.22
+      },
+      "activeMemberCount": {
+        "today": 1256,
+        "week": 6842,
+        "month": 18750
+      }
+    }
+  }

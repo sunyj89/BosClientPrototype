@@ -7,7 +7,8 @@ import {
   AreaChartOutlined,
   DownloadOutlined,
   PrinterOutlined,
-  ReloadOutlined
+  ReloadOutlined,
+  TableOutlined
 } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactECharts from 'echarts-for-react';
@@ -331,6 +332,70 @@ const ReportManagement = () => {
         <Col span={6}>
           <Card 
             hoverable
+            onClick={() => navigateToReport('/report/station-inventory')}
+            cover={
+              <div style={{ 
+                background: '#13c2c2', 
+                height: 120, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center' 
+              }}>
+                <TableOutlined style={{ fontSize: 48, color: '#fff' }} />
+              </div>
+            }
+          >
+            <Card.Meta 
+              title="9003油站进销存日报表" 
+              description="查看油站进销存详细数据和汇总分析" 
+            />
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <Button type="primary" size="small" onClick={(e) => {
+                e.stopPropagation();
+                navigateToReport('/report/station-inventory');
+              }}>
+                查看报表
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card 
+            hoverable
+            onClick={() => navigateToReport('/report/station-sales-monthly')}
+            cover={
+              <div style={{ 
+                background: '#52c41a', 
+                height: 120, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center' 
+              }}>
+                <BarChartOutlined style={{ fontSize: 48, color: '#fff' }} />
+              </div>
+            }
+          >
+            <Card.Meta 
+              title="9020油站销售月报表" 
+              description="查看油站销售数据和分公司汇总分析" 
+            />
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <Button type="primary" size="small" onClick={(e) => {
+                e.stopPropagation();
+                navigateToReport('/report/station-sales-monthly');
+              }}>
+                查看报表
+              </Button>
+            </div>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* 第二行报表入口 */}
+      <Row gutter={16} style={{ marginTop: 16 }}>
+        <Col span={6}>
+          <Card 
+            hoverable
             onClick={() => navigateToReport('/report/financial')}
             cover={
               <div style={{ 
@@ -352,6 +417,96 @@ const ReportManagement = () => {
               <Button type="primary" size="small" onClick={(e) => {
                 e.stopPropagation();
                 navigateToReport('/report/financial');
+              }}>
+                查看报表
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card 
+            hoverable
+            onClick={() => navigateToReport('/report/purchase')}
+            cover={
+              <div style={{ 
+                background: '#eb2f96', 
+                height: 120, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center' 
+              }}>
+                <BarChartOutlined style={{ fontSize: 48, color: '#fff' }} />
+              </div>
+            }
+          >
+            <Card.Meta 
+              title="采购报表" 
+              description="查看采购数据、供应商分析" 
+            />
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <Button type="primary" size="small" onClick={(e) => {
+                e.stopPropagation();
+                navigateToReport('/report/purchase');
+              }}>
+                查看报表
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card 
+            hoverable
+            onClick={() => navigateToReport('/report/goods-sales')}
+            cover={
+              <div style={{ 
+                background: '#f5222d', 
+                height: 120, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center' 
+              }}>
+                <PieChartOutlined style={{ fontSize: 48, color: '#fff' }} />
+              </div>
+            }
+          >
+            <Card.Meta 
+              title="商品销售报表" 
+              description="查看商品销售数据和排行" 
+            />
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <Button type="primary" size="small" onClick={(e) => {
+                e.stopPropagation();
+                navigateToReport('/report/goods-sales');
+              }}>
+                查看报表
+              </Button>
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card 
+            hoverable
+            onClick={() => navigateToReport('/report/density')}
+            cover={
+              <div style={{ 
+                background: '#faad14', 
+                height: 120, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center' 
+              }}>
+                <LineChartOutlined style={{ fontSize: 48, color: '#fff' }} />
+              </div>
+            }
+          >
+            <Card.Meta 
+              title="密度报表" 
+              description="查看油品密度数据和分析" 
+            />
+            <div style={{ marginTop: 16, textAlign: 'right' }}>
+              <Button type="primary" size="small" onClick={(e) => {
+                e.stopPropagation();
+                navigateToReport('/report/density');
               }}>
                 查看报表
               </Button>
