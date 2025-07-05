@@ -1,0 +1,151 @@
+.station-inventory-report {
+  padding: 3px;
+  min-height: calc(100vh - 64px);
+}
+
+/* 页面标题样式 */
+.station-inventory-report .page-header {
+  margin-bottom: 8px;
+}
+
+.station-inventory-report .page-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #262626;
+}
+
+/* Tab样式 - 使用默认样式 */
+.station-inventory-report .ant-tabs {
+  margin-bottom: 0;
+}
+
+.station-inventory-report .ant-tabs-content-holder {
+  padding-top: 16px;
+}
+
+.station-inventory-report .ant-tabs-tabpane {
+  padding: 0;
+}
+
+.station-inventory-report .ant-tabs-tab {
+  padding: 12px 16px;
+  margin-right: 2px;
+}
+
+.station-inventory-report .ant-tabs-tab-btn {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+
+/* 筛选区域样式 */
+.station-inventory-report .filter-section {
+  padding: 3px 0;
+  margin-bottom: 8px;
+  background: rgb(249, 249, 249);
+}
+
+.station-inventory-report .filter-actions {
+  margin-top: 12px;
+  text-align: right;
+}
+
+.station-inventory-report .ant-card {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+}
+
+.station-inventory-report .ant-card-body {
+  padding: 16px;
+}
+
+.station-inventory-report .ant-btn {
+  border-radius: 4px;
+}
+
+/* 筛选表单样式 */
+.station-inventory-report .ant-form {
+  margin-bottom: 0;
+}
+
+.station-inventory-report .ant-form-item {
+  margin-bottom: 12px;
+  margin-right: 24px;
+}
+
+.station-inventory-report .ant-form-item:last-child {
+  margin-right: 0;
+}
+
+.station-inventory-report .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+/* 表格样式 */
+.station-inventory-report .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px;
+}
+
+.station-inventory-report .ant-table-tbody > tr > td {
+  text-align: center;
+  padding: 6px 8px;
+}
+
+.station-inventory-report .ant-table-small .ant-table-thead > tr > th {
+  padding: 6px;
+}
+
+.station-inventory-report .ant-table-small .ant-table-tbody > tr > td {
+  padding: 4px 6px;
+}
+
+/* 表格滚动条样式 */
+.station-inventory-report .ant-table-body::-webkit-scrollbar {
+  height: 8px;
+}
+
+.station-inventory-report .ant-table-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.station-inventory-report .ant-table-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.station-inventory-report .ant-table-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .station-inventory-report {
+    padding: 12px;
+  }
+  
+  .station-inventory-report .ant-form {
+    flex-direction: column;
+  }
+  
+  .station-inventory-report .ant-form-item {
+    margin-bottom: 12px;
+    margin-right: 0;
+  }
+  
+  .station-inventory-report .ant-form-item .ant-picker,
+  .station-inventory-report .ant-form-item .ant-select,
+  .station-inventory-report .ant-form-item .ant-tree-select {
+    width: 100% !important;
+  }
+  
+  .station-inventory-report .filter-actions {
+    text-align: center;
+  }
+} 

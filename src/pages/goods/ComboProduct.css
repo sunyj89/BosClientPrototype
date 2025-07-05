@@ -1,0 +1,64 @@
+.combo-product-container {
+  padding: 24px;  /* 页面四周留白 */
+}
+
+.combo-product-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+
+/* 按钮样式规则 */
+.combo-product-container .ant-btn {
+  border-radius: 2px;
+}
+
+/* 表格样式调整 */
+.combo-product-container .ant-table {
+  border-radius: 2px;
+}
+
+.combo-product-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+/* 模态框样式 */
+.combo-product-container .ant-modal-content {
+  border-radius: 2px;
+}
+
+/* 标签样式调整 */
+.combo-product-container .ant-tag {
+  border-radius: 2px;
+}
+
+/* 表单样式调整 */
+.combo-product-container .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+/* 搜索表单样式 */
+.combo-product-container .ant-form-inline .ant-form-item {
+  margin-bottom: 8px;
+}
+
+/* 选择器样式 */
+.combo-product-container .ant-select,
+.combo-product-container .ant-input,
+.combo-product-container .ant-input-number {
+  border-radius: 2px;
+}
+
+/* 穿梭框样式 */
+.combo-product-container .ant-transfer {
+  border-radius: 2px;
+}
+
+/* 表格分页样式 */
+.combo-product-container .ant-pagination {
+  border-radius: 2px;
+}
+
+/* 操作按钮样式 */
+.combo-product-container .ant-space-item .ant-btn {
+  border-radius: 2px;
+} 

@@ -1,0 +1,134 @@
+.non-oil-procurement-container {
+  padding: 24px;
+}
+
+.non-oil-procurement-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.non-oil-procurement-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.non-oil-procurement-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+/* 通用表单样式 */
+.procurement-form {
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.procurement-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 通用表格样式 */
+.procurement-table {
+  background: #fff;
+}
+
+.procurement-table .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+/* 按钮通用样式 */
+.procurement-container .ant-btn {
+  border-radius: 2px;
+}
+
+/* 筛选区域样式 */
+.filter-form {
+  background: #fff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+
+.filter-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.filter-form .ant-form-item:last-child {
+  text-align: right;
+}
+
+/* 卡片样式 */
+.procurement-card {
+  margin-bottom: 16px;
+}
+
+.procurement-card .ant-card-head {
+  background: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* 状态标签样式 */
+.status-tag {
+  font-weight: 500;
+}
+
+/* 统计卡片样式 */
+.stat-cards {
+  margin-bottom: 24px;
+}
+
+.stat-cards .ant-card {
+  text-align: center;
+}
+
+.stat-cards .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.stat-cards .ant-statistic-content {
+  color: #1890ff;
+}
+
+/* 操作按钮样式 */
+.action-buttons {
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.action-buttons .ant-btn {
+  margin-left: 8px;
+}
+
+/* 表格操作列样式 */
+.table-actions .ant-btn {
+  margin-right: 8px;
+}
+
+.table-actions .ant-btn:last-child {
+  margin-right: 0;
+}
+
+/* 模态框样式 */
+.procurement-modal .ant-modal-header {
+  background: #fafafa;
+}
+
+.procurement-modal .ant-form-item {
+  margin-bottom: 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .non-oil-procurement-container {
+    padding: 12px;
+  }
+  
+  .filter-form {
+    padding: 12px;
+  }
+  
+  .filter-form .ant-form-item:last-child {
+    text-align: left;
+  }
+} 

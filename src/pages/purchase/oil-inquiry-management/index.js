@@ -116,11 +116,10 @@ const OilInquiryManagement = () => {
       width: 120,
     },
     {
-      title: '预计采购数量',
+      title: '预计采购数量（吨）',
       dataIndex: 'quantity',
       key: 'quantity',
       width: 150,
-      render: (quantity) => `${quantity} L`,
     },
     {
       title: '状态',
@@ -207,8 +206,8 @@ const OilInquiryManagement = () => {
           case '已取消':
             return (
               <Space size="small">
-                <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
-                  编辑
+                <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleView(record)}>
+                  查看
                 </Button>
               </Space>
             );
@@ -864,7 +863,7 @@ const OilInquiryManagement = () => {
               <h2>{reportData.inquiry?.name} - 询价报告</h2>
               <p>询价单ID: {reportData.inquiry?.id}</p>
               <p>油品类型: {reportData.inquiry?.oilType}</p>
-              <p>预计采购数量: {reportData.inquiry?.quantity} L</p>
+              <p>预计采购数量: {reportData.inquiry?.quantity} 吨</p>
               <p>报价时间: {reportData.inquiry?.quoteStartTime} 至 {reportData.inquiry?.quoteEndTime}</p>
             </div>
             

@@ -1,0 +1,125 @@
+{
+  "priceData": [
+    {
+      "id": "PM001",
+      "skuCode": "SKU001",
+      "skuName": "可口可乐 330ml",
+      "unit": "瓶",
+      "category": "饮料",
+      "mainSupplier": "可口可乐公司",
+      "mainSupplierPrice": 2.85,
+      "supplierCount": 3,
+      "effectiveDate": "2024-03-01",
+      "expiryDate": "2024-12-31",
+      "status": "生效中",
+      "updateTime": "2024-03-15 09:30:00",
+      "updatedBy": "张三",
+      "suppliers": [
+        {
+          "id": "SUP001",
+          "name": "可口可乐公司",
+          "price": 2.85,
+          "taxPrice": 3.22,
+          "moq": 100,
+          "deliveryDays": 3,
+          "validUntil": "2024-12-31",
+          "isMain": true
+        },
+        {
+          "id": "SUP002",
+          "name": "华润万家",
+          "price": 2.90,
+          "taxPrice": 3.28,
+          "moq": 50,
+          "deliveryDays": 2,
+          "validUntil": "2024-12-31",
+          "isMain": false
+        }
+      ]
+    }
+  ],
+  "purchaseOrders": [
+    {
+      "id": "PO20240315001",
+      "orderNo": "PO20240315001",
+      "supplierName": "可口可乐公司",
+      "stationName": "赣中分公司-服务区A-油站1",
+      "orderDate": "2024-03-15",
+      "expectedDate": "2024-03-18",
+      "status": "待审核",
+      "totalAmount": 8560.00,
+      "itemCount": 3,
+      "createBy": "张三",
+      "createTime": "2024-03-15 09:30:00",
+      "remarks": "常规补货",
+      "items": [
+        {
+          "skuCode": "SKU001",
+          "skuName": "可口可乐 330ml",
+          "unit": "瓶",
+          "orderQty": 100,
+          "unitPrice": 2.85,
+          "amount": 285.00
+        }
+      ]
+    }
+  ],
+  "returnOrders": [
+    {
+      "id": "RT001",
+      "returnNo": "RT20240315001",
+      "supplierName": "可口可乐公司",
+      "returnReason": "质量问题",
+      "status": "待审核",
+      "totalAmount": 1280.00,
+      "createBy": "张三",
+      "createTime": "2024-03-15 14:30:00"
+    }
+  ],
+  "transferOrders": [
+    {
+      "id": "TO001",
+      "transferNo": "TO20240315001",
+      "fromStation": "中心仓库",
+      "toStation": "赣中分公司-服务区A-油站1",
+      "expectedDate": "2024-03-18",
+      "status": "待出库",
+      "itemCount": 5,
+      "createBy": "张三",
+      "createTime": "2024-03-15 10:30:00"
+    }
+  ],
+  "replenishmentSuggestions": [
+    {
+      "id": "RS001",
+      "skuCode": "SKU001",
+      "skuName": "可口可乐 330ml",
+      "stationName": "赣中分公司-服务区A-油站1",
+      "currentStock": 45,
+      "safetyStock": 100,
+      "maxStock": 500,
+      "avgDailySales": 25,
+      "suggestedQty": 200,
+      "urgencyLevel": "高",
+      "reason": "低于安全库存",
+      "mainSupplier": "可口可乐公司",
+      "leadTime": 3
+    }
+  ],
+  "replenishmentConfigs": [
+    {
+      "id": "CFG001",
+      "skuCode": "SKU001",
+      "skuName": "可口可乐 330ml",
+      "stationName": "赣中分公司-服务区A-油站1",
+      "safetyStock": 100,
+      "maxStock": 500,
+      "reorderPoint": 150,
+      "leadTime": 3,
+      "minOrderQty": 50,
+      "reviewCycle": 7,
+      "isActive": true,
+      "strategy": "min_max"
+    }
+  ]
+} 

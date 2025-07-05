@@ -18,10 +18,9 @@ import OilLossCost from './pages/purchase/oil-delivery/OilLossCost';
 import OilOverflowOrder from './pages/purchase/oil-delivery/OilOverflowOrder';
 import OilOverflowSummary from './pages/purchase/oil-delivery/OilOverflowSummary';
 import OilOrder from './pages/purchase/oil-order';
-import NonOilPurchaseOrder from './pages/purchase/non-oil-purchase-order';
-import NonOilPurchaseRequest from './pages/purchase/non-oil-purchase-request';
 import OilPurchasePriceManagement from './pages/purchase/oil-purchase-price-management';
 import OilInquiryManagement from './pages/purchase/oil-inquiry-management';
+import NonOilProcurement from './pages/purchase/non-oil-procurement';
 
 // 供应商管理
 import OilSupplierManagement from './pages/supplier/OilSupplierManagement';
@@ -31,7 +30,7 @@ import WinningQuotation from './pages/supplier/WinningQuotation';
 
 // 商品管理
 import GoodsManagement from './pages/goods/GoodsManagement';
-import GoodsCategoryManagement from './pages/goods/GoodsCategoryManagement';
+import ProductMasterData from './pages/goods/ProductMasterData';
 import GoodsInventoryManagement from './pages/goods/GoodsInventoryManagement';
 import GoodsPriceManagement from './pages/goods/GoodsPriceManagement';
 
@@ -39,6 +38,14 @@ import GoodsPriceManagement from './pages/goods/GoodsPriceManagement';
 import MembershipManagement from './pages/membership/MembershipManagement';
 import MemberCardManagement from './pages/membership/MemberCardManagement';
 import MemberPointsManagement from './pages/membership/MemberPointsManagement';
+
+// 积分管理
+import PointsDashboard from './pages/points/index';
+
+import PointsDetails from './pages/points/details/index';
+import PointsMall from './pages/points/mall/index';
+import PointsReports from './pages/points/reports/index';
+import PointsConfig from './pages/points/config/index';
 
 // 报表管理
 import ReportManagement from './pages/report/ReportManagement';
@@ -48,6 +55,8 @@ import MemberReport from './pages/report/MemberReport';
 import PurchaseReport from './pages/report/PurchaseReport';
 import GoodsSalesReport from './pages/report/GoodsSalesReport';
 import DensityReport from './pages/report/DensityReport';
+import StationInventoryReport from './pages/report/StationInventoryReport';
+import StationSalesMonthlyReport from './pages/report/StationSalesMonthlyReport';
 
 // 油站管理
 import StationManagement from './pages/station/index';
@@ -59,6 +68,10 @@ import DeviceDetailNew from './pages/device/DeviceDetail';
 // 系统管理
 import SystemManagement from './pages/system/SystemManagement';
 import SiteMap from './pages/system/sitemap/SiteMap';
+
+// 组织架构管理
+import OrganizationManagement from './pages/organization';
+import RoleConfiguration from './pages/organization/role-configuration';
 
 // 销售管理
 import SalesManagement from './pages/sales/SalesManagement';
@@ -166,23 +179,20 @@ const AppRouter = () => {
         {/* 油品采购订单 */}
         <Route path="oil-order" element={<OilOrder />} />
         
-        {/* 非油品采购申请 */}
-        <Route path="non-oil-purchase-request" element={<NonOilPurchaseRequest />} />
-        
-        {/* 非油品采购订单 */}
-        <Route path="non-oil-purchase-order" element={<NonOilPurchaseOrder />} />
-        
         {/* 油品进价管理 */}
         <Route path="oil-purchase-price-management" element={<OilPurchasePriceManagement />} />
         
         {/* 油品询价管理 */}
         <Route path="oil-inquiry-management" element={<OilInquiryManagement />} />
+        
+        {/* 非油商品采购管理 */}
+        <Route path="non-oil-procurement" element={<NonOilProcurement />} />
       </Route>
       
       {/* 商品管理路由 */}
       <Route path="/goods">
         <Route index element={<GoodsManagement />} />
-        <Route path="category" element={<GoodsCategoryManagement />} />
+        <Route path="master-data" element={<ProductMasterData />} />
         <Route path="inventory" element={<GoodsInventoryManagement />} />
         <Route path="price" element={<GoodsPriceManagement />} />
       </Route>
@@ -194,6 +204,15 @@ const AppRouter = () => {
         <Route path="points" element={<MemberPointsManagement />} />
       </Route>
       
+      {/* 积分管理路由 */}
+      <Route path="/points">
+        <Route index element={<PointsDashboard />} />
+        <Route path="details" element={<PointsDetails />} />
+        <Route path="mall" element={<PointsMall />} />
+        <Route path="reports" element={<PointsReports />} />
+        <Route path="config" element={<PointsConfig />} />
+      </Route>
+      
       {/* 报表管理路由 */}
       <Route path="/report">
         <Route index element={<ReportManagement />} />
@@ -203,6 +222,8 @@ const AppRouter = () => {
         <Route path="purchase" element={<PurchaseReport />} />
         <Route path="goods-sales" element={<GoodsSalesReport />} />
         <Route path="density" element={<DensityReport />} />
+        <Route path="station-inventory" element={<StationInventoryReport />} />
+        <Route path="station-sales-monthly" element={<StationSalesMonthlyReport />} />
       </Route>
       
       {/* 销售管理路由 */}
@@ -259,6 +280,12 @@ const AppRouter = () => {
         <Route path="gun/inspection" element={<GunInspection />} />
         <Route path="gun/change" element={<GunChangeManagement />} />
         <Route path="density" element={<OilDensity />} />
+      </Route>
+      
+      {/* 组织架构管理路由 */}
+      <Route path="/organization">
+        <Route index element={<OrganizationManagement />} />
+        <Route path="role-configuration" element={<RoleConfiguration />} />
       </Route>
       
       {/* 系统管理路由 */}

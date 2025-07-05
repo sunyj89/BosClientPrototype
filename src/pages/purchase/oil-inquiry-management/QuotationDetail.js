@@ -133,36 +133,35 @@ const QuotationDetail = ({ visible, record, onCancel, onAccept, onReject, onConf
       ];
     }
     
-    // 待确认或已接受状态下的按钮
-    if (record.status === '待确认' || record.status === '已接受') {
-      const buttons = [
+    // 待确认状态下的按钮 - 只有接受/拒绝按钮，没有确认中标按钮
+    if (record.status === '待确认') {
+      return [
         <Button key="close" onClick={onCancel}>
           关闭
+        </Button>,
+        <Button 
+          key="reject" 
+          danger
+          onClick={() => setRejectModalVisible(true)}
+        >
+          拒绝报价
+        </Button>,
+        <Button 
+          key="accept" 
+          type="primary" 
+          onClick={handleAccept}
+        >
+          接受报价
         </Button>
       ];
-      
-      // 如果是待确认状态，显示接受/拒绝按钮
-      if (record.status === '待确认') {
-        buttons.push(
-          <Button 
-            key="reject" 
-            danger
-            onClick={() => setRejectModalVisible(true)}
-          >
-            拒绝报价
-          </Button>,
-          <Button 
-            key="accept" 
-            type="primary" 
-            onClick={handleAccept}
-          >
-            接受报价
-          </Button>
-        );
-      }
-      
-      // 添加确认中标按钮
-      buttons.push(
+    }
+    
+    // 已接受状态下的按钮 - 包含确认中标按钮
+    if (record.status === '已接受') {
+      return [
+        <Button key="close" onClick={onCancel}>
+          关闭
+        </Button>,
         <Popconfirm
           key="confirm-winner"
           title="您确认这个报价单为中标报价么？"
@@ -175,12 +174,10 @@ const QuotationDetail = ({ visible, record, onCancel, onAccept, onReject, onConf
             icon={<TrophyOutlined />}
             style={{ background: '#faad14', borderColor: '#faad14' }}
           >
-            确认为中标报价
+            确认为中标供应商
           </Button>
         </Popconfirm>
-      );
-      
-      return buttons;
+      ];
     }
     
     // 默认情况

@@ -1,6 +1,6 @@
 ---
 description: 
-globs: 
+globs: .*
 alwaysApply: false
 ---
 ---
@@ -13,6 +13,11 @@ alwaysApply: true
 
 ## 设计理念
 
+
+## 文档要求
+
+每次执行不需要生成变动说明文件
+
 ### 整体风格
 - 采用企业级应用的简洁现代风格
 - 以蓝色为主色调，搭配白色背景，体现专业性和清晰度
@@ -24,6 +29,7 @@ alwaysApply: true
 - 遵循 Ant Design 设计规范，保持组件使用的一致性
 - 适当定制组件样式，以符合智慧能源系统BOS后台的业务特点
 - 不需要在表单页面展示统计功能
+- Dashboard使用 Apache Echarts
 
 ### 通用布局
 - 页面顶部为导航栏
@@ -31,6 +37,57 @@ alwaysApply: true
 - 右侧为内容区域，使用卡片式布局包裹内容
 - 表单和表格区域之间使用分隔线（不用卡片）
 - 不需要面包屑导航
+
+
+### 主容器结构
+
+```JS
+<div className="non-oil-procurement-container">
+  <Card>
+    <Spin spinning={loading}>
+      <Tabs 
+        activeKey={activeTab} 
+        onChange={handleTabChange}
+        size="large"
+        tabBarStyle={{ marginBottom: '16px' }}
+      >
+        {/* Tab内容 */}
+      </Tabs>
+    </Spin>
+  </Card>
+</div>
+```
+
+```CSS
+.non-oil-procurement-container {
+  padding: 24px;  /* 页面四周留白 */
+}
+
+.non-oil-procurement-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+```
+
+### Tab样式和布局
+``` JS
+<Tabs 
+  activeKey={activeTab} 
+  onChange={handleTabChange}
+  size="large"                              // Tab大小
+  tabBarStyle={{ marginBottom: '16px' }}   // Tab底部间距
+>
+```
+```CSS
+.non-oil-procurement-container .ant-tabs-tab {
+  font-size: 14px;     /* Tab文字大小 */
+  font-weight: 500;    /* Tab文字粗细 */
+}
+
+.non-oil-procurement-container .ant-tabs-content-holder {
+  padding: 16px 0;     /* Tab内容区域内边距 */
+}
+```
+
 
 ### 响应式设计
 - 采用栅格系统（Row/Col）实现响应式布局
@@ -49,9 +106,10 @@ alwaysApply: true
 ### 筛选区域规范
 - 所有的筛选条件在一行，按钮在下一行，这样确保筛选框长度不影响布局
 - 每个筛选框都有固定宽度，不会相互影响
-- 按钮组独立成行，与筛选条件保持适当间距，按钮右对齐
+- 按钮组独立成行，与筛选条件保持适当间距
 - 使用 Space 组件确保按钮间距一致
 - 筛选区域的background color是白色
+- 筛选区域的按钮必须右对齐
 
 ### 操作按钮区规范
 - 位置：筛选表单最后一行
@@ -80,9 +138,6 @@ alwaysApply: true
 - tab可以任意切换或者关闭，支持一次关闭所有tab
 - 切换tab页时不刷新页面
 
-## 文档要求
-
-每次执行不需要生成总结md文件
 
 ## 组件与模式
 

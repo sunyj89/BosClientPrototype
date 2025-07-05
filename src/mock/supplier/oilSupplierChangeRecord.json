@@ -4,121 +4,367 @@
       "id": "CR001",
       "supplierId": "OS001",
       "supplierName": "中国石化",
-      "changeType": "基本信息",
-      "changeField": "联系人",
-      "oldValue": "刘经理",
-      "newValue": "张经理",
       "changeUser": "admin",
       "changeTime": "2024-03-15 09:30:00",
       "approvalStatus": "已审批",
       "approver": "李总监",
       "approvalTime": "2024-03-15 10:15:00",
-      "remarks": "定期更新供应商信息"
+      "remarks": "定期更新供应商信息",
+      "changeDetails": [
+        {
+          "changeType": "基本信息",
+          "changeField": "联系人",
+          "oldValue": "刘经理",
+          "newValue": "张经理"
+        },
+        {
+          "changeType": "基本信息",
+          "changeField": "联系电话",
+          "oldValue": "13812345678",
+          "newValue": "13812345679"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "admin",
+          "status": "已完成",
+          "time": "2024-03-15 09:30:00",
+          "comment": "提交供应商信息变更申请"
+        },
+        {
+          "key": "2",
+          "nodeName": "部门审核",
+          "operator": "李总监",
+          "status": "已完成",
+          "time": "2024-03-15 10:15:00",
+          "comment": "审核通过，信息变更合理"
+        }
+      ]
     },
     {
       "id": "CR002",
       "supplierId": "OS002",
       "supplierName": "中国石油",
-      "changeType": "基本信息",
-      "changeField": "联系电话",
-      "oldValue": "13912345678",
-      "newValue": "13987654321",
       "changeUser": "operator1",
       "changeTime": "2024-03-18 14:22:00",
       "approvalStatus": "已审批",
       "approver": "李总监",
       "approvalTime": "2024-03-18 15:05:00",
-      "remarks": "供应商电话变更"
+      "remarks": "供应商电话变更",
+      "changeDetails": [
+        {
+          "changeType": "基本信息",
+          "changeField": "联系电话",
+          "oldValue": "13912345678",
+          "newValue": "13987654321"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "operator1",
+          "status": "已完成",
+          "time": "2024-03-18 14:22:00",
+          "comment": "提交联系电话变更申请"
+        },
+        {
+          "key": "2",
+          "nodeName": "部门审核",
+          "operator": "李总监",
+          "status": "已完成",
+          "time": "2024-03-18 15:05:00",
+          "comment": "审核通过"
+        }
+      ]
     },
     {
       "id": "CR003",
       "supplierId": "OS003",
       "supplierName": "中国海油",
-      "changeType": "状态",
-      "changeField": "供应商状态",
-      "oldValue": "正常",
-      "newValue": "暂停",
       "changeUser": "manager1",
       "changeTime": "2024-03-20 11:15:00",
       "approvalStatus": "已审批",
       "approver": "李总监",
       "approvalTime": "2024-03-20 13:40:00",
-      "remarks": "因供应商资质问题暂停合作"
+      "remarks": "因供应商资质问题暂停合作",
+      "changeDetails": [
+        {
+          "changeType": "状态",
+          "changeField": "供应商状态",
+          "oldValue": "正常",
+          "newValue": "暂停"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "manager1",
+          "status": "已完成",
+          "time": "2024-03-20 11:15:00",
+          "comment": "申请暂停供应商合作"
+        },
+        {
+          "key": "2",
+          "nodeName": "部门审核",
+          "operator": "李总监",
+          "status": "已完成",
+          "time": "2024-03-20 13:40:00",
+          "comment": "同意暂停，需要重新评估资质"
+        }
+      ]
     },
     {
       "id": "CR004",
       "supplierId": "OS004",
       "supplierName": "壳牌石油",
-      "changeType": "合作产品",
-      "changeField": "油品类型",
-      "oldValue": "95#汽油",
-      "newValue": "95#汽油,98#汽油",
       "changeUser": "admin",
       "changeTime": "2024-03-25 10:30:00",
       "approvalStatus": "已审批",
       "approver": "王经理",
       "approvalTime": "2024-03-25 14:20:00",
-      "remarks": "增加98#汽油合作"
+      "remarks": "增加98#汽油合作",
+      "changeDetails": [
+        {
+          "changeType": "合作产品",
+          "changeField": "油品类型",
+          "oldValue": "95#汽油",
+          "newValue": "95#汽油,98#汽油"
+        },
+        {
+          "changeType": "附件",
+          "changeField": "质量检测报告",
+          "oldValue": "",
+          "newValue": "98#汽油质量检测报告.pdf"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "admin",
+          "status": "已完成",
+          "time": "2024-03-25 10:30:00",
+          "comment": "申请增加98#汽油供应"
+        },
+        {
+          "key": "2",
+          "nodeName": "技术审核",
+          "operator": "技术部",
+          "status": "已完成",
+          "time": "2024-03-25 12:00:00",
+          "comment": "技术指标符合要求"
+        },
+        {
+          "key": "3",
+          "nodeName": "商务审核",
+          "operator": "王经理",
+          "status": "已完成",
+          "time": "2024-03-25 14:20:00",
+          "comment": "价格合理，同意合作"
+        }
+      ]
     },
     {
       "id": "CR005",
       "supplierId": "OS001",
       "supplierName": "中国石化",
-      "changeType": "合同信息",
-      "changeField": "合同有效期",
-      "oldValue": "2023-12-31",
-      "newValue": "2024-12-31",
       "changeUser": "admin",
       "changeTime": "2024-01-05 09:10:00",
       "approvalStatus": "已审批",
       "approver": "王经理",
       "approvalTime": "2024-01-06 10:30:00",
-      "remarks": "年度合同续签"
+      "remarks": "年度合同续签",
+      "changeDetails": [
+        {
+          "changeType": "合同信息",
+          "changeField": "合同有效期",
+          "oldValue": "2023-12-31",
+          "newValue": "2024-12-31"
+        },
+        {
+          "changeType": "附件",
+          "changeField": "合同文件",
+          "oldValue": "2023年度合同.pdf",
+          "newValue": "2024年度合同.pdf"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "admin",
+          "status": "已完成",
+          "time": "2024-01-05 09:10:00",
+          "comment": "提交年度合同续签申请"
+        },
+        {
+          "key": "2",
+          "nodeName": "法务审核",
+          "operator": "法务部",
+          "status": "已完成",
+          "time": "2024-01-05 15:30:00",
+          "comment": "合同条款无问题"
+        },
+        {
+          "key": "3",
+          "nodeName": "商务审核",
+          "operator": "王经理",
+          "status": "已完成",
+          "time": "2024-01-06 10:30:00",
+          "comment": "同意续签"
+        }
+      ]
     },
     {
       "id": "CR006",
       "supplierId": "OS005",
       "supplierName": "中化石油",
-      "changeType": "等级",
-      "changeField": "供应商等级",
-      "oldValue": "C",
-      "newValue": "B",
       "changeUser": "manager1",
       "changeTime": "2024-02-18 16:45:00",
       "approvalStatus": "已审批",
       "approver": "李总监",
       "approvalTime": "2024-02-19 09:15:00",
-      "remarks": "供应商表现良好，提升等级"
+      "remarks": "供应商表现良好，提升等级",
+      "changeDetails": [
+        {
+          "changeType": "等级",
+          "changeField": "供应商等级",
+          "oldValue": "C",
+          "newValue": "B"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "manager1",
+          "status": "已完成",
+          "time": "2024-02-18 16:45:00",
+          "comment": "申请提升供应商等级"
+        },
+        {
+          "key": "2",
+          "nodeName": "绩效评估",
+          "operator": "质量部",
+          "status": "已完成",
+          "time": "2024-02-19 08:30:00",
+          "comment": "供应商绩效评估良好"
+        },
+        {
+          "key": "3",
+          "nodeName": "最终审批",
+          "operator": "李总监",
+          "status": "已完成",
+          "time": "2024-02-19 09:15:00",
+          "comment": "同意等级提升"
+        }
+      ]
     },
     {
       "id": "CR007",
       "supplierId": "OS006",
       "supplierName": "美孚石油",
-      "changeType": "新增供应商",
-      "changeField": "新增",
-      "oldValue": "",
-      "newValue": "新供应商入库",
       "changeUser": "operator2",
       "changeTime": "2024-05-01 10:30:00",
       "approvalStatus": "待审批",
       "approver": "李总监",
       "approvalTime": "",
-      "remarks": "美孚石油首次合作申请"
+      "remarks": "美孚石油首次合作申请",
+      "changeDetails": [
+        {
+          "changeType": "新增供应商",
+          "changeField": "新增",
+          "oldValue": "",
+          "newValue": "新供应商入库"
+        },
+        {
+          "changeType": "附件",
+          "changeField": "营业执照",
+          "oldValue": "",
+          "newValue": "美孚石油营业执照.pdf"
+        },
+        {
+          "changeType": "附件",
+          "changeField": "资质证书",
+          "oldValue": "",
+          "newValue": "美孚石油资质证书.pdf"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "operator2",
+          "status": "已完成",
+          "time": "2024-05-01 10:30:00",
+          "comment": "提交新供应商入库申请"
+        },
+        {
+          "key": "2",
+          "nodeName": "资质审核",
+          "operator": "质量部",
+          "status": "进行中",
+          "time": "",
+          "comment": ""
+        },
+        {
+          "key": "3",
+          "nodeName": "最终审批",
+          "operator": "李总监",
+          "status": "待处理",
+          "time": "",
+          "comment": ""
+        }
+      ]
     },
     {
       "id": "CR008",
       "supplierId": "OS007",
       "supplierName": "中石化湖北分公司",
-      "changeType": "新增供应商",
-      "changeField": "新增",
-      "oldValue": "",
-      "newValue": "新供应商入库",
       "changeUser": "operator3",
       "changeTime": "2024-04-28 14:25:00",
       "approvalStatus": "已驳回",
       "approver": "王经理",
       "approvalTime": "2024-04-29 09:10:00",
-      "remarks": "资质不全，需补充质量检测报告"
+      "remarks": "资质不全，需补充质量检测报告",
+      "changeDetails": [
+        {
+          "changeType": "新增供应商",
+          "changeField": "新增",
+          "oldValue": "",
+          "newValue": "新供应商入库"
+        }
+      ],
+      "approvalFlow": [
+        {
+          "key": "1",
+          "nodeName": "申请提交",
+          "operator": "operator3",
+          "status": "已完成",
+          "time": "2024-04-28 14:25:00",
+          "comment": "提交新供应商入库申请"
+        },
+        {
+          "key": "2",
+          "nodeName": "资质审核",
+          "operator": "质量部",
+          "status": "已完成",
+          "time": "2024-04-28 16:00:00",
+          "comment": "缺少质量检测报告"
+        },
+        {
+          "key": "3",
+          "nodeName": "最终审批",
+          "operator": "王经理",
+          "status": "已驳回",
+          "time": "2024-04-29 09:10:00",
+          "comment": "资质不全，需补充质量检测报告后重新申请"
+        }
+      ]
     }
   ]
 } 
