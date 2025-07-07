@@ -6,4 +6,3 @@ node_modules
 /playwright/.cache/
 /tests/screenshots/
 /tests/videos/
-/总结的经验和提示词/

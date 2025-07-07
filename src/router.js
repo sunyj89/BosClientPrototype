@@ -101,6 +101,7 @@ import GunManagement from './pages/oil/gun/index';
 import GunInspection from './pages/oil/gun/inspection/index';
 import GunChangeManagement from './pages/oil/gun/change/index';
 import OilDensity from './pages/oil/density/index';
+import OilMasterData from './pages/oil/master-data/index';
 
 // 数据冲正管理
 import CorrectionManagement from './pages/sales/oil/correction/index';
@@ -273,8 +274,9 @@ const AppRouter = () => {
         </Route>
       </Route>
       
-      {/* 油罐管理路由 */}
+      {/* 油品管理路由 */}
       <Route path="/oil">
+        <Route path="master-data" element={<OilMasterData />} />
         <Route path="tank" element={<TankManagement />} />
         <Route path="gun" element={<GunManagement />} />
         <Route path="gun/inspection" element={<GunInspection />} />

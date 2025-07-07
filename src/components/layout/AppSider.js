@@ -154,6 +154,11 @@ const AppSider = ({ collapsed }) => {
       label: '油品管理',
       children: [
         {
+          key: 'oil_master_data',
+          icon: <AppstoreOutlined />,
+          label: <MenuItemLabel text="油品主数据" link="/oil/master-data" />,
+        },
+        {
           key: 'oil_tank',
           icon: <DatabaseOutlined />,
           label: <MenuItemLabel text="油罐管理" link="/oil/tank" />,
