@@ -512,12 +512,34 @@ const OilList = ({ setLoading }) => {
     {
       title: '操作',
       key: 'action',
-      width: 200,
+      width: 240,
       fixed: 'right',
       render: (_, record) => {
         const renderButtons = () => {
-          if (record.status === '生效中' || record.status === '审批中') {
-            // 生效中和审批中：仅查看
+          if (record.status === '生效中') {
+            // 生效中：查看和编辑
+            return (
+              <>
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<EyeOutlined />}
+                  onClick={() => handleView(record)}
+                >
+                  查看
+                </Button>
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<EditOutlined />}
+                  onClick={() => handleEdit(record)}
+                >
+                  编辑
+                </Button>
+              </>
+            );
+          } else if (record.status === '审批中') {
+            // 审批中：仅查看
             return (
               <Button
                 type="primary"
@@ -529,7 +551,7 @@ const OilList = ({ setLoading }) => {
               </Button>
             );
           } else if (record.status === '未生效') {
-            // 未生效：仅编辑和删除
+            // 未生效：编辑和删除
             return (
               <>
                 <Button

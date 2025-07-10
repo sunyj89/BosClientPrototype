@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Select, message } from 'antd';
 import * as api from '../services/api';
 
-const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode }) => {
+const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, isEdit = false }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [orgTypes, setOrgTypes] = useState([]);
@@ -13,7 +13,16 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode }) => {
       loadOrgTypes();
       loadLegalEntities();
       // 设置默认值
-      if (selectedNode) {
+      if (isEdit && editingOrg) {
+        // 编辑模式
+        form.setFieldsValue({
+          name: editingOrg.name,
+          orgType: editingOrg.orgType,
+          legalEntityId: editingOrg.legalEntity?.id,
+          parentName: editingOrg.parentName
+        });
+      } else if (selectedNode) {
+        // 新增模式
         form.setFieldsValue({
           parentId: selectedNode.id,
           parentName: selectedNode.name,
@@ -21,7 +30,7 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode }) => {
         });
       }
     }
-  }, [visible, selectedNode, form]);
+  }, [visible, selectedNode, editingOrg, isEdit, form]);
 
   // 加载组织类型
   const loadOrgTypes = async () => {
@@ -79,29 +88,44 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode }) => {
       // 找到选中的法人主体
       const legalEntity = legalEntities.find(entity => entity.id === values.legalEntityId);
       
-      const orgData = {
-        name: values.name,
-        orgType: values.orgType,
-        parentId: selectedNode.id,
-        parentName: selectedNode.name,
-        legalEntity: legalEntity
-      };
+      let result;
+      if (isEdit && editingOrg) {
+        // 编辑模式
+        const orgData = {
+          id: editingOrg.id,
+          name: values.name,
+          orgType: values.orgType,
+          parentId: editingOrg.parentId,
+          parentName: editingOrg.parentName,
+          legalEntity: legalEntity
+        };
+        result = await api.updateOrgUnit(orgData);
+      } else {
+        // 新增模式
+        const orgData = {
+          name: values.name,
+          orgType: values.orgType,
+          parentId: selectedNode.id,
+          parentName: selectedNode.name,
+          legalEntity: legalEntity
+        };
+        result = await api.addOrgUnit(orgData);
+      }
 
-      const result = await api.addOrgUnit(orgData);
       if (result.success) {
         message.success(result.message);
         form.resetFields();
         onSuccess && onSuccess(result.data);
       } else {
-        message.error(result.message || '添加失败');
+        message.error(result.message || (isEdit ? '修改失败' : '添加失败'));
       }
     } catch (error) {
       if (error.errorFields) {
         // 表单验证错误
         return;
       }
-      message.error('添加失败');
-      console.error('添加组织单元失败:', error);
+      message.error(isEdit ? '修改失败' : '添加失败');
+      console.error((isEdit ? '修改' : '添加') + '组织单元失败:', error);
     } finally {
       setLoading(false);
     }
@@ -119,9 +143,12 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode }) => {
     <Modal
       title={
         <div>
-          新增组织单元
+          {isEdit ? '编辑组织单元' : '新增组织单元'}
           <div style={{ fontSize: '12px', color: '#666', fontWeight: 'normal', marginTop: '4px' }}>
-            在 "{selectedNode?.name}" 下创建子组织
+            {isEdit 
+              ? `编辑组织单元 "${editingOrg?.name}"` 
+              : `在 "${selectedNode?.name}" 下创建子组织`
+            }
           </div>
         </div>
       }
