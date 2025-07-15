@@ -146,6 +146,17 @@ const AppSider = ({ collapsed }) => {
           icon: <BankOutlined />,
           label: <MenuItemLabel text="油站列表" link="/station" />,
         },
+        {
+          key: 'station_tank',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="油罐列表" link="/station/tank" />,
+        },
+        {
+          key: 'station_gun',
+          icon: <ToolOutlined />,
+          label: <MenuItemLabel text="油枪列表" link="/station/gun" />,
+        },
+
       ],
     },
     {
@@ -157,21 +168,6 @@ const AppSider = ({ collapsed }) => {
           key: 'oil_master_data',
           icon: <AppstoreOutlined />,
           label: <MenuItemLabel text="油品主数据" link="/oil/master-data" />,
-        },
-        {
-          key: 'oil_tank',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="油罐管理" link="/oil/tank" />,
-        },
-        {
-          key: 'oil_gun',
-          icon: <ToolOutlined />,
-          label: <MenuItemLabel text="油枪管理" link="/oil/gun" />,
-        },
-        {
-          key: 'oil_gun_inspection',
-          icon: <SafetyCertificateOutlined />,
-          label: <MenuItemLabel text="油枪自检记录" link="/oil/gun/inspection" />,
         },
         {
           key: 'oil_density',
@@ -451,6 +447,11 @@ const AppSider = ({ collapsed }) => {
           key: 'system_workflow',
           icon: <NodeIndexOutlined />,
           label: <MenuItemLabel text="工作流程管理" link="/system/workflow" />,
+        },
+        {
+          key: 'system_global_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="全局配置" link="/system/global-config" />,
         },
         {
           key: 'system_sitemap',

@@ -1,0 +1,237 @@
+.tank-management-container {
+  padding: 24px;
+}
+
+.tank-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tank-management-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tank-management-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+/* 按钮样式规范 */
+.tank-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.tank-management-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.tank-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.tank-management-container .ant-btn-primary:focus {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.tank-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+}
+
+.tank-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+/* 表格样式 */
+.tank-management-container .ant-table {
+  background: #fff;
+}
+
+.tank-management-container .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+.tank-management-container .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tank-management-container .ant-table-tbody > tr:hover > td {
+  background: #fafafa;
+}
+
+/* 搜索表单样式 */
+.tank-management-container .ant-form {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+}
+
+.tank-management-container .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.tank-management-container .ant-form-item-label > label {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+}
+
+/* 输入框样式 */
+.tank-management-container .ant-input,
+.tank-management-container .ant-select-selector,
+.tank-management-container .ant-tree-select-selector {
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+}
+
+.tank-management-container .ant-input:focus,
+.tank-management-container .ant-select-focused .ant-select-selector,
+.tank-management-container .ant-tree-select-focused .ant-tree-select-selector {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(50, 175, 80, 0.2);
+}
+
+.tank-management-container .ant-input:hover,
+.tank-management-container .ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.tank-management-container .ant-tree-select:not(.ant-tree-select-disabled):hover .ant-tree-select-selector {
+  border-color: var(--primary-color);
+}
+
+/* 数字输入框样式 */
+.tank-management-container .ant-input-number {
+  border-radius: 2px;
+  border: 1px solid #d9d9d9;
+}
+
+.tank-management-container .ant-input-number:hover {
+  border-color: var(--primary-color);
+}
+
+.tank-management-container .ant-input-number-focused {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(50, 175, 80, 0.2);
+}
+
+/* 上传组件样式 */
+.tank-management-container .ant-upload {
+  border-radius: 2px;
+}
+
+.tank-management-container .ant-upload-list {
+  margin-top: 8px;
+}
+
+/* 标签样式 */
+.tank-management-container .ant-tag {
+  border-radius: 2px;
+  margin-right: 4px;
+}
+
+/* 弹窗样式 */
+.tank-management-container .ant-modal-content {
+  border-radius: 6px;
+}
+
+.tank-management-container .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.tank-management-container .ant-modal-title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.tank-management-container .ant-modal-body {
+  padding: 24px;
+}
+
+.tank-management-container .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+  text-align: right;
+}
+
+/* 描述列表样式 */
+.tank-management-container .ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #fafafa;
+  font-weight: 500;
+}
+
+.tank-management-container .ant-descriptions-bordered .ant-descriptions-item-content {
+  background: #fff;
+}
+
+/* 分页样式 */
+.tank-management-container .ant-pagination {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.tank-management-container .ant-pagination-item {
+  border-radius: 2px;
+}
+
+.tank-management-container .ant-pagination-item-active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.tank-management-container .ant-pagination-item-active a {
+  color: #fff;
+}
+
+/* 工具提示样式 */
+.tank-management-container .ant-tooltip-inner {
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 2px;
+}
+
+/* 确认框样式 */
+.tank-management-container .ant-popconfirm-inner {
+  border-radius: 6px;
+}
+
+.tank-management-container .ant-popconfirm-buttons {
+  margin-top: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .tank-management-container {
+    padding: 16px;
+  }
+  
+  .tank-management-container .ant-form {
+    padding: 12px;
+  }
+  
+  .tank-management-container .ant-modal {
+    margin: 0 16px;
+  }
+}
+
+/* 加载状态样式 */
+.tank-management-container .ant-spin-container {
+  position: relative;
+}
+
+.tank-management-container .ant-spin-blur {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 空状态样式 */
+.tank-management-container .ant-empty {
+  margin: 32px 0;
+}
+
+.tank-management-container .ant-empty-description {
+  color: rgba(0, 0, 0, 0.45);
+} 

@@ -38,6 +38,13 @@ const SystemManagement = () => {
       path: '/system/workflow'
     },
     {
+      key: 'global-config',
+      title: '全局配置',
+      icon: <SettingOutlined style={{ fontSize: 24 }} />,
+      description: '管理系统的全局配置参数，包括业务配置、系统配置和通知配置',
+      path: '/system/global-config'
+    },
+    {
       key: 'user',
       title: '用户管理',
       icon: <UserOutlined style={{ fontSize: 24 }} />,

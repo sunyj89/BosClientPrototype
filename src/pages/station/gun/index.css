@@ -1,0 +1,113 @@
+.gun-management {
+  background-color: #f0f2f5;
+  padding: 0;
+  min-height: calc(100vh - 64px - 32px);
+}
+
+.gun-management .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.gun-management .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.gun-management .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.gun-management .ant-tag {
+  border-radius: 2px;
+}
+
+.gun-management .ant-btn {
+  border-radius: 2px;
+}
+
+.gun-management .ant-input-search {
+  margin-right: 16px;
+}
+
+.gun-management .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.gun-management .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+.gun-management .ant-table-row:hover {
+  cursor: pointer;
+}
+
+.gun-management-container {
+  padding: 24px;
+}
+
+.gun-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.gun-management-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.gun-management-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.gun-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.gun-management-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.gun-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.gun-management-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.gun-management-container .ant-tag {
+  border-radius: 2px;
+}
+
+.gun-management-container .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.gun-management-container .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+.gun-management-container .ant-table-row:hover {
+  cursor: pointer;
+}
+
+.gun-management-container .ant-table {
+  margin-top: 5px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.gun-management-container .status-tag {
+  border-radius: 2px;
+}
+
+.gun-management-container .action-bar {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+} 

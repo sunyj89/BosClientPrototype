@@ -68,6 +68,7 @@ import DeviceDetailNew from './pages/device/DeviceDetail';
 // 系统管理
 import SystemManagement from './pages/system/SystemManagement';
 import SiteMap from './pages/system/sitemap/SiteMap';
+import GlobalConfig from './pages/system/GlobalConfig';
 
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
@@ -95,10 +96,10 @@ import OilPriceApplication from './pages/sales/oil/price/application';
 // 油品销售任务目标
 import TargetApplication from './pages/sales/oil/target/application';
 
-// 油罐管理
-import TankManagement from './pages/oil/tank/index';
-import GunManagement from './pages/oil/gun/index';
-import GunInspection from './pages/oil/gun/inspection/index';
+// 油罐管理 - 迁移到station目录
+import TankManagement from './pages/station/tank/index';
+import GunManagement from './pages/station/gun/index';
+
 import GunChangeManagement from './pages/oil/gun/change/index';
 import OilDensity from './pages/oil/density/index';
 import OilMasterData from './pages/oil/master-data/index';
@@ -146,6 +147,10 @@ const AppRouter = () => {
       {/* 油站管理路由 */}
       <Route path="/station">
         <Route index element={<StationManagement />} />
+        <Route path="tank" element={<TankManagement />} />
+        <Route path="gun" element={<GunManagement />} />
+
+        <Route path="gun/change" element={<GunChangeManagement />} />
       </Route>
       
       {/* 设备管理路由 */}
@@ -277,10 +282,6 @@ const AppRouter = () => {
       {/* 油品管理路由 */}
       <Route path="/oil">
         <Route path="master-data" element={<OilMasterData />} />
-        <Route path="tank" element={<TankManagement />} />
-        <Route path="gun" element={<GunManagement />} />
-        <Route path="gun/inspection" element={<GunInspection />} />
-        <Route path="gun/change" element={<GunChangeManagement />} />
         <Route path="density" element={<OilDensity />} />
       </Route>
       
@@ -293,6 +294,7 @@ const AppRouter = () => {
       {/* 系统管理路由 */}
       <Route path="/system" element={<SystemManagement />} />
       <Route path="/system/sitemap" element={<SiteMap />} />
+      <Route path="/system/global-config" element={<GlobalConfig />} />
       
       {/* 油品库存管理路由 */}
       <Route path="/inventory">
