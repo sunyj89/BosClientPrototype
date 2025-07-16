@@ -40,6 +40,7 @@ import {
 
 // 导入mock数据
 import productData from '../../mock/goods/productMaintenance.json';
+import ProductViewModal from './components/ProductViewModal';
 import './ProductMaintenance.css';
 
 const { Option } = Select;
@@ -54,6 +55,7 @@ const ProductMaintenance = () => {
   const [currentRecord, setCurrentRecord] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [dataSource, setDataSource] = useState([]);
+  const [isViewModalVisible, setIsViewModalVisible] = useState(false);
 
   useEffect(() => {
     // 从mock数据初始化
@@ -416,10 +418,13 @@ const ProductMaintenance = () => {
   };
 
   const handleView = (record) => {
-    setModalType('view');
     setCurrentRecord(record);
-    productForm.setFieldsValue(record);
-    setModalVisible(true);
+    setIsViewModalVisible(true);
+  };
+
+  const handleViewModalClose = () => {
+    setIsViewModalVisible(false);
+    setCurrentRecord(null);
   };
 
   const handleDelete = (record) => {
@@ -654,25 +659,16 @@ const ProductMaintenance = () => {
 
       {/* 新建/编辑商品弹窗 */}
       <Modal
-        title={
-          modalType === 'create' ? '新建SKU' : 
-          modalType === 'edit' ? '编辑SKU' : '查看SKU'
-        }
+        title={modalType === 'create' ? '新建SKU' : '编辑SKU'}
         open={modalVisible}
-        onOk={modalType !== 'view' ? handleModalOk : undefined}
+        onOk={handleModalOk}
         onCancel={() => setModalVisible(false)}
         width={1200}
-        footer={modalType === 'view' ? [
-          <Button key="close" onClick={() => setModalVisible(false)} style={{ borderRadius: '2px' }}>
-            关闭
-          </Button>
-        ] : undefined}
         destroyOnClose
       >
         <Form
           form={productForm}
           layout="vertical"
-          disabled={modalType === 'view'}
         >
           {/* 基本信息 */}
           <Card 
@@ -992,52 +988,16 @@ const ProductMaintenance = () => {
           </Card>
 
           {/* 审批流状态 - 仅查看模式显示 */}
-          {modalType === 'view' && currentRecord && (
-            <Card 
-              title="审批流信息" 
-              size="small" 
-              style={{ marginBottom: 16 }}
-              headStyle={{ backgroundColor: '#f5f5f5', fontSize: '14px', fontWeight: 'bold' }}
-            >
-              <Descriptions column={2} size="small">
-                <Descriptions.Item label="当前状态">
-                  <Tag color={
-                    currentRecord.status === 'DRAFT' ? 'default' :
-                    currentRecord.status === 'PENDING' ? 'orange' :
-                    currentRecord.status === 'ACTIVE' ? 'green' : 'red'
-                  }>
-                    {currentRecord.status === 'DRAFT' ? '草稿' :
-                     currentRecord.status === 'PENDING' ? '待审核' :
-                     currentRecord.status === 'ACTIVE' ? '生效' : '停用'}
-                  </Tag>
-                </Descriptions.Item>
-                <Descriptions.Item label="创建人">
-                  {currentRecord.created_by || '系统'}
-                </Descriptions.Item>
-                <Descriptions.Item label="创建时间">
-                  {currentRecord.created_at}
-                </Descriptions.Item>
-                <Descriptions.Item label="最后更新人">
-                  {currentRecord.updated_by || '系统'}
-                </Descriptions.Item>
-                <Descriptions.Item label="最后更新时间">
-                  {currentRecord.updated_at}
-                </Descriptions.Item>
-                {currentRecord.approved_by && (
-                  <Descriptions.Item label="审核人">
-                    {currentRecord.approved_by}
-                  </Descriptions.Item>
-                )}
-                {currentRecord.approved_at && (
-                  <Descriptions.Item label="审核时间">
-                    {currentRecord.approved_at}
-                  </Descriptions.Item>
-                )}
-              </Descriptions>
-            </Card>
-          )}
+
         </Form>
       </Modal>
+
+      {/* 查看详情弹窗 */}
+      <ProductViewModal
+        visible={isViewModalVisible}
+        data={currentRecord}
+        onClose={handleViewModalClose}
+      />
     </div>
   );
 };

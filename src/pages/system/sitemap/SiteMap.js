@@ -128,18 +128,7 @@ const SiteMap = () => {
             { type: '模拟数据', path: 'src/mock/oil/guns.json' }
           ]
         },
-        {
-          title: '油枪自检记录',
-          key: 'oil_gun_inspection',
-          path: '/oil/gun/inspection',
-          file: 'src/pages/oil/gun/inspection/index.js',
-          dependencies: [
-            { type: '服务', path: 'src/services/gunInspectionService.js' },
-            { type: '组件', path: 'src/pages/oil/gun/inspection/components/InspectionForm.js' },
-            { type: '模拟数据', path: 'src/mock/oil/gunInspections.json' },
-            { type: '模拟数据', path: 'src/mock/station/orgData.json' }
-          ]
-        },
+
         {
           title: '油品密度',
           key: 'oil_density',
@@ -690,6 +679,16 @@ const SiteMap = () => {
           file: '未实现',
           dependencies: [
             { type: '状态', path: '功能尚未实现' }
+          ]
+        },
+        {
+          title: '全局配置',
+          key: 'system_global_config',
+          path: '/system/global-config',
+          file: 'src/pages/system/GlobalConfig.js',
+          dependencies: [
+            { type: 'CSS', path: 'src/pages/system/GlobalConfig.css' },
+            { type: '模拟数据', path: 'src/mock/system/globalConfigData.json' }
           ]
         },
         {

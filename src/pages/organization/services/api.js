@@ -3,6 +3,16 @@ import organizationData from '../../../mock/organization/organizationData.json';
 // 模拟网络延迟
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// 生成10位数字组织ID
+const generateOrgId = () => {
+  return Math.floor(1000000000 + Math.random() * 9000000000);
+};
+
+// 生成12位数字员工ID
+const generateEmployeeId = () => {
+  return Math.floor(100000000000 + Math.random() * 900000000000);
+};
+
 // 辅助函数：在树中递归查找节点
 function findNodeInTree(nodes, id) {
   for (const node of nodes) {
@@ -69,7 +79,7 @@ export const getRoles = async () => {
 export const addUser = async (userData) => {
   await delay(500);
   const newUser = {
-    id: Date.now(), // 模拟生成ID
+    id: generateEmployeeId(), // 生成12位数字员工ID
     ...userData,
     createTime: new Date().toISOString()
   };
@@ -126,8 +136,8 @@ export const getLegalEntities = async () => {
 export const addOrgUnit = async (orgData) => {
   await delay(600);
   
-  // 模拟生成新ID
-  const newId = Date.now();
+  // 生成10位数字组织ID
+  const newId = generateOrgId();
   
   const newOrgUnit = {
     id: newId,
@@ -141,6 +151,33 @@ export const addOrgUnit = async (orgData) => {
     success: true, 
     data: newOrgUnit, 
     message: '添加组织单元成功' 
+  };
+};
+
+// 更新组织单元
+export const updateOrgUnit = async (orgData) => {
+  await delay(600);
+  
+  // 在真实应用中，这里会调用后端API更新数据
+  // 这里只是模拟成功响应
+  return { 
+    success: true, 
+    data: orgData, 
+    message: '修改组织单元成功' 
+  };
+};
+
+// 删除组织单元
+export const deleteOrgUnit = async (orgId) => {
+  await delay(500);
+  
+  // 在真实应用中，这里会调用后端API删除数据
+  // 需要检查是否有子组织和员工
+  // 这里只是模拟成功响应
+  return { 
+    success: true, 
+    data: null, 
+    message: '删除组织单元成功' 
   };
 };
 
@@ -189,7 +226,7 @@ export const getRoleConfigurationById = async (id) => {
 export const addRoleConfiguration = async (roleConfigData) => {
   await delay(500);
   const newRoleConfig = {
-    id: Date.now(),
+    id: generateOrgId(), // 使用10位数字ID
     ...roleConfigData,
     isSystemRole: false,
     createTime: new Date().toISOString(),
@@ -267,7 +304,7 @@ export const copyRoleConfiguration = async (id, newRoleName, newDescription) => 
   if (sourceRoleConfig) {
     const newRoleConfig = {
       ...sourceRoleConfig,
-      id: Date.now(),
+      id: generateOrgId(), // 使用10位数字ID
       roleName: newRoleName,
       description: newDescription,
       isSystemRole: false,

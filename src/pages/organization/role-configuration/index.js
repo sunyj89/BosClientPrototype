@@ -34,6 +34,7 @@ const RoleConfiguration = () => {
   const navigate = useNavigate();
   const [roleConfigs, setRoleConfigs] = useState([]);
   const [permissions, setPermissions] = useState({});
+  const [orgTreeData, setOrgTreeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
@@ -46,6 +47,7 @@ const RoleConfiguration = () => {
   useEffect(() => {
     loadRoleConfigurations();
     loadPermissions();
+    loadOrgTreeData();
   }, []);
 
   // 加载角色配置列表
@@ -75,6 +77,18 @@ const RoleConfiguration = () => {
       }
     } catch (error) {
       console.error('获取权限定义失败:', error);
+    }
+  };
+
+  // 加载组织树数据
+  const loadOrgTreeData = async () => {
+    try {
+      const result = await api.getOrgTree();
+      if (result.success) {
+        setOrgTreeData(result.data);
+      }
+    } catch (error) {
+      console.error('获取组织树数据失败:', error);
     }
   };
 
@@ -260,6 +274,15 @@ const RoleConfiguration = () => {
       }
     },
     {
+      title: '关联油站',
+      dataIndex: 'permissions',
+      key: 'associatedStations',
+      width: 100,
+      render: (permissions) => (
+        <Tag color="cyan">{permissions?.associatedStations?.length || 0} 个</Tag>
+      )
+    },
+    {
       title: '创建时间',
       dataIndex: 'createTime',
       key: 'createTime',
@@ -366,6 +389,7 @@ const RoleConfiguration = () => {
         loading={modalLoading}
         editingRole={editingRole}
         permissions={permissions}
+        orgTreeData={orgTreeData}
         onSave={handleSave}
         onCancel={() => setModalVisible(false)}
       />

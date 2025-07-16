@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Descriptions, Tag, Empty, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Card, Descriptions, Tag, Empty, Button, Space } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
-const OrgDetails = ({ selectedNode, onAddOrg }) => {
+const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
   if (!selectedNode) {
     return (
       <Card title="组织详情" style={{ marginBottom: '16px' }}>
@@ -65,21 +65,47 @@ const OrgDetails = ({ selectedNode, onAddOrg }) => {
     return orgType === 'HEADQUARTER' || orgType === 'CITY_BRANCH' || orgType === 'SERVICE_AREA';
   };
 
+  // 判断是否可以删除组织（根节点不能删除）
+  const canDelete = () => {
+    return selectedNode && selectedNode.parentId;
+  };
+
   // 卡片标题
   const cardTitle = () => (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <span>组织详情</span>
-      {canAddChild() && (
+      <Space size="small">
+        {canAddChild() && (
+          <Button
+            type="primary"
+            size="small"
+            icon={<PlusOutlined />}
+            onClick={() => onAddOrg && onAddOrg()}
+            style={{ borderRadius: '2px' }}
+          >
+            新增子组织
+          </Button>
+        )}
         <Button
-          type="primary"
           size="small"
-          icon={<PlusOutlined />}
-          onClick={() => onAddOrg && onAddOrg()}
+          icon={<EditOutlined />}
+          onClick={() => onEditOrg && onEditOrg()}
           style={{ borderRadius: '2px' }}
         >
-          新增子组织
+          修改
         </Button>
-      )}
+        {canDelete() && (
+          <Button
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => onDeleteOrg && onDeleteOrg()}
+            style={{ borderRadius: '2px' }}
+          >
+            删除
+          </Button>
+        )}
+      </Space>
     </div>
   );
 
@@ -119,8 +145,14 @@ const OrgDetails = ({ selectedNode, onAddOrg }) => {
           {selectedNode.id}
         </Descriptions.Item>
         
+        {selectedNode.parentId && (
+          <Descriptions.Item label="上级ID">
+            {selectedNode.parentId}
+          </Descriptions.Item>
+        )}
+        
         {selectedNode.parentName && (
-          <Descriptions.Item label="上级" span={2}>
+          <Descriptions.Item label="上级名称" span={selectedNode.parentId ? 2 : 3}>
             {selectedNode.parentName}
           </Descriptions.Item>
         )}

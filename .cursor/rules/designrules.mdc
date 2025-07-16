@@ -115,6 +115,7 @@ alwaysApply: true
 - 位置：筛选表单最后一行
 - 布局：使用 Space 组件包裹
 - 按钮顺序：查询、重置、新建/导出等功能按钮
+- 按钮配色采用全局配色：src\index.css
 
 ```jsx
 <Form.Item>
@@ -130,6 +131,57 @@ alwaysApply: true
     </Button>
   </Space>
 </Form.Item>
+```
+
+## 按钮配色规范
+
+### 全局配色变量
+```css
+:root {
+  --primary-color: #32AF50;        /* 主色调 - 绿色 */
+  --primary-color-light: #4FC16A;  /* 主色调浅色 */
+  --primary-color-dark: #278C3F;   /* 主色调深色 */
+  --error-color: #f5222d;          /* 错误色 */
+  --border-radius: 2px;            /* 统一圆角 */
+}
+```
+
+### 按钮类型配色
+1. **主要操作按钮**: `type="primary"` - 查询、新建、保存、确认等
+2. **次要操作按钮**: 默认类型 - 重置、取消、关闭等
+3. **危险操作按钮**: `type="primary" + danger` - 删除、清空等
+
+### 表格操作按钮规范
+```jsx
+// 统一使用 type="primary" + size="small"
+<Space size="small">
+  <Button type="primary" size="small" icon={<EyeOutlined />}>
+    查看
+  </Button>
+  <Button type="primary" size="small" icon={<EditOutlined />}>
+    编辑
+  </Button>
+  <Button type="primary" size="small" danger icon={<DeleteOutlined />}>
+    删除
+  </Button>
+</Space>
+```
+
+### 按钮样式规范
+```css
+.container-class .ant-btn {
+  border-radius: 2px;
+}
+
+.container-class .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.container-class .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
 ```
 
 ### 导航规范

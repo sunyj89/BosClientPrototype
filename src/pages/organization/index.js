@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, message, Modal, Form, Input, Select, Button, Space, Tooltip } from 'antd';
-import { ExclamationCircleOutlined, SettingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { Layout, message, Modal, Form, Input, Select, Button, Space } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+
 import OrgTree from './components/OrgTree';
 import OrgDetails from './components/OrgDetails';
 import UserList from './components/UserList';
@@ -13,7 +13,6 @@ const { Sider, Content } = Layout;
 const { confirm } = Modal;
 
 const OrganizationManagement = () => {
-  const navigate = useNavigate();
   
   // 状态管理
   const [treeData, setTreeData] = useState([]);
@@ -26,6 +25,8 @@ const OrganizationManagement = () => {
   const [userModalLoading, setUserModalLoading] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [addOrgModalVisible, setAddOrgModalVisible] = useState(false);
+  const [editOrgModalVisible, setEditOrgModalVisible] = useState(false);
+  const [editingOrg, setEditingOrg] = useState(null);
   
   const [userForm] = Form.useForm();
 
@@ -200,9 +201,61 @@ const OrganizationManagement = () => {
     await loadTreeData();
   };
 
+  // 编辑组织
+  const handleEditOrg = () => {
+    setEditingOrg(selectedNode);
+    setEditOrgModalVisible(true);
+  };
+
+  // 删除组织
+  const handleDeleteOrg = () => {
+    confirm({
+      title: '确认删除',
+      icon: <ExclamationCircleOutlined />,
+      content: (
+        <div>
+          <p>确定要删除组织 "{selectedNode?.name}" 吗？</p>
+          <p style={{ color: '#ff4d4f', fontSize: '12px' }}>
+            警告：删除后该组织下的所有子组织和员工都将被删除，此操作不可恢复！
+          </p>
+        </div>
+      ),
+      okText: '确认删除',
+      cancelText: '取消',
+      okType: 'danger',
+      onOk: async () => {
+        try {
+          const result = await api.deleteOrgUnit(selectedNode.id);
+          if (result.success) {
+            message.success('删除组织成功');
+            setSelectedNode(null);
+            setUsers([]);
+            // 重新加载树数据
+            await loadTreeData();
+          } else {
+            message.error(result.message || '删除组织失败');
+          }
+        } catch (error) {
+          message.error('删除组织失败');
+          console.error('删除组织失败:', error);
+        }
+      }
+    });
+  };
+
+  // 编辑组织成功
+  const handleEditOrgSuccess = async (updatedOrgUnit) => {
+    setEditOrgModalVisible(false);
+    message.success('修改组织单元成功');
+    // 重新加载树数据
+    await loadTreeData();
+    // 更新选中节点
+    setSelectedNode({ ...selectedNode, ...updatedOrgUnit });
+  };
+
   return (
     <div className="organization-management">
-      {/* 页面头部 - 添加角色配置快捷入口 */}
+      {/* 页面头部 */}
       <div className="page-header-actions" style={{ 
         padding: '16px 24px', 
         background: '#fff', 
@@ -214,20 +267,9 @@ const OrganizationManagement = () => {
         <div>
           <h2 style={{ margin: 0, fontSize: '20px' }}>组织架构管理</h2>
           <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
-            管理组织架构树、人员配置和角色权限
+            管理组织架构树和人员配置
           </p>
         </div>
-        <Space>
-          <Tooltip title="配置角色权限">
-            <Button 
-              type="primary"
-              icon={<SettingOutlined />}
-              onClick={() => navigate('/organization/role-configuration')}
-            >
-              角色配置
-            </Button>
-          </Tooltip>
-        </Space>
       </div>
       
       <Layout style={{ minHeight: 'calc(100vh - 175px)' }}>
@@ -249,6 +291,8 @@ const OrganizationManagement = () => {
             <OrgDetails 
               selectedNode={selectedNode} 
               onAddOrg={handleAddOrg}
+              onEditOrg={handleEditOrg}
+              onDeleteOrg={handleDeleteOrg}
             />
           </div>
           <div style={{ flex: '1 1 auto', minHeight: 0, overflow: 'hidden' }}>
@@ -314,6 +358,16 @@ const OrganizationManagement = () => {
         onCancel={() => setAddOrgModalVisible(false)}
         onSuccess={handleAddOrgSuccess}
         selectedNode={selectedNode}
+      />
+
+      {/* 编辑组织单元弹窗 */}
+      <AddOrgModal
+        visible={editOrgModalVisible}
+        onCancel={() => setEditOrgModalVisible(false)}
+        onSuccess={handleEditOrgSuccess}
+        selectedNode={editingOrg?.parentId ? { id: editingOrg.parentId, name: editingOrg.parentName } : null}
+        editingOrg={editingOrg}
+        isEdit={true}
       />
     </div>
   );

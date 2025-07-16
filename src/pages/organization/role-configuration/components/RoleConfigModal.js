@@ -21,11 +21,13 @@ import {
   SafetyOutlined, 
   DesktopOutlined, 
   SettingOutlined,
-  DatabaseOutlined
+  DatabaseOutlined,
+  ShopOutlined
 } from '@ant-design/icons';
+import StationSelector from './StationSelector';
 
 const { Option } = Select;
-const { TextArea } = Input;
+const { TextArea, Search } = Input;
 const { Title, Text } = Typography;
 const { Panel } = Collapse;
 
@@ -34,6 +36,7 @@ const RoleConfigModal = ({
   loading, 
   editingRole, 
   permissions, 
+  orgTreeData,
   onSave, 
   onCancel 
 }) => {
@@ -42,8 +45,11 @@ const RoleConfigModal = ({
   const [selectedDataScope, setSelectedDataScope] = useState('self');
   const [selectedPosDevices, setSelectedPosDevices] = useState([]);
   const [selectedOrgTypes, setSelectedOrgTypes] = useState([]);
+  const [selectedStations, setSelectedStations] = useState([]);
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
+  const [pagePermissionSearchValue, setPagePermissionSearchValue] = useState('');
+  const [posDeviceSearchValue, setPosDeviceSearchValue] = useState('');
 
   // 组织类型选项
   const orgTypeOptions = [
@@ -92,6 +98,72 @@ const RoleConfigModal = ({
     });
   };
 
+  // 根据搜索关键词过滤权限树数据
+  const filterTreeData = (treeData, searchValue) => {
+    if (!searchValue) return treeData;
+    
+    const filteredData = [];
+    
+    const filterNode = (node) => {
+      const nodeMatched = node.title.toLowerCase().includes(searchValue.toLowerCase());
+      
+      if (node.children && node.children.length > 0) {
+        const filteredChildren = node.children
+          .map(child => filterNode(child))
+          .filter(child => child !== null);
+        
+        if (nodeMatched || filteredChildren.length > 0) {
+          return {
+            ...node,
+            children: filteredChildren
+          };
+        }
+      } else if (nodeMatched) {
+        return node;
+      }
+      
+      return null;
+    };
+    
+    treeData.forEach(node => {
+      const filtered = filterNode(node);
+      if (filtered) {
+        filteredData.push(filtered);
+      }
+    });
+    
+    return filteredData;
+  };
+
+  // 获取过滤后的树数据
+  const getFilteredTreeData = () => {
+    const originalTreeData = convertToTreeData(permissions.pageOperations);
+    return filterTreeData(originalTreeData, pagePermissionSearchValue);
+  };
+
+  // 获取搜索匹配的展开keys
+  const getSearchExpandedKeys = (treeData, searchValue) => {
+    const expandedKeys = [];
+    
+    const traverse = (nodes) => {
+      nodes.forEach(node => {
+        if (node.title.toLowerCase().includes(searchValue.toLowerCase())) {
+          expandedKeys.push(node.key);
+        }
+        if (node.children && node.children.length > 0) {
+          expandedKeys.push(node.key);
+          traverse(node.children);
+        }
+      });
+    };
+    
+    if (searchValue) {
+      traverse(treeData);
+    }
+    
+    return expandedKeys;
+  };
+
   // 初始化表单数据
   useEffect(() => {
     if (visible) {
@@ -106,6 +178,7 @@ const RoleConfigModal = ({
         setCheckedKeys(editingRole.permissions.pageOperations || []);
         setSelectedDataScope(editingRole.permissions.dataScope || 'self');
         setSelectedPosDevices(editingRole.permissions.posDevices || []);
+        setSelectedStations(editingRole.permissions.associatedStations || []);
         setSelectedOrgTypes(editingRole.orgTypes || []);
         // 设置展开的节点（展开所有页面节点）
         if (permissions.pageOperations) {
@@ -119,8 +192,11 @@ const RoleConfigModal = ({
         setCheckedKeys([]);
         setSelectedDataScope('self');
         setSelectedPosDevices([]);
+        setSelectedStations([]);
         setSelectedOrgTypes([]);
         setExpandedKeys([]);
+        setPagePermissionSearchValue('');
+        setPosDeviceSearchValue('');
       }
     }
   }, [visible, editingRole, form, permissions]);
@@ -134,7 +210,8 @@ const RoleConfigModal = ({
         permissions: {
           pageOperations: checkedKeys,
           dataScope: selectedDataScope,
-          posDevices: selectedPosDevices
+          posDevices: selectedPosDevices,
+          associatedStations: selectedStations
         },
         orgTypes: selectedOrgTypes
       };
@@ -153,6 +230,42 @@ const RoleConfigModal = ({
   // POS设备权限变化处理
   const handlePosDeviceChange = (checkedValues) => {
     setSelectedPosDevices(checkedValues);
+  };
+
+  // 油站关联变化处理
+  const handleStationChange = (stationIds) => {
+    setSelectedStations(stationIds);
+  };
+
+  // 页面权限搜索处理
+  const handlePagePermissionSearch = (value) => {
+    setPagePermissionSearchValue(value);
+    
+    if (value) {
+      // 搜索时自动展开匹配的节点
+      const filteredTreeData = getFilteredTreeData();
+      const searchExpandedKeys = getSearchExpandedKeys(filteredTreeData, value);
+      setExpandedKeys(searchExpandedKeys);
+    } else {
+      // 清空搜索时重置展开状态
+      setExpandedKeys([]);
+    }
+  };
+
+  // POS设备权限搜索处理
+  const handlePosDeviceSearch = (value) => {
+    setPosDeviceSearchValue(value);
+  };
+
+  // 获取过滤后的POS设备列表
+  const getFilteredPosDevices = () => {
+    if (!posDeviceSearchValue || !permissions.posDevices) {
+      return permissions.posDevices || [];
+    }
+    
+    return permissions.posDevices.filter(device =>
+      device.name.toLowerCase().includes(posDeviceSearchValue.toLowerCase())
+    );
   };
 
   // 获取所有权限ID（用于全选）
@@ -270,7 +383,7 @@ const RoleConfigModal = ({
         </Card>
 
         {/* 权限配置 */}
-        <Collapse defaultActiveKey={['1', '2', '3']} ghost>
+        <Collapse defaultActiveKey={['1', '2', '3', '4']} ghost>
           {/* 页面与操作权限 */}
           <Panel 
             header={
@@ -290,6 +403,19 @@ const RoleConfigModal = ({
                 showIcon
                 style={{ marginBottom: 16 }}
               />
+              
+              {/* 搜索框 */}
+              <div style={{ marginBottom: 16 }}>
+                <Search
+                  placeholder="搜索页面或操作权限名称"
+                  value={pagePermissionSearchValue}
+                  onChange={(e) => handlePagePermissionSearch(e.target.value)}
+                  onSearch={handlePagePermissionSearch}
+                  allowClear
+                  style={{ width: '100%' }}
+                />
+              </div>
+
               <div style={{ marginBottom: 16 }}>
                 <Checkbox
                   indeterminate={
@@ -302,22 +428,66 @@ const RoleConfigModal = ({
                   全选所有权限
                 </Checkbox>
               </div>
-              <Tree
-                checkable
-                checkedKeys={checkedKeys}
-                expandedKeys={expandedKeys}
-                onCheck={handleTreeCheck}
-                onExpand={setExpandedKeys}
-                treeData={convertToTreeData(permissions.pageOperations)}
-                style={{ 
-                  maxHeight: 400, 
-                  overflow: 'auto',
-                  border: '1px solid #f0f0f0',
+
+              {getFilteredTreeData().length > 0 ? (
+                <>
+                  {pagePermissionSearchValue && (
+                    <div style={{ marginBottom: 12 }}>
+                      <Tag color="blue">
+                        找到 {getFilteredTreeData().length} 个权限模块
+                      </Tag>
+                    </div>
+                  )}
+                  <Tree
+                    checkable
+                    checkedKeys={checkedKeys}
+                    expandedKeys={expandedKeys}
+                    onCheck={handleTreeCheck}
+                    onExpand={setExpandedKeys}
+                    treeData={getFilteredTreeData()}
+                    style={{ 
+                      maxHeight: 400, 
+                      overflow: 'auto',
+                      border: '1px solid #f0f0f0',
+                      borderRadius: 6,
+                      padding: 16,
+                      background: '#fafafa'
+                    }}
+                  />
+                </>
+              ) : pagePermissionSearchValue ? (
+                <div style={{ 
+                  textAlign: 'center', 
+                  color: '#999', 
+                  padding: '60px 0',
+                  background: '#fafafa',
                   borderRadius: 6,
-                  padding: 16,
-                  background: '#fafafa'
-                }}
-              />
+                  border: '1px dashed #d9d9d9'
+                }}>
+                  <DesktopOutlined style={{ fontSize: 32, marginBottom: 16, color: '#d9d9d9' }} />
+                  <div>未找到匹配的页面或操作权限</div>
+                  <div style={{ fontSize: '12px', marginTop: 8 }}>
+                    请尝试使用其他关键词搜索
+                  </div>
+                </div>
+              ) : (
+                <Tree
+                  checkable
+                  checkedKeys={checkedKeys}
+                  expandedKeys={expandedKeys}
+                  onCheck={handleTreeCheck}
+                  onExpand={setExpandedKeys}
+                  treeData={getFilteredTreeData()}
+                  style={{ 
+                    maxHeight: 400, 
+                    overflow: 'auto',
+                    border: '1px solid #f0f0f0',
+                    borderRadius: 6,
+                    padding: 16,
+                    background: '#fafafa'
+                  }}
+                />
+              )}
             </Card>
           </Panel>
 
@@ -376,25 +546,58 @@ const RoleConfigModal = ({
                 showIcon
                 style={{ marginBottom: 16 }}
               />
+
+              {/* 搜索框 */}
               <div style={{ marginBottom: 16 }}>
-                <Checkbox
-                  indeterminate={
-                    selectedPosDevices.length > 0 && 
-                    selectedPosDevices.length < (permissions.posDevices?.length || 0)
-                  }
-                  checked={selectedPosDevices.length === (permissions.posDevices?.length || 0)}
-                  onChange={(e) => handleSelectAllPosDevices(e.target.checked)}
-                >
-                  全选POS设备权限
-                </Checkbox>
+                <Search
+                  placeholder="搜索POS设备权限名称"
+                  value={posDeviceSearchValue}
+                  onChange={(e) => handlePosDeviceSearch(e.target.value)}
+                  onSearch={handlePosDeviceSearch}
+                  allowClear
+                  style={{ width: '100%' }}
+                />
               </div>
+
+              <div style={{ marginBottom: 16 }}>
+                <Space>
+                  <Checkbox
+                    indeterminate={
+                      selectedPosDevices.length > 0 && 
+                      selectedPosDevices.length < (getFilteredPosDevices().length || 0)
+                    }
+                    checked={selectedPosDevices.length === (getFilteredPosDevices().length || 0) && getFilteredPosDevices().length > 0}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        // 全选当前过滤结果
+                        const filteredDeviceIds = getFilteredPosDevices().map(d => d.id);
+                        const allSelected = [...new Set([...selectedPosDevices, ...filteredDeviceIds])];
+                        setSelectedPosDevices(allSelected);
+                      } else {
+                        // 取消选择当前过滤结果
+                        const filteredDeviceIds = getFilteredPosDevices().map(d => d.id);
+                        const remaining = selectedPosDevices.filter(id => !filteredDeviceIds.includes(id));
+                        setSelectedPosDevices(remaining);
+                      }
+                    }}
+                  >
+                    {posDeviceSearchValue ? '全选当前搜索结果' : '全选POS设备权限'}
+                  </Checkbox>
+                  {posDeviceSearchValue && (
+                    <Tag color="blue">
+                      找到 {getFilteredPosDevices().length} 个设备权限
+                    </Tag>
+                  )}
+                </Space>
+              </div>
+
               <Checkbox.Group
                 value={selectedPosDevices}
                 onChange={handlePosDeviceChange}
                 style={{ width: '100%' }}
               >
                 <Row gutter={[8, 8]}>
-                  {permissions.posDevices?.map(device => (
+                  {getFilteredPosDevices().map(device => (
                     <Col span={8} key={device.id}>
                       <Checkbox value={device.id}>
                         {device.name}
@@ -403,7 +606,38 @@ const RoleConfigModal = ({
                   ))}
                 </Row>
               </Checkbox.Group>
+
+              {posDeviceSearchValue && getFilteredPosDevices().length === 0 && (
+                <div style={{ 
+                  textAlign: 'center', 
+                  color: '#999', 
+                  padding: '40px 0',
+                  background: '#fafafa',
+                  borderRadius: 6,
+                  border: '1px dashed #d9d9d9'
+                }}>
+                  未找到匹配的POS设备权限
+                </div>
+              )}
             </Card>
+          </Panel>
+
+          {/* 油站关联配置 */}
+          <Panel 
+            header={
+              <Space>
+                <ShopOutlined style={{ color: '#13c2c2' }} />
+                <Text strong>油站关联配置</Text>
+                <Tag color="cyan">{selectedStations.length} 个已关联</Tag>
+              </Space>
+            } 
+            key="4"
+          >
+            <StationSelector
+              orgTreeData={orgTreeData}
+              selectedStations={selectedStations.map(id => `station_${id}`)}
+              onChange={handleStationChange}
+            />
           </Panel>
         </Collapse>
       </Form>
