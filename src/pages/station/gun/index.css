@@ -74,6 +74,22 @@
   border-color: var(--primary-color-light);
 }
 
+/* 删除按钮样式 */
+.gun-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.gun-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.gun-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
 .gun-management-container .ant-table-thead > tr > th {
   background-color: #fafafa;
   font-weight: 500;

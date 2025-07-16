@@ -48,7 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@stagewise/toolbar-react": "^0.4.9",
-    "@playwright/test": "^1.40.0"
+    "@playwright/test": "^1.40.0",
+    "@stagewise/toolbar-react": "^0.6.0"
   }
 }

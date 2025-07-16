@@ -3,7 +3,8 @@ import {
   Table, Form, Button, Space, Input, message, Modal, Tag, 
   Select, Card, Row, Col, 
   Tabs, Descriptions, Spin,
-  DatePicker, InputNumber, TreeSelect
+  DatePicker, InputNumber, TreeSelect,
+  Cascader, Popconfirm
 } from 'antd';
 import { 
   PlusOutlined, 
@@ -17,20 +18,17 @@ import {
 import moment from 'moment';
 import { delay, mockResponse } from '../../utils/utils';
 import stationData from '../../mock/station/stationData.json';
+import stationChangeRecord from '../../mock/station/stationChangeRecord.json';
 import './index.css';
 
 const { confirm } = Modal;
 const { Option } = Select;
 const { SHOW_PARENT } = TreeSelect;
 
-// 油品类型
-const OIL_TYPES = [
-  '92#汽油',
-  '95#汽油',
-  '98#汽油',
-  '0#柴油',
-  '-10#柴油',
-  '-20#柴油'
+// 法人主体选项
+const LEGAL_ENTITIES = [
+  '高速石化',
+  '化石能源'
 ];
 
 // 表单验证规则
@@ -38,7 +36,8 @@ const FORM_RULES = {
   required: { required: true, message: '此字段为必填项' },
   phone: { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号码' },
   email: { type: 'email', message: '请输入正确的邮箱格式' },
-  number: { type: 'number', message: '请输入数字' }
+  number: { type: 'number', message: '请输入数字' },
+  coordinates: { pattern: /^\d+\.\d+,\d+\.\d+$/, message: '请输入正确的坐标格式（如：115.892151,28.676493）' }
 };
 
 const StationManagement = () => {
@@ -64,6 +63,9 @@ const StationManagement = () => {
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [searchText, setSearchText] = useState('');
   
+  // 级联选择器数据
+  const [cascaderOptions, setCascaderOptions] = useState([]);
+  
   // 油站表单状态
   const [stationForm] = Form.useForm();
   const [stationFormVisible, setStationFormVisible] = useState(false);
@@ -72,11 +74,61 @@ const StationManagement = () => {
   const [stationFormSubmitting, setStationFormSubmitting] = useState(false);
   const [viewMode, setViewMode] = useState(false);
   
+  // 级联查询相关状态
+  const [selectedBranch, setSelectedBranch] = useState(null);
+  const [availableServiceAreas, setAvailableServiceAreas] = useState([]);
+
+  // 处理分公司选择变化
+  const handleBranchChange = (branchId) => {
+    setSelectedBranch(branchId);
+    
+    // 获取对应的服务区
+    const serviceAreas = stationData.serviceAreas?.filter(area => area.branchId === branchId) || [];
+    setAvailableServiceAreas(serviceAreas);
+    
+    // 清空服务区选择
+    stationForm.setFieldsValue({ serviceAreaId: undefined });
+  };
+
+  // 生成油站编号
+  const generateStationCode = (branchId, serviceAreaId) => {
+    if (!branchId || !serviceAreaId) return '';
+    
+    const branch = stationData.branches?.find(b => b.id === branchId);
+    const serviceArea = stationData.serviceAreas?.find(s => s.id === serviceAreaId);
+    
+    if (!branch || !serviceArea) return '';
+    
+    // 获取同一服务区下的最大油站编号
+    const existingStations = stationData.stations?.filter(s => s.serviceAreaId === serviceAreaId) || [];
+    const maxStationNumber = existingStations.length > 0 
+      ? Math.max(...existingStations.map(s => {
+          const code = s.stationCode || '';
+          return parseInt(code.slice(-4)) || 0;
+        }))
+      : 0;
+    
+    const newStationNumber = (maxStationNumber + 1).toString().padStart(4, '0');
+    
+    return `${branch.code}${serviceArea.code}${newStationNumber}`;
+  };
+
+  // 油品类型选项
+  const OIL_TYPES = [
+    '92#汽油',
+    '95#汽油', 
+    '98#汽油',
+    '0#柴油',
+    '-10#柴油',
+    '-20#柴油'
+  ];
+
   // 初始化加载数据
   useEffect(() => {
     loadStationData();
     loadChangeRecords();
     buildOrgTreeData();
+    buildCascaderOptions();
   }, []);
 
   // 构建组织结构树数据
@@ -114,6 +166,26 @@ const StationManagement = () => {
     }];
 
     setOrgTreeData(treeData);
+  };
+
+  // 构建级联选择器数据
+  const buildCascaderOptions = () => {
+    if (!stationData.branches || !stationData.serviceAreas) {
+      return;
+    }
+
+    const options = stationData.branches.map(branch => ({
+      value: branch.id,
+      label: branch.name,
+      children: stationData.serviceAreas
+        .filter(area => area.branchId === branch.id)
+        .map(area => ({
+          value: area.id,
+          label: area.name
+        }))
+    }));
+
+    setCascaderOptions(options);
   };
 
   // 加载油站数据
@@ -166,9 +238,9 @@ const StationManagement = () => {
     if (searchText) {
       filtered = filtered.filter(station =>
         station.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        station.id.toLowerCase().includes(searchText.toLowerCase()) ||
+        (station.stationCode && station.stationCode.toLowerCase().includes(searchText.toLowerCase())) ||
         station.address.toLowerCase().includes(searchText.toLowerCase()) ||
-        station.contact.toLowerCase().includes(searchText.toLowerCase()) ||
+        station.contactPerson.toLowerCase().includes(searchText.toLowerCase()) ||
         station.branchName.toLowerCase().includes(searchText.toLowerCase())
       );
     }
@@ -210,61 +282,8 @@ const StationManagement = () => {
     try {
       await delay(300);
       
-      // 生成模拟修改记录数据
-      const mockChangeRecords = [
-        {
-          id: 'CR001',
-          stationId: 'ST001',
-          stationName: '南昌高速服务区加油站',
-          operationType: '编辑',
-          operatorName: '张经理',
-          operateTime: '2023-10-15 14:30:00',
-          description: '修改了油站联系电话',
-          changes: '联系电话：13812345678 → 13812345679'
-        },
-        {
-          id: 'CR002',
-          stationId: 'ST002',
-          stationName: '上饶高速服务区加油站',
-          operationType: '编辑',
-          operatorName: '李站长',
-          operateTime: '2023-10-12 10:15:00',
-          description: '修改了油站状态',
-          changes: '状态：维护中 → 正常'
-        },
-        {
-          id: 'CR003',
-          stationId: 'ST003',
-          stationName: '赣州高速服务区加油站',
-          operationType: '编辑',
-          operatorName: '王经理',
-          operateTime: '2023-10-10 16:45:00',
-          description: '修改了油站地址',
-          changes: '地址：江西省赣州市高速公路赣州服务区 → 江西省赣州市高速公路赣州服务区东区'
-        },
-        {
-          id: 'CR004',
-          stationId: 'ST004',
-          stationName: '九江高速服务区加油站',
-          operationType: '新增',
-          operatorName: '刘站长',
-          operateTime: '2023-10-08 09:20:00',
-          description: '新增了油站',
-          changes: '新增油站：九江高速服务区加油站'
-        },
-        {
-          id: 'CR005',
-          stationId: 'ST005',
-          stationName: '南昌市区加油站',
-          operationType: '编辑',
-          operatorName: '陈经理',
-          operateTime: '2023-10-05 13:25:00',
-          description: '修改了油品类型',
-          changes: '油品类型：92#汽油, 95#汽油, 0#柴油 → 92#汽油, 95#汽油, 98#汽油, 0#柴油'
-        }
-      ];
-      
-      setChangeRecords(mockChangeRecords);
+      // 从独立文件加载修改记录数据
+      setChangeRecords(stationChangeRecord.changeRecords || []);
     } catch (error) {
       message.error('加载修改记录失败');
       console.error('加载修改记录失败:', error);
@@ -282,25 +301,12 @@ const StationManagement = () => {
     setViewMode(false);
     setStationFormVisible(true);
     
-    // 设置表单初始值
-    const formValues = {
-      ...record,
-      oilTypes: typeof record.oilTypes === 'string' 
-        ? record.oilTypes.split(', ') 
-        : Array.isArray(record.oilTypes) 
-          ? record.oilTypes 
-          : [],
-      createTime: record.createTime ? moment(record.createTime) : null,
-      updateTime: record.updateTime ? moment(record.updateTime) : null
-    };
-    stationForm.setFieldsValue(formValues);
-  };
-
-  // 查看油站详情
-  const handleViewStation = (record) => {
-    setEditingStation(record);
-    setViewMode(true);
-    setStationFormVisible(true);
+    // 设置级联选择状态
+    if (record.branchId) {
+      setSelectedBranch(record.branchId);
+      const serviceAreas = stationData.serviceAreas?.filter(area => area.branchId === record.branchId) || [];
+      setAvailableServiceAreas(serviceAreas);
+    }
     
     // 设置表单初始值
     const formValues = {
@@ -311,9 +317,48 @@ const StationManagement = () => {
           ? record.oilTypes 
           : [],
       createTime: record.createTime ? moment(record.createTime) : null,
-      updateTime: record.updateTime ? moment(record.updateTime) : null
+      updateTime: record.updateTime ? moment(record.updateTime) : null,
+      openDate: record.openDate ? moment(record.openDate) : null
     };
     stationForm.setFieldsValue(formValues);
+  };
+
+  // 查看油站详情
+  const handleViewStation = (record) => {
+    setEditingStation(record);
+    setViewMode(true);
+    setStationFormVisible(true);
+    
+    // 设置级联选择状态
+    if (record.branchId) {
+      setSelectedBranch(record.branchId);
+      const serviceAreas = stationData.serviceAreas?.filter(area => area.branchId === record.branchId) || [];
+      setAvailableServiceAreas(serviceAreas);
+    }
+    
+    // 设置表单初始值
+    const formValues = {
+      ...record,
+      oilTypes: typeof record.oilTypes === 'string' 
+        ? record.oilTypes.split(', ') 
+        : Array.isArray(record.oilTypes) 
+          ? record.oilTypes 
+          : [],
+      createTime: record.createTime ? moment(record.createTime) : null,
+      updateTime: record.updateTime ? moment(record.updateTime) : null,
+      openDate: record.openDate ? moment(record.openDate) : null
+    };
+    stationForm.setFieldsValue(formValues);
+  };
+
+  // 新增油站
+  const handleAddStation = () => {
+    setEditingStation(null);
+    setViewMode(false);
+    setStationFormVisible(true);
+    setSelectedBranch(null);
+    setAvailableServiceAreas([]);
+    stationForm.resetFields();
   };
 
   // 删除油站
@@ -393,10 +438,10 @@ const StationManagement = () => {
   // 油站列表表格列定义
   const stationColumns = [
     {
-      title: '油站ID',
-      dataIndex: 'id',
-      key: 'id',
-      width: 100,
+      title: '油站编号',
+      dataIndex: 'stationCode',
+      key: 'stationCode',
+      width: 120,
       fixed: 'left'
     },
     {
@@ -415,10 +460,9 @@ const StationManagement = () => {
     },
     {
       title: '所属法人',
-      dataIndex: 'branchName',
+      dataIndex: 'legalEntity',
       key: 'legalEntity',
-      width: 100,
-      render: (branchName) => getLegalEntity(branchName)
+      width: 100
     },
     {
       title: '所属分公司',
@@ -432,6 +476,12 @@ const StationManagement = () => {
       key: 'serviceAreaName',
       width: 150,
       render: (serviceAreaName) => serviceAreaName || '-'
+    },
+    {
+      title: '序号',
+      dataIndex: 'orderNumber',
+      key: 'orderNumber',
+      width: 80
     },
     {
       title: '油站联系人',
@@ -479,15 +529,21 @@ const StationManagement = () => {
           >
             编辑
           </Button>
-          <Button
-            type="primary"
-            size="small"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => handleDeleteStation(record)}
+          <Popconfirm
+            title="确定要删除这个油站吗？"
+            onConfirm={() => handleDeleteStation(record)}
+            okText="确定"
+            cancelText="取消"
           >
-            删除
-          </Button>
+            <Button
+              type="primary"
+              size="small"
+              danger
+              icon={<DeleteOutlined />}
+            >
+              删除
+            </Button>
+          </Popconfirm>
         </Space>
       )
     }
@@ -502,10 +558,10 @@ const StationManagement = () => {
       width: 100,
     },
     {
-      title: '油站ID',
-      dataIndex: 'stationId',
-      key: 'stationId',
-      width: 100,
+      title: '油站编号',
+      dataIndex: 'stationCode',
+      key: 'stationCode',
+      width: 120,
     },
     {
       title: '油站名称',
@@ -549,6 +605,16 @@ const StationManagement = () => {
       width: 300,
     },
     {
+      title: '审批状态',
+      dataIndex: 'approvalStatus',
+      key: 'approvalStatus',
+      width: 100,
+      render: (text) => {
+        const color = text === '已审批' ? 'green' : text === '审批中' ? 'orange' : 'red';
+        return <Tag color={color}>{text}</Tag>;
+      }
+    },
+    {
       title: '操作',
       key: 'action',
       width: 100,
@@ -561,17 +627,32 @@ const StationManagement = () => {
           onClick={() => {
             Modal.info({
               title: '修改记录详情',
-              width: 600,
+              width: 900,
               content: (
-                <Descriptions column={1} bordered>
+                <Descriptions column={2} bordered>
                   <Descriptions.Item label="记录ID">{record.id}</Descriptions.Item>
                   <Descriptions.Item label="油站ID">{record.stationId}</Descriptions.Item>
                   <Descriptions.Item label="油站名称">{record.stationName}</Descriptions.Item>
-                  <Descriptions.Item label="操作类型">{record.operationType}</Descriptions.Item>
+                  <Descriptions.Item label="操作类型">
+                    <Tag color={record.operationType === '新增' ? 'green' : record.operationType === '编辑' ? 'blue' : 'red'}>
+                      {record.operationType}
+                    </Tag>
+                  </Descriptions.Item>
                   <Descriptions.Item label="操作人">{record.operatorName}</Descriptions.Item>
                   <Descriptions.Item label="操作时间">{record.operateTime}</Descriptions.Item>
-                  <Descriptions.Item label="操作描述">{record.description}</Descriptions.Item>
-                  <Descriptions.Item label="变更内容">{record.changes}</Descriptions.Item>
+                  <Descriptions.Item label="审批状态">
+                    <Tag color={record.approvalStatus === '已审批' ? 'green' : record.approvalStatus === '审批中' ? 'orange' : 'red'}>
+                      {record.approvalStatus}
+                    </Tag>
+                  </Descriptions.Item>
+                  {record.approver && (
+                    <Descriptions.Item label="审批人">{record.approver}</Descriptions.Item>
+                  )}
+                  <Descriptions.Item label="操作描述" span={2}>{record.description}</Descriptions.Item>
+                  <Descriptions.Item label="变更内容" span={2}>{record.changes}</Descriptions.Item>
+                  {record.approvalRemark && (
+                    <Descriptions.Item label="审批备注" span={2}>{record.approvalRemark}</Descriptions.Item>
+                  )}
                 </Descriptions>
               )
             });
@@ -621,10 +702,10 @@ const StationManagement = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="id"
-                  label="油站ID"
+                  name="stationCode"
+                  label="油站编号"
                 >
-                  <Input disabled />
+                  <Input disabled placeholder="系统自动生成" />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -654,6 +735,117 @@ const StationManagement = () => {
               </Col>
               <Col span={12}>
                 <Form.Item
+                  name="legalEntity"
+                  label="所属法人"
+                  rules={[FORM_RULES.required]}
+                >
+                  <Select placeholder="请选择所属法人">
+                    {LEGAL_ENTITIES.map(entity => (
+                      <Option key={entity} value={entity}>{entity}</Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+            
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="branchId"
+                  label="所属分公司"
+                  rules={[FORM_RULES.required]}
+                >
+                  <Select 
+                    placeholder="请选择所属分公司"
+                    onChange={handleBranchChange}
+                    showSearch
+                    filterOption={(input, option) =>
+                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                  >
+                    {stationData.branches?.map(branch => (
+                      <Option key={branch.id} value={branch.id}>{branch.name}</Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="serviceAreaId"
+                  label="所属服务区"
+                  rules={[FORM_RULES.required]}
+                >
+                  <Select 
+                    placeholder="请选择所属服务区"
+                    disabled={!selectedBranch}
+                    showSearch
+                    filterOption={(input, option) =>
+                      option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                    onChange={(serviceAreaId) => {
+                      // 自动生成油站编号
+                      if (selectedBranch && serviceAreaId) {
+                        const newCode = generateStationCode(selectedBranch, serviceAreaId);
+                        stationForm.setFieldsValue({ stationCode: newCode });
+                      }
+                    }}
+                  >
+                    {availableServiceAreas.map(area => (
+                      <Option key={area.id} value={area.id}>{area.name}</Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="coordinates"
+                  label="油站坐标"
+                  rules={[FORM_RULES.required, FORM_RULES.coordinates]}
+                  extra="请输入BD09坐标系坐标，格式：经度,纬度"
+                >
+                  <Input placeholder="115.892151,28.676493" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="orderNumber"
+                  label="油站序号"
+                  extra="数字越小越靠前，数字相同时按照创建时间倒序"
+                >
+                  <InputNumber 
+                    min={1} 
+                    style={{ width: '100%' }} 
+                    placeholder="请输入排序序号（非必填）" 
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="thirdPartyCode"
+                  label="第三方油站编号"
+                >
+                  <Input placeholder="请输入第三方油站编号（非必填）" />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="onlineCode"
+                  label="线上油站关联编号"
+                >
+                  <Input placeholder="请输入线上油站关联编号（非必填）" />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
                   name="status"
                   label="油站状态"
                   rules={[FORM_RULES.required]}
@@ -666,33 +858,12 @@ const StationManagement = () => {
                   </Select>
                 </Form.Item>
               </Col>
-            </Row>
-            
-            <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="branchName"
-                  label="所属分公司"
-                  rules={[FORM_RULES.required]}
+                  name="openDate"
+                  label="开业日期"
                 >
-                  <Select placeholder="请选择所属分公司">
-                    <Option value="赣中分公司">赣中分公司</Option>
-                    <Option value="赣东北分公司">赣东北分公司</Option>
-                    <Option value="赣东分公司">赣东分公司</Option>
-                    <Option value="赣东南分公司">赣东南分公司</Option>
-                    <Option value="赣南分公司">赣南分公司</Option>
-                    <Option value="赣西南分公司">赣西南分公司</Option>
-                    <Option value="赣西分公司">赣西分公司</Option>
-                    <Option value="赣西北分公司">赣西北分公司</Option>
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="serviceAreaName"
-                  label="所属服务区"
-                >
-                  <Input placeholder="请输入所属服务区" />
+                  <DatePicker style={{ width: '100%' }} placeholder="请选择开业日期" />
                 </Form.Item>
               </Col>
             </Row>
@@ -861,12 +1032,7 @@ const StationManagement = () => {
               <Button icon={<ReloadOutlined />} onClick={handleResetFilter}>
                 重置
               </Button>
-              <Button type="primary" icon={<PlusOutlined />} onClick={() => {
-                setEditingStation(null);
-                setViewMode(false);
-                setStationFormVisible(true);
-                stationForm.resetFields();
-              }}>
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleAddStation}>
                 新增油站
               </Button>
             </Space>

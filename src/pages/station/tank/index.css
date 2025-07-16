@@ -40,7 +40,17 @@
   border-color: var(--error-color);
 }
 
+.tank-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
 .tank-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.tank-management-container .ant-btn-primary.ant-btn-dangerous:focus {
   background-color: #ff7875;
   border-color: #ff7875;
 }

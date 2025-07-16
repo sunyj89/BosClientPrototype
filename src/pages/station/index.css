@@ -47,6 +47,22 @@
   font-weight: 500;
 }
 
+/* 删除按钮样式 */
+.station-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.station-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.station-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
 /* 次要操作按钮样式 */
 .station-management-container .ant-btn:not(.ant-btn-primary) {
   border-radius: 2px;

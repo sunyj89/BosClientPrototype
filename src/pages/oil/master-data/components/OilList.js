@@ -23,6 +23,7 @@ import {
   ClearOutlined
 } from '@ant-design/icons';
 import OilForm from './OilForm';
+import OilViewModal from './OilViewModal';
 
 const { Option } = Select;
 
@@ -32,6 +33,7 @@ const OilList = ({ setLoading }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalType, setModalType] = useState('create'); // create, edit, view
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isViewModalVisible, setIsViewModalVisible] = useState(false);
 
   // 模拟数据 - 包含新分类的油品
   const mockData = [
@@ -357,9 +359,13 @@ const OilList = ({ setLoading }) => {
   };
 
   const handleView = (record) => {
-    setModalType('view');
     setSelectedRecord(record);
-    setIsModalVisible(true);
+    setIsViewModalVisible(true);
+  };
+
+  const handleViewModalClose = () => {
+    setIsViewModalVisible(false);
+    setSelectedRecord(null);
   };
 
   const handleDelete = (record) => {
@@ -701,12 +707,9 @@ const OilList = ({ setLoading }) => {
         scroll={{ x: 'max-content' }}
       />
 
-      {/* 弹窗表单 */}
+      {/* 编辑/新建弹窗表单 */}
       <Modal
-        title={
-          modalType === 'create' ? '新建油品' : 
-          modalType === 'edit' ? '编辑油品' : '查看油品'
-        }
+        title={modalType === 'create' ? '新建油品' : '编辑油品'}
         open={isModalVisible}
         onCancel={handleModalCancel}
         footer={null}
@@ -720,6 +723,13 @@ const OilList = ({ setLoading }) => {
           onCancel={handleModalCancel}
         />
       </Modal>
+
+      {/* 查看详情弹窗 */}
+      <OilViewModal
+        visible={isViewModalVisible}
+        data={selectedRecord}
+        onClose={handleViewModalClose}
+      />
     </div>
   );
 };
