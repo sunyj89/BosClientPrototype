@@ -230,74 +230,10 @@ const AppSider = ({ collapsed }) => {
         },
       ],
     },
-    {
-      key: 'inventory',
-      icon: <DatabaseOutlined />,
-      label: '油品库存管理',
-      children: [
-        {
-          key: 'inventory_oil_input',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="进油管理" link="/inventory/oil-input" />,
-        },
-        {
-          key: 'inventory_oil_transfer',
-          icon: <SwapOutlined />,
-          label: <MenuItemLabel text="油品调拨" link="/inventory/oil-transfer" />,
-        },
-        {
-          key: 'inventory_inventory_query',
-          icon: <SearchOutlined />,
-          label: <MenuItemLabel text="库存查询" link="/inventory/inventory-query" />,
-        },
-        {
-          key: 'inventory_self_use',
-          icon: <FormOutlined />,
-          label: <MenuItemLabel text="自用油申请" link="/inventory/self-use" />,
-        },
-        {
-          key: 'inventory_refill',
-          icon: <ReloadOutlined />,
-          label: <MenuItemLabel text="回灌油申请" link="/inventory/refill" />,
-        },
-      ],
-    },
-    {
-      key: 'delivery',
-      icon: <CarOutlined />,
-      label: '配送管理',
-      children: [
-        {
-          key: 'supplier_transport',
-          icon: <CarOutlined />,
-          label: <MenuItemLabel text="承运单位" link="/supplier/transport" />,
-        },
-        {
-          key: 'oil_depot',
-          icon: <BankOutlined />,
-          label: <MenuItemLabel text="油库管理" link="/oil/depot" />,
-        },
-        {
-          key: 'oil_depot_distance',
-          icon: <EnvironmentOutlined />,
-          label: <MenuItemLabel text="油库距离管理" link="/oil/depot/distance" tooltip="油库与油站距离管理" />,
-        },
-      ],
-    },
-    {
-      key: 'device',
-      icon: <DesktopOutlined />,
-      label: '设备管理',
-      children: [
-        {
-          key: 'device_list',
-          icon: <DesktopOutlined />,
-          label: <MenuItemLabel text="液位仪管理" link="/device" />,
-        },
-      ],
-    },
-    {
-      key: 'loss',
+
+
+      {
+        key: 'loss',
       icon: <LineChartOutlined />,
       label: '损溢管理',
       children: [],
@@ -324,23 +260,7 @@ const AppSider = ({ collapsed }) => {
         },
       ],
     },
-    {
-      key: 'membership',
-      icon: <UserOutlined />,
-      label: '会员管理',
-      children: [
-        {
-          key: 'membership_card',
-          icon: <CreditCardOutlined />,
-          label: <MenuItemLabel text="会员卡管理" link="/membership/card" />,
-        },
-        {
-          key: 'membership_points',
-          icon: <GiftOutlined />,
-          label: <MenuItemLabel text="积分管理" link="/membership/points" />,
-        },
-      ],
-    },
+
     {
       key: 'points',
       icon: <TrophyOutlined />,
@@ -374,53 +294,7 @@ const AppSider = ({ collapsed }) => {
         },
       ],
     },
-    {
-      key: 'report',
-      icon: <BarChartOutlined />,
-      label: '报表管理',
-      children: [
-        {
-          key: 'report_sales',
-          icon: <LineChartOutlined />,
-          label: <MenuItemLabel text="销售报表" link="/report/sales" />,
-        },
-        {
-          key: 'report_inventory',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="库存报表" link="/report/inventory" />,
-        },
-        {
-          key: 'report_member',
-          icon: <UserOutlined />,
-          label: <MenuItemLabel text="会员报表" link="/report/member" />,
-        },
-        {
-          key: 'report_purchase',
-          icon: <ShoppingCartOutlined />,
-          label: <MenuItemLabel text="商品采购报表" link="/report/purchase" />,
-        },
-        {
-          key: 'report_goods-sales',
-          icon: <ShoppingOutlined />,
-          label: <MenuItemLabel text="商品销售报表" link="/report/goods-sales" />,
-        },
-        {
-          key: 'report_density',
-          icon: <StockOutlined />,
-          label: <MenuItemLabel text="油品密度报表" link="/report/density" />,
-        },
-        {
-          key: 'report_station-inventory',
-          icon: <AccountBookOutlined />,
-          label: <MenuItemLabel text="9003油站进销存" link="/report/station-inventory" />,
-        },
-        {
-          key: 'report_station-sales-monthly',
-          icon: <BarChartOutlined />,
-          label: <MenuItemLabel text="9020油站销售月报表" link="/report/station-sales-monthly" />,
-        },
-      ],
-    },
+
     {
       key: 'organization',
       icon: <ApartmentOutlined />,
@@ -438,28 +312,7 @@ const AppSider = ({ collapsed }) => {
         },
       ],
     },
-    {
-      key: 'system',
-      icon: <SettingOutlined />,
-      label: '系统管理',
-      children: [
-        {
-          key: 'system_workflow',
-          icon: <NodeIndexOutlined />,
-          label: <MenuItemLabel text="工作流程管理" link="/system/workflow" />,
-        },
-        {
-          key: 'system_global_config',
-          icon: <SettingOutlined />,
-          label: <MenuItemLabel text="全局配置" link="/system/global-config" />,
-        },
-        {
-          key: 'system_sitemap',
-          icon: <BranchesOutlined />,
-          label: <MenuItemLabel text="网站地图" link="/system/sitemap" />,
-        },
-      ],
-    },
+
   ];
 
   return (
