@@ -1,0 +1,382 @@
+/* 油站管理页面样式 - 按照mdc规范设计 */
+
+/* 主容器结构 */
+.station-management-container {
+  padding: 24px;  /* 页面四周留白 */
+}
+
+.station-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+
+/* Tab样式和布局 */
+.station-management-container .ant-tabs-tab {
+  font-size: 14px;     /* Tab文字大小 */
+  font-weight: 500;    /* Tab文字粗细 */
+}
+
+.station-management-container .ant-tabs-content-holder {
+  padding: 16px 0;     /* Tab内容区域内边距 */
+}
+
+/* 筛选区域样式 */
+.station-management-container .ant-form-inline {
+  background-color: white;  /* 筛选区域背景色为白色 */
+  padding: 16px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.station-management-container .ant-form-inline .ant-form-item {
+  margin-bottom: 16px;
+  margin-right: 16px;
+}
+
+.station-management-container .ant-form-inline .ant-form-item:last-child {
+  margin-right: 0;
+}
+
+/* 按钮样式规则 - 所有按钮都包含 border-radius:2px */
+.station-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+/* 主要操作按钮样式 */
+.station-management-container .ant-btn-primary {
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* 删除按钮样式 */
+.station-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.station-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+.station-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: #ff7875;
+  border-color: #ff7875;
+}
+
+/* 次要操作按钮样式 */
+.station-management-container .ant-btn:not(.ant-btn-primary) {
+  border-radius: 2px;
+}
+
+/* 按钮区域右对齐 */
+.station-management-container .ant-space {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 表格样式 */
+.station-management-container .ant-table {
+  margin-top: 16px;
+}
+
+.station-management-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+  border-radius: 2px;
+}
+
+.station-management-container .ant-table-tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+
+.station-management-container .ant-table-tbody > tr > td {
+  padding: 12px 16px;
+}
+
+/* 表格中的操作按钮样式 */
+.station-management-container .ant-table .ant-btn-sm {
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.station-management-container .ant-table .ant-btn-sm:last-child {
+  margin-right: 0;
+}
+
+/* 状态标签样式 */
+.station-management-container .ant-tag {
+  border-radius: 2px;
+  font-size: 12px;
+  padding: 2px 8px;
+}
+
+/* 分页器样式 */
+.station-management-container .ant-pagination {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.station-management-container .ant-pagination .ant-pagination-item {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-pagination .ant-pagination-item-active {
+  border-radius: 2px;
+}
+
+/* 表单弹窗样式 */
+.station-management-container .ant-modal {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-modal-header {
+  border-radius: 2px 2px 0 0;
+}
+
+.station-management-container .ant-modal-footer {
+  border-radius: 0 0 2px 2px;
+}
+
+.station-management-container .ant-modal-footer .ant-btn {
+  border-radius: 2px;
+  margin-left: 8px;
+}
+
+/* 表单项样式 */
+.station-management-container .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.station-management-container .ant-form-item-label {
+  font-weight: 500;
+  text-align: left;
+}
+
+.station-management-container .ant-input,
+.station-management-container .ant-select-selector,
+.station-management-container .ant-picker,
+.station-management-container .ant-input-number {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-select-multiple .ant-select-selector {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-select-dropdown {
+  border-radius: 2px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .station-management-container {
+    padding: 16px;
+  }
+  
+  .station-management-container .ant-form-inline {
+    display: block;
+  }
+  
+  .station-management-container .ant-form-inline .ant-form-item {
+    display: block;
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
+  
+  .station-management-container .ant-table {
+    font-size: 12px;
+  }
+  
+  .station-management-container .ant-table .ant-btn-sm {
+    padding: 0 8px;
+    font-size: 12px;
+  }
+}
+
+/* 固定列样式 */
+.station-management-container .ant-table-fixed-left {
+  box-shadow: 6px 0 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+.station-management-container .ant-table-fixed-right {
+  box-shadow: -6px 0 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* 加载状态样式 */
+.station-management-container .ant-spin-container {
+  min-height: 200px;
+}
+
+/* 空数据样式 */
+.station-management-container .ant-empty {
+  margin: 40px 0;
+}
+
+/* 操作按钮组样式 */
+.station-management-container .ant-space-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 修改记录表格特殊样式 */
+.station-management-container .ant-table-wrapper {
+  margin-top: 0;
+}
+
+/* 详情弹窗样式 */
+.station-management-container .ant-descriptions {
+  margin-top: 16px;
+}
+
+.station-management-container .ant-descriptions-item-label {
+  font-weight: 500;
+  background-color: #fafafa;
+}
+
+.station-management-container .ant-descriptions-item-content {
+  background-color: white;
+}
+
+/* 搜索框样式 */
+.station-management-container .ant-input-search {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-input-search .ant-input-search-button {
+  border-radius: 0 2px 2px 0;
+}
+
+/* 选择器样式 */
+.station-management-container .ant-select {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-select-single .ant-select-selector {
+  border-radius: 2px;
+}
+
+/* 日期选择器样式 */
+.station-management-container .ant-picker-dropdown {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-picker-cell {
+  border-radius: 2px;
+}
+
+/* 数字输入框样式 */
+.station-management-container .ant-input-number-input {
+  border-radius: 2px;
+}
+
+/* 多选标签样式 */
+.station-management-container .ant-select-multiple .ant-select-selection-item {
+  border-radius: 2px;
+  background-color: #f0f0f0;
+  border: 1px solid #d9d9d9;
+}
+
+/* 工具提示样式 */
+.station-management-container .ant-tooltip {
+  border-radius: 2px;
+}
+
+/* 消息提示样式 */
+.station-management-container .ant-message {
+  border-radius: 2px;
+}
+
+/* 确认框样式 */
+.station-management-container .ant-modal-confirm {
+  border-radius: 2px;
+}
+
+/* 企业级应用色彩方案 - 按照全局配色规范 */
+.station-management-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.station-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.station-management-container .ant-btn-primary:focus {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 危险操作按钮样式 */
+.station-management-container .ant-btn-dangerous {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-btn-dangerous:hover {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+}
+
+/* 表格行高亮样式 */
+.station-management-container .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 表格排序样式 */
+.station-management-container .ant-table-column-sorter {
+  border-radius: 2px;
+}
+
+/* 表格筛选样式 */
+.station-management-container .ant-table-filter-dropdown {
+  border-radius: 2px;
+}
+
+/* 统一的卡片内边距 */
+.station-management-container .ant-card-body {
+  padding: 24px;
+}
+
+/* Tab内容区域样式 */
+.station-management-container .ant-tabs-tabpane {
+  padding: 0;
+}
+
+/* 表单布局优化 */
+.station-management-container .ant-form-vertical .ant-form-item-label {
+  padding-bottom: 4px;
+}
+
+/* 输入框焦点样式 */
+.station-management-container .ant-input:focus,
+.station-management-container .ant-select-focused .ant-select-selector,
+.station-management-container .ant-picker-focused {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 清除按钮样式 */
+.station-management-container .ant-input-clear-icon,
+.station-management-container .ant-select-clear {
+  border-radius: 2px;
+}
+
+/* 下拉菜单样式 */
+.station-management-container .ant-dropdown {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-dropdown-menu {
+  border-radius: 2px;
+}
+
+.station-management-container .ant-dropdown-menu-item {
+  border-radius: 2px;
+}
+
+/* 总体布局优化 */
+.station-management-container {
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 64px);
+} 

@@ -1,0 +1,54 @@
+.category-management-container {
+  padding: 24px;
+}
+
+.category-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.category-tree-container {
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 6px;
+  min-height: 400px;
+}
+
+.category-form-container {
+  padding: 16px;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.category-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.category-management-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.category-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+}
+
+.category-tree .ant-tree-node-content-wrapper {
+  user-select: none;
+}
+
+.category-tree .ant-tree-node-selected {
+  background-color: #e6f7ff;
+}
+
+.category-actions {
+  margin-top: 16px;
+}
+
+.category-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.category-form .ant-form-item-label > label {
+  font-weight: 500;
+} 

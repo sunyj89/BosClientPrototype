@@ -112,18 +112,7 @@
           { "id": "goods:export", "name": "导出" }
         ]
       },
-      {
-        "id": "membership",
-        "name": "会员管理",
-        "path": "/membership",
-        "operations": [
-          { "id": "membership:view", "name": "查看" },
-          { "id": "membership:add", "name": "新增" },
-          { "id": "membership:edit", "name": "编辑" },
-          { "id": "membership:delete", "name": "删除" },
-          { "id": "membership:export", "name": "导出" }
-        ]
-      },
+      
       {
         "id": "points",
         "name": "积分管理",
@@ -133,16 +122,6 @@
           { "id": "points:config", "name": "配置" },
           { "id": "points:adjust", "name": "积分调整" },
           { "id": "points:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "report",
-        "name": "报表管理",
-        "path": "/report",
-        "operations": [
-          { "id": "report:view", "name": "查看" },
-          { "id": "report:export", "name": "导出" },
-          { "id": "report:config", "name": "配置" }
         ]
       },
       {
@@ -159,18 +138,6 @@
         ]
       },
       {
-        "id": "inventory",
-        "name": "库存管理",
-        "path": "/inventory",
-        "operations": [
-          { "id": "inventory:view", "name": "查看" },
-          { "id": "inventory:add", "name": "新增" },
-          { "id": "inventory:edit", "name": "编辑" },
-          { "id": "inventory:transfer", "name": "调拨" },
-          { "id": "inventory:export", "name": "导出" }
-        ]
-      },
-      {
         "id": "oil",
         "name": "油品管理",
         "path": "/oil",
@@ -180,15 +147,6 @@
           { "id": "oil:edit", "name": "编辑" },
           { "id": "oil:config", "name": "配置" },
           { "id": "oil:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "system",
-        "name": "系统管理",
-        "path": "/system",
-        "operations": [
-          { "id": "system:view", "name": "查看" },
-          { "id": "system:config", "name": "配置" }
         ]
       }
     ],
@@ -214,9 +172,10 @@
       "description": "集团CEO，拥有全部权限",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "organization:add", "organization:edit", "organization:delete", "organization:user_add", "organization:user_edit", "organization:user_delete", "organization_role:view", "organization_role:add", "organization_role:edit", "organization_role:delete", "organization_role:copy", "supplier:view", "supplier:add", "supplier:edit", "supplier:delete", "supplier:approve", "supplier:export", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "purchase:view", "purchase:add", "purchase:edit", "purchase:delete", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:price_adjust", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:delete", "membership:export", "points:view", "points:config", "points:adjust", "points:export", "report:view", "report:export", "report:config", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:approve", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:transfer", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export", "system:view", "system:config"],
+        "pageOperations": ["dashboard:view", "organization:view", "organization:add", "organization:edit", "organization:delete", "organization:user_add", "organization:user_edit", "organization:user_delete", "organization_role:view", "organization_role:add", "organization_role:edit", "organization_role:delete", "organization_role:copy", "supplier:view", "supplier:add", "supplier:edit", "supplier:delete", "supplier:approve", "supplier:export", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "purchase:view", "purchase:add", "purchase:edit", "purchase:delete", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:price_adjust", "goods:export", "points:view", "points:config", "points:adjust", "points:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:approve", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
         "dataScope": "all",
-        "posDevices": ["gun_config", "tank_config", "price_config", "device_control", "report_print"]
+        "posDevices": ["gun_config", "tank_config", "price_config", "device_control", "report_print"],
+        "associatedStations": [15, 16, 18, 19, 21, 22, 24, 25]
       },
       "orgTypes": ["HEADQUARTER", "DEPARTMENT", "CITY_BRANCH", "SERVICE_AREA", "GAS_STATION"],
       "createTime": "2024-01-01T00:00:00Z",
@@ -229,9 +188,10 @@
       "description": "部门总监，负责部门管理和业务监督",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "supplier:view", "supplier:add", "supplier:edit", "supplier:approve", "supplier:export", "purchase:view", "purchase:add", "purchase:edit", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:export", "report:view", "report:export", "sales:view", "sales:add", "sales:edit", "sales:approve", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export"],
+        "pageOperations": ["dashboard:view", "organization:view", "supplier:view", "supplier:add", "supplier:edit", "supplier:approve", "supplier:export", "purchase:view", "purchase:add", "purchase:edit", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:export", "sales:view", "sales:add", "sales:edit", "sales:approve", "sales:export"],
         "dataScope": "self_org",
-        "posDevices": []
+        "posDevices": [],
+        "associatedStations": []
       },
       "orgTypes": ["DEPARTMENT"],
       "createTime": "2024-01-01T00:00:00Z",
@@ -244,9 +204,10 @@
       "description": "分公司总经理，负责分公司全面管理",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:delete", "membership:export", "points:view", "points:config", "points:export", "report:view", "report:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
+        "pageOperations": ["dashboard:view", "organization:view", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:export", "points:view", "points:config", "points:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
         "dataScope": "self_org",
-        "posDevices": ["gun_config", "tank_config", "price_config", "device_control"]
+        "posDevices": ["gun_config", "tank_config", "price_config", "device_control"],
+        "associatedStations": [15, 16, 18, 19]
       },
       "orgTypes": ["CITY_BRANCH"],
       "createTime": "2024-01-01T00:00:00Z",
@@ -259,9 +220,10 @@
       "description": "服务区经理，负责服务区运营管理",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "station:view", "station:add", "station:edit", "device:view", "device:add", "device:edit", "goods:view", "goods:add", "goods:edit", "goods:export", "membership:view", "membership:add", "membership:edit", "membership:export", "sales:view", "sales:add", "sales:edit", "sales:export", "inventory:view", "inventory:add", "inventory:edit", "inventory:export", "oil:view", "oil:add", "oil:edit", "oil:export"],
+        "pageOperations": ["dashboard:view", "station:view", "station:add", "station:edit", "device:view", "device:add", "device:edit", "goods:view", "goods:add", "goods:edit", "goods:export", "sales:view", "sales:add", "sales:edit", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:export"],
         "dataScope": "self_org",
-        "posDevices": ["gun_config", "tank_config", "price_config"]
+        "posDevices": ["gun_config", "tank_config", "price_config"],
+        "associatedStations": [15, 16]
       },
       "orgTypes": ["SERVICE_AREA"],
       "createTime": "2024-01-01T00:00:00Z",
@@ -274,9 +236,10 @@
       "description": "加油站站长，负责加油站日常运营",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "device:view", "device:config", "goods:view", "goods:add", "goods:edit", "membership:view", "membership:add", "membership:edit", "sales:view", "sales:add", "sales:edit", "inventory:view", "inventory:add", "inventory:edit", "oil:view", "oil:add", "oil:edit"],
+        "pageOperations": ["dashboard:view", "device:view", "device:config", "goods:view", "goods:add", "goods:edit", "sales:view", "sales:add", "sales:edit", "oil:view", "oil:add", "oil:edit"],
         "dataScope": "self_org_only",
-        "posDevices": ["price_config", "device_control", "report_print"]
+        "posDevices": ["price_config", "device_control", "report_print"],
+        "associatedStations": [15]
       },
       "orgTypes": ["GAS_STATION"],
       "createTime": "2024-01-01T00:00:00Z",
@@ -289,9 +252,10 @@
       "description": "普通员工，基础操作权限",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "goods:view", "membership:view", "sales:view"],
+        "pageOperations": ["dashboard:view", "goods:view", "sales:view"],
         "dataScope": "self",
-        "posDevices": []
+        "posDevices": [],
+        "associatedStations": []
       },
       "orgTypes": ["DEPARTMENT", "CITY_BRANCH", "SERVICE_AREA", "GAS_STATION"],
       "createTime": "2024-01-01T00:00:00Z",

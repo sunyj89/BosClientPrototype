@@ -1,0 +1,21 @@
+.goods-pricing-container {
+  padding: 24px;
+}
+
+.goods-pricing-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.goods-pricing-container .ant-btn {
+  border-radius: 2px;
+}
+
+.goods-pricing-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.goods-pricing-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+} 

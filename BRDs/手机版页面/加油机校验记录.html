@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端加油机校验记录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        /* 自定义滚动条，使其在弹窗内更美观 */
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 3px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background-color: #f3f4f6;
+        }
+        .modal-body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: thin;  /* Firefox */
+            scrollbar-color: #d1d5db #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div id="app-container" class="max-w-md mx-auto bg-white min-h-screen shadow-lg">
+        <!-- 页面头部 -->
+        <header class="bg-white sticky top-0 z-20 border-b border-gray-200">
+            <div class="px-4 py-4">
+                <h1 class="text-xl font-bold text-gray-800">加油机校验记录</h1>
+            </div>
+            <!-- 标签页导航 -->
+            <nav class="flex" id="tab-nav">
+                <button data-tab="tab-validation" class="tab-btn flex-1 py-3 text-sm font-semibold border-b-2 border-blue-600 text-blue-600">校验记录明细</button>
+                <button data-tab="tab-modify" class="tab-btn flex-1 py-3 text-sm font-semibold border-b-2 border-transparent text-gray-500">修改记录</button>
+            </nav>
+        </header>
+
+        <main class="pb-24">
+            <!-- 校验记录明细 -->
+            <div id="tab-validation" class="tab-content">
+                <!-- 搜索 -->
+                <div class="p-4 bg-gray-50 border-b border-gray-200 sticky top-[113px] z-10">
+                    <div class="relative">
+                        <input type="text" placeholder="搜索校验单编号" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 记录卡片列表 -->
+                <div class="divide-y divide-gray-100">
+                    <!-- 卡片 1 -->
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-bold text-gray-800">92号汽油 / G01</p>
+                                <p class="text-xs text-gray-500 mt-1">JYJ20240715001</p>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">已审批</span>
+                        </div>
+                        <div class="mt-3 text-sm space-y-2 text-gray-600">
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">所属油站:</span> 南昌高速服务区加油站</p>
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">校验人:</span> 王师傅</p>
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">校验时间:</span> 2024-07-15</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end space-x-2">
+                            <button class="btn-view px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-200">查看</button>
+                            <button class="btn-edit px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100">编辑</button>
+                            <button class="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-md hover:bg-red-100">删除</button>
+                        </div>
+                    </div>
+                    <!-- 卡片 2 -->
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-bold text-gray-800">95号汽油 / G02</p>
+                                <p class="text-xs text-gray-500 mt-1">JYJ20240714002</p>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-semibold text-orange-800 bg-orange-100 rounded-full">待审批</span>
+                        </div>
+                        <div class="mt-3 text-sm space-y-2 text-gray-600">
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">所属油站:</span> 上饶高速服务区加油站</p>
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">校验人:</span> 李师傅</p>
+                            <p><span class="font-medium text-gray-500 w-20 inline-block">校验时间:</span> 2024-07-14</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end space-x-2">
+                            <button class="btn-view px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-200">查看</button>
+                            <button class="btn-edit px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100">编辑</button>
+                            <button class="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-md hover:bg-red-100">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 修改记录列表 -->
+            <div id="tab-modify" class="tab-content hidden">
+                 <div class="divide-y divide-gray-100">
+                    <!-- 记录卡片 1 -->
+                    <div class="p-4">
+                        <div class="flex justify-between items-center">
+                            <p class="font-semibold text-gray-800">JYJ20240715001</p>
+                            <span class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">编辑</span>
+                        </div>
+                        <div class="mt-3 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
+                           <p class="font-medium">审批状态变更</p>
+                           <p class="text-xs mt-1">变更内容: 状态由 "待审批" 改为 "已审批"</p>
+                        </div>
+                        <div class="mt-3 flex justify-between items-center text-xs text-gray-500">
+                            <span>操作人: 王师傅</span>
+                            <span>2024-07-16 09:45:00</span>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </main>
+
+        <!-- 底部操作栏 -->
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 p-3 z-20">
+            <button id="btn-create" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
+                <svg class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                新增校验记录
+            </button>
+        </footer>
+    </div>
+
+    <!-- 弹窗: 查看/编辑/创建 -->
+    <div id="form-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
+        <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-lg max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modal-title" class="text-lg font-bold">Modal Title</h3>
+                <button class="modal-close-btn text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="modal-body p-4 overflow-y-auto">
+                <!-- 表单内容 -->
+                <form id="record-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">校验单编号</label>
+                        <input type="text" name="validationNumber" class="mt-1 block w-full bg-gray-100 px-3 py-2 border border-gray-300 rounded-md shadow-sm" disabled>
+                    </div>
+                    <div>
+                        <label for="gunCode" class="block text-sm font-medium text-gray-700">加油枪编号</label>
+                        <input type="text" id="gunCode" name="gunCode" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="oilType" class="block text-sm font-medium text-gray-700">油品名称</label>
+                        <select id="oilType" name="oilType" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option>92号汽油</option>
+                            <option>95号汽油</option>
+                            <option>98号汽油</option>
+                            <option>0号柴油</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="stationName" class="block text-sm font-medium text-gray-700">所属油站</label>
+                        <input type="text" id="stationName" name="stationName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="validationReason" class="block text-sm font-medium text-gray-700">校验原因</label>
+                        <select id="validationReason" name="validationReason" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option>定期校验</option>
+                            <option>故障后校验</option>
+                            <option>计量异常</option>
+                            <option>设备维修</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="standardCapacity" class="block text-sm font-medium text-gray-700">标准金属量器规格容积</label>
+                        <input type="text" id="standardCapacity" name="standardCapacity" placeholder="例如: 20L" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="validatorName" class="block text-sm font-medium text-gray-700">校验人名称</label>
+                        <input type="text" id="validatorName" name="validatorName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="validationDate" class="block text-sm font-medium text-gray-700">校验时间</label>
+                        <input type="date" id="validationDate" name="validationDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">单据状态</label>
+                        <select id="status" name="status" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option>草稿</option>
+                            <option>待审批</option>
+                            <option>已审批</option>
+                        </select>
+                    </div>
+                </form>
+                 <!-- 查看模式下的内容 -->
+                <div id="view-content" class="hidden text-sm space-y-3"></div>
+            </div>
+            <div class="flex justify-end items-center p-4 border-t space-x-2">
+                <button id="modal-cancel-btn" class="modal-close-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">取消</button>
+                <button id="modal-save-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">保存</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 标签页切换逻辑 ---
+            const tabNav = document.getElementById('tab-nav');
+            tabNav.addEventListener('click', (e) => {
+                const clickedButton = e.target.closest('.tab-btn');
+                if (!clickedButton) return;
+
+                // 更新按钮样式
+                tabNav.querySelectorAll('.tab-btn').forEach(button => {
+                    button.classList.remove('border-blue-600', 'text-blue-600');
+                    button.classList.add('border-transparent', 'text-gray-500');
+                });
+                clickedButton.classList.add('border-blue-600', 'text-blue-600');
+                clickedButton.classList.remove('border-transparent', 'text-gray-500');
+
+                // 切换内容显示
+                const targetTabId = clickedButton.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.id === targetTabId ? content.classList.remove('hidden') : content.classList.add('hidden');
+                });
+            });
+
+            // --- 弹窗逻辑 ---
+            const formModal = document.getElementById('form-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const recordForm = document.getElementById('record-form');
+            const viewContent = document.getElementById('view-content');
+            const modalSaveBtn = document.getElementById('modal-save-btn');
+            
+            // 模拟数据，用于填充表单和查看详情
+            const mockData = {
+                validationNumber: 'JYJ20240715001',
+                gunCode: 'G01',
+                oilType: '92号汽油',
+                stationName: '南昌高速服务区加油站',
+                validationReason: '定期校验',
+                standardCapacity: '20L',
+                validatorName: '王师傅',
+                validationDate: '2024-07-15',
+                status: '已审批'
+            };
+
+            function openModal() {
+                formModal.classList.remove('hidden');
+                formModal.classList.add('flex');
+            }
+
+            function closeModal() {
+                formModal.classList.add('hidden');
+                formModal.classList.remove('flex');
+            }
+
+            // 打开 "创建" 弹窗
+            document.getElementById('btn-create').addEventListener('click', () => {
+                modalTitle.textContent = '新增校验记录';
+                recordForm.reset();
+                // 自动生成校验单号
+                const newValidationNumber = `JYJ${new Date().toISOString().slice(0,10).replace(/-/g,"")}${Math.floor(100 + Math.random() * 900)}`;
+                recordForm.elements.validationNumber.value = newValidationNumber;
+                
+                recordForm.classList.remove('hidden');
+                viewContent.classList.add('hidden');
+                modalSaveBtn.classList.remove('hidden');
+                openModal();
+            });
+            
+            // 打开 "编辑" 弹窗
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modalTitle.textContent = '编辑校验记录';
+                    // 填充模拟数据
+                    Object.keys(mockData).forEach(key => {
+                        const input = recordForm.elements[key];
+                        if (input) input.value = mockData[key];
+                    });
+                    recordForm.classList.remove('hidden');
+                    viewContent.classList.add('hidden');
+                    modalSaveBtn.classList.remove('hidden');
+                    openModal();
+                });
+            });
+
+            // 打开 "查看" 弹窗
+            document.querySelectorAll('.btn-view').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    modalTitle.textContent = '查看校验记录';
+                    // 填充查看内容
+                    viewContent.innerHTML = `
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">校验单编号:</span> ${mockData.validationNumber}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">加油枪编号:</span> ${mockData.gunCode}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">油品名称:</span> ${mockData.oilType}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">所属油站:</span> ${mockData.stationName}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">校验原因:</span> ${mockData.validationReason}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">标准容积:</span> ${mockData.standardCapacity}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">校验人:</span> ${mockData.validatorName}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">校验时间:</span> ${mockData.validationDate}</p>
+                        <p><span class="font-semibold text-gray-600 w-32 inline-block">单据状态:</span> <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">${mockData.status}</span></p>
+                    `;
+                    recordForm.classList.add('hidden');
+                    viewContent.classList.remove('hidden');
+                    modalSaveBtn.classList.add('hidden');
+                    openModal();
+                });
+            });
+
+            // 关闭弹窗的按钮事件
+            formModal.querySelectorAll('.modal-close-btn').forEach(btn => {
+                btn.addEventListener('click', closeModal);
+            });
+            
+            // 点击弹窗背景关闭
+            formModal.addEventListener('click', (e) => {
+                if (e.target === formModal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
