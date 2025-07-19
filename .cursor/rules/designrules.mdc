@@ -3,11 +3,6 @@ description:
 globs: .*
 alwaysApply: false
 ---
----
-description: 
-globs: 
-alwaysApply: true
----
 
 # 智慧能源系统BOS后台设计规范
 
@@ -135,7 +130,7 @@ alwaysApply: true
 
 ## 按钮配色规范
 
-### 全局配色变量
+### 按钮使用全局配色变量
 ```css
 :root {
   --primary-color: #32AF50;        /* 主色调 - 绿色 */

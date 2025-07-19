@@ -17,10 +17,13 @@ import OilLossAnalysis from './pages/purchase/oil-delivery/OilLossAnalysis';
 import OilLossCost from './pages/purchase/oil-delivery/OilLossCost';
 import OilOverflowOrder from './pages/purchase/oil-delivery/OilOverflowOrder';
 import OilOverflowSummary from './pages/purchase/oil-delivery/OilOverflowSummary';
-import OilOrder from './pages/purchase/oil-order';
-import OilPurchasePriceManagement from './pages/purchase/oil-purchase-price-management';
+
 import OilInquiryManagement from './pages/purchase/oil-inquiry-management';
+import OilProcurementManagement from './pages/purchase/oil-procurement-management';
 import NonOilProcurement from './pages/purchase/non-oil-procurement';
+
+// 物流管理
+import OilWarehouseDelivery from './pages/logistics/oil-warehouse-delivery';
 
 // 供应商管理
 import SupplierRoutes from './pages/supplier';
@@ -50,6 +53,15 @@ import DeviceManagement from './pages/device';
 import DeviceDetail from './pages/device/components/DeviceDetail';
 
 
+
+// 报表管理
+import ShiftHandoverReport from './pages/report/shift-handover';
+
+// 设备管理
+import EquipmentArchive from './pages/equipment/archive';
+import DispenserCalibration from './pages/equipment/dispenser-calibration';
+import GeneratorOperation from './pages/equipment/generator-operation';
+import WaterElectricityRecords from './pages/equipment/water-electricity';
 
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
@@ -145,17 +157,22 @@ const AppRouter = () => {
           <Route path="overflow-summary" element={<OilOverflowSummary />} />
         </Route>
         
-        {/* 油品采购订单 */}
-        <Route path="oil-order" element={<OilOrder />} />
-        
-        {/* 油品进价管理 */}
-        <Route path="oil-purchase-price-management" element={<OilPurchasePriceManagement />} />
+
         
         {/* 油品询价管理 */}
         <Route path="oil-inquiry-management" element={<OilInquiryManagement />} />
         
+        {/* 油品采购管理 */}
+        <Route path="oil-procurement-management" element={<OilProcurementManagement />} />
+        
         {/* 非油商品采购管理 */}
         <Route path="non-oil-procurement" element={<NonOilProcurement />} />
+      </Route>
+      
+      {/* 物流管理路由 */}
+      <Route path="/logistics">
+        {/* 油库出库管理 */}
+        <Route path="oil-warehouse-delivery" element={<OilWarehouseDelivery />} />
       </Route>
       
       {/* 商品管理路由 */}
@@ -228,6 +245,19 @@ const AppRouter = () => {
       <Route path="/oil">
         <Route path="master-data" element={<OilMasterData />} />
         <Route path="density" element={<OilDensity />} />
+      </Route>
+      
+      {/* 报表管理路由 */}
+      <Route path="/report">
+        <Route path="shift-handover" element={<ShiftHandoverReport />} />
+      </Route>
+      
+      {/* 设备管理路由 */}
+      <Route path="/equipment">
+        <Route path="archive" element={<EquipmentArchive />} />
+        <Route path="dispenser-calibration" element={<DispenserCalibration />} />
+        <Route path="generator-operation" element={<GeneratorOperation />} />
+        <Route path="water-electricity" element={<WaterElectricityRecords />} />
       </Route>
       
       {/* 组织架构管理路由 */}
