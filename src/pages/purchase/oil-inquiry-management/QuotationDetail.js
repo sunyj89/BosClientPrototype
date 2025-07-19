@@ -20,7 +20,6 @@ import {
   DownloadOutlined, 
   FileTextOutlined, 
   TrophyOutlined,
-  ShoppingOutlined,
   MailOutlined,
   PrinterOutlined
 } from '@ant-design/icons';
@@ -77,13 +76,7 @@ const QuotationDetail = ({ visible, record, onCancel, onAccept, onReject, onConf
     }
   };
   
-  // 处理创建采购订单
-  const handleCreateOrder = () => {
-    message.success('正在创建采购订单');
-    // 跳转到油品采购订单页面
-    window.location.href = `/purchase/oil-order?id=${record.id}`;
-  };
-  
+
   // 处理通知供应商
   const handleNotifySupplier = () => {
     message.success('正在发送通知给供应商');
@@ -122,14 +115,7 @@ const QuotationDetail = ({ visible, record, onCancel, onAccept, onReject, onConf
         >
           通知中标供应商
         </Button>,
-        <Button 
-          key="create-order" 
-          type="primary" 
-          icon={<ShoppingOutlined />}
-          onClick={handleCreateOrder}
-        >
-          创建采购订单
-        </Button>
+
       ];
     }
     

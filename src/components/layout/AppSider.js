@@ -35,6 +35,7 @@ import {
   TrophyOutlined,
   ApartmentOutlined,
   AppstoreOutlined,
+  TruckOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -177,19 +178,42 @@ const AppSider = ({ collapsed }) => {
       ],
     },
     {
+      key: 'goods',
+      icon: <ShoppingOutlined />,
+      label: '商品管理',
+      children: [
+        {
+          key: 'goods_master_data',
+          icon: <AppstoreOutlined />,
+          label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
+        },
+        {
+          key: 'goods_inventory',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="库存管理" link="/goods/inventory" />,
+        },
+        {
+          key: 'goods_price',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="价格调整" link="/goods/price" />,
+        },
+      ],
+    },
+
+    {
       key: 'purchase',
       icon: <ShoppingCartOutlined />,
       label: '采购管理',
       children: [
         {
-          key: 'purchase_oil_order',
+          key: 'purchase_oil_procurement_management',
           icon: <ShoppingCartOutlined />,
-          label: <MenuItemLabel text="油品采购订单" link="/purchase/oil-order" />,
+          label: <MenuItemLabel text="油品采购管理" link="/purchase/oil-procurement-management" />,
         },
         {
-          key: 'purchase_oil_purchase_price_management',
-          icon: <DollarOutlined />,
-          label: <MenuItemLabel text="油品进价管理" link="/purchase/oil-purchase-price-management" />,
+          key: 'purchase_non_oil_procurement',
+          icon: <ShoppingOutlined />,
+          label: <MenuItemLabel text="非油商品采购管理" link="/purchase/non-oil-procurement" />,
         },
         {
           key: 'purchase_oil_inquiry_management',
@@ -206,10 +230,18 @@ const AppSider = ({ collapsed }) => {
           icon: <LineChartOutlined />,
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
         },
+
+      ],
+    },
+    {
+      key: 'logistics',
+      icon: <TruckOutlined />,
+      label: '物流管理',
+      children: [
         {
-          key: 'purchase_non_oil_procurement',
-          icon: <ShoppingOutlined />,
-          label: <MenuItemLabel text="非油商品采购管理" link="/purchase/non-oil-procurement" />,
+          key: 'logistics_oil_warehouse_delivery',
+          icon: <CarOutlined />,
+          label: <MenuItemLabel text="油库出库管理" link="/logistics/oil-warehouse-delivery" />,
         },
       ],
     },
@@ -237,28 +269,6 @@ const AppSider = ({ collapsed }) => {
       icon: <LineChartOutlined />,
       label: '损溢管理',
       children: [],
-    },
-    {
-      key: 'goods',
-      icon: <ShoppingOutlined />,
-      label: '商品管理',
-      children: [
-        {
-          key: 'goods_master_data',
-          icon: <AppstoreOutlined />,
-          label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
-        },
-        {
-          key: 'goods_inventory',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="库存管理" link="/goods/inventory" />,
-        },
-        {
-          key: 'goods_price',
-          icon: <DollarOutlined />,
-          label: <MenuItemLabel text="价格调整" link="/goods/price" />,
-        },
-      ],
     },
 
     {
@@ -291,6 +301,47 @@ const AppSider = ({ collapsed }) => {
           key: 'points_config',
           icon: <SettingOutlined />,
           label: <MenuItemLabel text="积分配置" link="/points/config" />,
+        },
+      ],
+    },
+
+    {
+      key: 'report',
+      icon: <BarChartOutlined />,
+      label: '报表管理',
+      children: [
+        {
+          key: 'report_shift_handover',
+          icon: <FormOutlined />,
+          label: <MenuItemLabel text="01加油站交接班报表" link="/report/shift-handover" />,
+        },
+      ],
+    },
+
+    {
+      key: 'equipment',
+      icon: <ToolOutlined />,
+      label: '设备管理',
+      children: [
+        {
+          key: 'equipment_archive',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="设备档案管理" link="/equipment/archive" />,
+        },
+        {
+          key: 'equipment_dispenser_calibration',
+          icon: <SafetyCertificateOutlined />,
+          label: <MenuItemLabel text="加油机校验记录" link="/equipment/dispenser-calibration" />,
+        },
+        {
+          key: 'equipment_generator_operation',
+          icon: <DesktopOutlined />,
+          label: <MenuItemLabel text="发电机运行记录" link="/equipment/generator-operation" />,
+        },
+        {
+          key: 'equipment_utility_records',
+          icon: <NodeIndexOutlined />,
+          label: <MenuItemLabel text="水电表记录" link="/equipment/water-electricity" />,
         },
       ],
     },
