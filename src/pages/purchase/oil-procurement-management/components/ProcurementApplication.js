@@ -58,7 +58,7 @@ const ProcurementApplication = () => {
     setLoading(true);
     // 模拟API请求
     setTimeout(() => {
-      setData(procurementApplicationData);
+      setData(procurementApplicationData.procurementApplications || []);
       setLoading(false);
     }, 500);
   };
@@ -68,7 +68,7 @@ const ProcurementApplication = () => {
     setLoading(true);
     
     setTimeout(() => {
-      let filtered = [...procurementApplicationData];
+      let filtered = [...(procurementApplicationData.procurementApplications || [])];
       
       if (values.keyword) {
         filtered = filtered.filter(item => 
@@ -480,7 +480,7 @@ const ProcurementApplication = () => {
       {/* 表格 */}
       <Table 
         columns={columns}
-        dataSource={data}
+        dataSource={Array.isArray(data) ? data : []}
         loading={loading}
         rowKey="id"
         pagination={{ 

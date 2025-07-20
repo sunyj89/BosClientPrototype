@@ -7,6 +7,9 @@ import {
 } from 'antd';
 import './index.css';
 import ProcurementApplication from './components/ProcurementApplication';
+import OilReceiptManagement from './OilReceiptManagement';
+import OilTransferManagement from './OilTransferManagement';
+import OperationRecords from './OperationRecords';
 
 const OilProcurementManagement = () => {
   const [loading, setLoading] = useState(false);
@@ -63,12 +66,7 @@ const OilProcurementManagement = () => {
           入库卸油
         </span>
       ),
-      children: (
-        <DevelopingComponent 
-          title="入库卸油管理"
-          description="油品入库、卸油据管理功能开发中..."
-        />
-      ),
+      children: <OilReceiptManagement />,
     },
     {
       key: 'transfer-order',
@@ -77,26 +75,7 @@ const OilProcurementManagement = () => {
           油品调拨
         </span>
       ),
-      children: (
-        <DevelopingComponent 
-          title="油品调拨管理"
-          description="油品库存调拨、转移据管理功能开发中..."
-        />
-      ),
-    },
-    {
-      key: 'return-application',
-      label: (
-        <span>
-          油品退货
-        </span>
-      ),
-      children: (
-        <DevelopingComponent 
-          title="油品退货管理"
-          description="油品退货申请、审批、处理流程功能开发中..."
-        />
-      ),
+      children: <OilTransferManagement />,
     },
     {
       key: 'operation-records',
@@ -105,12 +84,7 @@ const OilProcurementManagement = () => {
           操作记录
         </span>
       ),
-      children: (
-        <DevelopingComponent 
-          title="操作记录查询"
-          description="采购相关操作日志记录和查询功能开发中..."
-        />
-      ),
+      children: <OperationRecords />,
     },
 
   ];

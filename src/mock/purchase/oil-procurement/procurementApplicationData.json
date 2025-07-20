@@ -1,4 +1,5 @@
-[
+{
+  "procurementApplications": [
   {
     "id": "PA202407190001",
     "applicationNumber": "PA202407190001",
@@ -259,4 +260,5 @@
       }
     ]
   }
-] 
+  ]
+} 
