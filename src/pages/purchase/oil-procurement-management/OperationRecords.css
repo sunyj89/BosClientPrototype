@@ -1,0 +1,55 @@
+.operation-records-container {
+  padding: 24px;
+}
+
+.operation-records-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.operation-records-container .search-form {
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+.operation-records-container .search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.operation-records-container .search-form .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.operation-records-container .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.operation-records-container .ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}
+
+.operation-records-container .ant-table-cell {
+  padding: 12px 8px;
+}
+
+.operation-records-container .ant-tag {
+  margin: 0;
+}
+
+.operation-records-container .ant-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.operation-records-container .ant-modal .ant-modal-body {
+  padding: 24px;
+}
+
+.operation-records-container .ant-descriptions-bordered .ant-descriptions-item-label {
+  background: #fafafa;
+  font-weight: 500;
+}
+
+.operation-records-container .ant-typography {
+  margin: 0;
+} 

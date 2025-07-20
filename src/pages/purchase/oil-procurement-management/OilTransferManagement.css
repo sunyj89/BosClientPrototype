@@ -1,0 +1,39 @@
+.oil-transfer-management-container {
+  padding: 24px;
+}
+
+.oil-transfer-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.oil-transfer-management-container .search-form {
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+.oil-transfer-management-container .search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.oil-transfer-management-container .search-form .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+
+.oil-transfer-management-container .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.oil-transfer-management-container .ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}
+
+.oil-transfer-management-container .ant-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.oil-transfer-management-container .ant-modal .ant-modal-body {
+  padding: 24px;
+} 
