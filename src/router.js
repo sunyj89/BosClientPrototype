@@ -48,9 +48,9 @@ import PointsRoutes from './pages/points';
 // 油站管理
 import StationRoutes from './pages/station';
 
-// 设备管理
-import DeviceManagement from './pages/device';
-import DeviceDetail from './pages/device/components/DeviceDetail';
+// 液位仪管理（已移到设备管理下）
+import LiquidLevelMeterManagement from './pages/equipment/liquid-level-meter';
+import LiquidLevelMeterDetail from './pages/equipment/liquid-level-meter/components/DeviceDetail';
 
 
 
@@ -128,11 +128,7 @@ const AppRouter = () => {
       {/* 油站管理路由 */}
       <Route path="/station/*" element={<StationRoutes />} />
       
-      {/* 设备管理路由 */}
-      <Route path="/device">
-        <Route index element={<DeviceManagement />} />
-        <Route path="detail/:deviceId" element={<DeviceDetail />} />
-      </Route>
+      {/* 旧的设备管理路由已迁移到equipment下 */}
       
       {/* 采购管理路由 */}
       <Route path="/purchase">
@@ -258,6 +254,11 @@ const AppRouter = () => {
         <Route path="dispenser-calibration" element={<DispenserCalibration />} />
         <Route path="generator-operation" element={<GeneratorOperation />} />
         <Route path="water-electricity" element={<WaterElectricityRecords />} />
+        {/* 液位仪管理路由 */}
+        <Route path="liquid-level-meter">
+          <Route index element={<LiquidLevelMeterManagement />} />
+          <Route path="detail/:deviceId" element={<LiquidLevelMeterDetail />} />
+        </Route>
       </Route>
       
       {/* 组织架构管理路由 */}

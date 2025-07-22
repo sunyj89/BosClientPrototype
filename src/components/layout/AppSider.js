@@ -343,6 +343,11 @@ const AppSider = ({ collapsed }) => {
           icon: <NodeIndexOutlined />,
           label: <MenuItemLabel text="水电表记录" link="/equipment/water-electricity" />,
         },
+        {
+          key: 'equipment_liquid_level_meter',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="液位仪管理" link="/equipment/liquid-level-meter" />,
+        },
       ],
     },
 
