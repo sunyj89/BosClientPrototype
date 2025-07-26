@@ -251,101 +251,94 @@ const OperationRecords = () => {
   ];
 
   return (
-    <div className="operation-records-container">
-      <Card>
-        {/* 筛选区域 */}
-        <Form
-          form={form}
-          onFinish={handleSearch}
-          className="search-form"
-          style={{ marginBottom: 16 }}
-        >
-          <Row gutter={16}>
-            <Col span={5}>
-              <Form.Item name="module" label="所属模块">
-                <Select placeholder="请选择模块" allowClear>
-                  {operationRecordsData.moduleList.map(module => (
-                    <Option key={module.value} value={module.value}>
-                      {module.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Form.Item name="operationType" label="操作类型">
-                <Select placeholder="请选择操作类型" allowClear>
-                  {operationRecordsData.operationTypeList.map(type => (
-                    <Option key={type.value} value={type.value}>
-                      {type.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Form.Item name="approvalStatus" label="审批状态">
-                <Select placeholder="请选择审批状态" allowClear>
-                  {operationRecordsData.approvalStatusList.map(status => (
-                    <Option key={status.value} value={status.value}>
-                      {status.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Form.Item name="operatorName" label="操作人">
-                <Input placeholder="请输入操作人" />
-              </Form.Item>
-            </Col>
-            <Col span={7}>
-              <Form.Item name="dateRange" label="操作时间">
-                <RangePicker showTime style={{ width: '100%' }} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={5}>
-              <Form.Item name="businessNumber" label="业务单号">
-                <Input placeholder="请输入业务单号" />
-              </Form.Item>
-            </Col>
-            <Col span={5}>
-              <Form.Item name="stationName" label="油站名称">
-                <Input placeholder="请输入油站名称" />
-              </Form.Item>
-            </Col>
-            <Col span={14}>
-              <Form.Item style={{ textAlign: 'right' }}>
-                <Space>
-                  <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                    查询
-                  </Button>
-                  <Button icon={<ReloadOutlined />} onClick={handleReset}>
-                    重置
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+    <>
+      {/* 筛选区域 */}
+      <Form form={form} onFinish={handleSearch} style={{ marginBottom: 16 }}>
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={5}>
+            <Form.Item name="module" label="所属模块">
+              <Select placeholder="请选择模块" allowClear>
+                {operationRecordsData.moduleList.map(module => (
+                  <Option key={module.value} value={module.value}>
+                    {module.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="operationType" label="操作类型">
+              <Select placeholder="请选择操作类型" allowClear>
+                {operationRecordsData.operationTypeList.map(type => (
+                  <Option key={type.value} value={type.value}>
+                    {type.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="approvalStatus" label="审批状态">
+              <Select placeholder="请选择审批状态" allowClear>
+                {operationRecordsData.approvalStatusList.map(status => (
+                  <Option key={status.value} value={status.value}>
+                    {status.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="operatorName" label="操作人">
+              <Input placeholder="请输入操作人" />
+            </Form.Item>
+          </Col>
+          <Col span={7}>
+            <Form.Item name="dateRange" label="操作时间">
+              <RangePicker showTime style={{ width: '100%' }} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={5}>
+            <Form.Item name="businessNumber" label="业务单号">
+              <Input placeholder="请输入业务单号" />
+            </Form.Item>
+          </Col>
+          <Col span={5}>
+            <Form.Item name="stationName" label="油站名称">
+              <Input placeholder="请输入油站名称" />
+            </Form.Item>
+          </Col>
+          <Col span={14}>
+            <Form.Item style={{ textAlign: 'right' }}>
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={handleReset}>
+                  重置
+                </Button>
+              </Space>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
 
-        {/* 表格区域 */}
-        <Table
-          columns={columns}
-          dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
-          loading={loading}
-          scroll={{ x: 1500 }}
-          pagination={{
-            defaultPageSize: 20,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total, range) =>
-              `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
-          }}
-        />
-      </Card>
+      {/* 表格区域 */}
+      <Table
+        columns={columns}
+        dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
+        loading={loading}
+        scroll={{ x: 1500 }}
+        pagination={{
+          defaultPageSize: 20,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) =>
+            `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }}
+      />
 
       {/* 详情查看弹窗 */}
       <Modal
@@ -481,7 +474,7 @@ const OperationRecords = () => {
           </div>
         )}
       </Modal>
-    </div>
+    </>
   );
 };
 

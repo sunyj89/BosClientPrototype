@@ -36,6 +36,11 @@ import {
   ApartmentOutlined,
   AppstoreOutlined,
   TruckOutlined,
+  PercentageOutlined,
+  IdcardOutlined,
+  CrownOutlined,
+  ShareAltOutlined,
+  TagOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -263,12 +268,83 @@ const AppSider = ({ collapsed }) => {
       ],
     },
 
+    {
+      key: 'marketing',
+      icon: <SettingOutlined />,
+      label: '营销中心',
+      children: [
+        {
+          key: 'marketing_coupon_config',
+          icon: <GiftOutlined />,
+          label: <MenuItemLabel text="优惠券配置" link="/marketing/coupon-config" />,
+        },
+        {
+          key: 'marketing_activity_config',
+          icon: <TrophyOutlined />,
+          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
+        },
+        {
+          key: 'marketing_price_discount_config',
+          icon: <PercentageOutlined />,
+          label: <MenuItemLabel text="价格优惠配置" link="/marketing/price-discount-config" />,
+        },
+        {
+          key: 'marketing_member_identity',
+          icon: <IdcardOutlined />,
+          label: <MenuItemLabel text="专车认证" link="/marketing/member-identity" />,
+        },
+        {
+          key: 'marketing_member_level',
+          icon: <CrownOutlined />,
+          label: <MenuItemLabel text="会员等级" link="/marketing/member-level" />,
+        },
+        {
+          key: 'marketing_member_referral',
+          icon: <ShareAltOutlined />,
+          label: <MenuItemLabel text="会员拉新" link="/marketing/member-referral" />,
+        },
+        {
+          key: 'marketing_item_marketing',
+          icon: <TagOutlined />,
+          label: <MenuItemLabel text="明细营销" link="/marketing/item-marketing" />,
+        },
+        {
+          key: 'marketing_order_marketing',
+          icon: <ShoppingCartOutlined />,
+          label: <MenuItemLabel text="整单营销" link="/marketing/order-marketing" />,
+        },
+      ],
+    },
 
-      {
-        key: 'loss',
+    {
+      key: 'loss',
       icon: <LineChartOutlined />,
       label: '损溢管理',
-      children: [],
+      children: [
+        {
+          key: 'loss_station_summary',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="各站损溢汇总查询" link="/loss" />,
+        },
+      ],
+    },
+
+    {
+      key: 'member',
+      icon: <UserOutlined />,
+      label: '会员中心',
+      children: [
+        {
+          key: 'member_data',
+          icon: <TeamOutlined />,
+          label: <MenuItemLabel text="会员数据" link="/member" />,
+        },
+        {
+          key: 'personal_center_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="个人中心配置" link="/member/personal-center-config" />,
+        },
+      ],
     },
 
     {
@@ -313,7 +389,17 @@ const AppSider = ({ collapsed }) => {
         {
           key: 'report_shift_handover',
           icon: <FormOutlined />,
-          label: <MenuItemLabel text="01加油站交接班报表" link="/report/shift-handover" />,
+          label: <MenuItemLabel text="加油站交接班报表" link="/report/shift-handover" />,
+        },
+        {
+          key: 'report_oil_sales',
+          icon: <LineChartOutlined />,
+          label: <MenuItemLabel text="油品销售报表" link="/report/oil-sales" />,
+        },
+        {
+          key: 'report_oil_inventory',
+          icon: <StockOutlined />,
+          label: <MenuItemLabel text="油品进销存日报" link="/report/oil-inventory" />,
         },
       ],
     },

@@ -1,0 +1,1125 @@
+[
+  {
+    "memberId": "M000001",
+    "phoneNumber": "13800138001",
+    "memberName": "张三",
+    "customerLevel": "金卡",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 12580,
+    "cardNumber": "6288001234567890",
+    "storedValueBalance": 1258.50,
+    "storedValuePrincipal": 1000.00,
+    "storedValueBonus": 258.50,
+    "registrationTime": "2023-01-15",
+    "lastConsumptionTime": "2025-01-20",
+    "licensePlate": "赣A12345",
+    "registrationChannel": "微信小程序",
+    "wechatMiniOpenId": "wx_mini_openid_001",
+    "wechatPublicOpenId": "wx_public_openid_001",
+    "alipayOpenId": null,
+    "couponCount": 3,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 50,
+        "expireDate": "2025-02-28",
+        "status": "未使用"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 20,
+        "expireDate": "2025-03-15",
+        "status": "未使用"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 100,
+        "expireDate": "2025-04-10",
+        "status": "已使用"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "orderNumber": "ORD202501200001",
+        "stationName": "赣中分公司-01服务区-A油站",
+        "oilAmount": 350.00,
+        "oilProductName": "92#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 320.00,
+        "discountAmount": 30.00,
+        "paymentMethod": "电子储值卡",
+        "createTime": "2025-01-20 14:25:30",
+        "paymentTime": "2025-01-20 14:26:15",
+        "orderStatus": "已支付"
+      },
+      {
+        "orderNumber": "ORD202501150002",
+        "stationName": "赣中分公司-01服务区-A油站",
+        "oilAmount": 0,
+        "oilProductName": "-",
+        "nonOilAmount": 15.00,
+        "actualAmount": 0.00,
+        "discountAmount": 0,
+        "paymentMethod": "积分兑换",
+        "createTime": "2025-01-15 09:15:20",
+        "paymentTime": "2025-01-15 09:15:45",
+        "orderStatus": "已支付"
+      }
+    ]
+  },
+  {
+    "memberId": "M000002",
+    "phoneNumber": "13800138002",
+    "memberName": "李四",
+    "customerLevel": "银卡",
+    "customerIdentity": "货拉拉",
+    "pointsBalance": 8950,
+    "cardNumber": "6288001234567891",
+    "storedValueBalance": 680.30,
+    "storedValuePrincipal": 500.00,
+    "storedValueBonus": 180.30,
+    "registrationTime": "2023-03-22",
+    "lastConsumptionTime": "2025-01-18",
+    "licensePlate": "赣B67890",
+    "registrationChannel": "支付宝小程序",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": null,
+    "alipayOpenId": "alipay_openid_002",
+    "couponCount": 2,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 30,
+        "expireDate": "2025-02-20",
+        "status": "未使用"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-01",
+        "status": "已过期"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "orderNumber": "ORD202501180003",
+        "stationName": "赣东北分公司-02服务区-B油站",
+        "oilAmount": 420.00,
+        "oilProductName": "95#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 420.00,
+        "discountAmount": 0,
+        "paymentMethod": "中石化IC卡",
+        "createTime": "2025-01-18 16:40:12",
+        "paymentTime": "2025-01-18 16:41:08",
+        "orderStatus": "已支付"
+      }
+    ]
+  },
+  {
+    "memberId": "M000003",
+    "phoneNumber": "13800138003",
+    "memberName": "王五",
+    "customerLevel": "铂金",
+    "customerIdentity": "合作车队A",
+    "pointsBalance": 25670,
+    "cardNumber": "6288001234567892",
+    "storedValueBalance": 2150.80,
+    "storedValuePrincipal": 2000.00,
+    "storedValueBonus": 150.80,
+    "registrationTime": "2022-11-08",
+    "lastConsumptionTime": "2025-01-22",
+    "licensePlate": "赣C11111",
+    "registrationChannel": "线下注册",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": null,
+    "alipayOpenId": null,
+    "couponCount": 5,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 100,
+        "expireDate": "2025-03-31",
+        "status": "未使用"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 50,
+        "expireDate": "2025-02-28",
+        "status": "已使用"
+      },
+      {
+        "name": "VIP专享券",
+        "amount": 200,
+        "expireDate": "2025-05-01",
+        "status": "未使用"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-04-15",
+        "status": "未使用"
+      },
+      {
+        "name": "免费保养券",
+        "amount": 0,
+        "expireDate": "2025-06-30",
+        "status": "未使用"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "orderNumber": "ORD202501220004",
+        "stationName": "赣东分公司-01服务区-A油站",
+        "oilAmount": 580.00,
+        "oilProductName": "98#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 580.00,
+        "discountAmount": 0,
+        "paymentMethod": "电子储值卡",
+        "createTime": "2025-01-22 10:15:45",
+        "paymentTime": "2025-01-22 10:16:30",
+        "orderStatus": "已支付"
+      },
+      {
+        "orderNumber": "ORD202501200005",
+        "stationName": "赣东分公司-01服务区-A油站",
+        "oilAmount": 0,
+        "oilProductName": "-",
+        "nonOilAmount": 120.00,
+        "actualAmount": 70.00,
+        "discountAmount": 50.00,
+        "paymentMethod": "移动支付",
+        "createTime": "2025-01-20 15:30:20",
+        "paymentTime": "2025-01-20 15:31:05",
+        "orderStatus": "已支付"
+      },
+      {
+        "orderNumber": "ORD202501180006",
+        "stationName": "赣东分公司-01服务区-A油站",
+        "oilAmount": 300.00,
+        "oilProductName": "92#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 0,
+        "discountAmount": 0,
+        "paymentMethod": "电子储值卡",
+        "createTime": "2025-01-18 09:20:10",
+        "paymentTime": "",
+        "orderStatus": "订单取消"
+      },
+      {
+        "orderNumber": "ORD202501160007",
+        "stationName": "赣东分公司-02服务区-A油站",
+        "oilAmount": 0,
+        "oilProductName": "-",
+        "nonOilAmount": 50.00,
+        "actualAmount": 50.00,
+        "discountAmount": 0,
+        "paymentMethod": "移动支付",
+        "createTime": "2025-01-16 14:15:30",
+        "paymentTime": "2025-01-16 14:16:20",
+        "orderStatus": "退款中"
+      }
+    ]
+  },
+  {
+    "memberId": "M000004",
+    "phoneNumber": "13800138004",
+    "memberName": "赵六",
+    "customerLevel": "普通",
+    "customerIdentity": "普通会员",
+    "pointsBalance": 1250,
+    "cardNumber": null,
+    "storedValueBalance": 50.00,
+    "storedValuePrincipal": 50.00,
+    "storedValueBonus": 0.00,
+    "registrationTime": "2024-06-15",
+    "lastConsumptionTime": "2025-01-10",
+    "licensePlate": "赣D22222",
+    "registrationChannel": "中石化卡绑定注册",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": null,
+    "alipayOpenId": null,
+    "couponCount": 1,
+    "coupons": [
+      {
+        "name": "新人专享券",
+        "amount": 10,
+        "expireDate": "2025-02-15"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-10",
+        "stationName": "赣东南分公司-01服务区-A油站",
+        "productName": "92#汽油",
+        "amount": 250.00,
+        "paymentMethod": "电子储值卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000005",
+    "phoneNumber": "13800138005",
+    "memberName": "钱七",
+    "customerLevel": "钻石",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 45280,
+    "cardNumber": "6288001234567893",
+    "storedValueBalance": 3500.00,
+    "storedValuePrincipal": 3000.00,
+    "storedValueBonus": 500.00,
+    "registrationTime": "2022-05-10",
+    "lastConsumptionTime": "2025-01-23",
+    "licensePlate": "赣E33333",
+    "registrationChannel": "微信公众号",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": "wx_public_openid_005",
+    "alipayOpenId": null,
+    "couponCount": 8,
+    "coupons": [
+      {
+        "name": "钻石专享券",
+        "amount": 500,
+        "expireDate": "2025-12-31"
+      },
+      {
+        "name": "加油满减券",
+        "amount": 200,
+        "expireDate": "2025-03-31"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 100,
+        "expireDate": "2025-04-30"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-02-28"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-05-15"
+      },
+      {
+        "name": "VIP专享券",
+        "amount": 300,
+        "expireDate": "2025-06-01"
+      },
+      {
+        "name": "免费保养券",
+        "amount": 0,
+        "expireDate": "2025-08-31"
+      },
+      {
+        "name": "生日特惠券",
+        "amount": 88,
+        "expireDate": "2025-07-20"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-23",
+        "stationName": "赣南分公司-01服务区-A油站",
+        "productName": "95#汽油",
+        "amount": 650.00,
+        "paymentMethod": "中石化IC卡"
+      },
+      {
+        "date": "2025-01-22",
+        "stationName": "赣南分公司-01服务区-A油站",
+        "productName": "尿素",
+        "amount": 80.00,
+        "paymentMethod": "电子储值卡"
+      },
+      {
+        "date": "2025-01-20",
+        "stationName": "赣南分公司-02服务区-A油站",
+        "productName": "便当",
+        "amount": 25.00,
+        "paymentMethod": "积分兑换"
+      }
+    ]
+  },
+  {
+    "memberId": "M000006",
+    "phoneNumber": "13800138006",
+    "memberName": "孙八",
+    "customerLevel": "金卡",
+    "customerIdentity": "货拉拉",
+    "pointsBalance": 15680,
+    "cardNumber": "6288001234567894",
+    "storedValueBalance": 890.60,
+    "storedValuePrincipal": 800.00,
+    "storedValueBonus": 90.60,
+    "registrationTime": "2023-08-30",
+    "lastConsumptionTime": "2025-01-19",
+    "licensePlate": "赣F44444",
+    "registrationChannel": "外部导入",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": null,
+    "alipayOpenId": null,
+    "couponCount": 4,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 80,
+        "expireDate": "2025-03-20"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 40,
+        "expireDate": "2025-02-25"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 150,
+        "expireDate": "2025-04-20"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-10"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-19",
+        "stationName": "赣西南分公司-01服务区-B油站",
+        "productName": "0#柴油",
+        "amount": 480.00,
+        "paymentMethod": "电子储值卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000007",
+    "phoneNumber": "13800138007",
+    "memberName": "周九",
+    "customerLevel": "银卡",
+    "customerIdentity": "合作车队A",
+    "pointsBalance": 6890,
+    "cardNumber": "6288001234567895",
+    "storedValueBalance": 320.50,
+    "storedValuePrincipal": 300.00,
+    "storedValueBonus": 20.50,
+    "registrationTime": "2023-12-05",
+    "lastConsumptionTime": "2025-01-17",
+    "licensePlate": "赣G55555",
+    "registrationChannel": "微信小程序",
+    "wechatMiniOpenId": "wx_mini_openid_007",
+    "wechatPublicOpenId": null,
+    "alipayOpenId": null,
+    "couponCount": 2,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 30,
+        "expireDate": "2025-02-18"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 15,
+        "expireDate": "2025-03-05"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-17",
+        "stationName": "赣西分公司-01服务区-A油站",
+        "productName": "92#汽油",
+        "amount": 310.00,
+        "paymentMethod": "中石化IC卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000008",
+    "phoneNumber": "13800138008",
+    "memberName": "吴十",
+    "customerLevel": "普通",
+    "customerIdentity": "普通会员",
+    "pointsBalance": 580,
+    "cardNumber": null,
+    "storedValueBalance": 120.00,
+    "storedValuePrincipal": 120.00,
+    "storedValueBonus": 0.00,
+    "registrationTime": "2024-09-12",
+    "lastConsumptionTime": "2025-01-12",
+    "licensePlate": "赣H66666",
+    "registrationChannel": "支付宝小程序",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": null,
+    "alipayOpenId": "alipay_openid_008",
+    "couponCount": 0,
+    "coupons": [],
+    "consumptionHistory": [
+      {
+        "orderNumber": "ORD202501120008",
+        "stationName": "赣西北分公司-01服务区-A油站",
+        "oilAmount": 380.00,
+        "oilProductName": "95#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 380.00,
+        "discountAmount": 0,
+        "paymentMethod": "电子储值卡",
+        "createTime": "2025-01-12 11:20:15",
+        "paymentTime": "2025-01-12 11:21:00",
+        "orderStatus": "已支付"
+      }
+    ]
+  },
+  {
+    "memberId": "M000009",
+    "phoneNumber": "13800138009",
+    "memberName": "郑十一",
+    "customerLevel": "金卡",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 18750,
+    "cardNumber": "6288001234567896",
+    "storedValueBalance": 1580.80,
+    "storedValuePrincipal": 1500.00,
+    "storedValueBonus": 80.80,
+    "registrationTime": "2023-02-28",
+    "lastConsumptionTime": "2025-01-21",
+    "licensePlate": "赣J77777",
+    "registrationChannel": "微信公众号",
+    "wechatMiniOpenId": null,
+    "wechatPublicOpenId": "wx_public_openid_009",
+    "alipayOpenId": null,
+    "couponCount": 3,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 60,
+        "expireDate": "2025-03-25"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 30,
+        "expireDate": "2025-02-28"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 120,
+        "expireDate": "2025-04-18"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-21",
+        "stationName": "赣中分公司-02服务区-B油站",
+        "productName": "98#汽油",
+        "amount": 520.00,
+        "paymentMethod": "电子储值卡"
+      },
+      {
+        "date": "2025-01-18",
+        "stationName": "赣中分公司-02服务区-B油站",
+        "productName": "咖啡",
+        "amount": 18.00,
+        "paymentMethod": "积分兑换"
+      }
+    ]
+  },
+  {
+    "memberId": "M000010",
+    "phoneNumber": "13800138010",
+    "memberName": "王十二",
+    "customerLevel": "铂金",
+    "customerIdentity": "货拉拉",
+    "pointsBalance": 32580,
+    "cardNumber": "6288001234567897",
+    "storedValueBalance": 2890.90,
+    "storedValuePrincipal": 2500.00,
+    "storedValueBonus": 390.90,
+    "registrationTime": "2022-09-15",
+    "lastConsumptionTime": "2025-01-24",
+    "licensePlate": "赣K88888",
+    "couponCount": 6,
+    "coupons": [
+      {
+        "name": "铂金专享券",
+        "amount": 300,
+        "expireDate": "2025-06-30"
+      },
+      {
+        "name": "加油满减券",
+        "amount": 150,
+        "expireDate": "2025-03-31"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 80,
+        "expireDate": "2025-04-30"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-15"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-05-20"
+      },
+      {
+        "name": "VIP专享券",
+        "amount": 250,
+        "expireDate": "2025-07-01"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-24",
+        "stationName": "赣东北分公司-01服务区-A油站",
+        "productName": "0#柴油",
+        "amount": 680.00,
+        "paymentMethod": "中石化IC卡"
+      },
+      {
+        "date": "2025-01-22",
+        "stationName": "赣东北分公司-01服务区-A油站",
+        "productName": "机油",
+        "amount": 95.00,
+        "paymentMethod": "优惠券"
+      }
+    ]
+  },
+  {
+    "memberId": "M000011",
+    "phoneNumber": "13800138011",
+    "memberName": "冯十三",
+    "customerLevel": "银卡",
+    "customerIdentity": "普通会员",
+    "pointsBalance": 7250,
+    "cardNumber": "6288001234567898",
+    "storedValueBalance": 450.20,
+    "storedValuePrincipal": 400.00,
+    "storedValueBonus": 50.20,
+    "registrationTime": "2023-07-18",
+    "lastConsumptionTime": "2025-01-16",
+    "licensePlate": "赣L99999",
+    "couponCount": 2,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 40,
+        "expireDate": "2025-02-22"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 20,
+        "expireDate": "2025-03-08"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-16",
+        "stationName": "赣东分公司-02服务区-B油站",
+        "productName": "92#汽油",
+        "amount": 290.00,
+        "paymentMethod": "电子储值卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000012",
+    "phoneNumber": "13800138012",
+    "memberName": "陈十四",
+    "customerLevel": "钻石",
+    "customerIdentity": "合作车队A",
+    "pointsBalance": 52680,
+    "cardNumber": "6288001234567899",
+    "storedValueBalance": 4200.50,
+    "storedValuePrincipal": 4000.00,
+    "storedValueBonus": 200.50,
+    "registrationTime": "2022-03-20",
+    "lastConsumptionTime": "2025-01-25",
+    "licensePlate": "赣M00000",
+    "couponCount": 10,
+    "coupons": [
+      {
+        "name": "钻石专享券",
+        "amount": 600,
+        "expireDate": "2025-12-31"
+      },
+      {
+        "name": "加油满减券",
+        "amount": 300,
+        "expireDate": "2025-03-31"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 150,
+        "expireDate": "2025-04-30"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-01"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-05-30"
+      },
+      {
+        "name": "VIP专享券",
+        "amount": 400,
+        "expireDate": "2025-06-15"
+      },
+      {
+        "name": "免费保养券",
+        "amount": 0,
+        "expireDate": "2025-09-30"
+      },
+      {
+        "name": "生日特惠券",
+        "amount": 128,
+        "expireDate": "2025-08-20"
+      },
+      {
+        "name": "年度特权券",
+        "amount": 1000,
+        "expireDate": "2025-12-31"
+      },
+      {
+        "name": "尊享服务券",
+        "amount": 0,
+        "expireDate": "2025-11-30"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-25",
+        "stationName": "赣东南分公司-02服务区-A油站",
+        "productName": "98#汽油",
+        "amount": 750.00,
+        "paymentMethod": "中石化IC卡"
+      },
+      {
+        "date": "2025-01-23",
+        "stationName": "赣东南分公司-02服务区-A油站",
+        "productName": "尿素",
+        "amount": 120.00,
+        "paymentMethod": "电子储值卡"
+      },
+      {
+        "date": "2025-01-21",
+        "stationName": "赣东南分公司-01服务区-B油站",
+        "productName": "快餐",
+        "amount": 32.00,
+        "paymentMethod": "优惠券"
+      }
+    ]
+  },
+  {
+    "memberId": "M000013",
+    "phoneNumber": "13800138013",
+    "memberName": "楚十五",
+    "customerLevel": "普通",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 980,
+    "cardNumber": null,
+    "storedValueBalance": 80.00,
+    "storedValuePrincipal": 80.00,
+    "storedValueBonus": 0.00,
+    "registrationTime": "2024-11-08",
+    "lastConsumptionTime": "2025-01-14",
+    "licensePlate": "赣N11111",
+    "couponCount": 1,
+    "coupons": [
+      {
+        "name": "新人专享券",
+        "amount": 20,
+        "expireDate": "2025-02-08"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-14",
+        "stationName": "赣南分公司-02服务区-B油站",
+        "productName": "92#汽油",
+        "amount": 260.00,
+        "paymentMethod": "电子储值卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000014",
+    "phoneNumber": "13800138014",
+    "memberName": "魏十六",
+    "customerLevel": "金卡",
+    "customerIdentity": "货拉拉",
+    "pointsBalance": 16890,
+    "cardNumber": "6288001234567800",
+    "storedValueBalance": 1250.70,
+    "storedValuePrincipal": 1200.00,
+    "storedValueBonus": 50.70,
+    "registrationTime": "2023-05-12",
+    "lastConsumptionTime": "2025-01-20",
+    "licensePlate": "赣P22222",
+    "couponCount": 4,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 70,
+        "expireDate": "2025-03-18"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 35,
+        "expireDate": "2025-02-25"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 130,
+        "expireDate": "2025-04-12"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-05"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-20",
+        "stationName": "赣西南分公司-02服务区-A油站",
+        "productName": "95#汽油",
+        "amount": 460.00,
+        "paymentMethod": "电子储值卡"
+      },
+      {
+        "date": "2025-01-17",
+        "stationName": "赣西南分公司-02服务区-A油站",
+        "productName": "雨刮器",
+        "amount": 45.00,
+        "paymentMethod": "积分兑换"
+      }
+    ]
+  },
+  {
+    "memberId": "M000015",
+    "phoneNumber": "13800138015",
+    "memberName": "蒋十七",
+    "customerLevel": "银卡",
+    "customerIdentity": "普通会员",
+    "pointsBalance": 5680,
+    "cardNumber": "6288001234567801",
+    "storedValueBalance": 290.80,
+    "storedValuePrincipal": 250.00,
+    "storedValueBonus": 40.80,
+    "registrationTime": "2024-01-20",
+    "lastConsumptionTime": "2025-01-15",
+    "licensePlate": "赣Q33333",
+    "couponCount": 2,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 25,
+        "expireDate": "2025-02-20"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 12,
+        "expireDate": "2025-03-01"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-15",
+        "stationName": "赣西分公司-02服务区-B油站",
+        "productName": "0#柴油",
+        "amount": 320.00,
+        "paymentMethod": "中石化IC卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000016",
+    "phoneNumber": "13800138016",
+    "memberName": "沈十八",
+    "customerLevel": "铂金",
+    "customerIdentity": "合作车队A",
+    "pointsBalance": 28950,
+    "cardNumber": "6288001234567802",
+    "storedValueBalance": 2380.60,
+    "storedValuePrincipal": 2200.00,
+    "storedValueBonus": 180.60,
+    "registrationTime": "2022-12-03",
+    "lastConsumptionTime": "2025-01-23",
+    "licensePlate": "赣R44444",
+    "couponCount": 5,
+    "coupons": [
+      {
+        "name": "铂金专享券",
+        "amount": 280,
+        "expireDate": "2025-06-20"
+      },
+      {
+        "name": "加油满减券",
+        "amount": 120,
+        "expireDate": "2025-03-28"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 60,
+        "expireDate": "2025-04-25"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-03-12"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-05-18"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-23",
+        "stationName": "赣西北分公司-02服务区-A油站",
+        "productName": "98#汽油",
+        "amount": 620.00,
+        "paymentMethod": "电子储值卡"
+      },
+      {
+        "date": "2025-01-20",
+        "stationName": "赣西北分公司-02服务区-A油站",
+        "productName": "轮胎",
+        "amount": 280.00,
+        "paymentMethod": "优惠券"
+      }
+    ]
+  },
+  {
+    "memberId": "M000017",
+    "phoneNumber": "13800138017",
+    "memberName": "韩十九",
+    "customerLevel": "普通",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 1580,
+    "cardNumber": null,
+    "storedValueBalance": 100.00,
+    "storedValuePrincipal": 100.00,
+    "storedValueBonus": 0.00,
+    "registrationTime": "2024-08-25",
+    "lastConsumptionTime": "2025-01-13",
+    "licensePlate": "赣S55555",
+    "couponCount": 1,
+    "coupons": [
+      {
+        "name": "新人专享券",
+        "amount": 15,
+        "expireDate": "2025-02-25"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-13",
+        "stationName": "赣中分公司-01服务区-B油站",
+        "productName": "92#汽油",
+        "amount": 280.00,
+        "paymentMethod": "电子储值卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000018",
+    "phoneNumber": "13800138018",
+    "memberName": "杨二十",
+    "customerLevel": "金卡",
+    "customerIdentity": "货拉拉",
+    "pointsBalance": 14580,
+    "cardNumber": "6288001234567803",
+    "storedValueBalance": 950.40,
+    "storedValuePrincipal": 900.00,
+    "storedValueBonus": 50.40,
+    "registrationTime": "2023-09-10",
+    "lastConsumptionTime": "2025-01-19",
+    "licensePlate": "赣T66666",
+    "couponCount": 3,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 65,
+        "expireDate": "2025-03-10"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 32,
+        "expireDate": "2025-02-28"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 110,
+        "expireDate": "2025-04-08"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-19",
+        "stationName": "赣东北分公司-02服务区-A油站",
+        "productName": "95#汽油",
+        "amount": 410.00,
+        "paymentMethod": "中石化IC卡"
+      }
+    ]
+  },
+  {
+    "memberId": "M000019",
+    "phoneNumber": "13800138019",
+    "memberName": "朱二一",
+    "customerLevel": "钻石",
+    "customerIdentity": "滴滴",
+    "pointsBalance": 38750,
+    "cardNumber": "6288001234567804",
+    "storedValueBalance": 3100.20,
+    "storedValuePrincipal": 2800.00,
+    "storedValueBonus": 300.20,
+    "registrationTime": "2022-07-15",
+    "lastConsumptionTime": "2025-01-24",
+    "licensePlate": "赣U77777",
+    "couponCount": 7,
+    "coupons": [
+      {
+        "name": "钻石专享券",
+        "amount": 450,
+        "expireDate": "2025-12-31",
+        "status": "未使用"
+      },
+      {
+        "name": "加油满减券",
+        "amount": 180,
+        "expireDate": "2025-03-31",
+        "status": "未使用"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 90,
+        "expireDate": "2025-04-30",
+        "status": "已使用"
+      },
+      {
+        "name": "免费洗车券",
+        "amount": 0,
+        "expireDate": "2025-02-28",
+        "status": "未使用"
+      },
+      {
+        "name": "积分翻倍券",
+        "amount": 0,
+        "expireDate": "2025-05-25",
+        "status": "未使用"
+      },
+      {
+        "name": "VIP专享券",
+        "amount": 350,
+        "expireDate": "2025-06-10",
+        "status": "未使用"
+      },
+      {
+        "name": "免费保养券",
+        "amount": 0,
+        "expireDate": "2025-09-15",
+        "status": "未使用"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "orderNumber": "ORD202501240019",
+        "stationName": "赣东分公司-01服务区-B油站",
+        "oilAmount": 690.00,
+        "oilProductName": "98#汽油",
+        "nonOilAmount": 0,
+        "actualAmount": 640.00,
+        "discountAmount": 50.00,
+        "paymentMethod": "电子储值卡",
+        "createTime": "2025-01-24 08:45:20",
+        "paymentTime": "2025-01-24 08:46:10",
+        "orderStatus": "已支付"
+      },
+      {
+        "orderNumber": "ORD202501220020",
+        "stationName": "赣东分公司-01服务区-B油站",
+        "oilAmount": 0,
+        "oilProductName": "-",
+        "nonOilAmount": 85.00,
+        "actualAmount": 0.00,
+        "discountAmount": 85.00,
+        "paymentMethod": "现金",
+        "createTime": "2025-01-22 17:20:30",
+        "paymentTime": "2025-01-22 17:21:15",
+        "orderStatus": "已支付"
+      },
+      {
+        "orderNumber": "ORD202501190021",
+        "stationName": "赣东分公司-02服务区-A油站",
+        "oilAmount": 0,
+        "oilProductName": "-",
+        "nonOilAmount": 12.00,
+        "actualAmount": 0.00,
+        "discountAmount": 0,
+        "paymentMethod": "积分兑换",
+        "createTime": "2025-01-19 12:10:45",
+        "paymentTime": "2025-01-19 12:11:20",
+        "orderStatus": "已支付"
+      }
+    ]
+  },
+  {
+    "memberId": "M000020",
+    "phoneNumber": "13800138020",
+    "memberName": "秦二二",
+    "customerLevel": "银卡",
+    "customerIdentity": "合作车队A",
+    "pointsBalance": 9250,
+    "cardNumber": "6288001234567805",
+    "storedValueBalance": 580.90,
+    "storedValuePrincipal": 500.00,
+    "storedValueBonus": 80.90,
+    "registrationTime": "2023-10-18",
+    "lastConsumptionTime": "2025-01-18",
+    "licensePlate": "赣V88888",
+    "couponCount": 3,
+    "coupons": [
+      {
+        "name": "加油满减券",
+        "amount": 45,
+        "expireDate": "2025-02-18"
+      },
+      {
+        "name": "商品折扣券",
+        "amount": 25,
+        "expireDate": "2025-03-08"
+      },
+      {
+        "name": "积分兑换券",
+        "amount": 80,
+        "expireDate": "2025-04-05"
+      }
+    ],
+    "consumptionHistory": [
+      {
+        "date": "2025-01-18",
+        "stationName": "赣东南分公司-01服务区-B油站",
+        "productName": "0#柴油",
+        "amount": 390.00,
+        "paymentMethod": "中石化IC卡"
+      },
+      {
+        "date": "2025-01-15",
+        "stationName": "赣东南分公司-01服务区-B油站",
+        "productName": "矿泉水",
+        "amount": 8.00,
+        "paymentMethod": "积分兑换"
+      }
+    ]
+  }
+] 

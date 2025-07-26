@@ -1,0 +1,76 @@
+{
+  "densityData": [
+    {
+      "id": "D001",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "tankCode": "0001TANK001",
+      "tankName": "1号油罐",
+      "oilType": "92#汽油",
+      "density": 0.745,
+      "temperature": 15,
+      "deliveryOrderNo": "XY20240115001",
+      "updateTime": "2024-01-15 14:30:00"
+    },
+    {
+      "id": "D002",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "tankCode": "0001TANK002",
+      "tankName": "2号油罐",
+      "oilType": "95#汽油",
+      "density": 0.750,
+      "temperature": 18,
+      "deliveryOrderNo": "XY20240115002",
+      "updateTime": "2024-01-15 15:20:00"
+    },
+    {
+      "id": "D003",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "tankCode": "0001TANK003",
+      "tankName": "3号油罐",
+      "oilType": "98#汽油",
+      "density": 0.755,
+      "temperature": 20,
+      "deliveryOrderNo": "XY20240115003",
+      "updateTime": "2024-01-15 16:10:00"
+    },
+    {
+      "id": "D004",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "tankCode": "0001TANK004",
+      "tankName": "4号油罐",
+      "oilType": "0#柴油",
+      "density": 0.835,
+      "temperature": 22,
+      "deliveryOrderNo": "XY20240115004",
+      "updateTime": "2024-01-15 17:45:00"
+    },
+    {
+      "id": "D005",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "tankCode": "0002TANK001",
+      "tankName": "1号油罐",
+      "oilType": "92#汽油",
+      "density": 0.743,
+      "temperature": 16,
+      "deliveryOrderNo": "XY20240116001",
+      "updateTime": "2024-01-16 09:30:00"
+    },
+    {
+      "id": "D006",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "tankCode": "0002TANK002",
+      "tankName": "2号油罐",
+      "oilType": "95#汽油",
+      "density": 0.748,
+      "temperature": 19,
+      "deliveryOrderNo": "XY20240116002",
+      "updateTime": "2024-01-16 10:15:00"
+    }
+  ]
+}

@@ -13,8 +13,7 @@ import {
   Divider,
   Card,
   TreeSelect,
-  message,
-  Switch
+  message
 } from 'antd';
 import {
   SaveOutlined,
@@ -24,6 +23,7 @@ import moment from 'moment';
 import stationData from '../../../../mock/station/stationData.json';
 import procurementData from '../../../../mock/purchase/oil-procurement/procurementApplicationData.json';
 import warehouseDeliveryData from '../../../../mock/logistics/warehouseDeliveryData.json';
+import unloadingSlipData from '../../../../mock/purchase/oil-procurement/unloadingSlipData.json';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -34,8 +34,7 @@ const OilReceiptForm = ({ mode, initialValues, onSubmit, onCancel }) => {
   const [deliveryOrderType, setDeliveryOrderType] = useState('中石化出库单');
   const [linkedProcurement, setLinkedProcurement] = useState(null);
   const [linkedDelivery, setLinkedDelivery] = useState(null);
-  const [tankDataAuto, setTankDataAuto] = useState(false);
-  const [acceptanceDataAuto, setAcceptanceDataAuto] = useState(false);
+  const [linkedUnloadingSlip, setLinkedUnloadingSlip] = useState(null);
 
   // 初始化表单数据
   useEffect(() => {
@@ -122,6 +121,31 @@ const OilReceiptForm = ({ mode, initialValues, onSubmit, onCancel }) => {
       });
     }
     setLinkedDelivery(null);
+  };
+
+  // 关联卸油单变化
+  const handleUnloadingSlipChange = (value) => {
+    if (value) {
+      const unloadingSlip = unloadingSlipData.unloadingSlips.find(
+        slip => slip.slipNumber === value
+      );
+      if (unloadingSlip) {
+        setLinkedUnloadingSlip(unloadingSlip);
+        // 自动填充地罐验收计量数据
+        form.setFieldsValue({
+          tankNumber: unloadingSlip.tankNumber,
+          totalHeight: unloadingSlip.tankData.totalHeight,
+          waterHeight: unloadingSlip.tankData.waterHeight,
+          tankTemperature: unloadingSlip.tankData.tankTemperature,
+          totalVolume: unloadingSlip.tankData.totalVolume,
+          waterVolume: unloadingSlip.tankData.waterVolume,
+          oilVolumeVt: unloadingSlip.tankData.oilVolumeVt,
+          oilVolumeV20: unloadingSlip.tankData.oilVolumeV20
+        });
+      }
+    } else {
+      setLinkedUnloadingSlip(null);
+    }
   };
 
   // 关联中石化出库单变化
@@ -616,24 +640,42 @@ const OilReceiptForm = ({ mode, initialValues, onSubmit, onCancel }) => {
 
       {/* 入库卸油前地罐验收计量数据部分 */}
       <Card 
-        title={
-          <Space>
-            <span>入库卸油前地罐验收计量数据部分</span>
-            <span style={{ fontSize: '12px', color: '#666' }}>
-              数据是否为液位仪自动取数：
-              <Switch
-                size="small"
-                checked={tankDataAuto}
-                onChange={setTankDataAuto}
-                checkedChildren="是"
-                unCheckedChildren="否"
-              />
-            </span>
-          </Space>
-        }
+        title="入库卸油前地罐验收计量数据部分"
         size="small"
         style={{ marginBottom: 16 }}
       >
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={8}>
+            <Form.Item name="linkedUnloadingSlip" label="是否关联卸油单">
+              <Select
+                placeholder="请选择卸油单"
+                allowClear
+                onChange={handleUnloadingSlipChange}
+                showSearch
+              >
+                {(unloadingSlipData.unloadingSlips || []).map(item => (
+                  <Option key={item.slipNumber} value={item.slipNumber}>
+                    {item.slipNumber} - {item.oilType} - {item.vehicleNumber}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          {linkedUnloadingSlip && (
+            <>
+              <Col span={8}>
+                <Form.Item label="关联车牌号">
+                  <Input value={linkedUnloadingSlip.vehicleNumber} disabled />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item label="卸油时间">
+                  <Input value={`${linkedUnloadingSlip.unloadingDate} ${linkedUnloadingSlip.unloadingTime}`} disabled />
+                </Form.Item>
+              </Col>
+            </>
+          )}
+        </Row>
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
@@ -715,21 +757,7 @@ const OilReceiptForm = ({ mode, initialValues, onSubmit, onCancel }) => {
 
       {/* 验收和损溢数据部分 */}
       <Card 
-        title={
-          <Space>
-            <span>验收和损溢数据部分</span>
-            <span style={{ fontSize: '12px', color: '#666' }}>
-              数据是否为液位仪自动取数：
-              <Switch
-                size="small"
-                checked={acceptanceDataAuto}
-                onChange={setAcceptanceDataAuto}
-                checkedChildren="是"
-                unCheckedChildren="否"
-              />
-            </span>
-          </Space>
-        }
+        title="验收和损溢数据部分"
         size="small"
         style={{ marginBottom: 16 }}
       >
@@ -759,9 +787,9 @@ const OilReceiptForm = ({ mode, initialValues, onSubmit, onCancel }) => {
           <Col span={8}>
             <Form.Item
               name="unloadingPeriodVolume"
-              label="卸油期间付体积(L)"
+              label="卸油期间付油体积(L)"
             >
-              <InputNumber placeholder="请输入卸油期间付体积" style={{ width: '100%' }} />
+              <InputNumber placeholder="请输入卸油期间付油体积" style={{ width: '100%' }} />
             </Form.Item>
           </Col>
         </Row>

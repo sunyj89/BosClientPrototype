@@ -409,73 +409,68 @@ const ProcurementApplication = () => {
   ];
 
   return (
-    <div>
+    <>
       {/* 筛选区域 */}
-      <Card style={{ marginBottom: 16 }}>
-        <Form
-          form={filterForm}
-          onFinish={handleFilter}
-        >
-          {/* 第一行：筛选条件 */}
-          <Row gutter={16} style={{ marginBottom: 16 }}>
-            <Col span={5}>
-              <Form.Item name="organization" label="组织和油站">
-                <TreeSelect
-                  placeholder="请选择组织或油站"
-                  allowClear
-                  treeData={generateOrgTreeData()}
-                  style={{ width: '100%' }}
-                  showSearch
-                  treeNodeFilterProp="title"
-                />
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Form.Item name="keyword" label="申请编号">
-                <Input
-                  placeholder="请输入申请编号"
-                  allowClear
-                  prefix={<SearchOutlined />}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Form.Item name="status" label="申请状态">
-                <Select placeholder="请选择状态" allowClear>
-                  <Option value="草稿">草稿</Option>
-                  <Option value="待审批">待审批</Option>
-                  <Option value="审批中">审批中</Option>
-                  <Option value="审批通过">审批通过</Option>
-                  <Option value="已拒绝">已拒绝</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={7} style={{ textAlign: 'right' }}>
-              <Form.Item>
-                <Space>
-                  <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                    查询
-                  </Button>
-                  <Button icon={<ReloadOutlined />} onClick={handleReset}>
-                    重置
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-          
-          {/* 第二行：功能按钮 */}
-          <Row gutter={16}>
-            <Col span={24}>
+      <Form form={filterForm} onFinish={handleFilter}>
+        {/* 第一行：筛选条件 */}
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={5}>
+            <Form.Item name="organization" label="组织和油站">
+              <TreeSelect
+                placeholder="请选择组织或油站"
+                allowClear
+                treeData={generateOrgTreeData()}
+                style={{ width: '100%' }}
+                showSearch
+                treeNodeFilterProp="title"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="keyword" label="申请编号">
+              <Input
+                placeholder="请输入申请编号"
+                allowClear
+                prefix={<SearchOutlined />}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="status" label="申请状态">
+              <Select placeholder="请选择状态" allowClear>
+                <Option value="草稿">草稿</Option>
+                <Option value="待审批">待审批</Option>
+                <Option value="审批中">审批中</Option>
+                <Option value="审批通过">审批通过</Option>
+                <Option value="已拒绝">已拒绝</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={7} style={{ textAlign: 'right' }}>
+            <Form.Item>
               <Space>
-                <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
-                  创建油品采购申请
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={handleReset}>
+                  重置
                 </Button>
               </Space>
-            </Col>
-          </Row>
-        </Form>
-      </Card>
+            </Form.Item>
+          </Col>
+        </Row>
+        
+        {/* 第二行：功能按钮 */}
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={24}>
+            <Space>
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
+                创建油品采购申请
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+      </Form>
 
       {/* 表格 */}
       <Table 
@@ -599,7 +594,7 @@ const ProcurementApplication = () => {
         initialData={currentRecord}
         mode={formMode}
       />
-    </div>
+    </>
   );
 };
 

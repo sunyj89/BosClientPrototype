@@ -40,8 +40,21 @@ import ProductMasterData from './pages/goods/master-data';
 
 
 
+// 会员中心
+import MemberCenter from './pages/member';
+import PersonalCenterConfig from './pages/member/personal-center-config';
+
 // 积分管理
 import PointsRoutes from './pages/points';
+
+// 营销中心
+import CouponConfig from './pages/marketing/coupon-config';
+import ActivityConfig from './pages/marketing/activity-config';
+import MemberReferral from './pages/marketing/member-referral';
+import ItemMarketing from './pages/marketing/item-marketing';
+import OrderMarketing from './pages/marketing/order-marketing';
+import MemberIdentity from './pages/marketing/member-identity';
+import MemberLevel from './pages/marketing/member-level';
 
 
 
@@ -56,6 +69,8 @@ import LiquidLevelMeterDetail from './pages/equipment/liquid-level-meter/compone
 
 // 报表管理
 import ShiftHandoverReport from './pages/report/shift-handover';
+import OilSalesReport from './pages/report/oil-sales';
+import OilInventoryReport from './pages/report/oil-inventory';
 
 // 设备管理
 import EquipmentArchive from './pages/equipment/archive';
@@ -66,6 +81,9 @@ import WaterElectricityRecords from './pages/equipment/water-electricity';
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
 import RoleConfiguration from './pages/organization/role-configuration';
+
+// 损溢管理
+import LossManagement from './pages/loss';
 
 // 销售管理
 import SalesManagement from './pages/sales/SalesManagement';
@@ -184,6 +202,11 @@ const AppRouter = () => {
       </Route>
       
 
+      {/* 会员中心路由 */}
+      <Route path="/member">
+        <Route index element={<MemberCenter />} />
+        <Route path="personal-center-config" element={<PersonalCenterConfig />} />
+      </Route>
       
       {/* 积分管理路由 */}
       <Route path="/points/*" element={<PointsRoutes />} />
@@ -246,6 +269,8 @@ const AppRouter = () => {
       {/* 报表管理路由 */}
       <Route path="/report">
         <Route path="shift-handover" element={<ShiftHandoverReport />} />
+        <Route path="oil-sales" element={<OilSalesReport />} />
+        <Route path="oil-inventory" element={<OilInventoryReport />} />
       </Route>
       
       {/* 设备管理路由 */}
@@ -267,8 +292,22 @@ const AppRouter = () => {
         <Route path="role-configuration" element={<RoleConfiguration />} />
       </Route>
       
+      {/* 损溢管理路由 */}
+      <Route path="/loss">
+        <Route index element={<LossManagement />} />
+      </Route>
 
-      
+      {/* 营销中心路由 */}
+      <Route path="/marketing">
+        <Route path="coupon-config" element={<CouponConfig />} />
+        <Route path="activity-config" element={<ActivityConfig />} />
+        <Route path="price-discount-config" element={<NotFound />} />
+        <Route path="member-identity" element={<MemberIdentity />} />
+        <Route path="member-level" element={<MemberLevel />} />
+        <Route path="member-referral" element={<MemberReferral />} />
+        <Route path="item-marketing" element={<ItemMarketing />} />
+        <Route path="order-marketing" element={<OrderMarketing />} />
+      </Route>
 
       
       {/* 404页面 */}
