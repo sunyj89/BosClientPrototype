@@ -353,128 +353,122 @@ const OilTransferManagement = () => {
   ];
 
   return (
-    <div className="oil-transfer-management-container">
-      <Card>
-        {/* 筛选区域 */}
-        <Form
-          form={form}
-          onFinish={handleSearch}
-          className="search-form"
-        >
-          <Row gutter={16}>
-            <Col span={6}>
-              <Form.Item name="stationName" label="油站名称">
-                <TreeSelect
-                  placeholder="请选择油站"
-                  treeData={buildStationTreeData()}
-                  allowClear
-                  showSearch
-                  treeDefaultExpandAll={false}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="transferNumber" label="调拨单编号">
-                <Input placeholder="请输入调拨单编号" />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="carrierName" label="承运商">
-                <Select placeholder="请选择承运商" allowClear>
-                  {oilTransferData.carrierList.map(carrier => (
-                    <Option key={carrier} value={carrier}>
-                      {carrier}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="outboundStationName" label="出库油站">
-                <TreeSelect
-                  placeholder="请选择出库油站"
-                  treeData={buildStationTreeData()}
-                  allowClear
-                  showSearch
-                  treeDefaultExpandAll={false}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={6}>
-              <Form.Item name="inboundStationName" label="入库油站">
-                <TreeSelect
-                  placeholder="请选择入库油站"
-                  treeData={buildStationTreeData()}
-                  allowClear
-                  showSearch
-                  treeDefaultExpandAll={false}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="transferScope" label="调拨范围">
-                <Select placeholder="请选择调拨范围" allowClear>
-                  {oilTransferData.transferScopeList.map(scope => (
-                    <Option key={scope.value} value={scope.value}>
-                      {scope.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="status" label="单据状态">
-                <Select placeholder="请选择状态" allowClear>
-                  {oilTransferData.statusList.map(status => (
-                    <Option key={status.value} value={status.value}>
-                      {status.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="dateRange" label="创建时间">
-                <RangePicker />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Form.Item style={{ textAlign: 'right' }}>
-                <Space>
-                  <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                    查询
-                  </Button>
-                  <Button icon={<ReloadOutlined />} onClick={handleReset}>
-                    重置
-                  </Button>
-                  <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
-                    新建
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+    <>
+      {/* 筛选区域 */}
+      <Form form={form} onFinish={handleSearch}>
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={6}>
+            <Form.Item name="stationName" label="油站名称">
+              <TreeSelect
+                placeholder="请选择油站"
+                treeData={buildStationTreeData()}
+                allowClear
+                showSearch
+                treeDefaultExpandAll={false}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="transferNumber" label="调拨单编号">
+              <Input placeholder="请输入调拨单编号" />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="carrierName" label="承运商">
+              <Select placeholder="请选择承运商" allowClear>
+                {oilTransferData.carrierList.map(carrier => (
+                  <Option key={carrier} value={carrier}>
+                    {carrier}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="outboundStationName" label="出库油站">
+              <TreeSelect
+                placeholder="请选择出库油站"
+                treeData={buildStationTreeData()}
+                allowClear
+                showSearch
+                treeDefaultExpandAll={false}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={6}>
+            <Form.Item name="inboundStationName" label="入库油站">
+              <TreeSelect
+                placeholder="请选择入库油站"
+                treeData={buildStationTreeData()}
+                allowClear
+                showSearch
+                treeDefaultExpandAll={false}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="transferScope" label="调拨范围">
+              <Select placeholder="请选择调拨范围" allowClear>
+                {oilTransferData.transferScopeList.map(scope => (
+                  <Option key={scope.value} value={scope.value}>
+                    {scope.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="status" label="单据状态">
+              <Select placeholder="请选择状态" allowClear>
+                {oilTransferData.statusList.map(status => (
+                  <Option key={status.value} value={status.value}>
+                    {status.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="dateRange" label="创建时间">
+              <RangePicker />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={24}>
+            <Form.Item style={{ textAlign: 'right' }}>
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={handleReset}>
+                  重置
+                </Button>
+                <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
+                  新建
+                </Button>
+              </Space>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
 
-        {/* 表格区域 */}
-        <Table
-          columns={columns}
-          dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
-          loading={loading}
-          scroll={{ x: 1600 }}
-          pagination={{
-            defaultPageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total, range) =>
-              `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
-          }}
-        />
-      </Card>
+      {/* 表格区域 */}
+      <Table
+        columns={columns}
+        dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
+        loading={loading}
+        scroll={{ x: 1600 }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) =>
+            `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }}
+      />
 
       {/* 表单弹窗 */}
       <Modal
@@ -502,7 +496,7 @@ const OilTransferManagement = () => {
           onCancel={handleModalCancel}
         />
       </Modal>
-    </div>
+    </>
   );
 };
 

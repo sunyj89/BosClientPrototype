@@ -1,0 +1,56 @@
+.data-analysis-center-container {
+  padding: 24px;
+}
+
+.data-analysis-center-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.data-analysis-center-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.data-analysis-center-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.data-analysis-center-container .ant-btn {
+  border-radius: 2px;
+}
+
+.data-analysis-center-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.data-analysis-center-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* Dashboard 卡片样式 */
+.dashboard-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+
+/* 统计卡片样式 */
+.data-analysis-center-container .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.data-analysis-center-container .ant-statistic-content {
+  font-weight: 600;
+}
+
+/* 表格样式 */
+.data-analysis-center-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.data-analysis-center-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+} 

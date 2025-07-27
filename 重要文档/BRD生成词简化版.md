@@ -63,8 +63,8 @@
     * **功能约束：** (代码逻辑目前实现的局限性，例如：目前只支持单用户登录，不支持第三方登录等。)
     * **数据约束：** (例如：用户名最大长度限制，密码复杂度要求等，如果代码中有体现。)
 
-    #文档保存到这个路径下F:\osgit\bosclient\BosClientPrototype\BRDs，文档格式为【BRD】XXXX需求文档+版本号.md
 
+# 文档保存到这个路径下F:\osgit\bosclient\BosClientPrototype\BRDs\XXXX设计\、，文档格式为【BRD】XXXX需求文档+版本号.md，【业务流程图】XXXXX模块+版本号.md，【数据字典】XXXXX+版本号.md
 ---
 
 

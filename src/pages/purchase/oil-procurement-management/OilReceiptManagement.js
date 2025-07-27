@@ -25,6 +25,7 @@ import {
 import './index.css';
 import './OilReceiptManagement.css';
 import OilReceiptForm from './components/OilReceiptForm';
+import OilReceiptViewModal from './components/OilReceiptViewModal';
 import oilReceiptData from '../../../mock/purchase/oil-procurement/oilReceiptData.json';
 import stationData from '../../../mock/station/stationData.json';
 
@@ -37,7 +38,8 @@ const OilReceiptManagement = () => {
   const [dataSource, setDataSource] = useState([]);
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalMode, setModalMode] = useState('create'); // create, edit, view
+  const [viewModalVisible, setViewModalVisible] = useState(false);
+  const [modalMode, setModalMode] = useState('create'); // create, edit
   const [currentRecord, setCurrentRecord] = useState(null);
 
   // 初始化数据
@@ -136,9 +138,8 @@ const OilReceiptManagement = () => {
 
   // 查看
   const handleView = (record) => {
-    setModalMode('view');
     setCurrentRecord(record);
-    setModalVisible(true);
+    setViewModalVisible(true);
   };
 
   // 删除
@@ -360,107 +361,110 @@ const OilReceiptManagement = () => {
   ];
 
   return (
-    <div className="oil-receipt-management-container">
-      <Card>
-        {/* 筛选区域 */}
-        <Form
-          form={form}
-          onFinish={handleSearch}
-          className="search-form"
-        >
-          <Row gutter={16}>
-            <Col span={6}>
-              <Form.Item name="stationName" label="油站名称">
-                <TreeSelect
-                  placeholder="请选择油站"
-                  treeData={buildStationTreeData()}
-                  allowClear
-                  showSearch
-                  treeDefaultExpandAll={false}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="procurementApplicationNumber" label="采购申请单">
-                <Input placeholder="请输入采购申请单编号" />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="deliveryOrderNumber" label="出库单编号">
-                <Input placeholder="请输入出库单编号" />
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="supplierName" label="供应商">
-                <Select placeholder="请选择供应商" allowClear>
-                  {oilReceiptData.supplierList.map(supplier => (
-                    <Option key={supplier} value={supplier}>
-                      {supplier}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={6}>
-              <Form.Item name="status" label="单据状态">
-                <Select placeholder="请选择状态" allowClear>
-                  {oilReceiptData.statusList.map(status => (
-                    <Option key={status.value} value={status.value}>
-                      {status.label}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={6}>
-              <Form.Item name="dateRange" label="创建时间">
-                <RangePicker />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item style={{ textAlign: 'right' }}>
-                <Space>
-                  <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                    查询
-                  </Button>
-                  <Button icon={<ReloadOutlined />} onClick={handleReset}>
-                    重置
-                  </Button>
-                  <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
-                    新建
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
+    <>
+      {/* 筛选区域 */}
+      <Form form={form} onFinish={handleSearch}>
+        {/* 第一行：筛选条件 */}
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={5}>
+            <Form.Item name="stationName" label="油站名称">
+              <TreeSelect
+                placeholder="请选择油站"
+                treeData={buildStationTreeData()}
+                allowClear
+                showSearch
+                treeDefaultExpandAll={false}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="procurementApplicationNumber" label="采购申请单">
+              <Input placeholder="请输入采购申请单编号" />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="deliveryOrderNumber" label="出库单编号">
+              <Input placeholder="请输入出库单编号" />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="supplierName" label="供应商">
+              <Select placeholder="请选择供应商" allowClear>
+                {oilReceiptData.supplierList.map(supplier => (
+                  <Option key={supplier} value={supplier}>
+                    {supplier}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={7} style={{ textAlign: 'right' }}>
+            <Form.Item>
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={handleReset}>
+                  重置
+                </Button>
+              </Space>
+            </Form.Item>
+          </Col>
+        </Row>
+        
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={6}>
+            <Form.Item name="status" label="单据状态">
+              <Select placeholder="请选择状态" allowClear>
+                {oilReceiptData.statusList.map(status => (
+                  <Option key={status.value} value={status.value}>
+                    {status.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item name="dateRange" label="创建时间">
+              <RangePicker />
+            </Form.Item>
+          </Col>
+        </Row>
 
-        {/* 表格区域 */}
-        <Table
-          columns={columns}
-          dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
-          loading={loading}
-          scroll={{ x: 1800 }}
-          pagination={{
-            defaultPageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total, range) =>
-              `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
-          }}
-        />
-      </Card>
+        {/* 第二行：功能按钮 */}
+        <Row gutter={16} style={{ marginBottom: 16 }}>
+          <Col span={24}>
+            <Space>
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>
+                新建入库卸油单
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+      </Form>
+
+      {/* 表格 */}
+      <Table
+        columns={columns}
+        dataSource={Array.isArray(filteredDataSource) ? filteredDataSource : []}
+        loading={loading}
+        rowKey="id"
+        scroll={{ x: 1800 }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) =>
+            `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }}
+      />
 
       {/* 表单弹窗 */}
       <Modal
         title={
           modalMode === 'create'
             ? '新建入库卸油单'
-            : modalMode === 'edit'
-            ? '编辑入库卸油单'
-            : '查看入库卸油单'
+            : '编辑入库卸油单'
         }
         open={modalVisible}
         onCancel={handleModalCancel}
@@ -475,7 +479,14 @@ const OilReceiptManagement = () => {
           onCancel={handleModalCancel}
         />
       </Modal>
-    </div>
+
+      {/* 查看弹窗 */}
+      <OilReceiptViewModal
+        visible={viewModalVisible}
+        onClose={() => setViewModalVisible(false)}
+        record={currentRecord}
+      />
+    </>
   );
 };
 

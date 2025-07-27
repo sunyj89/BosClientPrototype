@@ -1,0 +1,45 @@
+.station-loss-summary {
+  padding: 0;
+}
+
+.station-loss-summary .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.station-loss-summary .ant-btn {
+  border-radius: 2px;
+}
+
+.station-loss-summary .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.station-loss-summary .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.station-loss-summary .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  text-align: center;
+}
+
+.station-loss-summary .ant-table-tbody > tr > td {
+  padding: 8px 12px;
+}
+
+.station-loss-summary .ant-table-bordered .ant-table-thead > tr > th,
+.station-loss-summary .ant-table-bordered .ant-table-tbody > tr > td {
+  border-right: 1px solid #e8e8e8;
+}
+
+.station-loss-summary .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.station-loss-summary .ant-form-item-label > label {
+  font-weight: 500;
+  color: #333;
+} 

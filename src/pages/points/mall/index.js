@@ -3547,7 +3547,7 @@ const PointsMall = () => {
                 rules={[
                   {
                     validator: (_, value) => {
-                      if (value && value.isBefore(dayjs())) {
+                      if (value && dayjs(value).isBefore(dayjs())) {
                         return Promise.reject(new Error('自动下架时间不能早于当前时间'));
                       }
                       return Promise.resolve();

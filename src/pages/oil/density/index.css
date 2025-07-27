@@ -1,33 +1,9 @@
 .oil-density-container {
-  padding: 16px;
+  padding: 24px;
 }
 
-.oil-density-card {
-  margin-bottom: 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.oil-density-card .ant-card-head {
-  border-bottom: 1px solid #f0f0f0;
-  padding: 0 16px;
-}
-
-.oil-density-card .ant-card-head-title {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.density-tabs .ant-tabs-nav {
-  margin-bottom: 16px;
-}
-
-.density-tabs .ant-tabs-tab {
-  padding: 8px 16px;
-  font-size: 14px;
-}
-
-.density-tabs .ant-tabs-content {
-  padding: 0;
+.oil-density-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* 表格样式 */
@@ -54,19 +30,22 @@
 }
 
 /* 按钮样式 */
+.oil-density-container .ant-btn {
+  border-radius: 2px;
+}
+
+.oil-density-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.oil-density-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
 .density-button {
   margin-right: 8px;
-}
-
-.density-button-primary {
-  background-color: #32AF50;
-  border-color: #32AF50;
-}
-
-.density-button-primary:hover,
-.density-button-primary:focus {
-  background-color: #3ac762;
-  border-color: #3ac762;
 }
 
 /* 标签样式 */

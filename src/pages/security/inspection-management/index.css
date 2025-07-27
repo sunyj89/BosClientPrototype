@@ -1,0 +1,135 @@
+.inspection-management-container {
+  padding: 24px;
+}
+
+.inspection-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+
+.inspection-management-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.inspection-management-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.inspection-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.inspection-management-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.inspection-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+}
+
+.inspection-management-container .ant-select,
+.inspection-management-container .ant-input,
+.inspection-management-container .ant-picker {
+  border-radius: 2px;
+}
+
+/* Tab图标样式 */
+.inspection-management-container .ant-tabs-tab .anticon {
+  margin-right: 6px;
+}
+
+/* 表格样式 */
+.inspection-management-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.inspection-management-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 统计卡片样式 */
+.inspection-management-container .ant-statistic {
+  text-align: center;
+}
+
+.inspection-management-container .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.inspection-management-container .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* 标签样式 */
+.inspection-management-container .ant-tag {
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* 进度条样式 */
+.inspection-management-container .ant-progress-text {
+  font-size: 12px;
+}
+
+/* 表单样式 */
+.inspection-management-container .ant-form-item-label {
+  font-weight: 500;
+}
+
+.inspection-management-container .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.inspection-management-container .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 描述列表样式 */
+.inspection-management-container .ant-descriptions-item-label {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+/* 警告提示样式 */
+.inspection-management-container .ant-alert {
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .inspection-management-container {
+    padding: 16px;
+  }
+  
+  .inspection-management-container .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .inspection-management-container .ant-statistic-content {
+    font-size: 20px;
+  }
+}
+
+/* 备注信息样式 */
+.inspection-management-container .demo-note {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f6f8fa;
+  border-radius: 4px;
+  border: 1px solid #e1e8ed;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.inspection-management-container .demo-note strong {
+  color: #333;
+} 

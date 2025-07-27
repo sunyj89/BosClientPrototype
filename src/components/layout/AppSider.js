@@ -28,6 +28,7 @@ import {
   ShoppingCartOutlined,
   CarOutlined,
   ContactsOutlined,
+  CommentOutlined,
   AccountBookOutlined,
   FormOutlined,
   ReloadOutlined,
@@ -36,6 +37,13 @@ import {
   ApartmentOutlined,
   AppstoreOutlined,
   TruckOutlined,
+  SecurityScanOutlined,
+  FundViewOutlined,
+  PercentageOutlined,
+  IdcardOutlined,
+  CrownOutlined,
+  ShareAltOutlined,
+  TagOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -263,12 +271,88 @@ const AppSider = ({ collapsed }) => {
       ],
     },
 
+    {
+      key: 'marketing',
+      icon: <SettingOutlined />,
+      label: '营销中心',
+      children: [
+        {
+          key: 'marketing_coupon_config',
+          icon: <GiftOutlined />,
+          label: <MenuItemLabel text="优惠券配置" link="/marketing/coupon-config" />,
+        },
+        {
+          key: 'marketing_activity_config',
+          icon: <TrophyOutlined />,
+          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
+        },
+        {
+          key: 'marketing_price_discount_config',
+          icon: <PercentageOutlined />,
+          label: <MenuItemLabel text="价格优惠配置" link="/marketing/price-discount-config" />,
+        },
+        {
+          key: 'marketing_member_identity',
+          icon: <IdcardOutlined />,
+          label: <MenuItemLabel text="渠道会员认证" link="/marketing/member-identity" />,
+        },
+        {
+          key: 'marketing_member_level',
+          icon: <CrownOutlined />,
+          label: <MenuItemLabel text="会员等级" link="/marketing/member-level" />,
+        },
+        {
+          key: 'marketing_member_referral',
+          icon: <ShareAltOutlined />,
+          label: <MenuItemLabel text="会员拉新" link="/marketing/member-referral" />,
+        },
+        {
+          key: 'marketing_item_marketing',
+          icon: <TagOutlined />,
+          label: <MenuItemLabel text="明细营销" link="/marketing/item-marketing" />,
+        },
+        {
+          key: 'marketing_order_marketing',
+          icon: <ShoppingCartOutlined />,
+          label: <MenuItemLabel text="整单营销" link="/marketing/order-marketing" />,
+        },
+      ],
+    },
 
-      {
-        key: 'loss',
+    {
+      key: 'loss',
       icon: <LineChartOutlined />,
       label: '损溢管理',
-      children: [],
+      children: [
+        {
+          key: 'loss_station_summary',
+          icon: <BarChartOutlined />,
+          label: <MenuItemLabel text="各站损溢汇总查询" link="/loss" />,
+        },
+      ],
+    },
+
+    {
+      key: 'member',
+      icon: <UserOutlined />,
+      label: '会员中心',
+      children: [
+        {
+          key: 'member_data',
+          icon: <TeamOutlined />,
+          label: <MenuItemLabel text="会员数据" link="/member" />,
+        },
+        {
+          key: 'personal_center_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="会员规则配置" link="/member/personal-center-config" />,
+        },
+        {
+          key: 'member_feedback_evaluation',
+          icon: <CommentOutlined />,
+          label: <MenuItemLabel text="会员意见与评价" link="/member/feedback-evaluation" />,
+        },
+      ],
     },
 
     {
@@ -313,7 +397,17 @@ const AppSider = ({ collapsed }) => {
         {
           key: 'report_shift_handover',
           icon: <FormOutlined />,
-          label: <MenuItemLabel text="01加油站交接班报表" link="/report/shift-handover" />,
+          label: <MenuItemLabel text="加油站交接班报表" link="/report/shift-handover" />,
+        },
+        {
+          key: 'report_oil_sales',
+          icon: <LineChartOutlined />,
+          label: <MenuItemLabel text="油品销售报表" link="/report/oil-sales" />,
+        },
+        {
+          key: 'report_oil_inventory',
+          icon: <StockOutlined />,
+          label: <MenuItemLabel text="油品进销存日报" link="/report/oil-inventory" />,
         },
       ],
     },
@@ -342,6 +436,110 @@ const AppSider = ({ collapsed }) => {
           key: 'equipment_utility_records',
           icon: <NodeIndexOutlined />,
           label: <MenuItemLabel text="水电表记录" link="/equipment/water-electricity" />,
+        },
+        {
+          key: 'equipment_liquid_level_meter',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="液位仪管理" link="/equipment/liquid-level-meter" />,
+        },
+      ],
+    },
+
+    {
+      key: 'payment',
+      icon: <CreditCardOutlined />,
+      label: '支付管理',
+      children: [
+        {
+          key: 'payment_methods',
+          icon: <BankOutlined />,
+          label: <MenuItemLabel text="支付方式管理" link="/payment/methods" />,
+        },
+        {
+          key: 'payment_settlement',
+          icon: <SwapOutlined />,
+          label: <MenuItemLabel text="结算通道配置" link="/payment/settlement" />,
+        },
+        {
+          key: 'payment_oneclick',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="一键加油配置" link="/payment/oneclick" />,
+        },
+        {
+          key: 'payment_contactless',
+          icon: <DesktopOutlined />,
+          label: <MenuItemLabel text="无感支付通讯配置" link="/payment/contactless" />,
+        },
+        {
+          key: 'payment_qrcode',
+          icon: <ShareAltOutlined />,
+          label: <MenuItemLabel text="收款二维码配置" link="/payment/qrcode" />,
+        },
+      ],
+    },
+
+    {
+      key: 'security',
+      icon: <SecurityScanOutlined />,
+      label: '安全管理',
+      children: [
+        {
+          key: 'security_inspection_management',
+          icon: <SafetyCertificateOutlined />,
+          label: <MenuItemLabel text="现场巡检管理" link="/security/inspection-management" />,
+        },
+        {
+          key: 'security_archive_management',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="油站电子档案管理" link="/security/archive-management" />,
+        },
+        {
+          key: 'security_maintenance_management',
+          icon: <ToolOutlined />,
+          label: <MenuItemLabel text="维修施工管理" link="/security/maintenance-management" />,
+        },
+        {
+          key: 'security_emergency_drill',
+          icon: <SecurityScanOutlined />,
+          label: <MenuItemLabel text="应急演练和物资管理" link="#" tooltip="正在开发中" />,
+        },
+        {
+          key: 'security_training_management',
+          icon: <TeamOutlined />,
+          label: <MenuItemLabel text="人员培训管理" link="#" tooltip="正在开发中" />,
+        },
+        {
+          key: 'security_knowledge_exam',
+          icon: <AuditOutlined />,
+          label: <MenuItemLabel text="安全知识和考试管理" link="#" tooltip="正在开发中" />,
+        },
+      ],
+    },
+
+    {
+      key: 'analytics',
+      icon: <BarChartOutlined />,
+      label: '数字化运营分析',
+      children: [
+        {
+          key: 'analytics_data_center',
+          icon: <DashboardOutlined />,
+          label: <MenuItemLabel text="数据分析中心" link="/analytics/data-center" />,
+        },
+        {
+          key: 'analytics_customer_center',
+          icon: <UserOutlined />,
+          label: <MenuItemLabel text="客户管理中心" link="/analytics/customer-center" />,
+        },
+        {
+          key: 'analytics_risk_center',
+          icon: <SecurityScanOutlined />,
+          label: <MenuItemLabel text="风险监控中心" link="/analytics/risk-center" />,
+        },
+        {
+          key: 'analytics_dashboard',
+          icon: <FundViewOutlined />,
+          label: <MenuItemLabel text="大数据超脑大屏" link="/analytics/dashboard" />,
         },
       ],
     },

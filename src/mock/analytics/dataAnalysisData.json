@@ -1,0 +1,155 @@
+{
+  "businessAnalysis": {
+    "current": {
+      "oilOrders": 1280,
+      "nonOilOrders": 420,
+      "dates": ["1月20日", "1月21日", "1月22日", "1月23日", "1月24日", "1月25日", "1月26日"],
+      "oilAmounts": [45000, 48000, 52000, 49000, 55000, 58000, 62000],
+      "nonOilAmounts": [8000, 9200, 8600, 9800, 10500, 11200, 9800],
+      "volumes": [158000, 12800],
+      "tons": [118.5, 9.6]
+    }
+  },
+  "productAnalysis": {
+    "current": {
+      "categories": [
+        { "value": 45000, "name": "92#汽油" },
+        { "value": 28000, "name": "95#汽油" },
+        { "value": 22000, "name": "0#柴油" },
+        { "value": 8500, "name": "食品饮料" },
+        { "value": 6200, "name": "汽车用品" },
+        { "value": 4800, "name": "日用百货" }
+      ],
+      "dates": ["1月20日", "1月21日", "1月22日", "1月23日", "1月24日", "1月25日", "1月26日"],
+      "products": ["92#汽油", "95#汽油", "0#柴油", "食品饮料", "汽车用品"],
+      "series": [
+        {
+          "name": "92#汽油",
+          "type": "line",
+          "data": [18000, 19500, 21000, 19800, 22000, 23500, 25000],
+          "itemStyle": { "color": "#32AF50" }
+        },
+        {
+          "name": "95#汽油",
+          "type": "line", 
+          "data": [11000, 12200, 13000, 12500, 14000, 14800, 15500],
+          "itemStyle": { "color": "#1890ff" }
+        },
+        {
+          "name": "0#柴油",
+          "type": "line",
+          "data": [9000, 9800, 10500, 10200, 11000, 11800, 12200],
+          "itemStyle": { "color": "#f5222d" }
+        },
+        {
+          "name": "食品饮料",
+          "type": "line",
+          "data": [3200, 3500, 3800, 3600, 4000, 4200, 4500],
+          "itemStyle": { "color": "#fa8c16" }
+        },
+        {
+          "name": "汽车用品",
+          "type": "line",
+          "data": [2400, 2600, 2800, 2700, 3000, 3200, 3400],
+          "itemStyle": { "color": "#722ed1" }
+        }
+      ]
+    }
+  },
+  "stationAnalysis": {
+    "current": {
+      "stationNames": ["南昌高速服务区", "上饶高速服务区", "赣州高速服务区", "九江高速服务区", "鹰潭高速服务区"],
+      "amounts": [125000, 118000, 98000, 89000, 76000],
+      "regions": ["赣中分公司", "赣东北分公司", "赣南分公司", "赣北分公司", "赣东分公司"],
+      "orderCounts": [1280, 1150, 980, 860, 720],
+      "salesAmounts": [32.5, 29.8, 24.6, 22.3, 19.1]
+    }
+  },
+  "rechargeAnalysis": {
+    "summary": {
+      "totalAmount": 2680000,
+      "totalOrders": 3560,
+      "onlineRate": 78.5,
+      "avgAmount": 752.8
+    },
+    "current": {
+      "channels": [
+        { "value": 1580000, "name": "线上充值" },
+        { "value": 680000, "name": "线下充值" },
+        { "value": 420000, "name": "第三方充值" }
+      ],
+      "dates": ["1月20日", "1月21日", "1月22日", "1月23日", "1月24日", "1月25日", "1月26日"],
+      "onlineAmounts": [180000, 195000, 210000, 205000, 225000, 240000, 258000],
+      "offlineAmounts": [68000, 72000, 85000, 78000, 88000, 95000, 102000],
+      "orderCounts": [420, 450, 480, 465, 510, 540, 580]
+    }
+  },
+  "heatmapAnalysis": {
+    "hotStations": [
+      { "rank": 1, "stationName": "南昌高速服务区加油站", "customerCount": 1280, "salesAmount": "125,000", "coordinates": "115.857972,28.682976" },
+      { "rank": 2, "stationName": "上饶高速服务区加油站", "customerCount": 1150, "salesAmount": "118,000", "coordinates": "117.943064,28.455130" },
+      { "rank": 3, "stationName": "赣州高速服务区加油站", "customerCount": 980, "salesAmount": "98,000", "coordinates": "114.933494,25.831139" },
+      { "rank": 4, "stationName": "九江高速服务区加油站", "customerCount": 860, "salesAmount": "89,000", "coordinates": "115.953560,29.661160" },
+      { "rank": 5, "stationName": "鹰潭高速服务区加油站", "customerCount": 720, "salesAmount": "76,000", "coordinates": "117.069202,28.238638" },
+      { "rank": 6, "stationName": "景德镇高速服务区加油站", "customerCount": 680, "salesAmount": "68,000", "coordinates": "117.184892,29.274400" },
+      { "rank": 7, "stationName": "抚州高速服务区加油站", "customerCount": 620, "salesAmount": "62,000", "coordinates": "116.242935,28.376942" },
+      { "rank": 8, "stationName": "宜春高速服务区加油站", "customerCount": 580, "salesAmount": "58,000", "coordinates": "114.416778,27.810834" },
+      { "rank": 9, "stationName": "吉安高速服务区加油站", "customerCount": 540, "salesAmount": "54,000", "coordinates": "114.992068,27.113848" },
+      { "rank": 10, "stationName": "萍乡高速服务区加油站", "customerCount": 500, "salesAmount": "50,000", "coordinates": "113.887337,27.622946" }
+    ],
+    "hourlyDistribution": [
+      12, 8, 5, 3, 2, 4, 15, 35, 68, 85, 92, 98, 
+      105, 120, 115, 108, 125, 140, 135, 110, 85, 65, 45, 25
+    ],
+    "cityDistribution": [
+      { "cityName": "南昌市", "centerCoords": "115.857972,28.682976", "heatValue": 150, "stationCount": 4, "population": "625万", "level": "capital" },
+      { "cityName": "赣州市", "centerCoords": "114.933494,25.831139", "heatValue": 110, "stationCount": 3, "population": "897万", "level": "major" },
+      { "cityName": "上饶市", "centerCoords": "117.943064,28.455130", "heatValue": 100, "stationCount": 3, "population": "643万", "level": "major" },
+      { "cityName": "九江市", "centerCoords": "115.953560,29.661160", "heatValue": 105, "stationCount": 2, "population": "460万", "level": "major" },
+      { "cityName": "宜春市", "centerCoords": "114.416826,27.816245", "heatValue": 95, "stationCount": 2, "population": "551万", "level": "medium" },
+      { "cityName": "吉安市", "centerCoords": "114.966810,27.091243", "heatValue": 88, "stationCount": 2, "population": "489万", "level": "medium" },
+      { "cityName": "抚州市", "centerCoords": "116.358054,27.948979", "heatValue": 82, "stationCount": 2, "population": "358万", "level": "medium" },
+      { "cityName": "景德镇市", "centerCoords": "117.184892,29.274400", "heatValue": 85, "stationCount": 2, "population": "167万", "level": "small" },
+      { "cityName": "萍乡市", "centerCoords": "113.887147,27.658721", "heatValue": 78, "stationCount": 1, "population": "192万", "level": "small" },
+      { "cityName": "新余市", "centerCoords": "114.916665,27.818553", "heatValue": 80, "stationCount": 1, "population": "119万", "level": "small" },
+      { "cityName": "鹰潭市", "centerCoords": "117.069202,28.238638", "heatValue": 78, "stationCount": 2, "population": "117万", "level": "small" }
+    ]
+  },
+  "historyAnalysis": {
+    "current": {
+      "yearlyData": [
+        {
+          "name": "2023年",
+          "type": "line",
+          "data": [280, 320, 350, 380, 420, 450, 480, 465, 440, 420, 380, 350],
+          "itemStyle": { "color": "#1890ff" }
+        },
+        {
+          "name": "2024年",
+          "type": "line", 
+          "data": [320, 360, 380, 410, 450, 480, 520, 510, 485, 460, 420, 390],
+          "itemStyle": { "color": "#fa8c16" }
+        },
+        {
+          "name": "2025年",
+          "type": "line",
+          "data": [380, 420, 450, 480, 520, 550, 580, 0, 0, 0, 0, 0],
+          "itemStyle": { "color": "#32AF50" }
+        }
+      ],
+      "days": [
+        "1日", "2日", "3日", "4日", "5日", "6日", "7日", "8日", "9日", "10日",
+        "11日", "12日", "13日", "14日", "15日", "16日", "17日", "18日", "19日", "20日",
+        "21日", "22日", "23日", "24日", "25日", "26日", "27日", "28日", "29日", "30日"
+      ],
+      "lastMonth": [
+        18, 22, 25, 28, 32, 35, 38, 42, 45, 48, 52, 55, 58, 62, 65, 
+        68, 72, 75, 78, 82, 85, 88, 92, 95, 98, 102, 105, 108, 112, 115
+      ],
+      "thisMonth": [
+        25, 28, 32, 35, 38, 42, 45, 48, 52, 55, 58, 62, 65, 68, 72,
+        75, 78, 82, 85, 88, 92, 95, 98, 102, 105, 108, 0, 0, 0, 0
+      ]
+    }
+  }
+} 

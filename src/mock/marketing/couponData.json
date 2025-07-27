@@ -1,0 +1,406 @@
+{
+  "list": [
+    {
+      "id": "1",
+      "couponId": "ZX3K8N2M9Q1P",
+      "name": "新用户注册优惠券",
+      "type": "oil",
+      "status": "active",
+      "usageScenario": ["online", "offline"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "selectedStationIds": [],
+      "denominationType": "fixed_amount",
+      "amount": 10,
+      "minAmount": null,
+      "maxAmount": null,
+      "discount": null,
+      "maxDiscountAmount": null,
+      "validityType": "range",
+      "validityRange": ["2025-01-01 00:00:00", "2025-12-31 23:59:59"],
+      "validityDays": null,
+      "effectiveDays": null,
+      "validityDaysFromEffective": null,
+      "timeRestrictionType": "anytime",
+      "timeRestrictionPattern": null,
+      "dailyTimeSlots": [],
+      "weeklyTimeSlots": [],
+      "monthlyTimeSlots": [],
+      "usageConditions": [
+        {
+          "oilType": "92#汽油",
+          "conditionType": "original",
+          "value": 100
+        }
+      ],
+      "description": "新用户注册即可获得的专属优惠券，支持线上线下使用，享受更多优惠。",
+      "totalIssued": 1520,
+      "totalRedeemed": 980,
+      "createTime": "2025-01-01 00:00:00",
+      "updateTime": "2025-01-25 10:30:00",
+      "config": {
+        "amount": "10元",
+        "condition": "满100元可用"
+      },
+      "validPeriod": {
+        "startDate": "2025-01-01",
+        "endDate": "2025-12-31"
+      },
+      "issuedCount": 1520,
+      "usedCount": 980
+    },
+    {
+      "id": "2",
+      "couponId": "A8F5G2H9J4K7",
+      "name": "加油满减券",
+      "type": "oil",
+      "status": "active",
+      "usageScenario": ["offline"],
+      "paymentRestriction": "ecard_only",
+      "stationRestriction": "selected",
+      "selectedStationIds": ["station_001", "station_002", "station_003"],
+      "denominationType": "fixed_amount",
+      "amount": 20,
+      "minAmount": null,
+      "maxAmount": null,
+      "discount": null,
+      "maxDiscountAmount": null,
+      "validityType": "days_from_receive",
+      "validityRange": null,
+      "validityDays": 30,
+      "effectiveDays": null,
+      "validityDaysFromEffective": null,
+      "timeRestrictionType": "specific_allow",
+      "timeRestrictionPattern": "weekly",
+      "dailyTimeSlots": [],
+      "weeklyTimeSlots": [
+        {
+          "weekdays": [1, 2, 3, 4, 5],
+          "startTime": "08:00:00",
+          "endTime": "18:00:00"
+        }
+      ],
+      "monthlyTimeSlots": [],
+      "usageConditions": [
+        {
+          "oilType": "95#汽油",
+          "conditionType": "actual",
+          "value": 200
+        },
+        {
+          "oilType": "98#汽油",
+          "conditionType": "actual",
+          "value": 150
+        }
+      ],
+      "description": "工作日专享加油券，仅限电子储值卡支付使用，指定油站可用。",
+      "totalIssued": 2850,
+      "totalRedeemed": 1640,
+      "createTime": "2025-01-15 00:00:00",
+      "updateTime": "2025-01-25 14:20:00",
+      "config": {
+        "amount": "20元",
+        "condition": "满200元可用"
+      },
+      "validPeriod": {
+        "startDate": "2025-01-15",
+        "endDate": "2025-02-28"
+      },
+      "issuedCount": 2850,
+      "usedCount": 1640
+    },
+    {
+      "id": "3",
+      "couponId": "Q9W3E4R5T6Y7",
+      "name": "非油商品优惠券",
+      "type": "non-oil",
+      "status": "active",
+      "usageScenario": ["online"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "selectedStationIds": [],
+      "denominationType": "discount",
+      "amount": null,
+      "minAmount": null,
+      "maxAmount": null,
+      "discount": 8.5,
+      "maxDiscountAmount": 30,
+      "validityType": "days_from_date",
+      "validityRange": null,
+      "validityDays": null,
+      "effectiveDays": 1,
+      "validityDaysFromEffective": 90,
+      "timeRestrictionType": "specific_disallow",
+      "timeRestrictionPattern": "daily",
+      "dailyTimeSlots": [
+        {
+          "startTime": "01:00:00",
+          "endTime": "06:00:00"
+        }
+      ],
+      "weeklyTimeSlots": [],
+      "monthlyTimeSlots": [],
+      "usageConditions": [
+        {
+          "oilType": "饮料",
+          "conditionType": "original",
+          "value": 50
+        }
+      ],
+      "description": "非油商品专享折扣券，线上购买享受8.5折优惠，最高优惠30元。凌晨1-6点不可使用。",
+      "totalIssued": 890,
+      "totalRedeemed": 445,
+      "createTime": "2025-01-01 00:00:00",
+      "updateTime": "2025-01-25 16:45:00",
+      "config": {
+        "amount": "8.5折",
+        "condition": "单笔消费满50元"
+      },
+      "validPeriod": {
+        "startDate": "2025-01-01",
+        "endDate": "2025-03-31"
+      },
+      "issuedCount": 890,
+      "usedCount": 445
+    },
+    {
+      "id": "4",
+      "couponId": "U2I8O5P1A6S9",
+      "name": "充值赠金券",
+      "type": "recharge",
+      "status": "active",
+      "usageScenario": ["online", "offline"],
+      "paymentRestriction": "ecard_disabled",
+      "stationRestriction": "all",
+      "selectedStationIds": [],
+      "denominationType": "random_amount",
+      "amount": null,
+      "minAmount": 30,
+      "maxAmount": 50,
+      "discount": null,
+      "maxDiscountAmount": null,
+      "validityType": "range",
+      "validityRange": ["2025-01-10 00:00:00", "2025-06-30 23:59:59"],
+      "validityDays": null,
+      "effectiveDays": null,
+      "validityDaysFromEffective": null,
+      "timeRestrictionType": "specific_allow",
+      "timeRestrictionPattern": "monthly",
+      "dailyTimeSlots": [],
+      "weeklyTimeSlots": [],
+      "monthlyTimeSlots": [
+        {
+          "days": [1, 15, 30],
+          "startTime": "10:00:00",
+          "endTime": "22:00:00"
+        }
+      ],
+      "usageConditions": [
+        {
+          "oilType": "充值",
+          "conditionType": "original",
+          "value": 500
+        }
+      ],
+      "description": "充值满500元即可获得随机赠金券，金额在30-50元之间，每月1号、15号、30号的10-22点可使用。不支持电子储值卡支付。",
+      "totalIssued": 340,
+      "totalRedeemed": 128,
+      "createTime": "2025-01-10 00:00:00",
+      "updateTime": "2025-01-25 09:15:00",
+      "config": {
+        "amount": "50元",
+        "condition": "充值满500元赠送"
+      },
+      "validPeriod": {
+        "startDate": "2025-01-10",
+        "endDate": "2025-06-30"
+      },
+      "issuedCount": 340,
+      "usedCount": 128
+    },
+    {
+      "id": "5",
+      "couponId": "D7F2G8H1J5K9",
+      "name": "节日特惠券",
+      "type": "oil",
+      "status": "expired",
+      "usageScenario": ["online", "offline"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "selectedStationIds": [],
+      "denominationType": "fixed_amount",
+      "amount": 15,
+      "validityType": "range",
+      "validityRange": ["2024-12-20 00:00:00", "2025-01-20 23:59:59"],
+      "timeRestrictionType": "anytime",
+      "usageConditions": [{"oilType": "92#汽油", "conditionType": "original", "value": 150}],
+      "description": "节日期间专享优惠券，已过期。",
+      "totalIssued": 1200,
+      "totalRedeemed": 980,
+      "createTime": "2024-12-20 00:00:00",
+      "updateTime": "2025-01-20 23:59:59",
+      "config": {
+        "amount": "15元",
+        "condition": "满150元可用"
+      },
+      "validPeriod": {
+        "startDate": "2024-12-20",
+        "endDate": "2025-01-20"
+      },
+      "issuedCount": 1200,
+      "usedCount": 980
+    },
+    {
+      "id": "6",
+      "couponId": "L4M6N8B3V7C2",
+      "name": "会员专享券",
+      "type": "goods",
+      "status": "active",
+      "config": {
+        "amount": "9折",
+        "condition": "会员等级金卡以上"
+      },
+      "validPeriod": {
+        "startDate": "2025-01-01",
+        "endDate": "2025-12-31"
+      },
+      "issuedCount": 750,
+      "usedCount": 320,
+      "createTime": "2025-01-01 00:00:00",
+      "updateTime": "2025-01-25 11:30:00"
+    },
+    {
+      "id": "7",
+      "couponId": "X9Z5C4V8B2N1",
+      "name": "周末加油券",
+      "type": "oil",
+      "status": "active",
+      "usageScenario": ["offline"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "denominationType": "fixed_amount",
+      "amount": 12,
+      "validityType": "range",
+      "validityRange": ["2025-01-01 00:00:00", "2025-12-31 23:59:59"],
+      "timeRestrictionType": "specific_allow",
+      "timeRestrictionPattern": "weekly",
+      "weeklyTimeSlots": [{"weekdays": [0, 6], "startTime": "00:00:00", "endTime": "23:59:59"}],
+      "usageConditions": [{"oilType": "所有油品", "conditionType": "original", "value": 120}],
+      "description": "周末专享加油券，仅限周六周日使用。",
+      "totalIssued": 2100,
+      "totalRedeemed": 1260,
+      "createTime": "2025-01-01 00:00:00",
+      "config": {"amount": "12元", "condition": "周末使用，满120元可用"},
+      "validPeriod": {"startDate": "2025-01-01", "endDate": "2025-12-31"},
+      "issuedCount": 2100,
+      "usedCount": 1260
+    },
+    {
+      "id": "8",
+      "couponId": "H6J8K1L3M5N7",
+      "name": "生日专享券",
+      "type": "recharge",
+      "status": "voided",
+      "usageScenario": ["online", "offline"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "denominationType": "fixed_amount",
+      "amount": 30,
+      "validityType": "range",
+      "validityRange": ["2025-01-01 00:00:00", "2025-12-31 23:59:59"],
+      "timeRestrictionType": "anytime",
+      "usageConditions": [{"oilType": "充值", "conditionType": "original", "value": 0}],
+      "description": "生日当月可用的专享券，已作废。",
+      "totalIssued": 450,
+      "totalRedeemed": 180,
+      "createTime": "2025-01-01 00:00:00",
+      "config": {"amount": "30元", "condition": "生日当月可用"},
+      "validPeriod": {"startDate": "2025-01-01", "endDate": "2025-12-31"},
+      "issuedCount": 450,
+      "usedCount": 180
+    },
+    {
+      "id": "9",
+      "couponId": "P8Q2W4E6R9T1",
+      "name": "首次消费券",
+      "type": "non-oil",
+      "status": "active",
+      "usageScenario": ["online"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "denominationType": "fixed_amount",
+      "amount": 5,
+      "validityType": "days_from_receive",
+      "validityDays": 365,
+      "timeRestrictionType": "anytime",
+      "usageConditions": [{"oilType": "便利店商品", "conditionType": "original", "value": 30}],
+      "description": "首次非油消费专享优惠券，新用户福利。",
+      "totalIssued": 3200,
+      "totalRedeemed": 2450,
+      "createTime": "2025-01-01 00:00:00",
+      "config": {"amount": "5元", "condition": "首次非油消费满30元"},
+      "validPeriod": {"startDate": "2025-01-01", "endDate": "2025-12-31"},
+      "issuedCount": 3200,
+      "usedCount": 2450
+    },
+    {
+      "id": "10",
+      "couponId": "Y5U7I9O1P3A6",
+      "name": "夜间加油券",
+      "type": "oil",
+      "status": "active",
+      "usageScenario": ["offline"],
+      "paymentRestriction": "none",
+      "stationRestriction": "all",
+      "denominationType": "fixed_amount",
+      "amount": 8,
+      "validityType": "range",
+      "validityRange": ["2025-01-15 00:00:00", "2025-03-15 23:59:59"],
+      "timeRestrictionType": "specific_allow",
+      "timeRestrictionPattern": "daily",
+      "dailyTimeSlots": [{"startTime": "22:00:00", "endTime": "06:00:00"}],
+      "usageConditions": [{"oilType": "所有油品", "conditionType": "original", "value": 80}],
+      "description": "夜间时段专享加油券，22:00-06:00可用。",
+      "totalIssued": 680,
+      "totalRedeemed": 380,
+      "createTime": "2025-01-15 00:00:00",
+      "config": {"amount": "8元", "condition": "22:00-06:00使用，满80元可用"},
+      "validPeriod": {"startDate": "2025-01-15", "endDate": "2025-03-15"},
+      "issuedCount": 680,
+      "usedCount": 380
+    }
+  ],
+  "statistics": {
+    "totalCoupons": 10,
+    "totalIssued": 14330,
+    "totalUsed": 8843,
+    "totalUsageRate": 61.7,
+    "oilCoupons": {
+      "count": 5,
+      "issued": 8450,
+      "used": 5640,
+      "usageRate": 66.7
+    },
+    "goodsCoupons": {
+      "count": 3,
+      "issued": 4840,
+      "used": 3215,
+      "usageRate": 66.4
+    },
+    "rechargeCoupons": {
+      "count": 2,
+      "issued": 1040,
+      "used": 488,
+      "usageRate": 46.9
+    }
+  },
+  "globalRestrictions": {
+    "dailyIssueLimit": 1000,
+    "userDailyLimit": 5,
+    "userTotalLimit": 20,
+    "enableBlacklist": true,
+    "enableWhitelist": false,
+    "minOrderAmount": 50,
+    "maxDiscountAmount": 500
+  }
+} 

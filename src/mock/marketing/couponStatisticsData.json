@@ -1,0 +1,108 @@
+{
+  "summary": {
+    "totalIssued": 12500,
+    "totalRedeemed": 8850,
+    "totalExpired": 2150,
+    "redemptionRate": 70.8
+  },
+  "dailyTrends": [
+    {
+      "date": "2025-01-19",
+      "issued": 450,
+      "redeemed": 320,
+      "expired": 25
+    },
+    {
+      "date": "2025-01-20",
+      "issued": 520,
+      "redeemed": 385,
+      "expired": 18
+    },
+    {
+      "date": "2025-01-21",
+      "issued": 680,
+      "redeemed": 425,
+      "expired": 32
+    },
+    {
+      "date": "2025-01-22",
+      "issued": 420,
+      "redeemed": 380,
+      "expired": 28
+    },
+    {
+      "date": "2025-01-23",
+      "issued": 750,
+      "redeemed": 465,
+      "expired": 35
+    },
+    {
+      "date": "2025-01-24",
+      "issued": 620,
+      "redeemed": 520,
+      "expired": 22
+    },
+    {
+      "date": "2025-01-25",
+      "issued": 580,
+      "redeemed": 445,
+      "expired": 30
+    }
+  ],
+  "couponList": [
+    {
+      "id": "1",
+      "name": "新用户注册券",
+      "type": "oil",
+      "issued": 3200,
+      "redeemed": 2450,
+      "expired": 580,
+      "redemptionRate": 76.6
+    },
+    {
+      "id": "2", 
+      "name": "满减优惠券",
+      "type": "oil",
+      "issued": 2800,
+      "redeemed": 1950,
+      "expired": 420,
+      "redemptionRate": 69.6
+    },
+    {
+      "id": "3",
+      "name": "非油商品券",
+      "type": "non-oil", 
+      "issued": 1500,
+      "redeemed": 980,
+      "expired": 235,
+      "redemptionRate": 65.3
+    },
+    {
+      "id": "4",
+      "name": "充值赠金券",
+      "type": "recharge",
+      "issued": 2200,
+      "redeemed": 1680,
+      "expired": 315,
+      "redemptionRate": 76.4
+    },
+    {
+      "id": "5",
+      "name": "会员专享券",
+      "type": "oil",
+      "issued": 1800,
+      "redeemed": 1290,
+      "expired": 280,
+      "redemptionRate": 71.7
+    },
+    {
+      "id": "6",
+      "name": "生日专享券",
+      "type": "recharge",
+      "issued": 1000,
+      "redeemed": 500,
+      "expired": 320,
+      "redemptionRate": 50.0
+    }
+  ]
+} 
