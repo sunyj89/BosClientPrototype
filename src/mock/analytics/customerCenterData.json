@@ -1,0 +1,241 @@
+{
+  "memberGrowthTrend": {
+    "today": {
+      "date": "2025-01-27",
+      "newMembers": 45,
+      "existingMembers": 3245,
+      "totalMembers": 3290
+    },
+    "yesterday": {
+      "date": "2025-01-26", 
+      "newMembers": 38,
+      "existingMembers": 3207,
+      "totalMembers": 3245
+    },
+    "last7Days": [
+      { "date": "2025-01-21", "newMembers": 32, "existingMembers": 3089, "totalMembers": 3121 },
+      { "date": "2025-01-22", "newMembers": 28, "existingMembers": 3121, "totalMembers": 3149 },
+      { "date": "2025-01-23", "newMembers": 35, "existingMembers": 3149, "totalMembers": 3184 },
+      { "date": "2025-01-24", "newMembers": 42, "existingMembers": 3184, "totalMembers": 3226 },
+      { "date": "2025-01-25", "newMembers": 29, "existingMembers": 3226, "totalMembers": 3255 },
+      { "date": "2025-01-26", "newMembers": 38, "existingMembers": 3207, "totalMembers": 3245 },
+      { "date": "2025-01-27", "newMembers": 45, "existingMembers": 3245, "totalMembers": 3290 }
+    ],
+    "last30Days": [
+      { "date": "2024-12-29", "newMembers": 25, "existingMembers": 2980, "totalMembers": 3005 },
+      { "date": "2024-12-30", "newMembers": 31, "existingMembers": 3005, "totalMembers": 3036 },
+      { "date": "2024-12-31", "newMembers": 28, "existingMembers": 3036, "totalMembers": 3064 },
+      { "date": "2025-01-01", "newMembers": 15, "existingMembers": 3064, "totalMembers": 3079 },
+      { "date": "2025-01-02", "newMembers": 22, "existingMembers": 3079, "totalMembers": 3101 },
+      { "date": "2025-01-03", "newMembers": 33, "existingMembers": 3101, "totalMembers": 3134 },
+      { "date": "2025-01-04", "newMembers": 19, "existingMembers": 3134, "totalMembers": 3153 },
+      { "date": "2025-01-05", "newMembers": 26, "existingMembers": 3153, "totalMembers": 3179 },
+      { "date": "2025-01-06", "newMembers": 34, "existingMembers": 3179, "totalMembers": 3213 },
+      { "date": "2025-01-07", "newMembers": 41, "existingMembers": 3213, "totalMembers": 3254 },
+      { "date": "2025-01-08", "newMembers": 29, "existingMembers": 3254, "totalMembers": 3283 },
+      { "date": "2025-01-09", "newMembers": 37, "existingMembers": 3283, "totalMembers": 3320 },
+      { "date": "2025-01-10", "newMembers": 18, "existingMembers": 3320, "totalMembers": 3338 },
+      { "date": "2025-01-11", "newMembers": 24, "existingMembers": 3338, "totalMembers": 3362 },
+      { "date": "2025-01-12", "newMembers": 30, "existingMembers": 3362, "totalMembers": 3392 },
+      { "date": "2025-01-13", "newMembers": 27, "existingMembers": 3392, "totalMembers": 3419 },
+      { "date": "2025-01-14", "newMembers": 35, "existingMembers": 3419, "totalMembers": 3454 },
+      { "date": "2025-01-15", "newMembers": 42, "existingMembers": 3454, "totalMembers": 3496 },
+      { "date": "2025-01-16", "newMembers": 21, "existingMembers": 3496, "totalMembers": 3517 },
+      { "date": "2025-01-17", "newMembers": 38, "existingMembers": 3517, "totalMembers": 3555 },
+      { "date": "2025-01-18", "newMembers": 33, "existingMembers": 3555, "totalMembers": 3588 },
+      { "date": "2025-01-19", "newMembers": 26, "existingMembers": 3588, "totalMembers": 3614 },
+      { "date": "2025-01-20", "newMembers": 40, "existingMembers": 3614, "totalMembers": 3654 },
+      { "date": "2025-01-21", "newMembers": 32, "existingMembers": 3089, "totalMembers": 3121 },
+      { "date": "2025-01-22", "newMembers": 28, "existingMembers": 3121, "totalMembers": 3149 },
+      { "date": "2025-01-23", "newMembers": 35, "existingMembers": 3149, "totalMembers": 3184 },
+      { "date": "2025-01-24", "newMembers": 42, "existingMembers": 3184, "totalMembers": 3226 },
+      { "date": "2025-01-25", "newMembers": 29, "existingMembers": 3226, "totalMembers": 3255 },
+      { "date": "2025-01-26", "newMembers": 38, "existingMembers": 3207, "totalMembers": 3245 },
+      { "date": "2025-01-27", "newMembers": 45, "existingMembers": 3245, "totalMembers": 3290 }
+    ]
+  },
+  "consumptionDistribution": {
+    "today": {
+      "memberConsumption": 185640,
+      "nonMemberConsumption": 48520,
+      "memberCount": 256,
+      "nonMemberCount": 124
+    },
+    "yesterday": {
+      "memberConsumption": 172800,
+      "nonMemberConsumption": 52100,
+      "memberCount": 242,
+      "nonMemberCount": 138
+    },
+    "last7Days": [
+      { "date": "2025-01-21", "memberConsumption": 158340, "nonMemberConsumption": 45680, "memberCount": 210, "nonMemberCount": 118 },
+      { "date": "2025-01-22", "memberConsumption": 164520, "nonMemberConsumption": 48920, "memberCount": 225, "nonMemberCount": 125 },
+      { "date": "2025-01-23", "memberConsumption": 175260, "nonMemberConsumption": 51340, "memberCount": 238, "nonMemberCount": 132 },
+      { "date": "2025-01-24", "memberConsumption": 182940, "nonMemberConsumption": 46780, "memberCount": 248, "nonMemberCount": 119 },
+      { "date": "2025-01-25", "memberConsumption": 169580, "nonMemberConsumption": 53260, "memberCount": 235, "nonMemberCount": 142 },
+      { "date": "2025-01-26", "memberConsumption": 172800, "nonMemberConsumption": 52100, "memberCount": 242, "nonMemberCount": 138 },
+      { "date": "2025-01-27", "memberConsumption": 185640, "nonMemberConsumption": 48520, "memberCount": 256, "nonMemberCount": 124 }
+    ],
+    "last30Days": [
+      { "date": "2024-12-29", "memberConsumption": 142580, "nonMemberConsumption": 38420, "memberCount": 198, "nonMemberCount": 95 },
+      { "date": "2024-12-30", "memberConsumption": 156840, "nonMemberConsumption": 42690, "memberCount": 215, "nonMemberCount": 108 },
+      { "date": "2024-12-31", "memberConsumption": 168920, "nonMemberConsumption": 45320, "memberCount": 232, "nonMemberCount": 115 },
+      { "date": "2025-01-01", "memberConsumption": 98450, "nonMemberConsumption": 28740, "memberCount": 145, "nonMemberCount": 78 },
+      { "date": "2025-01-02", "memberConsumption": 135690, "nonMemberConsumption": 35820, "memberCount": 185, "nonMemberCount": 89 },
+      { "date": "2025-01-03", "memberConsumption": 162580, "nonMemberConsumption": 43560, "memberCount": 218, "nonMemberCount": 110 },
+      { "date": "2025-01-04", "memberConsumption": 148920, "nonMemberConsumption": 39840, "memberCount": 202, "nonMemberCount": 98 },
+      { "date": "2025-01-05", "memberConsumption": 174650, "nonMemberConsumption": 46780, "memberCount": 235, "nonMemberCount": 118 },
+      { "date": "2025-01-06", "memberConsumption": 189340, "nonMemberConsumption": 51260, "memberCount": 252, "nonMemberCount": 128 },
+      { "date": "2025-01-07", "memberConsumption": 196580, "nonMemberConsumption": 48920, "memberCount": 265, "nonMemberCount": 122 },
+      { "date": "2025-01-08", "memberConsumption": 171240, "nonMemberConsumption": 45680, "memberCount": 228, "nonMemberCount": 115 },
+      { "date": "2025-01-09", "memberConsumption": 183960, "nonMemberConsumption": 49840, "memberCount": 248, "nonMemberCount": 125 },
+      { "date": "2025-01-10", "memberConsumption": 155420, "nonMemberConsumption": 41560, "memberCount": 208, "nonMemberCount": 105 },
+      { "date": "2025-01-11", "memberConsumption": 167890, "nonMemberConsumption": 44820, "memberCount": 225, "nonMemberCount": 112 },
+      { "date": "2025-01-12", "memberConsumption": 179560, "nonMemberConsumption": 47340, "memberCount": 240, "nonMemberCount": 119 },
+      { "date": "2025-01-13", "memberConsumption": 164820, "nonMemberConsumption": 42960, "memberCount": 220, "nonMemberCount": 108 },
+      { "date": "2025-01-14", "memberConsumption": 186450, "nonMemberConsumption": 50180, "memberCount": 250, "nonMemberCount": 126 },
+      { "date": "2025-01-15", "memberConsumption": 194820, "nonMemberConsumption": 48560, "memberCount": 262, "nonMemberCount": 121 },
+      { "date": "2025-01-16", "memberConsumption": 172340, "nonMemberConsumption": 46280, "memberCount": 230, "nonMemberCount": 116 },
+      { "date": "2025-01-17", "memberConsumption": 181690, "nonMemberConsumption": 49520, "memberCount": 245, "nonMemberCount": 124 },
+      { "date": "2025-01-18", "memberConsumption": 176580, "nonMemberConsumption": 47840, "memberCount": 238, "nonMemberCount": 120 },
+      { "date": "2025-01-19", "memberConsumption": 169340, "nonMemberConsumption": 45120, "memberCount": 226, "nonMemberCount": 113 },
+      { "date": "2025-01-20", "memberConsumption": 187920, "nonMemberConsumption": 50680, "memberCount": 252, "nonMemberCount": 127 },
+      { "date": "2025-01-21", "memberConsumption": 158340, "nonMemberConsumption": 45680, "memberCount": 210, "nonMemberCount": 118 },
+      { "date": "2025-01-22", "memberConsumption": 164520, "nonMemberConsumption": 48920, "memberCount": 225, "nonMemberCount": 125 },
+      { "date": "2025-01-23", "memberConsumption": 175260, "nonMemberConsumption": 51340, "memberCount": 238, "nonMemberCount": 132 },
+      { "date": "2025-01-24", "memberConsumption": 182940, "nonMemberConsumption": 46780, "memberCount": 248, "nonMemberCount": 119 },
+      { "date": "2025-01-25", "memberConsumption": 169580, "nonMemberConsumption": 53260, "memberCount": 235, "nonMemberCount": 142 },
+      { "date": "2025-01-26", "memberConsumption": 172800, "nonMemberConsumption": 52100, "memberCount": 242, "nonMemberCount": 138 },
+      { "date": "2025-01-27", "memberConsumption": 185640, "nonMemberConsumption": 48520, "memberCount": 256, "nonMemberCount": 124 }
+    ]
+  },
+  "memberLevelAnalysis": {
+    "today": {
+      "普通": { "count": 1980, "percentage": 60.2 },
+      "银卡": { "count": 658, "percentage": 20.0 },
+      "金卡": { "count": 395, "percentage": 12.0 },
+      "铂金": { "count": 164, "percentage": 5.0 },
+      "钻石": { "count": 93, "percentage": 2.8 }
+    },
+    "yesterday": {
+      "普通": { "count": 1955, "percentage": 60.3 },
+      "银卡": { "count": 649, "percentage": 20.0 },
+      "金卡": { "count": 389, "percentage": 12.0 },
+      "铂金": { "count": 162, "percentage": 5.0 },
+      "钻石": { "count": 90, "percentage": 2.7 }
+    },
+    "last7Days": {
+      "普通": { "count": 1926, "percentage": 60.4 },
+      "银卡": { "count": 637, "percentage": 20.0 },
+      "金卡": { "count": 383, "percentage": 12.0 },
+      "铂金": { "count": 159, "percentage": 5.0 },
+      "钻石": { "count": 84, "percentage": 2.6 }
+    },
+    "last30Days": {
+      "普通": { "count": 1876, "percentage": 60.5 },
+      "银卡": { "count": 621, "percentage": 20.0 },
+      "金卡": { "count": 372, "percentage": 12.0 },
+      "铂金": { "count": 155, "percentage": 5.0 },
+      "钻石": { "count": 76, "percentage": 2.5 }
+    }
+  },
+  "channelAnalysis": {
+    "today": {
+      "channels": [
+        { "name": "微信小程序", "count": 1265, "percentage": 38.4, "activeRate": 78.5, "contributionAmount": 85420 },
+        { "name": "微信公众号", "count": 823, "percentage": 25.0, "activeRate": 72.3, "contributionAmount": 62380 },
+        { "name": "支付宝小程序", "count": 658, "percentage": 20.0, "activeRate": 68.9, "contributionAmount": 48560 },
+        { "name": "线下注册", "count": 395, "percentage": 12.0, "activeRate": 65.4, "contributionAmount": 35280 },
+        { "name": "中石化卡绑定注册", "count": 149, "percentage": 4.6, "activeRate": 82.1, "contributionAmount": 28940 }
+      ]
+    },
+    "yesterday": {
+      "channels": [
+        { "name": "微信小程序", "count": 1247, "percentage": 38.4, "activeRate": 77.8, "contributionAmount": 79830 },
+        { "name": "微信公众号", "count": 811, "percentage": 25.0, "activeRate": 71.6, "contributionAmount": 58920 },
+        { "name": "支付宝小程序", "count": 649, "percentage": 20.0, "activeRate": 68.2, "contributionAmount": 45680 },
+        { "name": "线下注册", "count": 389, "percentage": 12.0, "activeRate": 64.7, "contributionAmount": 33150 },
+        { "name": "中石化卡绑定注册", "count": 149, "percentage": 4.6, "activeRate": 81.4, "contributionAmount": 27220 }
+      ]
+    },
+    "last7Days": {
+      "channels": [
+        { "name": "微信小程序", "count": 1223, "percentage": 38.3, "activeRate": 76.5, "contributionAmount": 548920 },
+        { "name": "微信公众号", "count": 799, "percentage": 25.1, "activeRate": 70.8, "contributionAmount": 412480 },
+        { "name": "支付宝小程序", "count": 637, "percentage": 20.0, "activeRate": 67.4, "contributionAmount": 319560 },
+        { "name": "线下注册", "count": 383, "percentage": 12.0, "activeRate": 63.9, "contributionAmount": 231840 },
+        { "name": "中石化卡绑定注册", "count": 147, "percentage": 4.6, "activeRate": 80.7, "contributionAmount": 189680 }
+      ]
+    },
+    "last30Days": {
+      "channels": [
+        { "name": "微信小程序", "count": 1188, "percentage": 38.3, "activeRate": 75.2, "contributionAmount": 2348520 },
+        { "name": "微信公众号", "count": 775, "percentage": 25.0, "activeRate": 69.5, "contributionAmount": 1756480 },
+        { "name": "支付宝小程序", "count": 621, "percentage": 20.0, "activeRate": 66.1, "contributionAmount": 1368920 },
+        { "name": "线下注册", "count": 372, "percentage": 12.0, "activeRate": 62.4, "contributionAmount": 992840 },
+        { "name": "中石化卡绑定注册", "count": 144, "percentage": 4.7, "activeRate": 79.3, "contributionAmount": 812560 }
+      ]
+    }
+  },
+  "loyaltyAnalysis": {
+    "today": {
+      "consumptionAmount": 234160,
+      "oilConsumption": { "gasoline": 156420, "diesel": 45620 },
+      "consumptionCount": 380,
+      "pointsEarned": 2342,
+      "pointsUsed": 1580,
+      "couponsIssued": 125,
+      "couponsRedeemed": 89
+    },
+    "yesterday": {
+      "consumptionAmount": 224900,
+      "oilConsumption": { "gasoline": 149380, "diesel": 43420 },
+      "consumptionCount": 380,
+      "pointsEarned": 2249,
+      "pointsUsed": 1465,
+      "couponsIssued": 118,
+      "couponsRedeemed": 82
+    },
+    "last7Days": [
+      { "date": "2025-01-21", "consumptionAmount": 204020, "oilConsumption": { "gasoline": 135480, "diesel": 39260 }, "consumptionCount": 328, "pointsEarned": 2040, "pointsUsed": 1320, "couponsIssued": 105, "couponsRedeemed": 74 },
+      { "date": "2025-01-22", "consumptionAmount": 213440, "oilConsumption": { "gasoline": 142180, "diesel": 41680 }, "consumptionCount": 350, "pointsEarned": 2134, "pointsUsed": 1389, "couponsIssued": 112, "couponsRedeemed": 78 },
+      { "date": "2025-01-23", "consumptionAmount": 226600, "oilConsumption": { "gasoline": 151240, "diesel": 43920 }, "consumptionCount": 370, "pointsEarned": 2266, "pointsUsed": 1523, "couponsIssued": 120, "couponsRedeemed": 85 },
+      { "date": "2025-01-24", "consumptionAmount": 229720, "oilConsumption": { "gasoline": 153480, "diesel": 44560 }, "consumptionCount": 367, "pointsEarned": 2297, "pointsUsed": 1612, "couponsIssued": 115, "couponsRedeemed": 91 },
+      { "date": "2025-01-25", "consumptionAmount": 222840, "oilConsumption": { "gasoline": 148620, "diesel": 43180 }, "consumptionCount": 377, "pointsEarned": 2228, "pointsUsed": 1456, "couponsIssued": 125, "couponsRedeemed": 87 },
+      { "date": "2025-01-26", "consumptionAmount": 224900, "oilConsumption": { "gasoline": 149380, "diesel": 43420 }, "consumptionCount": 380, "pointsEarned": 2249, "pointsUsed": 1465, "couponsIssued": 118, "couponsRedeemed": 82 },
+      { "date": "2025-01-27", "consumptionAmount": 234160, "oilConsumption": { "gasoline": 156420, "diesel": 45620 }, "consumptionCount": 380, "pointsEarned": 2342, "pointsUsed": 1580, "couponsIssued": 125, "couponsRedeemed": 89 }
+    ],
+    "last30Days": [
+      { "date": "2024-12-29", "consumptionAmount": 181000, "oilConsumption": { "gasoline": 120480, "diesel": 35040 }, "consumptionCount": 293, "pointsEarned": 1810, "pointsUsed": 1156, "couponsIssued": 95, "couponsRedeemed": 64 },
+      { "date": "2024-12-30", "consumptionAmount": 199530, "oilConsumption": { "gasoline": 133020, "diesel": 38690 }, "consumptionCount": 323, "pointsEarned": 1995, "pointsUsed": 1287, "couponsIssued": 108, "couponsRedeemed": 71 },
+      { "date": "2024-12-31", "consumptionAmount": 214240, "oilConsumption": { "gasoline": 142840, "diesel": 41560 }, "consumptionCount": 347, "pointsEarned": 2142, "pointsUsed": 1398, "couponsIssued": 115, "couponsRedeemed": 76 },
+      { "date": "2025-01-01", "consumptionAmount": 127190, "oilConsumption": { "gasoline": 84840, "diesel": 24680 }, "consumptionCount": 223, "pointsEarned": 1272, "pointsUsed": 856, "couponsIssued": 68, "couponsRedeemed": 45 },
+      { "date": "2025-01-02", "consumptionAmount": 171510, "oilConsumption": { "gasoline": 114420, "diesel": 33280 }, "consumptionCount": 274, "pointsEarned": 1715, "pointsUsed": 1102, "couponsIssued": 89, "couponsRedeemed": 58 },
+      { "date": "2025-01-03", "consumptionAmount": 206140, "oilConsumption": { "gasoline": 137480, "diesel": 40020 }, "consumptionCount": 328, "pointsEarned": 2061, "pointsUsed": 1345, "couponsIssued": 110, "couponsRedeemed": 73 },
+      { "date": "2025-01-04", "consumptionAmount": 188760, "oilConsumption": { "gasoline": 125940, "diesel": 36660 }, "consumptionCount": 300, "pointsEarned": 1888, "pointsUsed": 1223, "couponsIssued": 98, "couponsRedeemed": 65 },
+      { "date": "2025-01-05", "consumptionAmount": 221430, "oilConsumption": { "gasoline": 147720, "diesel": 43020 }, "consumptionCount": 353, "pointsEarned": 2214, "pointsUsed": 1445, "couponsIssued": 118, "couponsRedeemed": 79 },
+      { "date": "2025-01-06", "consumptionAmount": 240600, "oilConsumption": { "gasoline": 160520, "diesel": 46740 }, "consumptionCount": 380, "pointsEarned": 2406, "pointsUsed": 1578, "couponsIssued": 128, "couponsRedeemed": 86 },
+      { "date": "2025-01-07", "consumptionAmount": 245500, "oilConsumption": { "gasoline": 163800, "diesel": 47700 }, "consumptionCount": 387, "pointsEarned": 2455, "pointsUsed": 1634, "couponsIssued": 125, "couponsRedeemed": 92 },
+      { "date": "2025-01-08", "consumptionAmount": 216920, "oilConsumption": { "gasoline": 144720, "diesel": 42140 }, "consumptionCount": 343, "pointsEarned": 2169, "pointsUsed": 1412, "couponsIssued": 115, "couponsRedeemed": 77 },
+      { "date": "2025-01-09", "consumptionAmount": 233800, "oilConsumption": { "gasoline": 156180, "diesel": 45480 }, "consumptionCount": 373, "pointsEarned": 2338, "pointsUsed": 1523, "couponsIssued": 124, "couponsRedeemed": 83 },
+      { "date": "2025-01-10", "consumptionAmount": 196980, "oilConsumption": { "gasoline": 131460, "diesel": 38280 }, "consumptionCount": 313, "pointsEarned": 1970, "pointsUsed": 1289, "couponsIssued": 105, "couponsRedeemed": 70 },
+      { "date": "2025-01-11", "consumptionAmount": 212710, "oilConsumption": { "gasoline": 141960, "diesel": 41340 }, "consumptionCount": 337, "pointsEarned": 2127, "pointsUsed": 1378, "couponsIssued": 113, "couponsRedeemed": 75 },
+      { "date": "2025-01-12", "consumptionAmount": 226900, "oilConsumption": { "gasoline": 151440, "diesel": 44120 }, "consumptionCount": 359, "pointsEarned": 2269, "pointsUsed": 1489, "couponsIssued": 120, "couponsRedeemed": 81 },
+      { "date": "2025-01-13", "consumptionAmount": 207780, "oilConsumption": { "gasoline": 138580, "diesel": 40380 }, "consumptionCount": 328, "pointsEarned": 2078, "pointsUsed": 1356, "couponsIssued": 110, "couponsRedeemed": 74 },
+      { "date": "2025-01-14", "consumptionAmount": 236630, "oilConsumption": { "gasoline": 158080, "diesel": 46060 }, "consumptionCount": 376, "pointsEarned": 2366, "pointsUsed": 1545, "couponsIssued": 126, "couponsRedeemed": 84 },
+      { "date": "2025-01-15", "consumptionAmount": 243380, "oilConsumption": { "gasoline": 162440, "diesel": 47340 }, "consumptionCount": 383, "pointsEarned": 2434, "pointsUsed": 1598, "couponsIssued": 121, "couponsRedeemed": 89 },
+      { "date": "2025-01-16", "consumptionAmount": 218620, "oilConsumption": { "gasoline": 145860, "diesel": 42480 }, "consumptionCount": 346, "pointsEarned": 2186, "pointsUsed": 1423, "couponsIssued": 116, "couponsRedeemed": 78 },
+      { "date": "2025-01-17", "consumptionAmount": 231210, "oilConsumption": { "gasoline": 154260, "diesel": 44940 }, "consumptionCount": 369, "pointsEarned": 2312, "pointsUsed": 1512, "couponsIssued": 123, "couponsRedeemed": 82 },
+      { "date": "2025-01-18", "consumptionAmount": 224420, "oilConsumption": { "gasoline": 149840, "diesel": 43680 }, "consumptionCount": 358, "pointsEarned": 2244, "pointsUsed": 1467, "couponsIssued": 119, "couponsRedeemed": 80 },
+      { "date": "2025-01-19", "consumptionAmount": 214460, "oilConsumption": { "gasoline": 143180, "diesel": 41700 }, "consumptionCount": 339, "pointsEarned": 2145, "pointsUsed": 1401, "couponsIssued": 113, "couponsRedeemed": 76 },
+      { "date": "2025-01-20", "consumptionAmount": 238600, "oilConsumption": { "gasoline": 159360, "diesel": 46440 }, "consumptionCount": 379, "pointsEarned": 2386, "pointsUsed": 1556, "couponsIssued": 127, "couponsRedeemed": 85 },
+      { "date": "2025-01-21", "consumptionAmount": 204020, "oilConsumption": { "gasoline": 135480, "diesel": 39260 }, "consumptionCount": 328, "pointsEarned": 2040, "pointsUsed": 1320, "couponsIssued": 105, "couponsRedeemed": 74 },
+      { "date": "2025-01-22", "consumptionAmount": 213440, "oilConsumption": { "gasoline": 142180, "diesel": 41680 }, "consumptionCount": 350, "pointsEarned": 2134, "pointsUsed": 1389, "couponsIssued": 112, "couponsRedeemed": 78 },
+      { "date": "2025-01-23", "consumptionAmount": 226600, "oilConsumption": { "gasoline": 151240, "diesel": 43920 }, "consumptionCount": 370, "pointsEarned": 2266, "pointsUsed": 1523, "couponsIssued": 120, "couponsRedeemed": 85 },
+      { "date": "2025-01-24", "consumptionAmount": 229720, "oilConsumption": { "gasoline": 153480, "diesel": 44560 }, "consumptionCount": 367, "pointsEarned": 2297, "pointsUsed": 1612, "couponsIssued": 115, "couponsRedeemed": 91 },
+      { "date": "2025-01-25", "consumptionAmount": 222840, "oilConsumption": { "gasoline": 148620, "diesel": 43180 }, "consumptionCount": 377, "pointsEarned": 2228, "pointsUsed": 1456, "couponsIssued": 125, "couponsRedeemed": 87 },
+      { "date": "2025-01-26", "consumptionAmount": 224900, "oilConsumption": { "gasoline": 149380, "diesel": 43420 }, "consumptionCount": 380, "pointsEarned": 2249, "pointsUsed": 1465, "couponsIssued": 118, "couponsRedeemed": 82 },
+      { "date": "2025-01-27", "consumptionAmount": 234160, "oilConsumption": { "gasoline": 156420, "diesel": 45620 }, "consumptionCount": 380, "pointsEarned": 2342, "pointsUsed": 1580, "couponsIssued": 125, "couponsRedeemed": 89 }
+    ]
+  }
+} 

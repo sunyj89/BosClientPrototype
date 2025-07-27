@@ -38,32 +38,6 @@ const GoodsSalesDetail = () => {
   });
   const [searchForm] = Form.useForm();
 
-  // 获取销售数据
-  const fetchSalesData = useCallback(async () => {
-    setLoading(true);
-    try {
-      // 模拟API请求
-      setTimeout(() => {
-        const mockData = generateMockData();
-        setSalesData(mockData.data);
-        setPagination(prev => ({
-          ...prev,
-          total: mockData.total
-        }));
-        setLoading(false);
-      }, 500);
-    } catch (error) {
-      console.error('获取商品销售明细失败:', error);
-      message.error('获取商品销售明细失败');
-      setLoading(false);
-    }
-  }, [generateMockData, pagination.current, pagination.pageSize]);
-
-  // 组件加载时获取数据
-  useEffect(() => {
-    fetchSalesData();
-  }, [fetchSalesData]);
-
   // 生成模拟数据
   const generateMockData = useCallback(() => {
     const data = [];
@@ -109,6 +83,32 @@ const GoodsSalesDetail = () => {
       total
     };
   }, [pagination.current, pagination.pageSize]);
+
+  // 获取销售数据
+  const fetchSalesData = useCallback(async () => {
+    setLoading(true);
+    try {
+      // 模拟API请求
+      setTimeout(() => {
+        const mockData = generateMockData();
+        setSalesData(mockData.data);
+        setPagination(prev => ({
+          ...prev,
+          total: mockData.total
+        }));
+        setLoading(false);
+      }, 500);
+    } catch (error) {
+      console.error('获取商品销售明细失败:', error);
+      message.error('获取商品销售明细失败');
+      setLoading(false);
+    }
+  }, [generateMockData, pagination.current, pagination.pageSize]);
+
+  // 组件加载时获取数据
+  useEffect(() => {
+    fetchSalesData();
+  }, [fetchSalesData]);
 
   // 处理搜索
   const handleSearch = useCallback((values) => {

@@ -1,0 +1,53 @@
+.member-feedback-evaluation-container {
+  padding: 24px;
+}
+
+.member-feedback-evaluation-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.member-feedback-evaluation-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.member-feedback-evaluation-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.member-feedback-evaluation-container .ant-btn {
+  border-radius: 2px;
+}
+
+.member-feedback-evaluation-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.member-feedback-evaluation-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 统计卡片样式 */
+.member-feedback-evaluation-container .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.member-feedback-evaluation-container .ant-statistic-content {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 表格操作按钮样式 */
+.member-feedback-evaluation-container .ant-table .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  font-size: 12px;
+}
+
+.member-feedback-evaluation-container .ant-table .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+} 

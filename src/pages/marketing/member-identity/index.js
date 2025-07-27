@@ -17,11 +17,11 @@ const MemberIdentity = () => {
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  // 专车规则配置数据
+  // 渠道会员规则配置数据
   const [rulesData, setRulesData] = useState([]);
-  // 专车审核记录数据
+  // 渠道会员审核记录数据
   const [auditData, setAuditData] = useState([]);
-  // 专车用户管理数据
+  // 渠道会员用户管理数据
   const [userData, setUserData] = useState([]);
   // 修改记录数据
   const [recordData, setRecordData] = useState([]);
@@ -31,11 +31,11 @@ const MemberIdentity = () => {
   }, []);
 
   const loadMockData = () => {
-    // 专车规则配置模拟数据
+    // 渠道会员规则配置模拟数据
     const mockRulesData = [
       {
         id: 'RULE001',
-        ruleName: '专车司机认证规则',
+        ruleName: '渠道会员司机认证规则',
         ruleType: '身份认证',
         applicableRegion: '全国',
         requiredDocuments: '身份证,驾驶证,行驶证,营运证',
@@ -47,7 +47,7 @@ const MemberIdentity = () => {
       },
       {
         id: 'RULE002',
-        ruleName: '专车车辆认证规则',
+        ruleName: '渠道会员车辆认证规则',
         ruleType: '车辆认证',
         applicableRegion: '江西省',
         requiredDocuments: '行驶证,保险单,年检证明',
@@ -59,7 +59,7 @@ const MemberIdentity = () => {
       },
       {
         id: 'RULE003',
-        ruleName: '专车平台准入规则',
+        ruleName: '渠道会员平台准入规则',
         ruleType: '平台准入',
         applicableRegion: '南昌市',
         requiredDocuments: '网约车许可证,平台协议',
@@ -71,7 +71,7 @@ const MemberIdentity = () => {
       },
       {
         id: 'RULE004',
-        ruleName: '专车服务质量规则',
+        ruleName: '渠道会员服务质量规则',
         ruleType: '服务认证',
         applicableRegion: '赣州市',
         requiredDocuments: '服务承诺书,培训证书',
@@ -83,7 +83,7 @@ const MemberIdentity = () => {
       }
     ];
 
-    // 专车审核记录模拟数据
+    // 渠道会员审核记录模拟数据
     const mockAuditData = [
       {
         id: 'AUDIT001',
@@ -139,13 +139,13 @@ const MemberIdentity = () => {
       }
     ];
 
-    // 专车用户管理模拟数据
+    // 渠道会员用户管理模拟数据
     const mockUserData = [
       {
         id: 'USER001',
         userName: '张师傅',
         userPhone: '138****5678',
-        userType: '专车司机',
+        userType: '渠道会员司机',
         certificationStatus: 'certified',
         certificationTime: '2025-01-20 14:20:00',
         expiryTime: '2026-01-20 14:20:00',
@@ -159,7 +159,7 @@ const MemberIdentity = () => {
         id: 'USER002',
         userName: '王司机',
         userPhone: '139****9876',
-        userType: '专车司机',
+        userType: '渠道会员司机',
         certificationStatus: 'rejected',
         certificationTime: '',
         expiryTime: '',
@@ -173,7 +173,7 @@ const MemberIdentity = () => {
         id: 'USER003',
         userName: '刘师傅',
         userPhone: '137****3456',
-        userType: '专车司机',
+        userType: '渠道会员司机',
         certificationStatus: 'pending',
         certificationTime: '',
         expiryTime: '',
@@ -187,7 +187,7 @@ const MemberIdentity = () => {
         id: 'USER004',
         userName: '陈司机',
         userPhone: '136****7890',
-        userType: '专车司机',
+        userType: '渠道会员司机',
         certificationStatus: 'expired',
         certificationTime: '2024-06-15 10:30:00',
         expiryTime: '2024-12-15 10:30:00',
@@ -204,7 +204,7 @@ const MemberIdentity = () => {
       {
         id: 'LOG001',
         targetId: 'RULE001',
-        targetName: '专车司机认证规则',
+        targetName: '渠道会员司机认证规则',
         changeType: 'update',
         changeField: '认证材料',
         changeDescription: '新增营运证为必需材料',
@@ -230,7 +230,7 @@ const MemberIdentity = () => {
       {
         id: 'LOG003',
         targetId: 'RULE002',
-        targetName: '专车车辆认证规则',
+        targetName: '渠道会员车辆认证规则',
         changeType: 'update',
         changeField: '有效期',
         changeDescription: '调整认证有效期从365天改为180天',
@@ -299,7 +299,7 @@ const MemberIdentity = () => {
     console.log('审核拒绝:', record);
   };
 
-  // 专车规则配置列定义
+  // 渠道会员规则配置列定义
   const rulesColumns = [
     {
       title: '规则名称',
@@ -391,7 +391,7 @@ const MemberIdentity = () => {
     },
   ];
 
-  // 专车审核记录列定义
+  // 渠道会员审核记录列定义
   const auditColumns = [
     {
       title: '申请人',
@@ -493,7 +493,7 @@ const MemberIdentity = () => {
     },
   ];
 
-  // 专车用户管理列定义
+  // 渠道会员用户管理列定义
   const userColumns = [
     {
       title: '用户姓名',
@@ -715,7 +715,7 @@ const MemberIdentity = () => {
     },
   ];
 
-  // 渲染专车规则配置tab
+  // 渲染渠道会员规则配置tab
   const renderRulesConfig = () => (
     <div>
       <Card style={{ marginBottom: 16 }}>
@@ -778,7 +778,7 @@ const MemberIdentity = () => {
     </div>
   );
 
-  // 渲染专车审核记录tab
+  // 渲染渠道会员审核记录tab
   const renderAuditRecords = () => (
     <div>
       <Card style={{ marginBottom: 16 }}>
@@ -841,7 +841,7 @@ const MemberIdentity = () => {
     </div>
   );
 
-  // 渲染专车用户管理tab
+  // 渲染渠道会员用户管理tab
   const renderUserManagement = () => (
     <div>
       <Card style={{ marginBottom: 16 }}>
@@ -1048,7 +1048,7 @@ const MemberIdentity = () => {
       label: (
         <span>
           <SettingOutlined />
-          专车规则配置
+          渠道会员规则配置
         </span>
       ),
       children: renderRulesConfig(),
@@ -1058,7 +1058,7 @@ const MemberIdentity = () => {
       label: (
         <span>
           <AuditOutlined />
-          专车审核记录
+          渠道会员审核记录
         </span>
       ),
       children: renderAuditRecords(),
@@ -1068,7 +1068,7 @@ const MemberIdentity = () => {
       label: (
         <span>
           <UserOutlined />
-          专车用户管理
+          渠道会员用户管理
         </span>
       ),
       children: renderUserManagement(),

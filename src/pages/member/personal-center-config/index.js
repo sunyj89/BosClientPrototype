@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Spin, Table, Button, Form, Input, Select, DatePicker, Space, Tag, Badge, Modal, Descriptions, Timeline, Row, Col, Tooltip, Switch, Upload, ColorPicker, InputNumber, Divider } from 'antd';
-import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, HistoryOutlined, SettingOutlined, BgColorsOutlined, PhoneOutlined, AppstoreOutlined, FileTextOutlined, SafetyOutlined, CreditCardOutlined, ShareAltOutlined, PictureOutlined, UploadOutlined, DragOutlined } from '@ant-design/icons';
+import { Card, Tabs, Spin, Table, Button, Form, Input, Select, DatePicker, Space, Tag, Badge, Modal, Descriptions, Timeline, Row, Col, Tooltip, Switch, Upload, ColorPicker, InputNumber, Divider, Checkbox } from 'antd';
+import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, HistoryOutlined, SettingOutlined, BgColorsOutlined, PhoneOutlined, AppstoreOutlined, FileTextOutlined, SafetyOutlined, CreditCardOutlined, ShareAltOutlined, PictureOutlined, UploadOutlined, DragOutlined, ControlOutlined } from '@ant-design/icons';
 import './index.css';
 
 const { RangePicker } = DatePicker;
@@ -9,42 +9,44 @@ const { TextArea } = Input;
 
 const PersonalCenterConfig = () => {
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('appearance');
-  const [appearanceForm] = Form.useForm();
+  const [activeTab, setActiveTab] = useState('grid');
   const [gridForm] = Form.useForm();
   const [privacyForm] = Form.useForm();
   const [agreementForm] = Form.useForm();
   const [cardForm] = Form.useForm();
   const [shareForm] = Form.useForm();
-  const [bannerForm] = Form.useForm();
+  const [globalRulesForm] = Form.useForm();
   
   const [modalVisible, setModalVisible] = useState(false);
   const [versionModalVisible, setVersionModalVisible] = useState(false);
   const [currentDocument, setCurrentDocument] = useState(null);
   const [currentVersions, setCurrentVersions] = useState([]);
 
-  // 外观配置数据
-  const [appearanceConfig, setAppearanceConfig] = useState({});
   // 九宫格配置数据
   const [gridConfig, setGridConfig] = useState([]);
   // 文档数据
   const [documentsData, setDocumentsData] = useState({});
-  // Banner数据
-  const [bannerData, setBannerData] = useState([]);
+  // 全局规则配置数据
+  const [globalRulesConfig, setGlobalRulesConfig] = useState({
+    memberRegistration: {
+      idCard: true,
+      plateNumber: true,
+      birthday: false,
+      referrer: false
+    },
+    pointsClearCycle: {
+      years: 1,
+      month: 1,
+      day: 1
+    },
+    dailyConsumptionLimit: 0
+  });
 
   useEffect(() => {
     loadMockData();
   }, []);
 
   const loadMockData = () => {
-    // 外观配置模拟数据
-    const mockAppearanceConfig = {
-      backgroundColor: '#f0f2f5',
-      backgroundImage: null,
-      useBackgroundImage: false,
-      hidePhoneNumbers: true
-    };
-
     // 九宫格配置模拟数据
     const mockGridConfig = [
       {
@@ -201,56 +203,15 @@ const PersonalCenterConfig = () => {
       }
     };
 
-    // Banner数据模拟
-    const mockBannerData = [
-      {
-        id: 'BANNER001',
-        title: '春节优惠活动',
-        imageUrl: '/images/banner1.jpg',
-        linkUrl: '/activities/spring-festival',
-        sortOrder: 1,
-        enabled: true,
-        startTime: '2025-01-20 00:00:00',
-        endTime: '2025-02-20 23:59:59',
-        createTime: '2025-01-15 10:30:00'
-      },
-      {
-        id: 'BANNER002',
-        title: '会员福利升级',
-        imageUrl: '/images/banner2.jpg',
-        linkUrl: '/member/benefits',
-        sortOrder: 2,
-        enabled: true,
-        startTime: '2025-01-01 00:00:00',
-        endTime: '2025-12-31 23:59:59',
-        createTime: '2024-12-25 14:20:00'
-      },
-      {
-        id: 'BANNER003',
-        title: '新用户专享',
-        imageUrl: '/images/banner3.jpg',
-        linkUrl: '/newuser/gift',
-        sortOrder: 3,
-        enabled: false,
-        startTime: '2025-01-10 00:00:00',
-        endTime: '2025-01-31 23:59:59',
-        createTime: '2025-01-08 16:45:00'
-      }
-    ];
-
-    setAppearanceConfig(mockAppearanceConfig);
     setGridConfig(mockGridConfig);
     setDocumentsData(mockDocumentsData);
-    setBannerData(mockBannerData);
+    
+    // 初始化全局规则表单数据
+    globalRulesForm.setFieldsValue(globalRulesConfig);
   };
 
   const handleTabChange = (key) => {
     setActiveTab(key);
-  };
-
-  const handleSaveAppearance = (values) => {
-    console.log('保存外观配置:', values);
-    setAppearanceConfig({ ...appearanceConfig, ...values });
   };
 
   const handleSaveGrid = (values) => {
@@ -281,8 +242,9 @@ const PersonalCenterConfig = () => {
     setModalVisible(false);
   };
 
-  const handleSaveBanner = (values) => {
-    console.log('保存Banner配置:', values);
+  const handleSaveGlobalRules = (values) => {
+    console.log('保存全局规则配置:', values);
+    setGlobalRulesConfig(values);
   };
 
   // 九宫格配置列定义
@@ -419,78 +381,6 @@ const PersonalCenterConfig = () => {
     },
   ];
 
-  // 渲染外观配置tab
-  const renderAppearanceConfig = () => (
-    <div>
-      <Card title="背景设置" style={{ marginBottom: 16 }}>
-        <Form form={appearanceForm} layout="vertical" onFinish={handleSaveAppearance} initialValues={appearanceConfig}>
-          <Row gutter={24}>
-            <Col span={12}>
-              <Form.Item name="useBackgroundImage" label="背景类型" valuePropName="checked">
-                <Switch checkedChildren="使用图片" unCheckedChildren="使用颜色" />
-              </Form.Item>
-              <Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.useBackgroundImage !== currentValues.useBackgroundImage}>
-                {({ getFieldValue }) => {
-                  const useImage = getFieldValue('useBackgroundImage');
-                  return useImage ? (
-                    <Form.Item name="backgroundImage" label="背景图片">
-                      <Upload
-                        listType="picture-card"
-                        maxCount={1}
-                        accept="image/*"
-                      >
-                        <div>
-                          <UploadOutlined />
-                          <div style={{ marginTop: 8 }}>上传图片</div>
-                        </div>
-                      </Upload>
-                    </Form.Item>
-                  ) : (
-                    <Form.Item name="backgroundColor" label="背景颜色">
-                      <ColorPicker showText />
-                    </Form.Item>
-                  );
-                }}
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <div style={{ padding: '20px', border: '1px dashed #d9d9d9', borderRadius: '6px' }}>
-                <h4>预览效果</h4>
-                <div style={{ 
-                  width: '200px', 
-                  height: '120px', 
-                  background: appearanceConfig.useBackgroundImage ? `url(${appearanceConfig.backgroundImage}) center/cover` : appearanceConfig.backgroundColor,
-                  borderRadius: '4px',
-                  border: '1px solid #d9d9d9'
-                }}>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Form>
-      </Card>
-
-      <Card title="隐私设置">
-        <Form layout="vertical">
-          <Form.Item name="hidePhoneNumbers" label="手机号显示" valuePropName="checked" initialValue={appearanceConfig.hidePhoneNumbers}>
-            <Switch checkedChildren="隐藏中间4位" unCheckedChildren="完整显示" />
-          </Form.Item>
-          <Form.Item>
-            <div style={{ color: '#666', fontSize: '12px' }}>
-              开启后，用户的手机号将显示为 "138****5678" 格式
-            </div>
-          </Form.Item>
-        </Form>
-        
-        <div style={{ marginTop: '24px' }}>
-          <Button type="primary" onClick={() => appearanceForm.submit()}>
-            保存配置
-          </Button>
-        </div>
-      </Card>
-    </div>
-  );
-
   // 渲染九宫格配置tab
   const renderGridConfig = () => (
     <div>
@@ -601,38 +491,6 @@ const PersonalCenterConfig = () => {
     </div>
   );
 
-  // 渲染Banner配置tab
-  const renderBannerConfig = () => (
-    <div>
-      <Card style={{ marginBottom: 16 }}>
-        <Space>
-          <Button type="primary" icon={<PlusOutlined />}>
-            新增Banner
-          </Button>
-          <Button>批量操作</Button>
-          <div style={{ marginLeft: '16px', color: '#666' }}>
-            拖拽行可调整显示顺序
-          </div>
-        </Space>
-      </Card>
-
-      <Card>
-        <Table
-          columns={bannerColumns}
-          dataSource={bannerData}
-          rowKey="id"
-          pagination={{
-            total: bannerData.length,
-            pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条记录`,
-          }}
-        />
-      </Card>
-    </div>
-  );
-
   // 渲染文档编辑弹窗
   const renderDocumentModal = () => (
     <Modal
@@ -703,17 +561,98 @@ const PersonalCenterConfig = () => {
     </Modal>
   );
 
+  // 渲染全局规则配置tab
+  const renderGlobalRulesConfig = () => (
+    <Card>
+      <Form
+        form={globalRulesForm}
+        layout="vertical"
+        onFinish={handleSaveGlobalRules}
+        initialValues={globalRulesConfig}
+      >
+        <Row gutter={24}>
+          <Col span={24}>
+            <Divider orientation="left">会员注册设置</Divider>
+            <Form.Item label="注册会员时可填写的信息">
+              <Form.Item name={['memberRegistration', 'idCard']} valuePropName="checked" style={{ display: 'inline-block', marginRight: 16 }}>
+                <Checkbox>身份证号</Checkbox>
+              </Form.Item>
+              <Form.Item name={['memberRegistration', 'plateNumber']} valuePropName="checked" style={{ display: 'inline-block', marginRight: 16 }}>
+                <Checkbox>车牌号</Checkbox>
+              </Form.Item>
+              <Form.Item name={['memberRegistration', 'birthday']} valuePropName="checked" style={{ display: 'inline-block', marginRight: 16 }}>
+                <Checkbox>生日</Checkbox>
+              </Form.Item>
+              <Form.Item name={['memberRegistration', 'referrer']} valuePropName="checked" style={{ display: 'inline-block' }}>
+                <Checkbox>推荐人</Checkbox>
+              </Form.Item>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={24}>
+          <Col span={24}>
+            <Divider orientation="left">积分清零周期</Divider>
+            <Space align="baseline">
+            <span>每隔</span>
+              <Form.Item name={['pointsClearCycle', 'years']} style={{ marginBottom: 0 }}>
+                <InputNumber min={0} placeholder="0" addonAfter="年" />
+              </Form.Item>
+              <span>年的</span>
+              <Form.Item name={['pointsClearCycle', 'month']} style={{ marginBottom: 0 }}>
+                <Select style={{ width: 80 }}>
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <Option key={i + 1} value={i + 1}>{i + 1}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <span>月</span>
+              <Form.Item name={['pointsClearCycle', 'day']} style={{ marginBottom: 0 }}>
+                <Select style={{ width: 80 }}>
+                  {Array.from({ length: 31 }, (_, i) => (
+                    <Option key={i + 1} value={i + 1}>{i + 1}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <span>日清零</span>
+            </Space>
+            <div style={{ marginTop: 8, color: '#666', fontSize: '12px' }}>
+              设置为0年表示不清零
+            </div>
+          </Col>
+        </Row>
+
+        <Row gutter={24}>
+          <Col span={24}>
+            <Divider orientation="left">会员消费限制</Divider>
+            <Form.Item name="dailyConsumptionLimit" label="每日消费限制">
+              <InputNumber min={0} placeholder="0" addonAfter="次" style={{ width: 200 }} />
+            </Form.Item>
+            <div style={{ marginTop: -16, color: '#666', fontSize: '12px' }}>
+              设置为0表示不限制
+            </div>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={24}>
+            <Form.Item>
+              <Space>
+                <Button type="primary" htmlType="submit">
+                  保存配置
+                </Button>
+                <Button onClick={() => globalRulesForm.resetFields()}>
+                  重置
+                </Button>
+              </Space>
+            </Form.Item>
+          </Col>
+        </Row>
+      </Form>
+    </Card>
+  );
+
   const tabItems = [
-    {
-      key: 'appearance',
-      label: (
-        <span>
-          <BgColorsOutlined />
-          外观配置
-        </span>
-      ),
-      children: renderAppearanceConfig(),
-    },
     {
       key: 'grid',
       label: (
@@ -735,14 +674,14 @@ const PersonalCenterConfig = () => {
       children: renderDocumentMaintenance(),
     },
     {
-      key: 'banner',
+      key: 'globalRules',
       label: (
         <span>
-          <PictureOutlined />
-          Banner配置
+          <ControlOutlined />
+          全局规则配置
         </span>
       ),
-      children: renderBannerConfig(),
+      children: renderGlobalRulesConfig(),
     },
   ];
 

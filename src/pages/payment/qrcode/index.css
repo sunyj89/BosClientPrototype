@@ -1,0 +1,43 @@
+.qrcode-config-container {
+  padding: 24px;
+}
+
+.qrcode-config-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.qrcode-config-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.qrcode-config-container .ant-btn {
+  border-radius: 6px;
+}
+
+.qrcode-config-container .ant-switch-checked {
+  background-color: #52c41a;
+}
+
+.qrcode-config-container .ant-modal-body {
+  padding: 24px;
+}
+
+.qrcode-config-container .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.qrcode-config-container .ant-upload-select-picture-card {
+  width: 100px;
+  height: 100px;
+}
+
+.qrcode-config-container .ant-upload-select-picture-card i {
+  font-size: 24px;
+  color: #999;
+}
+
+.qrcode-config-container .ant-upload-select-picture-card .ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}

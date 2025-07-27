@@ -43,6 +43,13 @@ import ProductMasterData from './pages/goods/master-data';
 // 会员中心
 import MemberCenter from './pages/member';
 import PersonalCenterConfig from './pages/member/personal-center-config';
+import MemberFeedbackEvaluation from './pages/member/feedback-evaluation';
+
+// 数字化运营分析
+import DataAnalysisCenter from './pages/analytics/data-center';
+import CustomerCenter from './pages/analytics/customer-center';
+import RiskCenter from './pages/analytics/risk-center';
+import AnalyticsDashboard from './pages/analytics/dashboard';
 
 // 积分管理
 import PointsRoutes from './pages/points';
@@ -78,9 +85,21 @@ import DispenserCalibration from './pages/equipment/dispenser-calibration';
 import GeneratorOperation from './pages/equipment/generator-operation';
 import WaterElectricityRecords from './pages/equipment/water-electricity';
 
+// 支付管理
+import PaymentMethods from './pages/payment/methods';
+import SettlementChannel from './pages/payment/settlement';
+import OneclickConfig from './pages/payment/oneclick';
+import ContactlessConfig from './pages/payment/contactless';
+import QRCodeConfig from './pages/payment/qrcode';
+
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
 import RoleConfiguration from './pages/organization/role-configuration';
+
+// 安全管理
+import InspectionManagement from './pages/security/inspection-management';
+import ArchiveManagement from './pages/security/archive-management';
+import MaintenanceManagement from './pages/security/maintenance-management';
 
 // 损溢管理
 import LossManagement from './pages/loss';
@@ -202,10 +221,19 @@ const AppRouter = () => {
       </Route>
       
 
+      {/* 数字化运营分析路由 */}
+      <Route path="/analytics">
+        <Route path="data-center" element={<DataAnalysisCenter />} />
+        <Route path="customer-center" element={<CustomerCenter />} />
+        <Route path="risk-center" element={<RiskCenter />} />
+        <Route path="dashboard" element={<AnalyticsDashboard />} />
+      </Route>
+
       {/* 会员中心路由 */}
       <Route path="/member">
         <Route index element={<MemberCenter />} />
         <Route path="personal-center-config" element={<PersonalCenterConfig />} />
+        <Route path="feedback-evaluation" element={<MemberFeedbackEvaluation />} />
       </Route>
       
       {/* 积分管理路由 */}
@@ -284,6 +312,22 @@ const AppRouter = () => {
           <Route index element={<LiquidLevelMeterManagement />} />
           <Route path="detail/:deviceId" element={<LiquidLevelMeterDetail />} />
         </Route>
+      </Route>
+
+      {/* 支付管理路由 */}
+      <Route path="/payment">
+        <Route path="methods" element={<PaymentMethods />} />
+        <Route path="settlement" element={<SettlementChannel />} />
+        <Route path="oneclick" element={<OneclickConfig />} />
+        <Route path="contactless" element={<ContactlessConfig />} />
+        <Route path="qrcode" element={<QRCodeConfig />} />
+      </Route>
+
+      {/* 安全管理路由 */}
+      <Route path="/security">
+        <Route path="inspection-management" element={<InspectionManagement />} />
+        <Route path="archive-management" element={<ArchiveManagement />} />
+        <Route path="maintenance-management" element={<MaintenanceManagement />} />
       </Route>
       
       {/* 组织架构管理路由 */}
