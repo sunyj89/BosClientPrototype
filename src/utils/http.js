@@ -3,7 +3,7 @@ import { message } from 'antd';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '', // 基础URL，可从环境变量获取
+  baseURL: '/', // 基础URL，可从环境变量获取
   timeout: 50000, // 请求超时时间
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
@@ -18,6 +18,17 @@ service.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
+        // 根据请求路径前缀设置不同的baseURL
+    const baseURLs = {
+      '/microservice-station/api': 'http://jxgs-newos-station.zhihuiyouzhan.com:81'
+    };
+    for (const prefix in baseURLs) {
+      if (config.url.startsWith(prefix)) {
+        config.baseURL = baseURLs[prefix];
+        break;
+      }
+    }
+    console.log('请求URL:', config.url);
     return config;
   },
   error => {

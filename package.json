@@ -1,6 +1,7 @@
 {
   "name": "bos-client-prototype",
   "version": "0.1.0",
+  "proxy": "http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.0.1",

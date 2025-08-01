@@ -1,25 +1,34 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
-console.log('setupProxy.js is loaded'); // 添加调试信息
-
 module.exports = function(app) {
-    // 代理 /merchant 开头的请求
+    console.log('✅ setupProxy.js 已加载'); // 关键验证点
+
+    console.log('✅ setupProxy.js 已加载'); // 关键验证点
+
+    console.log('✅ setupProxy.js 已加载-------'); // 关键验证点
+
     app.use(
         '/merchant',
         createProxyMiddleware({
-        target: 'http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81',
-        changeOrigin: true,
-        logLevel: 'debug'
+            target: 'http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81',
+            changeOrigin: true,
+            logLevel: 'debug'
         })
     );
 
-    // 代理 /microservice-station 开头的请求
-    app.use(
-        '/microservice-station',
-        createProxyMiddleware({
-        target: 'http://jxgs-newos-station.zhihuiyouzhan.com:81',
-        changeOrigin: true,
-        logLevel: 'debug'
-        })
-    );
+    // app.use(createProxyMiddleware(
+    //     '/merchant',
+    //     {
+    //         target: 'http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81',
+    //         changeOrigin: true,
+    //         logLevel: 'debug'
+    //     }
+    // ),createProxyMiddleware(
+    //     '/microservice-station',
+    //     {
+    //         target: 'http://jxgs-newos-station.zhihuiyouzhan.com:81',
+    //         changeOrigin: true,
+    //         logLevel: 'debug'
+    //     }
+    // ));
 };

@@ -193,18 +193,18 @@ const StationManagement = () => {
   const loadStationData = async () => {
     try {
       setLoading(true);
-          // 使用项目封装的http工具
+   
       const response = await get('/microservice-station/api/stations');
-      if (response.code !== 200) {
+      if (response.code !== 0) {
         throw new Error(response.message || '获取油站数据失败');
       }
       
-      if (response.data && response.data.stations) {
-        setStationList(response.data.stations);
-        setFilteredStationList(response.data.stations);
+      if (response.data && response.data.list) {
+        setStationList(response.data.list);
+        setFilteredStationList(response.data.list);
         setPagination({
           ...pagination,
-          total: response.data.stations.length
+          total: response.data.list.length
         });
       }
       // await delay(300);
@@ -399,6 +399,7 @@ const StationManagement = () => {
   const handleStationSubmit = async () => {
     try {
       const values = await stationForm.validateFields();
+      console.log('提交的值:', values);
       
       setStationFormSubmitting(true);
       
@@ -461,8 +462,8 @@ const StationManagement = () => {
     },
     {
       title: '油站名称',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'stationName',
+      key: 'stationName',
       width: 180,
       fixed: 'left'
     },
@@ -494,8 +495,8 @@ const StationManagement = () => {
     },
     {
       title: '序号',
-      dataIndex: 'orderNumber',
-      key: 'orderNumber',
+      dataIndex: 'id',
+      key: 'id',
       width: 80
     },
     {
