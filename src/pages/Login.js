@@ -2,11 +2,12 @@ import React from 'react';
 import { Form, Input, Button, Checkbox, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { post } from '../utils/http';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     // 模拟登录验证
     if (values.username === 'admin' && values.password === 'admin') {
       message.success('登录成功！');
@@ -15,6 +16,19 @@ const Login = ({ onLogin }) => {
     } else {
       message.error('用户名或密码错误！');
     }
+    // try {
+    //   var data = {
+    //     username: values.username,
+    //     password: values.password
+    //   }
+    //   const res = await post('/api/users/login', data);
+    //   message.success('登录成功！');
+    //   localStorage.setItem('token', res.token); // 保存token
+    //   onLogin();
+    //   navigate('/dashboard');
+    // } catch (error) {
+    //   message.error('用户名或密码错误！');
+    // }
   };
 
   return (

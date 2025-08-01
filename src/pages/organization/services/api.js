@@ -1,4 +1,5 @@
 import organizationData from '../../../mock/organization/organizationData.json';
+import { get,post,put,del } from '../../../utils/http';
 
 // 模拟网络延迟
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -27,12 +28,22 @@ function findNodeInTree(nodes, id) {
 
 // 获取组织树数据
 export const getOrgTree = async () => {
-  await delay(300); // 模拟网络延迟
-  return {
-    success: true,
-    data: organizationData.orgTreeData,
-    message: '获取组织架构成功'
-  };
+
+  const res = await get('/merchant/api/organization/tree');
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '获取组织架构成功'
+    };
+  }
+
+  // await delay(300); // 模拟网络延迟
+  // return {
+  //   success: true,
+  //   data: organizationData.orgTreeData,
+  //   message: '获取组织架构成功'
+  // };
 };
 
 // 根据ID获取组织详情
@@ -56,13 +67,23 @@ export const getOrgDetailsById = async (id) => {
 
 // 根据组织ID获取用户列表
 export const getUsersByOrgId = async (orgId) => {
-  await delay(250);
-  const users = organizationData.userData.filter(user => user.orgUnitId === parseInt(orgId));
-  return {
-    success: true,
-    data: users,
-    message: '获取用户列表成功'
-  };
+
+  const res = await get(`/api/users/org/${orgId}`);
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '获取用户列表成功'
+    };
+  }
+
+  // await delay(250);
+  // const users = organizationData.userData.filter(user => user.orgUnitId === parseInt(orgId));
+  // return {
+  //   success: true,
+  //   data: users,
+  //   message: '获取用户列表成功'
+  // };
 };
 
 // 获取所有角色
@@ -77,37 +98,65 @@ export const getRoles = async () => {
 
 // 添加用户
 export const addUser = async (userData) => {
-  await delay(500);
-  const newUser = {
-    id: generateEmployeeId(), // 生成12位数字员工ID
-    ...userData,
-    createTime: new Date().toISOString()
-  };
-  return {
-    success: true,
-    data: newUser,
-    message: '添加用户成功'
-  };
+
+  const res = await post(`/api/users`,userData);
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '添加用户成功'
+    };
+  }
+
+  // await delay(500);
+  // const newUser = {
+  //   id: generateEmployeeId(), // 生成12位数字员工ID
+  //   ...userData,
+  //   createTime: new Date().toISOString()
+  // };
+  // return {
+  //   success: true,
+  //   data: newUser,
+  //   message: '添加用户成功'
+  // };
 };
 
 // 更新用户
 export const updateUser = async (userData) => {
-  await delay(500);
-  return {
-    success: true,
-    data: { ...userData, updateTime: new Date().toISOString() },
-    message: '更新用户成功'
-  };
+
+    const res = await put(`/api/users`,userData);
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '更新用户成功'
+    };
+  }
+
+  // await delay(500);
+  // return {
+  //   success: true,
+  //   data: { ...userData, updateTime: new Date().toISOString() },
+  //   message: '更新用户成功'
+  // };
 };
 
 // 删除用户
 export const deleteUser = async (userId) => {
-  await delay(400);
-  return {
-    success: true,
-    data: null,
-    message: '删除用户成功'
-  };
+  const res = await del(`/api/users/${userId}`);
+  if (res.success) {
+    return {
+      success: true,
+      data: null,
+      message: '删除用户成功'
+    };
+  }
+  // await delay(400);
+  // return {
+  //   success: true,
+  //   data: null,
+  //   message: '删除用户成功'
+  // };
 };
 
 // 获取组织类型列表
@@ -134,28 +183,49 @@ export const getLegalEntities = async () => {
 
 // 添加组织单元
 export const addOrgUnit = async (orgData) => {
-  await delay(600);
+
+  const res = await post(`/api/users/organization-user`,orgData);
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '添加组织单元成功'
+    };
+  }
+
+  // await delay(600);
   
-  // 生成10位数字组织ID
-  const newId = generateOrgId();
+  // // 生成10位数字组织ID
+  // const newId = generateOrgId();
   
-  const newOrgUnit = {
-    id: newId,
-    ...orgData,
-    children: []
-  };
+  // const newOrgUnit = {
+  //   id: newId,
+  //   ...orgData,
+  //   children: []
+  // };
   
-  // 在真实应用中，这里会调用后端API保存数据
-  // 这里只是模拟成功响应
-  return { 
-    success: true, 
-    data: newOrgUnit, 
-    message: '添加组织单元成功' 
-  };
+  // // 在真实应用中，这里会调用后端API保存数据
+  // // 这里只是模拟成功响应
+  // return { 
+  //   success: true, 
+  //   data: newOrgUnit, 
+  //   message: '添加组织单元成功' 
+  // };
 };
 
 // 更新组织单元
 export const updateOrgUnit = async (orgData) => {
+
+  const res = await put(`/api/users/organization-user/${orgData.id}`,orgData);
+  if (res.success) {
+    return {
+      success: true,
+      data: res.data,
+      message: '修改组织单元成功'
+    };
+  }
+
+
   await delay(600);
   
   // 在真实应用中，这里会调用后端API更新数据
@@ -169,16 +239,24 @@ export const updateOrgUnit = async (orgData) => {
 
 // 删除组织单元
 export const deleteOrgUnit = async (orgId) => {
-  await delay(500);
+  const res = await delete(`/api/users/organization-user/${orgId}`);
+  if (res.success) {
+    return {
+      success: true,
+      data: null,
+      message: '删除组织单元成功'
+    };
+  }
+  // await delay(500);
   
-  // 在真实应用中，这里会调用后端API删除数据
-  // 需要检查是否有子组织和员工
-  // 这里只是模拟成功响应
-  return { 
-    success: true, 
-    data: null, 
-    message: '删除组织单元成功' 
-  };
+  // // 在真实应用中，这里会调用后端API删除数据
+  // // 需要检查是否有子组织和员工
+  // // 这里只是模拟成功响应
+  // return { 
+  //   success: true, 
+  //   data: null, 
+  //   message: '删除组织单元成功' 
+  // };
 };
 
 // ========== 角色配置相关API ==========

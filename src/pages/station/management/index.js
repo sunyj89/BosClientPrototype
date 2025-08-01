@@ -20,6 +20,7 @@ import { delay, mockResponse } from '../../../utils/utils';
 import stationData from '../../../mock/station/stationData.json';
 import stationChangeRecord from '../../../mock/station/stationChangeRecord.json';
 import './index.css';
+import { get } from '../../../utils/http';
 
 const { confirm } = Modal;
 const { Option } = Select;
@@ -192,17 +193,31 @@ const StationManagement = () => {
   const loadStationData = async () => {
     try {
       setLoading(true);
-      await delay(300);
+          // 使用项目封装的http工具
+      const response = await get('/microservice-station/api/stations');
+      if (response.code !== 200) {
+        throw new Error(response.message || '获取油站数据失败');
+      }
       
-      if (stationData && stationData.stations) {
-        const stations = stationData.stations;
-        setStationList(stations);
-        setFilteredStationList(stations);
+      if (response.data && response.data.stations) {
+        setStationList(response.data.stations);
+        setFilteredStationList(response.data.stations);
         setPagination({
           ...pagination,
-          total: stations.length
+          total: response.data.stations.length
         });
       }
+      // await delay(300);
+      
+      // if (stationData && stationData.stations) {
+      //   const stations = stationData.stations;
+      //   setStationList(stations);
+      //   setFilteredStationList(stations);
+      //   setPagination({
+      //     ...pagination,
+      //     total: stations.length
+      //   });
+      // }
     } catch (error) {
       message.error('加载油站数据失败');
       console.error('加载油站数据失败:', error);
