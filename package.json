@@ -1,7 +1,6 @@
 {
   "name": "bos-client-prototype",
   "version": "0.1.0",
-  "proxy": "http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -12,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.3.0",
     "axios": "^1.11.0",
+    "dayjs": "^1.11.13",
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
     "moment": "^2.30.1",
