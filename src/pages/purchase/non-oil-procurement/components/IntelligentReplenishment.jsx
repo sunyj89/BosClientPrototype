@@ -30,7 +30,6 @@ import {
   BulbOutlined,
   SettingOutlined,
   ThunderboltOutlined,
-  TrendingUpOutlined,
   ExclamationCircleOutlined,
   CheckCircleOutlined,
   ShoppingCartOutlined,

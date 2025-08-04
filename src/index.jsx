@@ -5,7 +5,7 @@ import App from './App';
 import './index.css';
 
 // 添加stagewise工具栏(仅开发环境)
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = import.meta.env.MODE === 'development';
 
 // 创建应用根节点
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -38,4 +38,4 @@ if (isDevelopment) {
       <StagewiseToolbar config={stagewiseConfig} />
     );
   });
-} 
+}
