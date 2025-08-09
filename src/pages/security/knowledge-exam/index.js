@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, Upload, Popconfirm, TreeSelect, Tree, Layout, Divider, Steps, InputNumber, Checkbox, Radio, TimePicker, Progress, Statistic, Alert, Switch } from 'antd';
-import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined, FileOutlined, HistoryOutlined, BookOutlined, QuestionCircleOutlined, FileTextOutlined, UserOutlined, ClockCircleOutlined, CheckCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, Upload, Popconfirm, Tree, Layout, Steps, InputNumber, Alert } from 'antd';
+import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined, HistoryOutlined, BookOutlined, QuestionCircleOutlined, FileTextOutlined, UserOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './index.css';
 import knowledgeExamData from '../../../mock/security/knowledgeExamData.json';
@@ -40,7 +40,6 @@ const KnowledgeExamManagement = () => {
   const [examModalVisible, setExamModalVisible] = useState(false);
   const [previewModalVisible, setPreviewModalVisible] = useState(false);
   const [viewModalVisible, setViewModalVisible] = useState(false);
-  const [changeModalVisible, setChangeModalVisible] = useState(false);
   const [batchImportModalVisible, setBatchImportModalVisible] = useState(false);
   
   const [currentRecord, setCurrentRecord] = useState(null);
@@ -53,12 +52,12 @@ const KnowledgeExamManagement = () => {
   
   // 试卷创建状态
   const [paperCreateStep, setPaperCreateStep] = useState(0);
-  const [paperType, setPaperType] = useState('fixed'); // fixed固定组卷, random随机组卷
   const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [questionSearchTerm, setQuestionSearchTerm] = useState('');
+  const [questionCourseFilter, setQuestionCourseFilter] = useState(null);
   
   // 选择状态
-  const [courseSelectedRowKeys, setCourseSelectedRowKeys] = useState([]);
-  const [questionSelectedRowKeys, setQuestionSelectedRowKeys] = useState([]);
   const [paperSelectedRowKeys, setPaperSelectedRowKeys] = useState([]);
   const [examSelectedRowKeys, setExamSelectedRowKeys] = useState([]);
 
@@ -102,15 +101,14 @@ const KnowledgeExamManagement = () => {
     try {
       // 如果是新增模式，系统自动生成课程ID
       if (modalType === 'add') {
-        values.id = `CRS${String(Date.now()).slice(-6)}`;
+        values.courseId = `CRS${new Date().getFullYear()}${String(Date.now()).slice(-6)}`;
+        values.id = values.courseId;
         values.createTime = moment().format('YYYY-MM-DD HH:mm:ss');
         values.creator = '管理员';
-        values.questionBankCount = 0;
-        values.questionCount = 0;
         console.log('保存课程:', values);
-        message.success(`课程创建成功，课程ID：${values.id}`);
+        message.success(`课程创建成功，课程编号：${values.courseId}`);
       } else {
-        console.log('保存课程:', values);
+        console.log('更新课程:', values);
         message.success('课程更新成功');
       }
       
@@ -122,10 +120,6 @@ const KnowledgeExamManagement = () => {
   };
 
   const handleDeleteCourse = (record) => {
-    if (record.questionBankCount > 0) {
-      message.warning('该课程下还有题库，无法删除');
-      return;
-    }
     message.success(`删除课程"${record.courseName}"成功`);
   };
 
@@ -156,25 +150,30 @@ const KnowledgeExamManagement = () => {
     setQuestionModalVisible(true);
   };
 
-  const handleEditQuestion = (record) => {
-    setModalType('edit');
-    setCurrentModule('question');
-    setCurrentRecord(record);
-    questionForm.setFieldsValue(record);
-    setQuestionModalVisible(true);
-  };
 
   const handleSaveQuestion = async (values) => {
     try {
       // 如果是新增模式，系统自动生成题目ID
       if (modalType === 'add') {
-        values.id = `QST${String(Date.now()).slice(-6)}`;
+        values.questionId = `QST${new Date().getFullYear()}${String(Date.now()).slice(-6)}`;
+        values.id = values.questionId;
         values.createTime = moment().format('YYYY-MM-DD HH:mm:ss');
         values.creator = '管理员';
+        
+        // 处理选项数据
+        if (values.questionType !== 'essay') {
+          values.options = [
+            values.optionA,
+            values.optionB,
+            values.optionC || '',
+            values.optionD || ''
+          ].filter(option => option);
+        }
+        
         console.log('保存题目:', values);
-        message.success(`题目创建成功，题目ID：${values.id}`);
+        message.success(`题目创建成功，题目编号：${values.questionId}`);
       } else {
-        console.log('保存题目:', values);
+        console.log('更新题目:', values);
         message.success('题目更新成功');
       }
       
@@ -191,8 +190,10 @@ const KnowledgeExamManagement = () => {
     setCurrentModule('paper');
     paperForm.resetFields();
     setPaperCreateStep(0);
-    setPaperType('fixed');
     setSelectedQuestions([]);
+    setSelectedCourse(null);
+    setQuestionSearchTerm('');
+    setQuestionCourseFilter(null);
     setPaperModalVisible(true);
   };
 
@@ -204,18 +205,21 @@ const KnowledgeExamManagement = () => {
     setPaperModalVisible(true);
   };
 
-  const handleSavePaper = async (values) => {
+  const handleSavePaper = async () => {
     try {
+      const values = paperForm.getFieldsValue();
       // 如果是新增模式，系统自动生成试卷ID
       if (modalType === 'add') {
-        values.id = `PPR${String(Date.now()).slice(-6)}`;
+        values.paperId = `EXM${new Date().getFullYear()}${String(Date.now()).slice(-6)}`;
+        values.id = values.paperId;
         values.createTime = moment().format('YYYY-MM-DD HH:mm:ss');
         values.creator = '管理员';
         values.status = '草稿';
         values.questionCount = selectedQuestions.length;
         values.totalScore = selectedQuestions.reduce((sum, q) => sum + (q.score || 0), 0);
+        values.relatedCourse = selectedCourse;
         console.log('保存试卷:', values);
-        message.success(`试卷创建成功，试卷ID：${values.id}`);
+        message.success(`试卷创建成功，试卷编号：${values.paperId}`);
       } else {
         console.log('保存试卷:', values);
         message.success('试卷更新成功');
@@ -279,9 +283,6 @@ const KnowledgeExamManagement = () => {
     setViewModalVisible(true);
   };
 
-  const handleViewChanges = () => {
-    setChangeModalVisible(true);
-  };
 
   const handleDelete = (record, module) => {
     const moduleNames = {
@@ -291,6 +292,37 @@ const KnowledgeExamManagement = () => {
       exam: '考试'
     };
     message.success(`删除${moduleNames[module]}"${record.courseName || record.questionContent || record.paperTitle || record.examTitle}"成功`);
+  };
+
+  // 试卷预览函数
+  const handlePreviewPaper = (record) => {
+    setCurrentRecord(record);
+    setPreviewModalVisible(true);
+  };
+
+  // 下载Word功能
+  const handleDownloadWord = () => {
+    message.success('试卷Word文档下载开始，请稍候...');
+  };
+
+  // 过滤题目列表
+  const getFilteredQuestions = () => {
+    let filtered = questionList;
+    
+    // 按名称过滤
+    if (questionSearchTerm) {
+      filtered = filtered.filter(q => 
+        q.questionName?.toLowerCase().includes(questionSearchTerm.toLowerCase()) ||
+        q.questionContent?.toLowerCase().includes(questionSearchTerm.toLowerCase())
+      );
+    }
+    
+    // 按课程过滤
+    if (questionCourseFilter) {
+      filtered = filtered.filter(q => q.relatedCourse === questionCourseFilter);
+    }
+    
+    return filtered;
   };
 
   // 搜索重置
@@ -337,6 +369,18 @@ const KnowledgeExamManagement = () => {
   // 表格列定义
   const courseColumns = [
     {
+      title: '序号',
+      width: 60,
+      render: (_, __, index) => index + 1,
+    },
+    {
+      title: '课程编号',
+      dataIndex: 'courseId',
+      key: 'courseId',
+      width: 140,
+      render: (text) => <span style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#1890ff' }}>{text}</span>
+    },
+    {
       title: '课程名称',
       dataIndex: 'courseName',
       key: 'courseName',
@@ -344,37 +388,38 @@ const KnowledgeExamManagement = () => {
       render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>
     },
     {
-      title: '课程描述',
-      dataIndex: 'courseDescription',
-      key: 'courseDescription',
-      width: 300,
-      ellipsis: true
+      title: '课程类型',
+      dataIndex: 'courseType',
+      key: 'courseType',
+      width: 120,
+      render: (type) => {
+        const typeMap = {
+          '安全培训': { color: 'red', text: '安全培训' },
+          '技能培训': { color: 'blue', text: '技能培训' },
+          '法规培训': { color: 'green', text: '法规培训' },
+          '应急培训': { color: 'orange', text: '应急培训' }
+        };
+        const config = typeMap[type] || { color: 'default', text: type };
+        return <Tag color={config.color}>{config.text}</Tag>;
+      }
     },
     {
-      title: '题库数量',
-      dataIndex: 'questionBankCount',
-      key: 'questionBankCount',
-      width: 100,
-      align: 'center'
+      title: '课程分类',
+      dataIndex: 'courseCategory',
+      key: 'courseCategory',
+      width: 120
     },
     {
-      title: '题目数量',
-      dataIndex: 'questionCount',
-      key: 'questionCount',
-      width: 100,
-      align: 'center'
-    },
-    {
-      title: '创建人',
-      dataIndex: 'creator',
-      key: 'creator',
+      title: '负责人',
+      dataIndex: 'manager',
+      key: 'manager',
       width: 120
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
       key: 'createTime',
-      width: 180
+      width: 160
     },
     {
       title: '操作',
@@ -390,11 +435,10 @@ const KnowledgeExamManagement = () => {
             编辑
           </Button>
           <Popconfirm
-            title={record.questionBankCount > 0 ? "该课程下还有题库，无法删除" : "确定删除这个课程吗？"}
+            title="确定删除这个课程吗？"
             onConfirm={() => handleDeleteCourse(record)}
-            disabled={record.questionBankCount > 0}
           >
-            <Button type="primary" size="small" danger icon={<DeleteOutlined />} disabled={record.questionBankCount > 0}>
+            <Button type="primary" size="small" danger icon={<DeleteOutlined />}>
               删除
             </Button>
           </Popconfirm>
@@ -405,6 +449,25 @@ const KnowledgeExamManagement = () => {
 
   const questionColumns = [
     {
+      title: '序号',
+      width: 60,
+      render: (_, __, index) => index + 1,
+    },
+    {
+      title: '题目编号',
+      dataIndex: 'questionId',
+      key: 'questionId',
+      width: 140,
+      render: (text) => <span style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#1890ff' }}>{text}</span>
+    },
+    {
+      title: '题目名称',
+      dataIndex: 'questionName',
+      key: 'questionName',
+      width: 200,
+      render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>
+    },
+    {
       title: '题型',
       dataIndex: 'questionType',
       key: 'questionType',
@@ -413,7 +476,8 @@ const KnowledgeExamManagement = () => {
         const typeMap = {
           single: { color: 'blue', text: '单选' },
           multiple: { color: 'green', text: '多选' },
-          judge: { color: 'orange', text: '判断' }
+          judge: { color: 'orange', text: '判断' },
+          essay: { color: 'purple', text: '问答' }
         };
         const config = typeMap[type] || { color: 'default', text: '未知' };
         return <Tag color={config.color}>{config.text}</Tag>;
@@ -423,7 +487,7 @@ const KnowledgeExamManagement = () => {
       title: '题干',
       dataIndex: 'questionContent',
       key: 'questionContent',
-      width: 400,
+      width: 300,
       ellipsis: true
     },
     {
@@ -431,22 +495,19 @@ const KnowledgeExamManagement = () => {
       dataIndex: 'correctAnswer',
       key: 'correctAnswer',
       width: 100,
-      render: (answer) => <Tag color="success">{answer}</Tag>
+      render: (answer, record) => {
+        if (record.questionType === 'essay') {
+          return <Tag color="default">主观题</Tag>;
+        }
+        return <Tag color="success">{answer}</Tag>;
+      }
     },
     {
-      title: '难度',
-      dataIndex: 'difficulty',
-      key: 'difficulty',
-      width: 80,
-      render: (level) => {
-        const levelMap = {
-          easy: { color: 'green', text: '简单' },
-          medium: { color: 'orange', text: '中等' },
-          hard: { color: 'red', text: '困难' }
-        };
-        const config = levelMap[level] || { color: 'default', text: '未知' };
-        return <Tag color={config.color}>{config.text}</Tag>;
-      }
+      title: '关联课程',
+      dataIndex: 'relatedCourse',
+      key: 'relatedCourse',
+      width: 150,
+      ellipsis: true
     },
     {
       title: '创建人',
@@ -458,7 +519,7 @@ const KnowledgeExamManagement = () => {
       title: '创建时间',
       dataIndex: 'createTime',
       key: 'createTime',
-      width: 180
+      width: 160
     },
     {
       title: '操作',
@@ -466,27 +527,26 @@ const KnowledgeExamManagement = () => {
       width: 200,
       fixed: 'right',
       render: (_, record) => (
-        <Space size="small">
-          <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewDetail(record, 'question')}>
-            查看
-          </Button>
-          <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEditQuestion(record)}>
-            编辑
-          </Button>
-          <Popconfirm
-            title="确定删除这道题目吗？"
-            onConfirm={() => handleDelete(record, 'question')}
-          >
-            <Button type="primary" size="small" danger icon={<DeleteOutlined />}>
-              删除
-            </Button>
-          </Popconfirm>
-        </Space>
+        <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewDetail(record, 'question')}>
+          查看
+        </Button>
       )
     }
   ];
 
   const paperColumns = [
+    {
+      title: '序号',
+      width: 60,
+      render: (_, __, index) => index + 1,
+    },
+    {
+      title: '试卷编号',
+      dataIndex: 'paperId',
+      key: 'paperId',
+      width: 140,
+      render: (text) => <span style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#1890ff' }}>{text}</span>
+    },
     {
       title: '试卷名称',
       dataIndex: 'paperTitle',
@@ -495,18 +555,10 @@ const KnowledgeExamManagement = () => {
       render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>
     },
     {
-      title: '组卷方式',
-      dataIndex: 'paperType',
-      key: 'paperType',
-      width: 100,
-      render: (type) => {
-        const typeMap = {
-          fixed: { color: 'blue', text: '固定组卷' },
-          random: { color: 'green', text: '随机组卷' }
-        };
-        const config = typeMap[type] || { color: 'default', text: '未知' };
-        return <Tag color={config.color}>{config.text}</Tag>;
-      }
+      title: '关联课程',
+      dataIndex: 'relatedCourse',
+      key: 'relatedCourse',
+      width: 150
     },
     {
       title: '题目数量',
@@ -521,21 +573,6 @@ const KnowledgeExamManagement = () => {
       key: 'totalScore',
       width: 80,
       align: 'center'
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (status) => {
-        const statusMap = {
-          草稿: { color: 'default', text: '草稿' },
-          已发布: { color: 'success', text: '已发布' },
-          已停用: { color: 'error', text: '已停用' }
-        };
-        const config = statusMap[status] || { color: 'default', text: '未知' };
-        return <Tag color={config.color}>{config.text}</Tag>;
-      }
     },
     {
       title: '创建人',
@@ -556,7 +593,7 @@ const KnowledgeExamManagement = () => {
       fixed: 'right',
       render: (_, record) => (
         <Space size="small">
-          <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => setPreviewModalVisible(true)}>
+          <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handlePreviewPaper(record)}>
             预览
           </Button>
           <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEditPaper(record)}>
@@ -737,18 +774,16 @@ const KnowledgeExamManagement = () => {
                         </Form.Item>
                       </Col>
                       <Col span={6}>
-                        <Form.Item name="creator" label="创建人">
-                          <Input placeholder="请输入创建人" allowClear />
+                        <Form.Item name="courseType" label="课程类型">
+                          <Select placeholder="请选择课程类型" allowClear>
+                            <Option value="安全培训">安全培训</Option>
+                            <Option value="技能培训">技能培训</Option>
+                            <Option value="法规培训">法规培训</Option>
+                            <Option value="应急培训">应急培训</Option>
+                          </Select>
                         </Form.Item>
                       </Col>
-                      <Col span={6}>
-                        <Form.Item name="timeRange" label="创建时间">
-                          <RangePicker style={{ width: '100%' }} />
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                    <Row gutter={16}>
-                      <Col span={24} style={{ textAlign: 'right' }}>
+                      <Col span={12} style={{ textAlign: 'right' }}>
                         <Space>
                           <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
                             查询
@@ -771,11 +806,7 @@ const KnowledgeExamManagement = () => {
                     columns={courseColumns}
                     dataSource={courseList}
                     rowKey="id"
-                    scroll={{ x: 1200 }}
-                    rowSelection={{
-                      selectedRowKeys: courseSelectedRowKeys,
-                      onChange: setCourseSelectedRowKeys,
-                    }}
+                    scroll={{ x: 1400 }}
                     pagination={{
                       total: courseList.length,
                       pageSize: 10,
@@ -809,21 +840,18 @@ const KnowledgeExamManagement = () => {
                             <Option value="single">单选题</Option>
                             <Option value="multiple">多选题</Option>
                             <Option value="judge">判断题</Option>
+                            <Option value="essay">问答题</Option>
                           </Select>
                         </Form.Item>
                       </Col>
-                      <Col span={4}>
-                        <Form.Item name="difficulty" label="难度">
-                          <Select placeholder="请选择难度" allowClear>
-                            <Option value="easy">简单</Option>
-                            <Option value="medium">中等</Option>
-                            <Option value="hard">困难</Option>
-                          </Select>
+                      <Col span={5}>
+                        <Form.Item name="questionId" label="题目编号">
+                          <Input placeholder="请输入题目编号" allowClear />
                         </Form.Item>
                       </Col>
                       <Col span={6}>
-                        <Form.Item name="questionContent" label="题干关键词">
-                          <Input placeholder="请输入题干关键词" allowClear />
+                        <Form.Item name="questionName" label="题目名称">
+                          <Input placeholder="请输入题目名称" allowClear />
                         </Form.Item>
                       </Col>
                     </Row>
@@ -881,11 +909,7 @@ const KnowledgeExamManagement = () => {
                           columns={questionColumns}
                           dataSource={questionList}
                           rowKey="id"
-                          scroll={{ x: 1000 }}
-                          rowSelection={{
-                            selectedRowKeys: questionSelectedRowKeys,
-                            onChange: setQuestionSelectedRowKeys,
-                          }}
+                          scroll={{ x: 1400 }}
                           pagination={{
                             total: questionList.length,
                             pageSize: 10,
@@ -921,20 +945,12 @@ const KnowledgeExamManagement = () => {
                           <Input placeholder="请输入试卷名称" allowClear />
                         </Form.Item>
                       </Col>
-                      <Col span={4}>
-                        <Form.Item name="paperType" label="组卷方式">
-                          <Select placeholder="请选择组卷方式" allowClear>
-                            <Option value="fixed">固定组卷</Option>
-                            <Option value="random">随机组卷</Option>
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                      <Col span={4}>
-                        <Form.Item name="status" label="状态">
-                          <Select placeholder="请选择状态" allowClear>
-                            <Option value="草稿">草稿</Option>
-                            <Option value="已发布">已发布</Option>
-                            <Option value="已停用">已停用</Option>
+                      <Col span={6}>
+                        <Form.Item name="relatedCourse" label="关联课程">
+                          <Select placeholder="请选择关联课程" allowClear>
+                            {courseList.map(course => (
+                              <Option key={course.id} value={course.courseName}>{course.courseName}</Option>
+                            ))}
                           </Select>
                         </Form.Item>
                       </Col>
@@ -1099,7 +1115,7 @@ const KnowledgeExamManagement = () => {
         title={modalType === 'add' ? '新建课程' : '编辑课程'}
         open={courseModalVisible}
         onCancel={() => setCourseModalVisible(false)}
-        width={800}
+        width={1000}
         footer={[
           <Button key="cancel" onClick={() => setCourseModalVisible(false)}>
             取消
@@ -1116,18 +1132,63 @@ const KnowledgeExamManagement = () => {
         >
           <Row gutter={16}>
             <Col span={12}>
+              <Form.Item name="courseId" label="课程编号">
+                <Input disabled placeholder="系统自动生成" style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#1890ff' }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
               <Form.Item name="courseName" label="课程名称" rules={[{ required: true, message: '请输入课程名称' }]}>
                 <Input placeholder="请输入课程名称" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="courseCode" label="课程编码" rules={[{ required: true, message: '请输入课程编码' }]}>
-                <Input placeholder="请输入课程编码" />
+              <Form.Item name="courseType" label="课程类型" rules={[{ required: true, message: '请选择课程类型' }]}>
+                <Select placeholder="请选择课程类型">
+                  <Option value="安全培训">安全培训</Option>
+                  <Option value="技能培训">技能培训</Option>
+                  <Option value="法规培训">法规培训</Option>
+                  <Option value="应急培训">应急培训</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="courseCategory" label="课程分类" rules={[{ required: true, message: '请输入课程分类' }]}>
+                <Input placeholder="请输入课程分类" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="manager" label="负责人" rules={[{ required: true, message: '请输入负责人' }]}>
+                <Input placeholder="请输入课程负责人" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              {/* 空列用于对齐 */}
+            </Col>
+            <Col span={24}>
+              <Form.Item name="courseSummary" label="课程概述" rules={[{ required: true, message: '请输入课程概述' }]}>
+                <TextArea rows={4} placeholder="请输入课程的详细概述" />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="courseDescription" label="课程描述" rules={[{ required: true, message: '请输入课程描述' }]}>
-                <TextArea rows={4} placeholder="请输入课程描述" />
+              <Form.Item name="courseAttachment" label="上传课程附件">
+                <Upload
+                  name="file"
+                  action="/api/upload"
+                  headers={{
+                    authorization: 'Bearer token',
+                  }}
+                  multiple
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.mp4,.avi"
+                  onChange={(info) => {
+                    if (info.file.status === 'done') {
+                      message.success(`${info.file.name} 文件上传成功`);
+                    } else if (info.file.status === 'error') {
+                      message.error(`${info.file.name} 文件上传失败`);
+                    }
+                  }}
+                >
+                  <Button icon={<UploadOutlined />}>上传课程附件（PDF/Word/PPT/视频）</Button>
+                </Upload>
               </Form.Item>
             </Col>
           </Row>
@@ -1139,7 +1200,7 @@ const KnowledgeExamManagement = () => {
         title={modalType === 'add' ? '新建题目' : '编辑题目'}
         open={questionModalVisible}
         onCancel={() => setQuestionModalVisible(false)}
-        width={1000}
+        width={1200}
         footer={[
           <Button key="cancel" onClick={() => setQuestionModalVisible(false)}>
             取消
@@ -1155,21 +1216,41 @@ const KnowledgeExamManagement = () => {
           onFinish={handleSaveQuestion}
         >
           <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item name="questionType" label="题型" rules={[{ required: true, message: '请选择题型' }]}>
-                <Select placeholder="请选择题型">
-                  <Option value="single">单选题</Option>
-                  <Option value="multiple">多选题</Option>
-                  <Option value="judge">判断题</Option>
-                </Select>
+            <Col span={12}>
+              <Form.Item name="questionId" label="题目编号">
+                <Input disabled placeholder="系统自动生成" style={{ fontFamily: 'monospace', fontWeight: 'bold', color: '#1890ff' }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="questionName" label="题目名称" rules={[{ required: true, message: '请输入题目名称' }]}>
+                <Input placeholder="请输入题目名称" />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="difficulty" label="难度" rules={[{ required: true, message: '请选择难度' }]}>
-                <Select placeholder="请选择难度">
-                  <Option value="easy">简单</Option>
-                  <Option value="medium">中等</Option>
-                  <Option value="hard">困难</Option>
+              <Form.Item name="questionType" label="题型" rules={[{ required: true, message: '请选择题型' }]}>
+                <Select placeholder="请选择题型" onChange={(value) => {
+                  // 根据题型变化重置选项和答案
+                  if (value === 'judge') {
+                    questionForm.setFieldsValue({
+                      optionA: '正确',
+                      optionB: '错误',
+                      optionC: '',
+                      optionD: ''
+                    });
+                  } else if (value === 'essay') {
+                    questionForm.setFieldsValue({
+                      optionA: '',
+                      optionB: '',
+                      optionC: '',
+                      optionD: '',
+                      correctAnswer: ''
+                    });
+                  }
+                }}>
+                  <Option value="single">单选题</Option>
+                  <Option value="multiple">多选题</Option>
+                  <Option value="judge">判断题</Option>
+                  <Option value="essay">问答题</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -1178,51 +1259,136 @@ const KnowledgeExamManagement = () => {
                 <Input disabled />
               </Form.Item>
             </Col>
+            <Col span={8}>
+              <Form.Item name="relatedCourse" label="关联课程">
+                <Select placeholder="请选择关联课程" allowClear>
+                  {courseList.map(course => (
+                    <Option key={course.id} value={course.courseName}>{course.courseName}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
             <Col span={24}>
               <Form.Item name="questionContent" label="题干" rules={[{ required: true, message: '请输入题干' }]}>
                 <TextArea rows={4} placeholder="请输入题干内容" />
               </Form.Item>
             </Col>
-            <Col span={24}>
-              <Form.Item name="options" label="选项">
-                <div>
-                  <Row gutter={8} style={{ marginBottom: 8 }}>
-                    <Col span={2}>A:</Col>
-                    <Col span={22}>
-                      <Input placeholder="选项A内容" />
+            <Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.questionType !== currentValues.questionType}>
+              {({ getFieldValue }) => {
+                const questionType = getFieldValue('questionType');
+                
+                if (questionType === 'essay') {
+                  return (
+                    <Col span={24}>
+                      <Form.Item label="答题说明">
+                        <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+                          <p style={{ margin: 0, color: '#666' }}>
+                            问答题由答题者填写文字内容，无需设置选项。系统将提供文本框供答题者输入答案。
+                          </p>
+                        </div>
+                      </Form.Item>
                     </Col>
-                  </Row>
-                  <Row gutter={8} style={{ marginBottom: 8 }}>
-                    <Col span={2}>B:</Col>
-                    <Col span={22}>
-                      <Input placeholder="选项B内容" />
+                  );
+                }
+                
+                if (questionType === 'judge') {
+                  return (
+                    <Col span={24}>
+                      <Form.Item label="选项（判断题）">
+                        <div>
+                          <Row gutter={8} style={{ marginBottom: 8 }}>
+                            <Col span={2}>A:</Col>
+                            <Col span={22}>
+                              <Input value="正确" disabled />
+                            </Col>
+                          </Row>
+                          <Row gutter={8}>
+                            <Col span={2}>B:</Col>
+                            <Col span={22}>
+                              <Input value="错误" disabled />
+                            </Col>
+                          </Row>
+                        </div>
+                      </Form.Item>
                     </Col>
-                  </Row>
-                  <Row gutter={8} style={{ marginBottom: 8 }}>
-                    <Col span={2}>C:</Col>
-                    <Col span={22}>
-                      <Input placeholder="选项C内容" />
-                    </Col>
-                  </Row>
-                  <Row gutter={8}>
-                    <Col span={2}>D:</Col>
-                    <Col span={22}>
-                      <Input placeholder="选项D内容" />
-                    </Col>
-                  </Row>
-                </div>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="correctAnswer" label="正确答案" rules={[{ required: true, message: '请选择正确答案' }]}>
-                <Select placeholder="请选择正确答案">
-                  <Option value="A">A</Option>
-                  <Option value="B">B</Option>
-                  <Option value="C">C</Option>
-                  <Option value="D">D</Option>
-                </Select>
-              </Form.Item>
-            </Col>
+                  );
+                }
+                
+                return (
+                  <Col span={24}>
+                    <Form.Item label="选项">
+                      <div>
+                        <Row gutter={8} style={{ marginBottom: 8 }}>
+                          <Col span={2}>A:</Col>
+                          <Col span={22}>
+                            <Form.Item name="optionA" noStyle>
+                              <Input placeholder="选项A内容" />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row gutter={8} style={{ marginBottom: 8 }}>
+                          <Col span={2}>B:</Col>
+                          <Col span={22}>
+                            <Form.Item name="optionB" noStyle>
+                              <Input placeholder="选项B内容" />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row gutter={8} style={{ marginBottom: 8 }}>
+                          <Col span={2}>C:</Col>
+                          <Col span={22}>
+                            <Form.Item name="optionC" noStyle>
+                              <Input placeholder="选项C内容" />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                        <Row gutter={8}>
+                          <Col span={2}>D:</Col>
+                          <Col span={22}>
+                            <Form.Item name="optionD" noStyle>
+                              <Input placeholder="选项D内容" />
+                            </Form.Item>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Form.Item>
+                  </Col>
+                );
+              }}
+            </Form.Item>
+            <Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.questionType !== currentValues.questionType}>
+              {({ getFieldValue }) => {
+                const questionType = getFieldValue('questionType');
+                
+                if (questionType === 'essay') {
+                  return null;
+                }
+                
+                const answerOptions = questionType === 'judge' 
+                  ? [{ value: 'A', label: 'A (正确)' }, { value: 'B', label: 'B (错误)' }]
+                  : [{ value: 'A', label: 'A' }, { value: 'B', label: 'B' }, { value: 'C', label: 'C' }, { value: 'D', label: 'D' }];
+                
+                return (
+                  <Col span={12}>
+                    <Form.Item name="correctAnswer" label="正确答案" rules={[{ required: true, message: '请选择正确答案' }]}>
+                      {questionType === 'multiple' ? (
+                        <Select mode="multiple" placeholder="请选择正确答案（可多选）">
+                          {answerOptions.map(option => (
+                            <Option key={option.value} value={option.value}>{option.label}</Option>
+                          ))}
+                        </Select>
+                      ) : (
+                        <Select placeholder="请选择正确答案">
+                          {answerOptions.map(option => (
+                            <Option key={option.value} value={option.value}>{option.label}</Option>
+                          ))}
+                        </Select>
+                      )}
+                    </Form.Item>
+                  </Col>
+                );
+              }}
+            </Form.Item>
             <Col span={12}>
               <Form.Item name="score" label="分值" rules={[{ required: true, message: '请输入分值' }]}>
                 <InputNumber min={1} max={100} placeholder="请输入分值" style={{ width: '100%' }} />
@@ -1255,6 +1421,7 @@ const KnowledgeExamManagement = () => {
           <Form
             form={paperForm}
             layout="vertical"
+            onFinish={handleSavePaper}
           >
             <Row gutter={16}>
               <Col span={12}>
@@ -1263,11 +1430,14 @@ const KnowledgeExamManagement = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item name="paperType" label="组卷方式" rules={[{ required: true, message: '请选择组卷方式' }]}>
-                  <Radio.Group onChange={(e) => setPaperType(e.target.value)}>
-                    <Radio value="fixed">固定组卷</Radio>
-                    <Radio value="random">随机组卷</Radio>
-                  </Radio.Group>
+                <Form.Item name="relatedCourse" label="关联课程" rules={[{ required: true, message: '请选择关联课程' }]}>
+                  <Select placeholder="请选择关联课程" onChange={(value) => {
+                    setSelectedCourse(value);
+                  }}>
+                    {courseList.map(course => (
+                      <Option key={course.id} value={course.courseName}>{course.courseName}</Option>
+                    ))}
+                  </Select>
                 </Form.Item>
               </Col>
               <Col span={24}>
@@ -1287,50 +1457,59 @@ const KnowledgeExamManagement = () => {
         {paperCreateStep === 1 && (
           <div>
             <Alert
-              message={paperType === 'fixed' ? '固定组卷模式' : '随机组卷模式'}
-              description={paperType === 'fixed' ? '请从题库中选择具体题目' : '请设置抽题规则'}
+              message="选择题目"
+              description="请从下方题库中选择具体题目构成试卷"
               type="info"
               style={{ marginBottom: 16 }}
             />
             
-            {paperType === 'fixed' ? (
-              <div>
-                <Table
-                  size="small"
-                  columns={questionColumns}
-                  dataSource={questionList}
-                  rowKey="id"
-                  scroll={{ x: 800, y: 400 }}
-                  rowSelection={{
-                    selectedRowKeys: selectedQuestions.map(q => q.id),
-                    onChange: (keys, rows) => setSelectedQuestions(rows),
-                  }}
-                  pagination={false}
-                />
-              </div>
-            ) : (
-              <div>
-                <Form layout="vertical">
-                  <Row gutter={16}>
-                    <Col span={8}>
-                      <Form.Item label="单选题数量">
-                        <InputNumber min={0} placeholder="请输入数量" style={{ width: '100%' }} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                      <Form.Item label="多选题数量">
-                        <InputNumber min={0} placeholder="请输入数量" style={{ width: '100%' }} />
-                      </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                      <Form.Item label="判断题数量">
-                        <InputNumber min={0} placeholder="请输入数量" style={{ width: '100%' }} />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </Form>
-              </div>
-            )}
+            {/* 题目筛选区域 */}
+            <Card style={{ marginBottom: 16 }}>
+              <Row gutter={16}>
+                <Col span={8}>
+                  <Search
+                    placeholder="按题目名称或题干搜索"
+                    allowClear
+                    value={questionSearchTerm}
+                    onChange={(e) => setQuestionSearchTerm(e.target.value)}
+                    style={{ width: '100%' }}
+                  />
+                </Col>
+                <Col span={8}>
+                  <Select 
+                    placeholder="按课程筛选"
+                    allowClear
+                    style={{ width: '100%' }}
+                    value={questionCourseFilter}
+                    onChange={setQuestionCourseFilter}
+                  >
+                    {courseList.map(course => (
+                      <Option key={course.id} value={course.courseName}>{course.courseName}</Option>
+                    ))}
+                  </Select>
+                </Col>
+              </Row>
+            </Card>
+            
+            <div>
+              <Table
+                size="small"
+                columns={questionColumns.filter(col => col.key !== 'action')}
+                dataSource={getFilteredQuestions()}
+                rowKey="id"
+                scroll={{ x: 800, y: 400 }}
+                rowSelection={{
+                  selectedRowKeys: selectedQuestions.map(q => q.id),
+                  onChange: (keys, rows) => setSelectedQuestions(rows),
+                }}
+                pagination={{
+                  pageSize: 10,
+                  showSizeChanger: false,
+                  showQuickJumper: true,
+                  showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
+                }}
+              />
+            </div>
 
             <div style={{ textAlign: 'right', marginTop: 24 }}>
               <Space>
@@ -1365,7 +1544,7 @@ const KnowledgeExamManagement = () => {
                 <Button onClick={() => setPaperCreateStep(1)}>
                   上一步
                 </Button>
-                <Button type="primary" onClick={() => paperForm.submit()}>
+                <Button type="primary" onClick={handleSavePaper}>
                   保存试卷
                 </Button>
               </Space>
@@ -1454,43 +1633,96 @@ const KnowledgeExamManagement = () => {
         onCancel={() => setPreviewModalVisible(false)}
         width={1000}
         footer={[
+          <Button key="download" type="primary" icon={<DownloadOutlined />} onClick={handleDownloadWord}>
+            下载Word
+          </Button>,
           <Button key="close" onClick={() => setPreviewModalVisible(false)}>
             关闭
           </Button>
         ]}
       >
-        <div style={{ padding: '20px 0' }}>
-          <div style={{ textAlign: 'center', marginBottom: 30 }}>
-            <h2>安全知识测试卷</h2>
-            <p>考试时间：60分钟 &nbsp;&nbsp; 总分：100分 &nbsp;&nbsp; 及格分数：80分</p>
-          </div>
-          
-          <div style={{ marginBottom: 20 }}>
-            <h4>一、单选题（每题5分，共20题）</h4>
-            <div style={{ marginLeft: 20 }}>
-              <p>1. 以下哪项不是安全生产的基本原则？</p>
+        {currentRecord && (
+          <div style={{ padding: '20px 0' }}>
+            <div style={{ textAlign: 'center', marginBottom: 30 }}>
+              <h2>{currentRecord.paperTitle || '试卷预览'}</h2>
+              <p>题目数量：{currentRecord.questionCount}题 &nbsp;&nbsp; 总分：{currentRecord.totalScore}分 &nbsp;&nbsp; 关联课程：{currentRecord.relatedCourse || '无'}</p>
+            </div>
+            
+            <div style={{ marginBottom: 20 }}>
+              <h4>一、单选题（每题5分，共10题）</h4>
               <div style={{ marginLeft: 20 }}>
-                <p>A. 安全第一</p>
-                <p>B. 预防为主</p>
-                <p>C. 效率优先</p>
-                <p>D. 综合治理</p>
+                <p>1. 加油站员工上岗前必须经过哪些培训？</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 安全知识培训</p>
+                  <p>B. 操作技能培训</p>
+                  <p>C. 应急处理培训</p>
+                  <p>D. 以上都是</p>
+                </div>
+              </div>
+              <div style={{ marginLeft: 20, marginTop: 16 }}>
+                <p>2. 使用加油机前，首先应该检查什么？</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 油枪是否完好</p>
+                  <p>B. 计量器是否归零</p>
+                  <p>C. 接地线是否连接</p>
+                  <p>D. 以上都要检查</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ marginBottom: 20 }}>
-            <h4>二、多选题（每题10分，共5题）</h4>
-            <div style={{ marginLeft: 20 }}>
-              <p>1. 以下属于消防安全检查内容的有？</p>
+            <div style={{ marginBottom: 20 }}>
+              <h4>二、多选题（每题8分，共5题）</h4>
               <div style={{ marginLeft: 20 }}>
-                <p>A. 灭火器材配置</p>
-                <p>B. 疏散通道畅通</p>
-                <p>C. 消防设施完好</p>
-                <p>D. 安全标识齐全</p>
+                <p>1. 加油站安全检查应包括哪些内容？</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 设备运行状态</p>
+                  <p>B. 安全标识完整性</p>
+                  <p>C. 消防设施完好性</p>
+                  <p>D. 人员操作规范性</p>
+                </div>
+              </div>
+              <div style={{ marginLeft: 20, marginTop: 16 }}>
+                <p>2. 火灾发生的必要条件包括？</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 可燃物</p>
+                  <p>B. 助燃物（氧气）</p>
+                  <p>C. 着火源</p>
+                  <p>D. 化学催化剂</p>
+                </div>
               </div>
             </div>
+
+            <div style={{ marginBottom: 20 }}>
+              <h4>三、判断题（每题3分，共3题）</h4>
+              <div style={{ marginLeft: 20 }}>
+                <p>1. 加油站可以在雷雨天气进行加油作业。</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 正确 &nbsp;&nbsp;&nbsp;&nbsp; B. 错误</p>
+                </div>
+              </div>
+              <div style={{ marginLeft: 20, marginTop: 16 }}>
+                <p>2. 加油站废油可以直接倒入下水道。</p>
+                <div style={{ marginLeft: 20 }}>
+                  <p>A. 正确 &nbsp;&nbsp;&nbsp;&nbsp; B. 错误</p>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 20 }}>
+              <h4>四、问答题（共15分）</h4>
+              <div style={{ marginLeft: 20 }}>
+                <p>1. 请阐述定期开展应急演练对加油站安全管理的重要性，并说明如何提高演练效果？（15分）</p>
+                <div style={{ marginLeft: 20, marginTop: 10, padding: '10px', border: '1px solid #ddd', backgroundColor: '#f9f9f9' }}>
+                  <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>答题区域（请在此处填写答案）</p>
+                </div>
+              </div>
+            </div>
+            
+            <div style={{ textAlign: 'center', marginTop: 40, padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+              <p style={{ margin: 0, color: '#666' }}>试卷预览完毕，可点击上方"下载Word"按钮获取完整试卷文档</p>
+            </div>
           </div>
-        </div>
+        )}
       </Modal>
 
       {/* 批量导入弹窗 */}
@@ -1534,34 +1766,278 @@ const KnowledgeExamManagement = () => {
           </Upload.Dragger>
         </div>
       </Modal>
+
+      {/* 课程查看详情弹窗 */}
+      <Modal
+        title="课程详情"
+        open={viewModalVisible && currentModule === 'course'}
+        onCancel={() => setViewModalVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setViewModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={900}
+      >
+        {currentRecord && (
+          <div>
+            <Descriptions title="基本信息" column={2} bordered>
+              <Descriptions.Item label="课程编号">{currentRecord.courseId}</Descriptions.Item>
+              <Descriptions.Item label="课程名称">{currentRecord.courseName}</Descriptions.Item>
+              <Descriptions.Item label="课程类型">
+                {(() => {
+                  const typeMap = {
+                    '安全培训': { color: 'red', text: '安全培训' },
+                    '技能培训': { color: 'blue', text: '技能培训' },
+                    '法规培训': { color: 'green', text: '法规培训' },
+                    '应急培训': { color: 'orange', text: '应急培训' }
+                  };
+                  const config = typeMap[currentRecord.courseType] || { color: 'default', text: currentRecord.courseType };
+                  return <Tag color={config.color}>{config.text}</Tag>;
+                })()}
+              </Descriptions.Item>
+              <Descriptions.Item label="课程分类">{currentRecord.courseCategory}</Descriptions.Item>
+              <Descriptions.Item label="负责人" span={2}>{currentRecord.manager}</Descriptions.Item>
+            </Descriptions>
+
+            <Descriptions title="课程信息" column={1} bordered style={{ marginTop: 16 }}>
+              <Descriptions.Item label="课程概述">{currentRecord.courseSummary}</Descriptions.Item>
+            </Descriptions>
+
+            <Descriptions title="创建信息" column={2} bordered style={{ marginTop: 16 }}>
+              <Descriptions.Item label="创建人">{currentRecord.creator}</Descriptions.Item>
+              <Descriptions.Item label="创建时间">{currentRecord.createTime}</Descriptions.Item>
+            </Descriptions>
+
+            {currentRecord.courseAttachment && (
+              <Descriptions title="课程附件" column={1} bordered style={{ marginTop: 16 }}>
+                <Descriptions.Item label="附件文件">
+                  <Button 
+                    type="link" 
+                    icon={<DownloadOutlined />}
+                    onClick={() => message.success('正在下载课程附件')}
+                  >
+                    课程附件文件.pdf
+                  </Button>
+                </Descriptions.Item>
+              </Descriptions>
+            )}
+          </div>
+        )}
+      </Modal>
+
+      {/* 题目查看详情弹窗 */}
+      <Modal
+        title="题目详情"
+        open={viewModalVisible && currentModule === 'question'}
+        onCancel={() => setViewModalVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setViewModalVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={900}
+      >
+        {currentRecord && (
+          <div>
+            <Descriptions title="基本信息" column={2} bordered>
+              <Descriptions.Item label="题目编号">{currentRecord.questionId}</Descriptions.Item>
+              <Descriptions.Item label="题目名称">{currentRecord.questionName}</Descriptions.Item>
+              <Descriptions.Item label="题型">
+                {(() => {
+                  const typeMap = {
+                    single: { color: 'blue', text: '单选题' },
+                    multiple: { color: 'green', text: '多选题' },
+                    judge: { color: 'orange', text: '判断题' },
+                    essay: { color: 'purple', text: '问答题' }
+                  };
+                  const config = typeMap[currentRecord.questionType] || { color: 'default', text: '未知' };
+                  return <Tag color={config.color}>{config.text}</Tag>;
+                })()}
+              </Descriptions.Item>
+              <Descriptions.Item label="分值">{currentRecord.score}分</Descriptions.Item>
+              <Descriptions.Item label="所属题库">{currentRecord.questionBankName}</Descriptions.Item>
+              <Descriptions.Item label="关联课程">{currentRecord.relatedCourse || '无'}</Descriptions.Item>
+            </Descriptions>
+
+            <Descriptions title="题目内容" column={1} bordered style={{ marginTop: 16 }}>
+              <Descriptions.Item label="题干">{currentRecord.questionContent}</Descriptions.Item>
+              
+              {currentRecord.questionType !== 'essay' && (
+                <Descriptions.Item label="选项">
+                  {currentRecord.options && currentRecord.options.map((option, index) => (
+                    <div key={index} style={{ marginBottom: '4px' }}>
+                      <span style={{ 
+                        fontWeight: 'bold', 
+                        color: currentRecord.correctAnswer && 
+                               (Array.isArray(currentRecord.correctAnswer) 
+                                 ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                                 : currentRecord.correctAnswer === String.fromCharCode(65 + index)) 
+                               ? '#52c41a' : '#666' 
+                      }}>
+                        {String.fromCharCode(65 + index)}. 
+                      </span>
+                      {option}
+                      {currentRecord.correctAnswer && 
+                       (Array.isArray(currentRecord.correctAnswer) 
+                         ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                         : currentRecord.correctAnswer === String.fromCharCode(65 + index)) && 
+                       <Tag color="success" style={{ marginLeft: 8 }}>正确答案</Tag>}
+                    </div>
+                  ))}
+                </Descriptions.Item>
+              )}
+              
+              {currentRecord.questionType !== 'essay' && (
+                <Descriptions.Item label="正确答案">
+                  <Tag color="success">
+                    {Array.isArray(currentRecord.correctAnswer) 
+                      ? currentRecord.correctAnswer.join(', ') 
+                      : currentRecord.correctAnswer}
+                  </Tag>
+                </Descriptions.Item>
+              )}
+              
+              {currentRecord.explanation && (
+                <Descriptions.Item label="答案解析">{currentRecord.explanation}</Descriptions.Item>
+              )}
+              
+              {currentRecord.questionType === 'essay' && (
+                <Descriptions.Item label="答题说明">
+                  <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+                    <p style={{ margin: 0, color: '#666' }}>
+                      此为问答题，考生需要根据题目要求填写详细的文字答案。评分标准请参考答案解析。
+                    </p>
+                  </div>
+                </Descriptions.Item>
+              )}
+            </Descriptions>
+
+            <Descriptions title="创建信息" column={2} bordered style={{ marginTop: 16 }}>
+              <Descriptions.Item label="创建人">{currentRecord.creator}</Descriptions.Item>
+              <Descriptions.Item label="创建时间">{currentRecord.createTime}</Descriptions.Item>
+            </Descriptions>
+
+            {/* 题目内容展示 */}
+            <div style={{ 
+              marginTop: 24, 
+              padding: '20px', 
+              backgroundColor: '#f9f9f9', 
+              borderRadius: '6px',
+              border: '1px solid #e8e8e8'
+            }}>
+              <h4 style={{ marginBottom: '16px', color: '#333' }}>📋 题目完整内容</h4>
+              <div style={{ 
+                backgroundColor: '#fff', 
+                padding: '16px', 
+                borderRadius: '4px',
+                border: '1px solid #d9d9d9'
+              }}>
+                <div style={{ fontWeight: 'bold', marginBottom: '12px', fontSize: '16px' }}>
+                  {currentRecord.questionContent}
+                </div>
+                
+                {currentRecord.questionType !== 'essay' && currentRecord.options && (
+                  <div style={{ marginTop: '12px' }}>
+                    {currentRecord.options.map((option, index) => (
+                      <div key={index} style={{ 
+                        marginBottom: '8px', 
+                        padding: '8px 12px',
+                        backgroundColor: currentRecord.correctAnswer && 
+                          (Array.isArray(currentRecord.correctAnswer) 
+                            ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                            : currentRecord.correctAnswer === String.fromCharCode(65 + index)) 
+                          ? '#f6ffed' : '#fafafa',
+                        border: '1px solid ' + (currentRecord.correctAnswer && 
+                          (Array.isArray(currentRecord.correctAnswer) 
+                            ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                            : currentRecord.correctAnswer === String.fromCharCode(65 + index)) 
+                          ? '#52c41a' : '#d9d9d9'),
+                        borderRadius: '4px'
+                      }}>
+                        <span style={{ 
+                          fontWeight: 'bold', 
+                          marginRight: '8px',
+                          color: currentRecord.correctAnswer && 
+                            (Array.isArray(currentRecord.correctAnswer) 
+                              ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                              : currentRecord.correctAnswer === String.fromCharCode(65 + index)) 
+                            ? '#52c41a' : '#333'
+                        }}>
+                          {String.fromCharCode(65 + index)}.
+                        </span>
+                        {option}
+                        {currentRecord.correctAnswer && 
+                         (Array.isArray(currentRecord.correctAnswer) 
+                           ? currentRecord.correctAnswer.includes(String.fromCharCode(65 + index))
+                           : currentRecord.correctAnswer === String.fromCharCode(65 + index)) && 
+                         <Tag color="success" style={{ marginLeft: 8, fontSize: '12px' }}>✓ 正确答案</Tag>}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                {currentRecord.questionType === 'essay' && (
+                  <div style={{ 
+                    marginTop: '12px',
+                    padding: '12px',
+                    backgroundColor: '#fff2e8',
+                    border: '1px solid #ffd591',
+                    borderRadius: '4px'
+                  }}>
+                    <p style={{ margin: 0, color: '#d48806' }}>
+                      📝 此为主观题，考生需要根据题目要求填写详细的文字答案。
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal>
       
-      {/* 页面底部备注 */}
-      <div style={{ 
-        marginTop: '40px', 
-        padding: '20px', 
-        backgroundColor: '#f5f5f5', 
-        borderRadius: '6px',
-        borderLeft: '4px solid #1890ff'
-      }}>
-        <h4 style={{ color: '#1890ff', marginBottom: '10px' }}>📋 演示说明</h4>
-        <div style={{ color: '#666', lineHeight: '1.6' }}>
-          <p><strong>🎯 功能特色：</strong></p>
-          <ul style={{ marginBottom: '15px' }}>
-            <li>🎓 <strong>课程中心</strong>：支持课程的创建、编辑、删除，包含关联数据检查逻辑</li>
-            <li>📚 <strong>题库中心</strong>：左侧树形导航，右侧题目列表，支持单选/多选/判断题，提供批量导入功能</li>
-            <li>📝 <strong>试卷中心</strong>：向导式创建流程，支持固定组卷和随机组卷两种模式，提供试卷预览</li>
-            <li>⏰ <strong>考试中心</strong>：完整的考试发布流程，支持考生管理、时间设定、成绩统计</li>
-            <li>📊 <strong>修改记录</strong>：完整的操作日志追踪，便于审计和问题排查</li>
-          </ul>
-          <p><strong>🔧 技术实现：</strong></p>
-          <ul>
-            <li>✅ 所有唯一ID均为系统自动生成，用户无需手动输入</li>
-            <li>✅ 遵循designrules.mdc设计规范，统一的UI风格和交互体验</li>
-            <li>✅ 完整的表单验证和数据校验机制</li>
-            <li>✅ 响应式布局设计，支持多屏幕尺寸适配</li>
-          </ul>
-        </div>
-      </div>
+      {/* 演示备注信息 */}
+      <Card title="演示数据说明" style={{ marginTop: '24px' }}>
+        <p>为方便演示，当前安全知识考试系统使用的是模拟数据，具体说明如下：</p>
+        <ul>
+          <li>
+            <strong>题库分类：</strong>
+            <ul>
+              <li>消防安全：消防设施、火灾预防、应急疏散</li>
+              <li>操作规程：加油作业、设备操作、标准流程</li>
+              <li>职业健康：劳动防护、健康管理、职业病防护</li>
+              <li>环保法规：环境保护、污染防治、合规要求</li>
+            </ul>
+          </li>
+          <li>
+            <strong>题型支持：</strong>
+            <ul>
+              <li>单选题：四选一，适用于基础知识考核</li>
+              <li>多选题：多项选择，考查综合理解能力</li>
+              <li>判断题：正误判断，快速检验概念掌握</li>
+              <li>问答题：主观表述，深度考核应用能力</li>
+            </ul>
+          </li>
+          <li>
+            <strong>系统模块：</strong>
+            <ul>
+              <li>课程中心：安全培训课程管理，支持附件上传</li>
+              <li>题库中心：分类题目管理，批量导入功能</li>
+              <li>试卷中心：固定组卷方式，关联课程体系</li>
+              <li>考试中心：在线考试发布，成绩统计分析</li>
+            </ul>
+          </li>
+          <li>
+            <strong>功能特色：</strong>
+            <ul>
+              <li>课程与试卷强关联，建立完整知识体系</li>
+              <li>试卷编号自动生成（EXM+年份+随机码）</li>
+              <li>支持Word格式试卷下载，便于线下使用</li>
+              <li>题目搜索筛选，答案高亮显示</li>
+            </ul>
+          </li>
+        </ul>
+      </Card>
     </div>
   );
 };

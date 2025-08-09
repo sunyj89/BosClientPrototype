@@ -29,6 +29,25 @@
   border-color: var(--primary-color-light);
 }
 
+/* 危险操作按钮样式 */
+.emergency-drill-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.emergency-drill-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.emergency-drill-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
 /* 表格样式 */
 .emergency-drill-management-container .ant-table-thead > tr > th {
   background-color: #fafafa;
