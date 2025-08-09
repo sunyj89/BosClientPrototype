@@ -99,8 +99,16 @@ const InspectionManagement = () => {
   // 保存任务
   const handleSaveTask = async (values) => {
     try {
-      console.log('保存任务:', values);
-      message.success(modalType === 'add' ? '任务创建成功' : '任务更新成功');
+      // 如果是新增模式，系统自动生成任务ID
+      if (modalType === 'add') {
+        values.id = `TASK${String(Date.now()).slice(-6)}`;
+        console.log('保存任务:', values);
+        message.success(`任务创建成功，任务ID：${values.id}`);
+      } else {
+        console.log('保存任务:', values);
+        message.success('任务更新成功');
+      }
+      
       setTaskModalVisible(false);
       loadData();
     } catch (error) {

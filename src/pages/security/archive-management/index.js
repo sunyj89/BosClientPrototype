@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, Upload, Popconfirm, Alert, Progress } from 'antd';
+import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, Upload, Popconfirm, Alert, Progress, TreeSelect, Switch, Checkbox } from 'antd';
 import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, UploadOutlined, DownloadOutlined, FileOutlined, HistoryOutlined, AlertOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import './index.css';
@@ -25,6 +25,8 @@ const ArchiveManagement = () => {
   const [changeModalVisible, setChangeModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   const [modalType, setModalType] = useState('add'); // add, edit, view
+  const [isLongTermValid, setIsLongTermValid] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   useEffect(() => {
     loadData();
@@ -62,11 +64,29 @@ const ArchiveManagement = () => {
   const handleEditArchive = (record) => {
     setModalType('edit');
     setCurrentRecord(record);
+    
+    // 判断是否为长期有效
+    const isLongTerm = record.isLongTerm || false;
+    setIsLongTermValid(isLongTerm);
+    
+    // 格式化组织ID
+    let formattedOrgId;
+    if (record.orgType === '分公司') {
+      formattedOrgId = `branch-${record.orgId}`;
+    } else if (record.orgType === '服务区') {
+      formattedOrgId = `area-${record.orgId}`;
+    } else {
+      formattedOrgId = `station-${record.orgId}`;
+    }
+    
     archiveForm.setFieldsValue({
       ...record,
-      expiryDate: record.expiryDate ? moment(record.expiryDate) : null,
-      issueDate: record.issueDate ? moment(record.issueDate) : null
+      orgId: formattedOrgId,
+      expiryDate: record.expiryDate && !isLongTerm ? moment(record.expiryDate) : null,
+      issueDate: record.issueDate ? moment(record.issueDate) : null,
+      isLongTerm: isLongTerm
     });
+    
     setArchiveModalVisible(true);
   };
 
@@ -94,8 +114,44 @@ const ArchiveManagement = () => {
   // 保存档案
   const handleSaveArchive = async (values) => {
     try {
-      console.log('保存档案:', values);
-      message.success(modalType === 'add' ? '档案创建成功' : '档案更新成功');
+      // 处理组织ID和类型
+      let orgId, orgType, orgName;
+      if (values.orgId) {
+        const [type, id] = values.orgId.split('-');
+        orgId = id;
+        
+        if (type === 'branch') {
+          orgType = '分公司';
+          orgName = stationData.branches.find(b => b.id === id)?.name || '';
+        } else if (type === 'area') {
+          orgType = '服务区';
+          orgName = stationData.serviceAreas.find(a => a.id === id)?.name || '';
+        } else {
+          orgType = '油站';
+          orgName = stationData.stations.find(s => s.id === id)?.name || '';
+        }
+      }
+      
+      // 处理长期有效
+      const processedValues = {
+        ...values,
+        orgId,
+        orgType,
+        orgName,
+        isLongTerm: values.isLongTerm || false,
+        expiryDate: values.isLongTerm ? '长期有效' : values.expiryDate ? values.expiryDate.format('YYYY-MM-DD') : null
+      };
+      
+      // 如果是新增模式，系统自动生成档案ID
+      if (modalType === 'add') {
+        processedValues.id = `ARCH${String(Date.now()).slice(-6)}`;
+        console.log('保存档案:', processedValues);
+        message.success(`档案创建成功，档案ID：${processedValues.id}`);
+      } else {
+        console.log('保存档案:', processedValues);
+        message.success('档案更新成功');
+      }
+      
       setArchiveModalVisible(false);
       loadData();
     } catch (error) {
@@ -221,9 +277,7 @@ const ArchiveManagement = () => {
           <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleEditArchive(record)}>
             编辑
           </Button>
-          <Button type="primary" size="small" icon={<DownloadOutlined />} onClick={() => handleDownload(record)}>
-            下载
-          </Button>
+
           <Popconfirm title="确定要删除这个档案吗？" onConfirm={() => handleDelete(record)}>
             <Button type="primary" size="small" danger icon={<DeleteOutlined />}>
               删除
@@ -326,6 +380,48 @@ const ArchiveManagement = () => {
     },
   };
 
+  // 构建组织树结构数据
+  const getOrganizationTreeData = () => {
+    const treeData = [];
+    
+    // 添加分公司节点
+    stationData.branches.forEach(branch => {
+      const branchNode = {
+        title: branch.name,
+        value: `branch-${branch.id}`,
+        key: `branch-${branch.id}`,
+        children: []
+      };
+      
+      // 添加该分公司下的服务区节点
+      const serviceAreas = stationData.serviceAreas.filter(area => area.branchId === branch.id);
+      serviceAreas.forEach(area => {
+        const areaNode = {
+          title: area.name,
+          value: `area-${area.id}`,
+          key: `area-${area.id}`,
+          children: []
+        };
+        
+        // 添加该服务区下的油站节点
+        const stations = stationData.stations.filter(station => station.serviceAreaId === area.id);
+        stations.forEach(station => {
+          areaNode.children.push({
+            title: station.name,
+            value: `station-${station.id}`,
+            key: `station-${station.id}`
+          });
+        });
+        
+        branchNode.children.push(areaNode);
+      });
+      
+      treeData.push(branchNode);
+    });
+    
+    return treeData;
+  };
+  
   // 获取到期提醒统计
   const getExpiryStats = () => {
     const expired = archiveList.filter(item => item.status === '已过期').length;
@@ -414,9 +510,6 @@ const ArchiveManagement = () => {
                     <Button type="primary" icon={<PlusOutlined />} onClick={handleAddArchive}>
                       新增档案
                     </Button>
-                    <Button icon={<HistoryOutlined />} onClick={handleViewChanges}>
-                      修改记录
-                    </Button>
                   </Space>
                 </Col>
               </Row>
@@ -425,11 +518,30 @@ const ArchiveManagement = () => {
 
           {/* 档案列表 */}
           <Card>
+            <div style={{ marginBottom: 16 }}>
+              {selectedRowKeys.length > 0 && (
+                <Button 
+                  type="primary" 
+                  icon={<DownloadOutlined />} 
+                  style={{ marginRight: 8 }}
+                  onClick={() => {
+                    message.success(`批量导出 ${selectedRowKeys.length} 个档案成功`);
+                    setSelectedRowKeys([]);
+                  }}
+                >
+                  批量导出 ({selectedRowKeys.length})
+                </Button>
+              )}
+            </div>
             <Table
               columns={archiveColumns}
               dataSource={archiveList}
               rowKey="id"
               scroll={{ x: 1500 }}
+              rowSelection={{
+                selectedRowKeys,
+                onChange: setSelectedRowKeys,
+              }}
               pagination={{
                 total: archiveList.length,
                 pageSize: 10,
@@ -507,24 +619,31 @@ const ArchiveManagement = () => {
           onFinish={handleSaveArchive}
         >
           <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item name="orgId" label="所属组织" rules={[{ required: true, message: '请选择组织' }]}>
+                <TreeSelect
+                  showSearch
+                  style={{ width: '100%' }}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="请选择所属组织"
+                  allowClear
+                  treeDefaultExpandAll
+                  treeData={getOrganizationTreeData()}
+                  fieldNames={{ label: 'title', value: 'value' }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="certificateHolder" label="持证人">
+                <Input placeholder="请输入持证人姓名（选填）" />
+              </Form.Item>
+            </Col>
             <Col span={12}>
               <Form.Item name="orgType" label="组织类型" rules={[{ required: true, message: '请选择组织类型' }]}>
                 <Select placeholder="请选择组织类型">
                   <Option value="分公司">分公司</Option>
                   <Option value="服务区">服务区</Option>
                   <Option value="油站">油站</Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="orgId" label="所属组织" rules={[{ required: true, message: '请选择组织' }]}>
-                <Select placeholder="请选择组织">
-                  {stationData.branches.map(branch => (
-                    <Option key={branch.id} value={branch.id}>{branch.name}</Option>
-                  ))}
-                  {stationData.stations.map(station => (
-                    <Option key={station.id} value={station.id}>{station.name}</Option>
-                  ))}
                 </Select>
               </Form.Item>
             </Col>
@@ -558,8 +677,34 @@ const ArchiveManagement = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="expiryDate" label="到期日期" rules={[{ required: true, message: '请选择到期日期' }]}>
-                <DatePicker style={{ width: '100%' }} />
+              <Form.Item label="到期日期">
+                <Row gutter={8} align="middle">
+                  <Col span={8}>
+                    <Form.Item name="isLongTerm" valuePropName="checked" noStyle>
+                      <Switch 
+                        checkedChildren="长期有效" 
+                        unCheckedChildren="有期限" 
+                        onChange={(checked) => setIsLongTermValid(checked)}
+                      />
+                    </Form.Item>
+                  </Col>
+                  <Col span={16}>
+                    <Form.Item 
+                      name="expiryDate" 
+                      noStyle 
+                      rules={[{ 
+                        required: !isLongTermValid, 
+                        message: '请选择到期日期' 
+                      }]}
+                    >
+                      <DatePicker 
+                        disabled={isLongTermValid} 
+                        style={{ width: '100%' }} 
+                        placeholder={isLongTermValid ? '长期有效' : '请选择到期日期'} 
+                      />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -618,7 +763,8 @@ const ArchiveManagement = () => {
               <Descriptions.Item label="证件编号">{currentRecord.documentNumber}</Descriptions.Item>
               <Descriptions.Item label="颁发机构">{currentRecord.issuingAuthority}</Descriptions.Item>
               <Descriptions.Item label="颁发日期">{currentRecord.issueDate}</Descriptions.Item>
-              <Descriptions.Item label="到期日期">{currentRecord.expiryDate}</Descriptions.Item>
+              <Descriptions.Item label="到期日期">{currentRecord.isLongTerm ? '长期有效' : currentRecord.expiryDate}</Descriptions.Item>
+              <Descriptions.Item label="持证人">{currentRecord.certificateHolder || '无'}</Descriptions.Item>
               <Descriptions.Item label="档案状态">
                 {(() => {
                   const statusInfo = getStatusInfo(currentRecord);
@@ -694,6 +840,16 @@ const ArchiveManagement = () => {
         6. 修改记录：完整记录所有档案的变更历史，包括新增、修改、删除操作
         <br />
         * 所有功能均支持筛选查询和权限控制，确保档案管理的安全性和规范性
+        <br />
+        <strong>新增功能说明：</strong>
+        <br />
+        1. 新增持证人字段（非必填）
+        <br />
+        2. 所属组织选择使用树状多层级结构
+        <br />
+        3. 添加长期有效开关，选择后不需要填写到期日期
+        <br />
+        4. 支持复选和批量导出档案
       </div>
     </div>
   );

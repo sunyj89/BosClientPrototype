@@ -58,9 +58,8 @@ const MaintenanceManagement = () => {
   const handleAddApplication = () => {
     setModalType('add');
     applicationForm.resetFields();
-    // 自动生成申报单号
-    const number = 'CS' + new Date().getFullYear().toString().substr(2) + String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Math.floor(Math.random() * 90 + 10);
-    applicationForm.setFieldsValue({ applicationNumber: number });
+    // 系统将在保存时自动生成申报单号
+    applicationForm.setFieldsValue({ applicationNumber: '系统自动生成' });
     setApplicationModalVisible(true);
   };
 
@@ -119,8 +118,16 @@ const MaintenanceManagement = () => {
   // 保存申报单
   const handleSaveApplication = async (values) => {
     try {
-      console.log('保存申报单:', values);
-      message.success(modalType === 'add' ? '申报单创建成功' : '申报单更新成功');
+      // 如果是新增模式，系统自动生成申报单号
+      if (modalType === 'add') {
+        values.applicationNumber = `MN${new Date().getFullYear()}${String(Date.now()).slice(-6)}`;
+        console.log('保存申报单:', values);
+        message.success(`申报单创建成功，申报单号：${values.applicationNumber}`);
+      } else {
+        console.log('保存申报单:', values);
+        message.success('申报单更新成功');
+      }
+      
       setApplicationModalVisible(false);
       loadData();
     } catch (error) {

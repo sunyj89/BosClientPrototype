@@ -1,0 +1,533 @@
+{
+  "courses": [
+    {
+      "id": "CRS001",
+      "courseName": "加油站安全管理基础",
+      "courseCode": "SAFETY_BASIC_001",
+      "courseDescription": "介绍加油站日常安全管理的基础知识，包括安全制度、操作规程、应急处理等内容。适用于新入职员工和基层管理人员。",
+      "questionBankCount": 3,
+      "questionCount": 45,
+      "creator": "张安全",
+      "createTime": "2024-12-01 09:00:00"
+    },
+    {
+      "id": "CRS002", 
+      "courseName": "消防安全知识",
+      "courseCode": "FIRE_SAFETY_002",
+      "courseDescription": "全面讲解消防安全知识，包括火灾预防、消防设施使用、疏散逃生等内容。帮助员工掌握消防安全技能。",
+      "questionBankCount": 2,
+      "questionCount": 32,
+      "creator": "李消防",
+      "createTime": "2024-12-05 14:30:00"
+    },
+    {
+      "id": "CRS003",
+      "courseName": "环保法规培训",
+      "courseCode": "ENV_LAW_003", 
+      "courseDescription": "深入解读环保相关法律法规，包括污染防治、环境监测、应急响应等内容。提高员工环保意识和合规操作能力。",
+      "questionBankCount": 2,
+      "questionCount": 28,
+      "creator": "王环保",
+      "createTime": "2024-12-10 10:15:00"
+    },
+    {
+      "id": "CRS004",
+      "courseName": "职业健康安全",
+      "courseCode": "HEALTH_SAFETY_004",
+      "courseDescription": "职业健康安全管理体系培训，包括职业病防护、劳动保护、健康监护等内容。保障员工身心健康。",
+      "questionBankCount": 1,
+      "questionCount": 20,
+      "creator": "赵健康",
+      "createTime": "2024-12-15 16:45:00"
+    }
+  ],
+  "questionBankTree": [
+    {
+      "title": "加油站安全管理基础",
+      "key": "CRS001",
+      "children": [
+        {
+          "title": "安全制度与规程",
+          "key": "QB001"
+        },
+        {
+          "title": "设备安全操作",
+          "key": "QB002"
+        },
+        {
+          "title": "应急处理流程",
+          "key": "QB003"
+        }
+      ]
+    },
+    {
+      "title": "消防安全知识",
+      "key": "CRS002",
+      "children": [
+        {
+          "title": "火灾预防基础",
+          "key": "QB004"
+        },
+        {
+          "title": "消防设施使用",
+          "key": "QB005"
+        }
+      ]
+    },
+    {
+      "title": "环保法规培训",
+      "key": "CRS003",
+      "children": [
+        {
+          "title": "污染防治法规",
+          "key": "QB006"
+        },
+        {
+          "title": "环境监测要求",
+          "key": "QB007"
+        }
+      ]
+    },
+    {
+      "title": "职业健康安全",
+      "key": "CRS004",
+      "children": [
+        {
+          "title": "职业病防护",
+          "key": "QB008"
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "QST001",
+      "questionBankId": "QB001",
+      "questionBankName": "安全制度与规程",
+      "questionType": "single",
+      "questionContent": "加油站员工上岗前必须经过哪些培训？",
+      "options": [
+        "安全知识培训",
+        "操作技能培训", 
+        "应急处理培训",
+        "以上都是"
+      ],
+      "correctAnswer": "D",
+      "score": 5,
+      "difficulty": "easy",
+      "explanation": "根据安全管理规定，员工上岗前必须接受全面的安全培训，包括安全知识、操作技能和应急处理等各方面内容。",
+      "creator": "张安全",
+      "createTime": "2024-12-01 10:00:00"
+    },
+    {
+      "id": "QST002",
+      "questionBankId": "QB001",
+      "questionBankName": "安全制度与规程",
+      "questionType": "multiple",
+      "questionContent": "加油站安全检查应包括哪些内容？",
+      "options": [
+        "设备运行状态",
+        "安全标识完整性",
+        "消防设施完好性",
+        "人员操作规范性"
+      ],
+      "correctAnswer": "ABCD",
+      "score": 8,
+      "difficulty": "medium",
+      "explanation": "安全检查是全方位的，需要检查设备、标识、消防设施和人员操作等各个方面。",
+      "creator": "张安全",
+      "createTime": "2024-12-01 10:15:00"
+    },
+    {
+      "id": "QST003",
+      "questionBankId": "QB001",
+      "questionBankName": "安全制度与规程",
+      "questionType": "judge",
+      "questionContent": "加油站可以在雷雨天气进行加油作业。",
+      "options": ["正确", "错误"],
+      "correctAnswer": "B",
+      "score": 3,
+      "difficulty": "easy",
+      "explanation": "雷雨天气存在雷击风险，为确保安全，应暂停加油作业。",
+      "creator": "张安全",
+      "createTime": "2024-12-01 10:30:00"
+    },
+    {
+      "id": "QST004",
+      "questionBankId": "QB002",
+      "questionBankName": "设备安全操作",
+      "questionType": "single",
+      "questionContent": "使用加油机前，首先应该检查什么？",
+      "options": [
+        "油枪是否完好",
+        "计量器是否归零",
+        "接地线是否连接",
+        "以上都要检查"
+      ],
+      "correctAnswer": "D",
+      "score": 5,
+      "difficulty": "medium",
+      "explanation": "使用加油机前必须进行全面检查，确保设备安全可靠。",
+      "creator": "张安全",
+      "createTime": "2024-12-01 11:00:00"
+    },
+    {
+      "id": "QST005",
+      "questionBankId": "QB003",
+      "questionBankName": "应急处理流程",
+      "questionType": "single",
+      "questionContent": "发现油品泄漏时，第一步应该做什么？",
+      "options": [
+        "立即清理泄漏物",
+        "切断电源和火源",
+        "疏散现场人员",
+        "报告上级领导"
+      ],
+      "correctAnswer": "B",
+      "score": 6,
+      "difficulty": "hard",
+      "explanation": "发现泄漏时，首先要切断电源和火源，防止引发火灾爆炸事故。",
+      "creator": "张安全",
+      "createTime": "2024-12-01 11:30:00"
+    },
+    {
+      "id": "QST006",
+      "questionBankId": "QB004",
+      "questionBankName": "火灾预防基础",
+      "questionType": "single",
+      "questionContent": "加油站最常见的火灾类型是？",
+      "options": [
+        "A类火灾",
+        "B类火灾",
+        "C类火灾",
+        "D类火灾"
+      ],
+      "correctAnswer": "B",
+      "score": 4,
+      "difficulty": "easy",
+      "explanation": "加油站主要是油品火灾，属于B类（液体）火灾。",
+      "creator": "李消防",
+      "createTime": "2024-12-05 15:00:00"
+    },
+    {
+      "id": "QST007",
+      "questionBankId": "QB004",
+      "questionBankName": "火灾预防基础",
+      "questionType": "multiple",
+      "questionContent": "火灾发生的必要条件包括？",
+      "options": [
+        "可燃物",
+        "助燃物",
+        "着火源",
+        "化学反应"
+      ],
+      "correctAnswer": "ABC",
+      "score": 7,
+      "difficulty": "medium",
+      "explanation": "火灾发生需要可燃物、助燃物（氧气）和着火源三个条件。",
+      "creator": "李消防",
+      "createTime": "2024-12-05 15:15:00"
+    },
+    {
+      "id": "QST008",
+      "questionBankId": "QB005",
+      "questionBankName": "消防设施使用",
+      "questionType": "single",
+      "questionContent": "干粉灭火器的使用步骤正确的是？",
+      "options": [
+        "拔销子-压把手-对准火焰根部-左右扫射",
+        "压把手-拔销子-对准火焰根部-左右扫射", 
+        "拔销子-对准火焰-压把手-上下移动",
+        "对准火焰-拔销子-压把手-左右扫射"
+      ],
+      "correctAnswer": "A",
+      "score": 6,
+      "difficulty": "medium",
+      "explanation": "使用灭火器的正确步骤是：拔保险销、压把手、对准火焰根部、左右扫射。",
+      "creator": "李消防",
+      "createTime": "2024-12-05 15:30:00"
+    },
+    {
+      "id": "QST009",
+      "questionBankId": "QB006",
+      "questionBankName": "污染防治法规",
+      "questionType": "judge",
+      "questionContent": "加油站废油可以直接倒入下水道。",
+      "options": ["正确", "错误"],
+      "correctAnswer": "B",
+      "score": 4,
+      "difficulty": "easy",
+      "explanation": "废油属于危险废物，必须按规定处置，严禁倒入下水道造成环境污染。",
+      "creator": "王环保",
+      "createTime": "2024-12-10 11:00:00"
+    },
+    {
+      "id": "QST010",
+      "questionBankId": "QB008",
+      "questionBankName": "职业病防护",
+      "questionType": "single",
+      "questionContent": "接触油品作业时，应佩戴什么防护用品？",
+      "options": [
+        "防毒面具",
+        "防护手套",
+        "防护服",
+        "以上都是"
+      ],
+      "correctAnswer": "D",
+      "score": 5,
+      "difficulty": "medium",
+      "explanation": "接触油品时需要全身防护，包括防毒面具、防护手套和防护服等。",
+      "creator": "赵健康",
+      "createTime": "2024-12-15 17:00:00"
+    }
+  ],
+  "papers": [
+    {
+      "id": "PPR001",
+      "paperTitle": "加油站安全知识综合测试卷",
+      "paperType": "fixed",
+      "paperDescription": "涵盖加油站安全管理各个方面的综合性测试，包括安全制度、设备操作、应急处理等内容。",
+      "questionCount": 20,
+      "totalScore": 100,
+      "passingScore": 80,
+      "status": "已发布",
+      "creator": "张安全",
+      "createTime": "2024-12-20 09:00:00",
+      "questions": [
+        {
+          "questionId": "QST001",
+          "score": 5,
+          "order": 1
+        },
+        {
+          "questionId": "QST002", 
+          "score": 8,
+          "order": 2
+        },
+        {
+          "questionId": "QST003",
+          "score": 3,
+          "order": 3
+        }
+      ]
+    },
+    {
+      "id": "PPR002",
+      "paperTitle": "消防安全专项考试",
+      "paperType": "random",
+      "paperDescription": "专门针对消防安全知识的考试，随机从消防题库中抽取题目。",
+      "questionCount": 15,
+      "totalScore": 75,
+      "passingScore": 60,
+      "status": "草稿",
+      "creator": "李消防",
+      "createTime": "2024-12-22 14:30:00",
+      "randomRules": {
+        "single": 10,
+        "multiple": 3,
+        "judge": 2
+      }
+    },
+    {
+      "id": "PPR003",
+      "paperTitle": "环保法规知识测试",
+      "paperType": "fixed",
+      "paperDescription": "环保法规相关知识考试，检验员工对环保法规的理解和掌握程度。",
+      "questionCount": 12,
+      "totalScore": 60,
+      "passingScore": 48,
+      "status": "已发布",
+      "creator": "王环保",
+      "createTime": "2024-12-25 10:15:00"
+    }
+  ],
+  "exams": [
+    {
+      "id": "EXM001",
+      "examTitle": "2025年第一季度安全知识考试",
+      "paperId": "PPR001",
+      "paperTitle": "加油站安全知识综合测试卷",
+      "startTime": "2025-01-15 09:00:00",
+      "endTime": "2025-01-15 11:00:00", 
+      "duration": 90,
+      "passScore": 80,
+      "examDescription": "本次考试旨在检验全体员工对安全知识的掌握情况，确保安全生产。",
+      "participantCount": 45,
+      "completedCount": 38,
+      "passedCount": 35,
+      "status": "已结束",
+      "creator": "张安全",
+      "createTime": "2024-12-20 10:00:00",
+      "participants": [
+        {
+          "userId": "U001",
+          "userName": "李明",
+          "orgName": "赣中分公司南昌服务区A站",
+          "status": "已完成",
+          "score": 85,
+          "submitTime": "2025-01-15 10:30:00"
+        },
+        {
+          "userId": "U002", 
+          "userName": "张华",
+          "orgName": "赣中分公司南昌服务区A站",
+          "status": "已完成",
+          "score": 92,
+          "submitTime": "2025-01-15 10:45:00"
+        },
+        {
+          "userId": "U003",
+          "userName": "王强",
+          "orgName": "赣东北分公司上饶服务区B站",
+          "status": "未参与",
+          "score": null,
+          "submitTime": null
+        }
+      ]
+    },
+    {
+      "id": "EXM002",
+      "examTitle": "消防安全专项培训考试",
+      "paperId": "PPR002",
+      "paperTitle": "消防安全专项考试",
+      "startTime": "2025-02-01 14:00:00",
+      "endTime": "2025-02-01 16:00:00",
+      "duration": 60,
+      "passScore": 60,
+      "examDescription": "针对消防安全知识的专项考试，重点考查消防设施使用和应急处理能力。",
+      "participantCount": 32,
+      "completedCount": 15,
+      "passedCount": 14,
+      "status": "进行中",
+      "creator": "李消防",
+      "createTime": "2024-12-22 15:00:00"
+    },
+    {
+      "id": "EXM003",
+      "examTitle": "环保法规培训考试",
+      "paperId": "PPR003", 
+      "paperTitle": "环保法规知识测试",
+      "startTime": "2025-02-15 09:00:00",
+      "endTime": "2025-02-15 11:00:00",
+      "duration": 45,
+      "passScore": 48,
+      "examDescription": "环保法规知识考试，提高员工环保意识和合规操作能力。",
+      "participantCount": 0,
+      "completedCount": 0,
+      "passedCount": 0,
+      "status": "未开始",
+      "creator": "王环保",
+      "createTime": "2024-12-25 11:00:00"
+    }
+  ],
+  "changeRecords": [
+    {
+      "id": "CR001",
+      "changeTime": "2024-12-26 09:15:23",
+      "operator": "张安全",
+      "changeType": "create",
+      "module": "课程中心",
+      "objectName": "加油站安全管理基础",
+      "changeContent": "创建新课程：加油站安全管理基础，课程编码：SAFETY_BASIC_001"
+    },
+    {
+      "id": "CR002",
+      "changeTime": "2024-12-26 10:30:45",
+      "operator": "张安全",
+      "changeType": "create",
+      "module": "题库中心",
+      "objectName": "安全制度与规程题库",
+      "changeContent": "在课程'加油站安全管理基础'下创建题库：安全制度与规程"
+    },
+    {
+      "id": "CR003",
+      "changeTime": "2024-12-26 11:00:12",
+      "operator": "张安全",
+      "changeType": "create",
+      "module": "题目管理",
+      "objectName": "加油站员工上岗前必须经过哪些培训？",
+      "changeContent": "在题库'安全制度与规程'中添加单选题，分值5分"
+    },
+    {
+      "id": "CR004",
+      "changeTime": "2024-12-26 14:20:33",
+      "operator": "李消防",
+      "changeType": "create",
+      "module": "课程中心",
+      "objectName": "消防安全知识",
+      "changeContent": "创建新课程：消防安全知识，课程编码：FIRE_SAFETY_002"
+    },
+    {
+      "id": "CR005",
+      "changeTime": "2024-12-26 15:45:18",
+      "operator": "张安全",
+      "changeType": "create",
+      "module": "试卷中心",
+      "objectName": "加油站安全知识综合测试卷",
+      "changeContent": "创建固定组卷试卷，包含20道题目，总分100分"
+    },
+    {
+      "id": "CR006",
+      "changeTime": "2024-12-26 16:10:55",
+      "operator": "张安全",
+      "changeType": "update",
+      "module": "试卷中心",
+      "objectName": "加油站安全知识综合测试卷",
+      "changeContent": "试卷状态从'草稿'更新为'已发布'"
+    },
+    {
+      "id": "CR007",
+      "changeTime": "2024-12-26 16:30:22",
+      "operator": "张安全",
+      "changeType": "create",
+      "module": "考试中心",
+      "objectName": "2025年第一季度安全知识考试",
+      "changeContent": "发布考试：2025年第一季度安全知识考试，考试时间：2025-01-15 09:00-11:00"
+    },
+    {
+      "id": "CR008",
+      "changeTime": "2024-12-26 17:15:44",
+      "operator": "王环保",
+      "changeType": "create",
+      "module": "课程中心",
+      "objectName": "环保法规培训",
+      "changeContent": "创建新课程：环保法规培训，课程编码：ENV_LAW_003"
+    },
+    {
+      "id": "CR009",
+      "changeTime": "2024-12-27 09:20:11",
+      "operator": "李消防",
+      "changeType": "update",
+      "module": "题目管理",
+      "objectName": "干粉灭火器的使用步骤正确的是？",
+      "changeContent": "修改题目选项内容，更新正确答案解析"
+    },
+    {
+      "id": "CR010",
+      "changeTime": "2024-12-27 10:45:33",
+      "operator": "赵健康",
+      "changeType": "create",
+      "module": "课程中心",
+      "objectName": "职业健康安全",
+      "changeContent": "创建新课程：职业健康安全，课程编码：HEALTH_SAFETY_004"
+    },
+    {
+      "id": "CR011",
+      "changeTime": "2024-12-27 14:20:17",
+      "operator": "李消防",
+      "changeType": "create",
+      "module": "试卷中心",
+      "objectName": "消防安全专项考试",
+      "changeContent": "创建随机组卷试卷，设置抽题规则：单选10题，多选3题，判断2题"
+    },
+    {
+      "id": "CR012",
+      "changeTime": "2024-12-27 15:30:48",
+      "operator": "张安全",
+      "changeType": "delete",
+      "module": "题目管理",
+      "objectName": "测试题目",
+      "changeContent": "删除重复的测试题目"
+    }
+  ]
+}
