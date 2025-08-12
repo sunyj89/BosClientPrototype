@@ -12,6 +12,7 @@ import {
   Descriptions 
 } from 'antd';
 import { SearchOutlined, ReloadOutlined, EyeOutlined } from '@ant-design/icons';
+import mockData from '../../../../mock/oil/master-data.json';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -22,84 +23,6 @@ const ModifyRecord = ({ setLoading }) => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
 
-  // 模拟数据 - 更新为新的命名规范
-  const mockData = [
-    {
-      id: 1,
-      oilCode: '100001',
-      oilName: '92号汽油国V',
-      operationType: '编辑',
-      operatorName: '张三',
-      operateTime: '2024-01-20 14:30:25',
-      approvalStatus: '审批中',
-      changeFields: [
-        { field: '默认密度', oldValue: '0.720', newValue: '0.725' },
-        { field: '排放等级', oldValue: '国IV', newValue: '国V' }
-      ],
-      reason: '更新排放标准和密度参数'
-    },
-    {
-      id: 2,
-      oilCode: '100002',
-      oilName: '92号汽油国VIA',
-      operationType: '新建',
-      operatorName: '李四',
-      operateTime: '2024-01-19 10:15:00',
-      approvalStatus: '已审批',
-      changeFields: [],
-      reason: '新增92号汽油国VIA品种'
-    },
-    {
-      id: 3,
-      oilCode: '100003',
-      oilName: '95号汽油国V',
-      operationType: '编辑',
-      operatorName: '王五',
-      operateTime: '2024-01-18 16:45:30',
-      approvalStatus: '已审批',
-      changeFields: [
-        { field: '油品简称', oldValue: '95号', newValue: '95#' }
-      ],
-      reason: '统一简称命名规范'
-    },
-    {
-      id: 4,
-      oilCode: '100006',
-      oilName: '0号柴油国V',
-      operationType: '编辑',
-      operatorName: '赵六',
-      operateTime: '2024-01-17 09:20:15',
-      approvalStatus: '已审批',
-      changeFields: [
-        { field: '分类', oldValue: '柴油', newValue: '0号' },
-        { field: '排放等级', oldValue: '国IV', newValue: '国V' }
-      ],
-      reason: '更新分类归属和排放标准'
-    },
-    {
-      id: 5,
-      oilCode: '100005',
-      oilName: '98号汽油国V',
-      operationType: '新建',
-      operatorName: '孙七',
-      operateTime: '2024-01-16 11:30:45',
-      approvalStatus: '已拒绝',
-      changeFields: [],
-      reason: '新增98号汽油品种'
-    },
-    {
-      id: 6,
-      oilCode: '100007',
-      oilName: '0号柴油国VIA',
-      operationType: '新建',
-      operatorName: '周八',
-      operateTime: '2024-01-15 14:20:30',
-      approvalStatus: '审批中',
-      changeFields: [],
-      reason: '新增0号柴油国VIA品种'
-    }
-  ];
-
   useEffect(() => {
     loadData();
   }, []);
@@ -107,7 +30,7 @@ const ModifyRecord = ({ setLoading }) => {
   const loadData = () => {
     setLoading(true);
     setTimeout(() => {
-      setDataSource(mockData);
+      setDataSource(mockData.modifyRecordList);
       setLoading(false);
     }, 500);
   };
@@ -115,7 +38,7 @@ const ModifyRecord = ({ setLoading }) => {
   const handleSearch = (values) => {
     setLoading(true);
     setTimeout(() => {
-      let filteredData = [...mockData];
+      let filteredData = [...mockData.modifyRecordList];
       
       if (values.oilName) {
         filteredData = filteredData.filter(item => 

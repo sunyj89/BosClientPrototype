@@ -51,7 +51,6 @@
     ]
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
-    "@stagewise/toolbar-react": "^0.6.1"
+    "@playwright/test": "^1.40.0"
   }
 }

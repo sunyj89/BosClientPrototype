@@ -183,6 +183,11 @@ const AppSider = ({ collapsed }) => {
           icon: <StockOutlined />,
           label: <MenuItemLabel text="油品密度" link="/oil/density" />,
         },
+        {
+          key: 'oil_price',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="油价维护" link="/oil/price" />,
+        },
       ],
     },
     {
@@ -282,14 +287,14 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="优惠券配置" link="/marketing/coupon-config" />,
         },
         {
-          key: 'marketing_activity_config',
-          icon: <TrophyOutlined />,
-          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
-        },
-        {
           key: 'marketing_price_discount_config',
           icon: <PercentageOutlined />,
           label: <MenuItemLabel text="价格优惠配置" link="/marketing/price-discount-config" />,
+        },
+        {
+          key: 'marketing_activity_config',
+          icon: <TrophyOutlined />,
+          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
         },
         {
           key: 'marketing_member_identity',

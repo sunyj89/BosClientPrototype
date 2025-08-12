@@ -1,0 +1,280 @@
+{
+  "discountConfigList": [
+    {
+      "id": "PDC2024001001",
+      "name": "春节促销活动",
+      "stationIds": ["ST001", "ST002", "ST003"],
+      "stationNames": ["南昌东站", "南昌西站", "进贤东站"],
+      "discountTarget": "VIP会员客户",
+      "discountType": "普通优惠",
+      "oilCodes": ["100001", "100002"],
+      "oilNames": ["92号汽油国V", "95号汽油国V"],
+      "repeatType": "每天重复",
+      "timeRange": {
+        "startDate": "2024-01-20",
+        "endDate": "2024-02-15",
+        "startTime": "06:00",
+        "endTime": "22:00"
+      },
+      "approvalStatus": "审批通过",
+      "status": "生效中",
+      "maintainer": "张三",
+      "maintainTime": "2024-01-15 14:30:00",
+      "eligibility": "所有会员",
+      "calculateMethod": "按升数",
+      "discountForm": "每升直降",
+      "dailyLimit": 3,
+      "totalLimit": 50,
+      "rules": [
+        {
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "rangeType": "升数",
+          "minAmount": 0,
+          "maxAmount": 50,
+          "discountValue": 0.2,
+          "unit": "元/升"
+        },
+        {
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "rangeType": "升数",
+          "minAmount": 51,
+          "maxAmount": 100,
+          "discountValue": 0.3,
+          "unit": "元/升"
+        }
+      ]
+    },
+    {
+      "id": "PDC2024001002",
+      "name": "会员专享折扣",
+      "stationIds": ["ST004", "ST005"],
+      "stationNames": ["进贤西站", "上饶东站"],
+      "discountTarget": "黄金会员客户",
+      "discountType": "渠道优惠",
+      "oilCodes": ["100002", "100006"],
+      "oilNames": ["95号汽油国V", "0号柴油国V"],
+      "repeatType": "每周重复",
+      "timeRange": {
+        "startDate": "2024-02-01",
+        "endDate": "2024-03-31",
+        "weekDays": [1, 2, 3, 4, 5],
+        "startTime": "08:00",
+        "endTime": "18:00"
+      },
+      "approvalStatus": "审批中",
+      "status": "计划生效",
+      "maintainer": "李四",
+      "maintainTime": "2024-01-28 10:15:00",
+      "eligibility": "所有会员",
+      "calculateMethod": "按原价",
+      "discountForm": "折扣优惠",
+      "dailyLimit": 2,
+      "totalLimit": null,
+      "rules": [
+        {
+          "oilCode": "100002",
+          "oilName": "95号汽油国V",
+          "rangeType": "金额",
+          "minAmount": 0,
+          "maxAmount": 500,
+          "discountValue": 0.95,
+          "unit": "折扣"
+        }
+      ]
+    },
+    {
+      "id": "PDC2024001003",
+      "name": "新用户注册优惠",
+      "stationIds": ["ST001"],
+      "stationNames": ["南昌东站"],
+      "discountTarget": "新注册会员",
+      "discountType": "普通优惠",
+      "oilCodes": ["100001"],
+      "oilNames": ["92号汽油国V"],
+      "repeatType": "每月重复",
+      "timeRange": {
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "monthDays": [1, 15],
+        "startTime": "00:00",
+        "endTime": "23:59"
+      },
+      "approvalStatus": "被驳回",
+      "status": "已结束",
+      "maintainer": "王五",
+      "maintainTime": "2024-01-10 16:20:00",
+      "eligibility": "新注册会员",
+      "calculateMethod": "按升数",
+      "discountForm": "每升直降",
+      "dailyLimit": 1,
+      "totalLimit": 10,
+      "rules": [
+        {
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "rangeType": "升数",
+          "minAmount": 0,
+          "maxAmount": 30,
+          "discountValue": 0.5,
+          "unit": "元/升"
+        }
+      ],
+      "rejectReason": "优惠力度过大，需要重新评估"
+    },
+    {
+      "id": "PDC2024001004",
+      "name": "端午节特惠",
+      "stationIds": ["ST006", "ST007", "ST008"],
+      "stationNames": ["上饶西站", "铅山东站", "铅山西站"],
+      "discountTarget": "钻石会员客户",
+      "discountType": "普通优惠",
+      "oilCodes": ["100001", "100002", "100006"],
+      "oilNames": ["92号汽油国V", "95号汽油国V", "0号柴油国V"],
+      "repeatType": "不重复",
+      "timeRange": {
+        "startDate": "2024-06-08",
+        "endDate": "2024-06-12",
+        "startTime": "06:00",
+        "endTime": "22:00"
+      },
+      "approvalStatus": "待提交",
+      "status": "计划生效",
+      "maintainer": "赵六",
+      "maintainTime": "2024-05-20 09:45:00",
+      "eligibility": "所有会员",
+      "calculateMethod": "按原价",
+      "discountForm": "折扣优惠",
+      "dailyLimit": 5,
+      "totalLimit": 20,
+      "rules": [
+        {
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "rangeType": "金额",
+          "minAmount": 0,
+          "maxAmount": 300,
+          "discountValue": 0.98,
+          "unit": "折扣"
+        },
+        {
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "rangeType": "金额",
+          "minAmount": 301,
+          "maxAmount": 1000,
+          "discountValue": 0.95,
+          "unit": "折扣"
+        }
+      ]
+    }
+  ],
+  "discountRules": [
+    {
+      "id": "DR001",
+      "configId": "PDC2024001001",
+      "configName": "春节促销活动",
+      "ruleName": "92号汽油分级优惠",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "conditions": [
+        {
+          "rangeType": "升数",
+          "minAmount": 0,
+          "maxAmount": 50,
+          "discountValue": 0.2,
+          "unit": "元/升"
+        },
+        {
+          "rangeType": "升数",
+          "minAmount": 51,
+          "maxAmount": 100,
+          "discountValue": 0.3,
+          "unit": "元/升"
+        }
+      ],
+      "status": "生效中",
+      "createTime": "2024-01-15 14:30:00",
+      "creator": "张三"
+    },
+    {
+      "id": "DR002",
+      "configId": "PDC2024001002",
+      "configName": "会员专享折扣",
+      "ruleName": "95号汽油折扣优惠",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "conditions": [
+        {
+          "rangeType": "金额",
+          "minAmount": 0,
+          "maxAmount": 500,
+          "discountValue": 0.95,
+          "unit": "折扣"
+        }
+      ],
+      "status": "审批中",
+      "createTime": "2024-01-28 10:15:00",
+      "creator": "李四"
+    }
+  ],
+  "modifyRecords": [
+    {
+      "id": "MR001",
+      "configId": "PDC2024001001",
+      "configName": "春节促销活动",
+      "operationType": "创建配置",
+      "oldData": null,
+      "newData": {
+        "name": "春节促销活动",
+        "discountTarget": "VIP会员客户",
+        "timeRange": "2024-01-20 至 2024-02-15"
+      },
+      "changeReason": "新建春节促销活动",
+      "operator": "张三",
+      "operateTime": "2024-01-15 14:30:00",
+      "approver": "经理",
+      "approveTime": "2024-01-16 10:00:00",
+      "status": "已审批"
+    },
+    {
+      "id": "MR002",
+      "configId": "PDC2024001002",
+      "configName": "会员专享折扣",
+      "operationType": "修改配置",
+      "oldData": {
+        "discountTarget": "普通会员客户",
+        "dailyLimit": 1
+      },
+      "newData": {
+        "discountTarget": "黄金会员客户",
+        "dailyLimit": 2
+      },
+      "changeReason": "调整目标客户群体和限制次数",
+      "operator": "李四",
+      "operateTime": "2024-01-28 10:15:00",
+      "approver": null,
+      "approveTime": null,
+      "status": "审批中"
+    },
+    {
+      "id": "MR003",
+      "configId": "PDC2024001003",
+      "configName": "新用户注册优惠",
+      "operationType": "删除配置",
+      "oldData": {
+        "name": "新用户注册优惠",
+        "discountTarget": "新注册会员"
+      },
+      "newData": null,
+      "changeReason": "活动效果不佳，申请删除",
+      "operator": "王五",
+      "operateTime": "2024-01-10 16:20:00",
+      "approver": "经理",
+      "approveTime": "2024-01-11 09:30:00",
+      "status": "被驳回",
+      "rejectReason": "优惠力度过大，需要重新评估而非删除"
+    }
+  ]
+}

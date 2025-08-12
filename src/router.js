@@ -57,6 +57,9 @@ import PointsRoutes from './pages/points';
 // 营销中心
 import CouponConfig from './pages/marketing/coupon-config';
 import ActivityConfig from './pages/marketing/activity-config';
+import PriceDiscountConfig from './pages/marketing/price-discount-config';
+import CreateDiscountConfig from './pages/marketing/price-discount-config/create';
+import EditDiscountConfig from './pages/marketing/price-discount-config/edit';
 import MemberReferral from './pages/marketing/member-referral';
 import ItemMarketing from './pages/marketing/item-marketing';
 import OrderMarketing from './pages/marketing/order-marketing';
@@ -134,6 +137,7 @@ import GunManagement from './pages/station/gun/index';
 
 import OilDensity from './pages/oil/density/index';
 import OilMasterData from './pages/oil/master-data/index';
+import OilPrice from './pages/oil/price/index';
 
 // 数据冲正管理
 import CorrectionManagement from './pages/sales/oil/correction/index';
@@ -293,6 +297,7 @@ const AppRouter = () => {
       <Route path="/oil">
         <Route path="master-data" element={<OilMasterData />} />
         <Route path="density" element={<OilDensity />} />
+        <Route path="price" element={<OilPrice />} />
       </Route>
       
       {/* 报表管理路由 */}
@@ -342,7 +347,9 @@ const AppRouter = () => {
       <Route path="/marketing">
         <Route path="coupon-config" element={<CouponConfig />} />
         <Route path="activity-config" element={<ActivityConfig />} />
-        <Route path="price-discount-config" element={<NotFound />} />
+        <Route path="price-discount-config" element={<PriceDiscountConfig />} />
+        <Route path="price-discount-config/create" element={<CreateDiscountConfig />} />
+        <Route path="price-discount-config/edit/:id" element={<EditDiscountConfig />} />
         <Route path="member-identity" element={<MemberIdentity />} />
         <Route path="member-level" element={<MemberLevel />} />
         <Route path="member-referral" element={<MemberReferral />} />
