@@ -137,7 +137,8 @@ alwaysApply: false
   --primary-color: #32AF50;        /* 主色调 - 绿色 */
   --primary-color-light: #4FC16A;  /* 主色调浅色 */
   --primary-color-dark: #278C3F;   /* 主色调深色 */
-  --error-color: #f5222d;          /* 错误色 */
+  --error-color: #f5222d;          /* 错误色 - 深红色 */
+  --error-color-light: #ff7875;    /* 错误色浅色 - 浅红色 */
   --border-radius: 2px;            /* 统一圆角 */
 }
 ```
@@ -146,6 +147,9 @@ alwaysApply: false
 1. **主要操作按钮**: `type="primary"` - 查询、新建、保存、确认等
 2. **次要操作按钮**: 默认类型 - 重置、取消、关闭等
 3. **危险操作按钮**: `type="primary" + danger` - 删除、清空等
+   - 默认状态：深红色 (#f5222d)，突出危险性
+   - 悬停状态：浅红色 (#ff7875)，提供视觉反馈
+   - 用途：给用户明确的警示信息，避免误操作
 
 ### 表格操作按钮规范
 ```jsx
@@ -177,6 +181,25 @@ alwaysApply: false
 .container-class .ant-btn-primary:hover {
   background-color: var(--primary-color-light);
   border-color: var(--primary-color-light);
+}
+
+/* 危险操作按钮样式 */
+.container-class .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.container-class .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.container-class .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
 }
 ```
 

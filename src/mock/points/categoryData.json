@@ -12,6 +12,7 @@
     "displayOrder": 1,
     "status": "active",
     "productCount": 25,
+    "categoryIcon": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "createTime": "2024-01-15 10:30:00",
     "updateTime": "2024-01-20 14:15:00"
   },
@@ -28,6 +29,7 @@
     "displayOrder": 2,
     "status": "active",
     "productCount": 18,
+    "categoryIcon": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "createTime": "2024-01-10 09:20:00",
     "updateTime": "2024-01-25 16:40:00"
   },
@@ -44,6 +46,7 @@
     "displayOrder": 3,
     "status": "active",
     "productCount": 42,
+    "categoryIcon": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "createTime": "2024-01-08 11:45:00",
     "updateTime": "2024-01-22 13:20:00"
   },
@@ -60,6 +63,7 @@
     "displayOrder": 4,
     "status": "active",
     "productCount": 156,
+    "categoryIcon": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "createTime": "2024-01-05 08:30:00",
     "updateTime": "2024-01-28 10:50:00"
   },
@@ -76,6 +80,7 @@
     "displayOrder": 5,
     "status": "active",
     "productCount": 8,
+    "categoryIcon": "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     "createTime": "2024-01-12 15:20:00",
     "updateTime": "2024-01-26 17:30:00"
   },
@@ -95,4 +100,4 @@
     "createTime": "2024-01-20 12:15:00",
     "updateTime": "2024-01-20 12:15:00"
   }
-] 
+]

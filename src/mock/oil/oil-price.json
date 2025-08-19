@@ -1,0 +1,533 @@
+{
+  "oilPriceList": [
+    {
+      "id": "OP001",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 7.85,
+      "ndrcPrice": 7.80,
+      "priceStatus": "生效",
+      "approvalStatus": "审批通过",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "maintainTime": "2024-01-30 14:30:00",
+      "maintainer": "张三",
+      "priceConfig": "统一定价"
+    },
+    {
+      "id": "OP002",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 8.35,
+      "ndrcPrice": 8.30,
+      "priceStatus": "生效",
+      "approvalStatus": "审批通过",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "maintainTime": "2024-01-30 14:30:00",
+      "maintainer": "张三",
+      "priceConfig": "统一定价"
+    },
+    {
+      "id": "OP003",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100006",
+      "oilName": "0号柴油国V",
+      "oilType": "柴油",
+      "listPrice": 7.45,
+      "ndrcPrice": 7.40,
+      "priceStatus": "生效",
+      "approvalStatus": "审批通过",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "maintainTime": "2024-01-30 14:30:00",
+      "maintainer": "张三",
+      "priceConfig": "统一定价"
+    },
+    {
+      "id": "OP004",
+      "stationId": "ST002",
+      "stationName": "南昌西站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 7.90,
+      "ndrcPrice": 7.80,
+      "priceStatus": "失效",
+      "approvalStatus": "待提交",
+      "effectiveTime": "2024-02-10 06:00:00",
+      "maintainTime": "2024-02-08 10:15:00",
+      "maintainer": "李四",
+      "priceConfig": "差异化定价"
+    },
+    {
+      "id": "OP005",
+      "stationId": "ST003",
+      "stationName": "进贤东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 7.88,
+      "ndrcPrice": 7.80,
+      "priceStatus": "失效",
+      "approvalStatus": "审批中",
+      "effectiveTime": "2024-02-05 06:00:00",
+      "maintainTime": "2024-02-03 16:20:00",
+      "maintainer": "王五",
+      "priceConfig": "差异化定价"
+    },
+    {
+      "id": "OP006",
+      "stationId": "ST004",
+      "stationName": "进贤西站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 8.40,
+      "ndrcPrice": 8.30,
+      "priceStatus": "失效",
+      "approvalStatus": "被驳回",
+      "effectiveTime": "2024-02-08 06:00:00",
+      "maintainTime": "2024-02-06 09:45:00",
+      "maintainer": "赵六",
+      "priceConfig": "差异化定价"
+    },
+    {
+      "id": "OP007",
+      "stationId": "ST005",
+      "stationName": "上饶东站",
+      "branchId": "BR002",
+      "branchName": "赣东北分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "listPrice": 7.83,
+      "ndrcPrice": 7.80,
+      "priceStatus": "生效",
+      "approvalStatus": "审批通过",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "maintainTime": "2024-01-30 14:30:00",
+      "maintainer": "孙七",
+      "priceConfig": "统一定价"
+    },
+    {
+      "id": "OP008",
+      "stationId": "ST005",
+      "stationName": "上饶东站",
+      "branchId": "BR002",
+      "branchName": "赣东北分公司",
+      "oilCode": "100009",
+      "oilName": "桶装车用尿素",
+      "oilType": "尿素",
+      "listPrice": 12.50,
+      "ndrcPrice": 12.00,
+      "priceStatus": "生效",
+      "approvalStatus": "审批通过",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "maintainTime": "2024-01-30 14:30:00",
+      "maintainer": "孙七",
+      "priceConfig": "统一定价"
+    }
+  ],
+  "priceHistory": [
+    {
+      "id": "PH001",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oldPrice": 7.80,
+      "newPrice": 7.85,
+      "changeType": "上调",
+      "changeAmount": 0.05,
+      "changeReason": "发改委调价",
+      "changeTime": "2024-02-01 06:00:00",
+      "operator": "张三",
+      "approver": "经理"
+    },
+    {
+      "id": "PH002",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "oldPrice": 8.25,
+      "newPrice": 8.35,
+      "changeType": "上调",
+      "changeAmount": 0.10,
+      "changeReason": "发改委调价",
+      "changeTime": "2024-02-01 06:00:00",
+      "operator": "张三",
+      "approver": "经理"
+    },
+    {
+      "id": "PH003",
+      "stationId": "ST002",
+      "stationName": "南昌西站",
+      "branchId": "BR001",
+      "branchName": "赣中分公司",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oldPrice": 7.75,
+      "newPrice": 7.85,
+      "changeType": "上调",
+      "changeAmount": 0.10,
+      "changeReason": "市场竞争调整",
+      "changeTime": "2024-01-25 06:00:00",
+      "operator": "李四",
+      "approver": "经理"
+    }
+  ],
+  "ndrcPriceList": [
+    {
+      "id": "NP001",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "province": "江西",
+      "currentPrice": 7.80,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    },
+    {
+      "id": "NP002",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "oilType": "汽油",
+      "province": "江西",
+      "currentPrice": 8.30,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    },
+    {
+      "id": "NP003",
+      "oilCode": "100006",
+      "oilName": "0号柴油国V",
+      "oilType": "柴油",
+      "province": "江西",
+      "currentPrice": 7.40,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    },
+    {
+      "id": "NP004",
+      "oilCode": "100003",
+      "oilName": "98号汽油国V",
+      "oilType": "汽油",
+      "province": "江西",
+      "currentPrice": 8.80,
+      "adjustmentNotice": "发改价格〔2024〕124号",
+      "effectiveTime": "2024-02-10 00:00:00",
+      "publishTime": "2024-02-08 15:00:00",
+      "status": "待生效",
+      "remark": "优化高标号汽油价格结构"
+    },
+    {
+      "id": "NP005",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "oilType": "汽油",
+      "province": "湖北",
+      "currentPrice": 7.82,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    },
+    {
+      "id": "NP006",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "oilType": "汽油",
+      "province": "湖南",
+      "currentPrice": 8.28,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    },
+    {
+      "id": "NP007",
+      "oilCode": "100006",
+      "oilName": "0号柴油国V",
+      "oilType": "柴油",
+      "province": "安徽",
+      "currentPrice": 7.38,
+      "adjustmentNotice": "发改价格〔2024〕123号",
+      "effectiveTime": "2024-02-01 00:00:00",
+      "publishTime": "2024-01-30 15:00:00",
+      "status": "生效",
+      "remark": "根据国际油价变化调整"
+    }
+  ],
+  "modifyRecords": [
+    {
+      "id": "MR001",
+      "stationId": "ST001",
+      "stationName": "南昌东站",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "operationType": "价格调整",
+      "oldData": {
+        "listPrice": 7.80,
+        "ndrcPrice": 7.75
+      },
+      "newData": {
+        "listPrice": 7.85,
+        "ndrcPrice": 7.80
+      },
+      "changeReason": "发改委调价通知",
+      "operator": "张三",
+      "operateTime": "2024-01-30 14:30:00",
+      "approver": "经理",
+      "approveTime": "2024-01-30 16:00:00",
+      "status": "已审批"
+    },
+    {
+      "id": "MR002",
+      "stationId": "ST002",
+      "stationName": "南昌西站",
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "operationType": "新增价格",
+      "oldData": null,
+      "newData": {
+        "listPrice": 7.90,
+        "ndrcPrice": 7.80
+      },
+      "changeReason": "差异化定价策略",
+      "operator": "李四",
+      "operateTime": "2024-02-08 10:15:00",
+      "approver": null,
+      "approveTime": null,
+      "status": "待提交"
+    },
+    {
+      "id": "MR003",
+      "stationId": "ST004",
+      "stationName": "进贤西站",
+      "oilCode": "100002",
+      "oilName": "95号汽油国V",
+      "operationType": "价格调整",
+      "oldData": {
+        "listPrice": 8.30,
+        "ndrcPrice": 8.25
+      },
+      "newData": {
+        "listPrice": 8.40,
+        "ndrcPrice": 8.30
+      },
+      "changeReason": "竞争对手调价跟进",
+      "operator": "赵六",
+      "operateTime": "2024-02-06 09:45:00",
+      "approver": "经理",
+      "approveTime": "2024-02-06 15:30:00",
+      "status": "被驳回",
+      "rejectReason": "调价幅度过大，需重新评估"
+    }
+  ],
+  "priceAdjustmentOrders": [
+    {
+      "id": "ADJ001",
+      "adjustmentId": "PA2024020101",
+      "adjustmentName": "2024年2月汽油发改委调价",
+      "adjustmentReason": "发改委调价通知，汽油统一调价",
+      "adjustmentType": "批量调价",
+      "effectiveTime": "2024-02-01 06:00:00",
+      "status": "审批通过",
+      "createTime": "2024-01-30 14:30:00",
+      "operator": "张三",
+      "approver": "油价管理部经理",
+      "approveTime": "2024-01-30 18:00:00",
+      "priceAdjustments": [
+        {
+          "key": "ST001-100001",
+          "stationId": "ST001",
+          "stationName": "南昌东站",
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "currentPrice": 7.80,
+          "newPrice": 7.85
+        },
+        {
+          "key": "ST001-100002",
+          "stationId": "ST001",
+          "stationName": "南昌东站",
+          "oilCode": "100002",
+          "oilName": "95号汽油国V",
+          "currentPrice": 8.30,
+          "newPrice": 8.35
+        },
+        {
+          "key": "ST002-100001",
+          "stationId": "ST002",
+          "stationName": "南昌西站",
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "currentPrice": 7.80,
+          "newPrice": 7.85
+        }
+      ]
+    },
+    {
+      "id": "ADJ002", 
+      "adjustmentId": "PA2024020801",
+      "adjustmentName": "赣中分公司区域竞争性调价",
+      "adjustmentReason": "赣中分公司区域竞争性调价",
+      "adjustmentType": "批量调价",
+      "effectiveTime": "2024-02-10 06:00:00",
+      "status": "审批通过",
+      "createTime": "2024-02-08 10:15:00",
+      "operator": "李四",
+      "approver": "分公司经理",
+      "approveTime": "2024-02-09 16:30:00",
+      "priceAdjustments": [
+        {
+          "key": "ST003-100001",
+          "stationId": "ST003",
+          "stationName": "进贤东站",
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "currentPrice": 7.85,
+          "newPrice": 7.90
+        },
+        {
+          "key": "ST004-100001",
+          "stationId": "ST004",
+          "stationName": "进贤西站",
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "currentPrice": 7.85,
+          "newPrice": 7.90
+        }
+      ]
+    },
+    {
+      "id": "ADJ003",
+      "adjustmentId": "PA2024021201", 
+      "adjustmentName": "95号汽油价格结构优化调整",
+      "adjustmentReason": "95号汽油单独调价，优化价格结构",
+      "adjustmentType": "批量调价",
+      "effectiveTime": "2024-02-15 06:00:00",
+      "status": "审批中",
+      "createTime": "2024-02-12 09:20:00",
+      "operator": "王五",
+      "priceAdjustments": [
+        {
+          "key": "ST001-100002",
+          "stationId": "ST001",
+          "stationName": "南昌东站",
+          "oilCode": "100002",
+          "oilName": "95号汽油国V",
+          "currentPrice": 8.35,
+          "newPrice": 8.40
+        },
+        {
+          "key": "ST002-100002",
+          "stationId": "ST002",
+          "stationName": "南昌西站",
+          "oilCode": "100002",
+          "oilName": "95号汽油国V",
+          "currentPrice": 8.35,
+          "newPrice": 8.40
+        }
+      ]
+    },
+    {
+      "id": "ADJ004",
+      "adjustmentId": "PA2024021401",
+      "adjustmentName": "进贤西站市场竞争调价",
+      "adjustmentReason": "进贤西站单站调价，市场竞争需要",
+      "adjustmentType": "单站调价", 
+      "effectiveTime": "2024-02-16 06:00:00",
+      "status": "被驳回",
+      "createTime": "2024-02-14 11:45:00",
+      "operator": "赵六",
+      "approver": "油价管理部经理",
+      "approveTime": "2024-02-14 17:20:00",
+      "rejectReason": "降价幅度需要总部审批，请重新申请",
+      "priceAdjustments": [
+        {
+          "key": "ST004-100001",
+          "stationId": "ST004",
+          "stationName": "进贤西站",
+          "oilCode": "100001",
+          "oilName": "92号汽油国V",
+          "currentPrice": 7.90,
+          "newPrice": 7.82
+        },
+        {
+          "key": "ST004-100002",
+          "stationId": "ST004",
+          "stationName": "进贤西站",
+          "oilCode": "100002",
+          "oilName": "95号汽油国V",
+          "currentPrice": 8.40,
+          "newPrice": 8.32
+        }
+      ]
+    },
+    {
+      "id": "ADJ005",
+      "adjustmentId": "PA2024021501",
+      "adjustmentName": "柴油价格跟随国际油价调整",
+      "adjustmentReason": "柴油价格调整，跟随国际油价变动",
+      "adjustmentType": "批量调价",
+      "effectiveTime": "2024-02-18 06:00:00",
+      "status": "待提交",
+      "createTime": "2024-02-15 14:30:00",
+      "operator": "孙七",
+      "priceAdjustments": [
+        {
+          "key": "ST001-100006",
+          "stationId": "ST001",
+          "stationName": "南昌东站",
+          "oilCode": "100006",
+          "oilName": "0号柴油国V",
+          "currentPrice": 7.40,
+          "newPrice": 7.48
+        },
+        {
+          "key": "ST002-100006",
+          "stationId": "ST002",
+          "stationName": "南昌西站",
+          "oilCode": "100006",
+          "oilName": "0号柴油国V",
+          "currentPrice": 7.40,
+          "newPrice": 7.48
+        }
+      ]
+    }
+  ]
+}
