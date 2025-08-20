@@ -45,6 +45,7 @@ const RoleConfigModal = ({
   const [selectedDataScope, setSelectedDataScope] = useState('self');
   const [selectedPosDevices, setSelectedPosDevices] = useState([]);
   const [selectedOrgTypes, setSelectedOrgTypes] = useState([]);
+  const [selectedRoleType, setSelectedRoleType] = useState('');
   const [selectedStations, setSelectedStations] = useState([]);
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
@@ -53,11 +54,18 @@ const RoleConfigModal = ({
 
   // 组织类型选项
   const orgTypeOptions = [
-    { value: 'HEADQUARTER', label: '总部' },
-    { value: 'DEPARTMENT', label: '部门' },
-    { value: 'CITY_BRANCH', label: '分公司' },
-    { value: 'SERVICE_AREA', label: '服务区' },
-    { value: 'GAS_STATION', label: '加油站' }
+    { value: 'MERCHANT', label: '商户' },
+    { value: 'COMPANY', label: '公司' },
+    { value: 'REGION', label: '区域' },
+    { value: 'GAS_STATION', label: '油站' },
+    { value: 'DEPARTMENT', label: '部门' }
+  ];
+
+  // 角色类型选项
+  const roleTypeOptions = [
+    { value: 'SYSTEM', label: '系统角色' },
+    { value: 'BUSINESS', label: '业务角色' },
+    { value: 'CUSTOM', label: '自定义角色' }
   ];
 
   // 将权限数据转换为树形结构
@@ -180,6 +188,7 @@ const RoleConfigModal = ({
         setSelectedPosDevices(editingRole.permissions.posDevices || []);
         setSelectedStations(editingRole.permissions.associatedStations || []);
         setSelectedOrgTypes(editingRole.orgTypes || []);
+        setSelectedRoleType(editingRole.roleType || ''); 
         // 设置展开的节点（展开所有页面节点）
         if (permissions.pageOperations) {
           const expandKeys = permissions.pageOperations.map(page => page.id);
@@ -197,6 +206,7 @@ const RoleConfigModal = ({
         setExpandedKeys([]);
         setPagePermissionSearchValue('');
         setPosDeviceSearchValue('');
+        setSelectedRoleType('');
       }
     }
   }, [visible, editingRole, form, permissions]);
@@ -213,7 +223,8 @@ const RoleConfigModal = ({
           posDevices: selectedPosDevices,
           associatedStations: selectedStations
         },
-        orgTypes: selectedOrgTypes
+        orgTypes: selectedOrgTypes,
+        roleType: selectedRoleType
       };
       onSave(formData);
     } catch (error) {
@@ -322,7 +333,7 @@ const RoleConfigModal = ({
       confirmLoading={loading}
       width={900}
       destroyOnClose
-      bodyStyle={{ maxHeight: '70vh', overflow: 'auto' }}
+      styles={{ maxHeight: '70vh', overflow: 'auto' }}
     >
       <Form
         form={form}
@@ -369,6 +380,24 @@ const RoleConfigModal = ({
                 </Select>
               </Form.Item>
             </Col>
+            <Col span={12}>
+              <Form.Item
+                name="roleType"
+                label="角色类型"
+                rules={[{ required: true, message: '请选择适用的角色类型' }]}
+              >
+                <Select
+                  placeholder="请选择适用的角色类型"
+                  onChange={setSelectedRoleType}
+                >
+                  {roleTypeOptions.map(option => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
           </Row>
           <Form.Item
             name="description"
@@ -404,7 +433,6 @@ const RoleConfigModal = ({
                 style={{ marginBottom: 16 }}
               />
               
-              {/* 搜索框 */}
               <div style={{ marginBottom: 16 }}>
                 <Search
                   placeholder="搜索页面或操作权限名称"
@@ -528,7 +556,7 @@ const RoleConfigModal = ({
           </Panel>
 
           {/* POS设备权限 */}
-          <Panel 
+          {/* <Panel 
             header={
               <Space>
                 <SettingOutlined style={{ color: '#722ed1' }} />
@@ -547,7 +575,6 @@ const RoleConfigModal = ({
                 style={{ marginBottom: 16 }}
               />
 
-              {/* 搜索框 */}
               <div style={{ marginBottom: 16 }}>
                 <Search
                   placeholder="搜索POS设备权限名称"
@@ -620,7 +647,7 @@ const RoleConfigModal = ({
                 </div>
               )}
             </Card>
-          </Panel>
+          </Panel> */}
 
           {/* 油站关联配置 */}
           <Panel 

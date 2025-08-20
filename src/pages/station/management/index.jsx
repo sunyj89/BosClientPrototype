@@ -20,7 +20,8 @@ import { delay, mockResponse } from '../../../utils/utils';
 import stationData from '../../../mock/station/stationData.json';
 import stationChangeRecord from '../../../mock/station/stationChangeRecord.json';
 import './index.css';
-import { get } from '../../../utils/http';
+import { get,del } from '../../../utils/http';
+import * as api from '../services/api';
 
 const { confirm } = Modal;
 const { Option } = Select;
@@ -60,6 +61,10 @@ const StationManagement = () => {
   // 组织结构树和筛选状态
   const [orgTreeData, setOrgTreeData] = useState([]);
   const [selectedOrgs, setSelectedOrgs] = useState([]);
+
+  const [selectedBranches, setSelectedBranches] = useState([]);
+  const [selectedServiceAreas, setSelectedServiceAreas] = useState([]);
+
   const [selectedStationTypes, setSelectedStationTypes] = useState([]);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [searchText, setSearchText] = useState('');
@@ -78,6 +83,11 @@ const StationManagement = () => {
   // 级联查询相关状态
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [availableServiceAreas, setAvailableServiceAreas] = useState([]);
+
+  const [legalEntities, setLegalEntities] = useState([]);
+  const [dict, setDict] = useState([]);
+  const [stationTypes, setStationTypes] = useState([]);
+  const [stationStatuses, setStationStatuses] = useState([]);
 
   // 处理分公司选择变化
   const handleBranchChange = (branchId) => {
@@ -126,6 +136,8 @@ const StationManagement = () => {
 
   // 初始化加载数据
   useEffect(() => {
+    loadDict();
+    getLegalEntity();
     loadStationData();
     loadChangeRecords();
     buildOrgTreeData();
@@ -189,17 +201,42 @@ const StationManagement = () => {
     setCascaderOptions(options);
   };
 
+  // 加载字典
+  const loadDict = async () => {
+    console.log('加载字典');
+    const res = await api.getDict();
+    console.log(res);
+    if (res.success) {
+      setDict(res.data);
+      setStationTypes(res.data.stationTypes);
+      setStationStatuses(res.data.stationStatus);
+    }
+  }
+
+  // 处理查询按钮点击
+  const handleSearch = () => {
+    loadStationData();
+  };
+
   // 加载油站数据
   const loadStationData = async () => {
+    console.log(searchText);
+    let params = {
+      page: pagination.current,
+      size: pagination.pageSize,
+      branchId: selectedBranch,
+      serviceAreaId: selectedServiceAreas,
+      stationType: selectedStationTypes,
+      status: selectedStatuses,
+      keyword: searchText
+    };
+
     try {
       setLoading(true);
    
-      const response = await get('/microservice-station/api/stations');
-      if (response.code !== 0) {
-        throw new Error(response.message || '获取油站数据失败');
-      }
-      
-      if (response.data && response.data.list) {
+      const response = await api.getStationList(params);
+      console.log(response);
+      if (response.success) {
         setStationList(response.data.list);
         setFilteredStationList(response.data.list);
         setPagination({
@@ -241,23 +278,17 @@ const StationManagement = () => {
 
     // 按类型筛选
     if (selectedStationTypes.length > 0) {
-      filtered = filtered.filter(station => selectedStationTypes.includes(station.type));
+      // filtered = filtered.filter(station => selectedStationTypes.includes(station.type));
     }
 
     // 按状态筛选
     if (selectedStatuses.length > 0) {
-      filtered = filtered.filter(station => selectedStatuses.includes(station.status));
+      // filtered = filtered.filter(station => selectedStatuses.includes(station.status));
     }
 
     // 按关键字筛选
     if (searchText) {
-      filtered = filtered.filter(station =>
-        station.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        (station.stationCode && station.stationCode.toLowerCase().includes(searchText.toLowerCase())) ||
-        station.address.toLowerCase().includes(searchText.toLowerCase()) ||
-        station.contactPerson.toLowerCase().includes(searchText.toLowerCase()) ||
-        station.branchName.toLowerCase().includes(searchText.toLowerCase())
-      );
+      
     }
 
     setFilteredStationList(filtered);
@@ -290,6 +321,9 @@ const StationManagement = () => {
     setSelectedStationTypes([]);
     setSelectedStatuses([]);
     setSearchText('');
+    setSelectedBranches([]);
+    setSelectedServiceAreas([]);
+    handleSearch();
   };
 
   // 加载修改记录
@@ -384,6 +418,14 @@ const StationManagement = () => {
       icon: <ExclamationCircleOutlined />,
       onOk: async () => {
         try {
+          console.log('删除油站', record);
+          let res = await api.delStation(record.id);
+          if (res.code === 0) {
+            message.success('删除成功');
+            loadStationData();
+          } else {
+            message.error(res.msg);
+          }
           await delay(500);
           message.success('删除成功');
           loadStationData();
@@ -403,13 +445,29 @@ const StationManagement = () => {
       
       setStationFormSubmitting(true);
       
-      // 模拟提交
-      await delay(800);
+      // 新增或更新油站
+      let res;
+      if (editingStation) {
+        res = await api.updateStation(editingStation.id, values);
+      } else {
+        res = await api.addStation(values);
+      }
+      if (res.success) {
+        message.success('保存成功');
+        setStationFormVisible(false);
+        loadStationData();
+        loadChangeRecords(); // 刷新修改记录
+      } else {
+        message.error(res.message);
+      }
+
+      // // 模拟提交
+      // await delay(800);
       
-      message.success('保存成功');
-      setStationFormVisible(false);
-      loadStationData();
-      loadChangeRecords(); // 刷新修改记录
+      // message.success('保存成功');
+      // setStationFormVisible(false);
+      // loadStationData();
+      // loadChangeRecords(); // 刷新修改记录
     } catch (error) {
       if (error.errorFields) {
         message.error('请检查表单填写是否正确');
@@ -444,11 +502,13 @@ const StationManagement = () => {
   };
 
   // 获取所属法人
-  const getLegalEntity = (branchName) => {
-    if (branchName && branchName.includes('高速')) {
-      return '高速石化';
+  const getLegalEntity = async () => {
+    console.log('获取法人主体');
+    let res = await api.getLegalEntities();
+    console.log(res);
+    if (res.success) {
+      setLegalEntities(res.data);
     }
-    return '化石能源';
   };
 
   // 油站列表表格列定义
@@ -726,7 +786,7 @@ const StationManagement = () => {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name="name"
+                  name="stationName"
                   label="油站名称"
                   rules={[FORM_RULES.required]}
                 >
@@ -738,14 +798,14 @@ const StationManagement = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
-                  name="type"
+                  name="stationType"
                   label="油站类型"
                   rules={[FORM_RULES.required]}
                 >
                   <Select placeholder="请选择油站类型">
-                    <Option value="高速站">高速站</Option>
-                    <Option value="城市站">城市站</Option>
-                    <Option value="农村站">农村站</Option>
+                    {stationTypes && stationTypes.length > 0 ? stationTypes.map(type => (
+                      <Option key={type.value} value={type.value}>{type.label}</Option>
+                    )) : null}
                   </Select>
                 </Form.Item>
               </Col>
@@ -756,9 +816,9 @@ const StationManagement = () => {
                   rules={[FORM_RULES.required]}
                 >
                   <Select placeholder="请选择所属法人">
-                    {LEGAL_ENTITIES.map(entity => (
-                      <Option key={entity} value={entity}>{entity}</Option>
-                    ))}
+                    {legalEntities && legalEntities.length > 0 ? legalEntities.map(entity => (
+                      <Option key={entity.itemCode} value={entity.itemCode}>{entity.itemName}</Option>
+                    )) : null}
                   </Select>
                 </Form.Item>
               </Col>
@@ -867,10 +927,9 @@ const StationManagement = () => {
                   rules={[FORM_RULES.required]}
                 >
                   <Select placeholder="请选择状态">
-                    <Option value="正常">正常</Option>
-                    <Option value="维护中">维护中</Option>
-                    <Option value="停业">停业</Option>
-                    <Option value="建设中">建设中</Option>
+                    {stationStatuses && stationStatuses.length > 0 ? stationStatuses.map(status => (
+                      <Option key={status.value} value={status.value}>{status.label}</Option>
+                    )) : null}
                   </Select>
                 </Form.Item>
               </Col>
@@ -913,7 +972,7 @@ const StationManagement = () => {
               <Input placeholder="请输入油站地址" />
             </Form.Item>
             
-            <Row gutter={16}>
+            {/* <Row gutter={16}>
               <Col span={8}>
                 <Form.Item
                   name="oilGuns"
@@ -938,7 +997,7 @@ const StationManagement = () => {
                   <InputNumber min={0} style={{ width: '100%' }} placeholder="请输入员工数量" />
                 </Form.Item>
               </Col>
-            </Row>
+            </Row> */}
             
             <Form.Item
               name="oilTypes"
@@ -980,8 +1039,25 @@ const StationManagement = () => {
 
   // 渲染油站列表筛选区域
   const renderStationFilterForm = () => {
-    const stationTypes = ['高速站', '城市站', '农村站'];
-    const stationStatuses = ['正常', '维护中', '停业', '建设中'];
+    // const stationTypes = dict.stationType;
+    // const stationStatuses = [
+    //     {
+    //       label: '正常',
+    //       value: 1
+    //     },
+    //     {
+    //       label: '维护中',
+    //       value: 2
+    //     },
+    //     {
+    //       label: '停业',
+    //       value: 3
+    //     },
+    //     {
+    //       label: '建设中',
+    //       value: 4
+    //     }
+    //   ];
 
     return (
       <Card style={{ marginBottom: 16 }}>
@@ -1011,23 +1087,22 @@ const StationManagement = () => {
               value={selectedStationTypes}
               onChange={handleStationTypeChange}
             >
-              {stationTypes.map(type => (
-                <Option key={type} value={type}>{type}</Option>
-              ))}
+              {stationTypes && stationTypes.length > 0 ? stationTypes.map(type => (
+                <Option key={type.value} value={type.value}>{type.label}</Option>
+              )) : null}
             </Select>
           </Col>
           <Col span={4}>
             <Select
-              mode="multiple"
               placeholder="请选择状态"
               allowClear
               style={{ width: '100%' }}
               value={selectedStatuses}
               onChange={handleStatusChange}
             >
-              {stationStatuses.map(status => (
-                <Option key={status} value={status}>{status}</Option>
-              ))}
+              { stationStatuses && stationStatuses.length > 0 ? stationStatuses.map(status => (
+                <Option key={status.value} value={status.value}>{status.label}</Option>
+              )) : null}
             </Select>
           </Col>
           <Col span={4}>
@@ -1042,7 +1117,7 @@ const StationManagement = () => {
           </Col>
           <Col span={7} style={{ textAlign: 'right' }}>
             <Space>
-              <Button type="primary" icon={<SearchOutlined />}>
+              <Button type="primary" icon={<SearchOutlined /> } onClick={handleSearch}>
                 查询
               </Button>
               <Button icon={<ReloadOutlined />} onClick={handleResetFilter}>
@@ -1138,4 +1213,4 @@ const StationManagement = () => {
   );
 };
 
-export default StationManagement; 
+export default StationManagement;

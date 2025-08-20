@@ -3,10 +3,10 @@ import { message } from 'antd';
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '/', // 基础URL，可从环境变量获取
+  baseURL: '', // 基础URL，可从环境变量获取
   timeout: 50000, // 请求超时时间
   headers: {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/json'
   }
 });
 
@@ -18,17 +18,6 @@ service.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
-        // 根据请求路径前缀设置不同的baseURL
-    const baseURLs = {
-      '/microservice-station/api': 'http://jxgs-newos-station.zhihuiyouzhan.com:81'
-    };
-    for (const prefix in baseURLs) {
-      if (config.url.startsWith(prefix)) {
-        config.baseURL = baseURLs[prefix];
-        break;
-      }
-    }
-    console.log('请求URL:', config.url);
     return config;
   },
   error => {
@@ -44,7 +33,7 @@ service.interceptors.response.use(
     // 处理成功响应
     const res = response.data;
     // 这里可以根据后端返回的状态码做统一处理
-    if (res.code !== 200) {
+    if (res.code !== 0) {
       message.error(res.message || '请求失败');
       return Promise.reject(new Error(res.message || '请求失败'));
     }
@@ -65,6 +54,7 @@ export const get = (url, params = {}) => {
 
 // 封装POST请求
 export const post = (url, data = {}) => {
+  console.log(url, data);
   return service.post(url, data);
 };
 
@@ -74,8 +64,19 @@ export const put = (url, data = {}) => {
 };
 
 // 封装DELETE请求
-export const del = (url, params = {}) => {
-  return service.delete(url, { params });
+// 支持两种参数传递方式：
+// 1. params: 通过URL参数传递
+// 2. data: 通过请求体传递
+// 如果需要同时传递两种参数，可以传入{ params, data }对象
+// 也可以直接传入一个参数对象，默认作为请求体data
+// 兼容旧版本的调用方式
+export const del = (url, options = {}) => {
+  // 如果options是普通对象且不包含params和data属性，将其视为data
+  if (typeof options === 'object' && !options.params && !options.data) {
+    return service.delete(url, { data: options });
+  }
+  // 否则按照传入的options配置
+  return service.delete(url, options);
 };
 
 export default service;

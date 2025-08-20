@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Descriptions, Tag, Empty, Button, Space } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import * as api from '../services/api';
 
 const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
   if (!selectedNode) {
@@ -11,10 +12,36 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
     );
   }
 
+  const [legalEntities, setLegalEntities] = useState([]);
+
+  useEffect(() => {
+    loadLegalEntities();
+  }, []);
+
+    // 加载法人主体
+  const loadLegalEntities = async () => {
+    try {
+      const result = await api.getLegalEntities();
+      if (result.success) {
+        setLegalEntities(result.data);
+      }
+    } catch (error) {
+      console.error('获取法人主体失败:', error);
+    }
+  };
+
   // 根据法人主体ID获取颜色
   const getLegalEntityColor = (legalEntityId) => {
     const colors = ['blue', 'green', 'orange', 'red', 'purple'];
     return colors[legalEntityId % colors.length];
+  };
+
+  // 根据法人主体ID获取名称
+  const getLegalEntityName = (legalEntityId) => {
+    console.log(selectedNode);
+    console.log(legalEntities);
+    const entity = legalEntities.find(item => item.id === legalEntityId);
+    return entity ? entity.itemName : '未知法人';
   };
 
   // 根据组织类型获取颜色
@@ -62,7 +89,8 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
   const canAddChild = () => {
     if (!selectedNode) return false;
     const { orgType } = selectedNode;
-    return orgType === 'HEADQUARTER' || orgType === 'CITY_BRANCH' || orgType === 'SERVICE_AREA';
+    console.log(orgType);
+    return orgType === 'HEADQUARTER' || orgType === 'CITY_BRANCH' || orgType === 'SERVICE_AREA' || orgType === 'MERCHANT';
   };
 
   // 判断是否可以删除组织（根节点不能删除）
@@ -114,7 +142,7 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
       title={cardTitle()} 
       size="small"
       style={{ marginBottom: '16px' }}
-      bodyStyle={{ padding: '8px 16px' }}
+      styles={{ padding: '8px 16px' }}
     >
       <Descriptions 
         column={4} 
@@ -132,7 +160,7 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
         }}
       >
         <Descriptions.Item label="名称" span={2}>
-          <strong>{selectedNode.name}</strong>
+          <strong>{selectedNode.orgName}</strong>
         </Descriptions.Item>
         
         <Descriptions.Item label="类型">
@@ -158,8 +186,8 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
         )}
         
         <Descriptions.Item label="法人" span={selectedNode.parentName ? 2 : 4}>
-          <Tag color={getLegalEntityColor(selectedNode.legalEntity?.id)} size="small">
-            {selectedNode.legalEntity?.name}
+          <Tag color={getLegalEntityColor(selectedNode.legalEntityId)} size="small">
+            {getLegalEntityName(selectedNode.legalEntityId)}
           </Tag>
         </Descriptions.Item>
       </Descriptions>
@@ -167,4 +195,4 @@ const OrgDetails = ({ selectedNode, onAddOrg, onEditOrg, onDeleteOrg }) => {
   );
 };
 
-export default OrgDetails; 
+export default OrgDetails;

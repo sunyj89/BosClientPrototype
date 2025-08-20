@@ -1,7 +1,7 @@
 {
   "legalEntities": [
-    { "id": 1, "name": "A公司 (总公司)" },
-    { "id": 2, "name": "G公司" }
+    { "id": 1, "name": "高速石化" },
+    { "id": 2, "name": "石化能源" }
   ],
   "roles": [
     { "id": 1, "name": "集团CEO" },

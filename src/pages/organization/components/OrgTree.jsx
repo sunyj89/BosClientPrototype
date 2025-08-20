@@ -45,7 +45,7 @@ const OrgTree = ({ treeData, onSelect, loading }) => {
     return data.map(node => ({
       ...node,
       key: node.id,
-      title: node.name,
+      title: node.orgName,
       icon: getIcon(node.orgType),
       children: node.children ? transformTreeData(node.children) : []
     }));
@@ -57,7 +57,7 @@ const OrgTree = ({ treeData, onSelect, loading }) => {
     <Card 
       title="组织架构" 
       style={{ height: '100%' }}
-      bodyStyle={{ padding: '12px', height: 'calc(100% - 57px)', overflow: 'auto' }}
+      styles={{ body: { padding: '12px', height: 'calc(100% - 57px)', overflow: 'auto' } }}
     >
       <Tree
         showIcon

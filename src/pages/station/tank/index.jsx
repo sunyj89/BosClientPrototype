@@ -35,6 +35,8 @@ import {
 import './index.css';
 import tankData from '../../../mock/station/tankData.json';
 import stationData from '../../../mock/station/stationData.json';
+import { get } from '../../../utils/http';
+import * as api from '../services/api';
 
 const { Option } = Select;
 const { confirm } = Modal;
@@ -82,6 +84,7 @@ const TankManagement = () => {
   const [activeTab, setActiveTab] = useState('tankList');
   const [loading, setLoading] = useState(false);
   const [tankList, setTankList] = useState([]);
+  const [stationList, setStationList] = useState([]);
   const [modifyRecords, setModifyRecords] = useState([]);
   const [filteredTankList, setFilteredTankList] = useState([]);
   const [filteredModifyRecords, setFilteredModifyRecords] = useState([]);
@@ -148,12 +151,84 @@ const TankManagement = () => {
   const loadData = async () => {
     setLoading(true);
     try {
+      await loadTankList();
+      await loadStationList();
+      // 模拟API调用
+      // await new Promise(resolve => setTimeout(resolve, 500));
+      // setTankList(tankData.tanks || []);
+      // setModifyRecords(tankData.modifyRecords || []);
+      // setFilteredTankList(tankData.tanks || []);
+      // setFilteredModifyRecords(tankData.modifyRecords || []);
+    } catch (error) {
+      message.error('数据加载失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadTankList = async (page = 1, pageSize = 10, filters = {}) => {
+    setLoading(true);
+    console.log(filters);
+    try {
       // 模拟API调用
       await new Promise(resolve => setTimeout(resolve, 500));
-      setTankList(tankData.tanks || []);
-      setModifyRecords(tankData.modifyRecords || []);
-      setFilteredTankList(tankData.tanks || []);
-      setFilteredModifyRecords(tankData.modifyRecords || []);
+
+      // 构建查询参数
+      const params = {
+        page,
+        pageSize,
+        ...filters
+      };
+      const response = await api.getOilTankList(params);
+      if (response.success) {
+        setTankList(response.data.list || []);
+        setFilteredTankList(response.data.list || []);
+      }
+
+      
+    } catch (error) {
+      message.error('数据加载失败');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadStationList = async (page = 1, pageSize = 1000, filters = {}) => {
+    try {
+      // 构建查询参数
+      const params = {
+        page,
+        pageSize,
+        ...filters
+      };
+      const response = await api.getStationList(params);
+      if (response.success) {
+        setStationList(response.data.list || []);
+      }
+    } catch (error) {
+      message.error('数据加载失败');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const loadModifyRecordData = async (page = 1, pageSize = 10, filters = {}) => {
+    setLoading(true);
+    try {
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // 构建查询参数
+      const params = {
+        page,
+        pageSize,
+        ...filters
+      };
+      const response = await get('/microservice-station/api/tanks/modifyRecords', params);
+      console.log(response);
+
+      setModifyRecords(response.data || []);
+      setFilteredModifyRecords(response.data || []);
     } catch (error) {
       message.error('数据加载失败');
     } finally {
@@ -309,10 +384,16 @@ const TankManagement = () => {
         setFilteredTankList(updatedList);
         message.success('油罐信息更新成功');
       } else {
+        console.log(tankInfo);
         // 新增
-        const newList = [...tankList, tankInfo];
-        setTankList(newList);
-        setFilteredTankList(newList);
+        const response = await api.addOilTank(tankInfo);
+        if (response.success) {
+          loadTankList();
+        }
+
+        // const newList = [...tankList, tankInfo];
+        // setTankList(newList);
+        // setFilteredTankList(newList);
         message.success('油罐添加成功');
       }
       
@@ -331,10 +412,21 @@ const TankManagement = () => {
       icon: <ExclamationCircleOutlined />,
       content: `确定要删除油罐"${tank.tankName}"吗？`,
       onOk() {
-        const updatedList = tankList.filter(item => item.id !== tank.id);
-        setTankList(updatedList);
-        setFilteredTankList(updatedList);
-        message.success('删除成功');
+        let data = {
+          id: tank.id,
+          reason: '删除'
+        }
+        api.delOilTank(data).then(res => {
+          if (res.success) {
+            loadTankList();
+          }
+        }).catch(err => {
+          message.error('删除失败');
+        })
+        // const updatedList = tankList.filter(item => item.id !== tank.id);
+        // setTankList(updatedList);
+        // setFilteredTankList(updatedList);
+        // message.success('删除成功');
       }
     });
   };
@@ -642,9 +734,9 @@ const TankManagement = () => {
                       value={selectedStatuses}
                       onChange={handleStatusChange}
                     >
-                      <Option value="正常">正常</Option>
-                      <Option value="维护中">维护中</Option>
-                      <Option value="停用">停用</Option>
+                      <Option value="1">正常</Option>
+                      <Option value="2">维护中</Option>
+                      <Option value="3">停用</Option>
                     </Select>
                   </Col>
                   <Col span={4}>
@@ -793,7 +885,12 @@ const TankManagement = () => {
                 label="所属油站"
                 rules={[{ required: true, message: '请选择油站' }]}
               >
-                <TreeSelect
+                <Select placeholder="请选择油站">
+                  {stationList.map(station => (
+                    <Option key={station.id} value={station.id}>{station.stationName}</Option>
+                  ))}
+                </Select>
+                {/* <TreeSelect
                   placeholder="请选择油站"
                   treeData={buildStationTreeData()}
                   showSearch
@@ -810,7 +907,7 @@ const TankManagement = () => {
                       form.setFieldsValue({ tankCode: newTankCode });
                     }
                   }}
-                />
+                /> */}
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -957,9 +1054,9 @@ const TankManagement = () => {
                 rules={[{ required: true, message: '请选择状态' }]}
               >
                 <Select placeholder="请选择状态">
-                  <Option value="正常">正常</Option>
-                  <Option value="维护中">维护中</Option>
-                  <Option value="停用">停用</Option>
+                  <Option value="1">正常</Option>
+                  <Option value="2">维护中</Option>
+                  <Option value="3">停用</Option>
                 </Select>
               </Form.Item>
             </Col>

@@ -37,6 +37,7 @@ import stationDataSource from '../../../mock/station/stationData.json';
 import tankDataSource from '../../../mock/station/tankData.json';
 import changeRecordDataSource from '../../../mock/station/gunChangeRecord.json';
 import equipmentDataSource from '../../../mock/station/equipmentData.json';
+import * as api from '../services/api';
 
 const { Option } = Select;
 const { confirm } = Modal;
@@ -123,21 +124,43 @@ const GunManagement = () => {
       setOrgTreeData(treeData);
     };
 
+    // 获取油枪列表
+    getGunList();
+    getTankList();
+
     // 构建油罐选项
-    const buildTankOptions = () => {
-      const options = tankDataSource.tanks.map(tank => ({
-        value: tank.id,
-        label: `${tank.name} (${tank.oilType}) - ${tank.stationName}`,
-        stationId: tank.stationId,
-        oilType: tank.oilType,
-        tankCode: tank.tankCode
-      }));
-      setTankOptions(options);
-    };
+    // const buildTankOptions = () => {
+    //   const options = tankDataSource.tanks.map(tank => ({
+    //     value: tank.id,
+    //     label: `${tank.name} (${tank.oilType}) - ${tank.stationName}`,
+    //     stationId: tank.stationId,
+    //     oilType: tank.oilType,
+    //     tankCode: tank.tankCode
+    //   }));
+    //   console.log(options);
+    //   setTankOptions(options);
+    // };
 
     buildOrgTreeData();
-    buildTankOptions();
+    // buildTankOptions();
   }, []);
+
+    // 获取油枪列表
+  const getGunList = async () => {
+    const res = await api.getOilGunList();
+    if (res.success) {
+      setGuns(res.data.list);
+      setFilteredGuns(res.data.list);
+    }
+  };
+
+  // 获取油罐详情
+  const getTankList = async () => {
+    const res = await api.getOilTankList();
+    if (res.success) {
+      setTankOptions(res.data.list);
+    }
+  };
 
   // 筛选逻辑
   useEffect(() => {

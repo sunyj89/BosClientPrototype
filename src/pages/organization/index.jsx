@@ -41,6 +41,7 @@ const OrganizationManagement = () => {
     try {
       setTreeLoading(true);
       const result = await api.getOrgTree();
+      console.log(result);
       if (result.success) {
         setTreeData(result.data);
       } else {
@@ -72,7 +73,7 @@ const OrganizationManagement = () => {
       try {
         setLoading(true);
         setSelectedNode(node);
-        
+        console.log(node);
         // 获取用户列表
         const userResult = await api.getUsersByOrgId(node.id);
         if (userResult.success) {
@@ -104,9 +105,10 @@ const OrganizationManagement = () => {
   // 编辑用户
   const handleEditUser = (user) => {
     setEditingUser(user);
+    console.log(user);
     userForm.setFieldsValue({
-      ...user,
-      roleId: user.role?.id
+      name: user.username,
+      roleId: user.roleId
     });
     setUserModalVisible(true);
   };
@@ -155,9 +157,15 @@ const OrganizationManagement = () => {
         role: roles.find(role => role.id === values.roleId)
       };
 
+      console.log(userData);
+
       let result;
       if (editingUser) {
+        console.log(editingUser);
         // 编辑用户
+        userData.username = userData.name;
+        userData.position = userData.role.roleName;
+        userData.realName = userData.name;
         result = await api.updateUser({ ...editingUser, ...userData });
       } else {
         // 添加用户
@@ -270,6 +278,13 @@ const OrganizationManagement = () => {
             管理组织架构树和人员配置
           </p>
         </div>
+        {!treeData || treeData.length === 0 ? (
+          <div>
+            <Button type="primary" onClick={handleAddOrg}>
+              新增组织
+            </Button>
+          </div>
+        ) : null}
       </div>
       
       <Layout style={{ minHeight: 'calc(100vh - 175px)' }}>
@@ -322,12 +337,21 @@ const OrganizationManagement = () => {
           layout="vertical"
         >
           <Form.Item
-            name="name"
+            name="realName"
             label="姓名"
             rules={[{ required: true, message: '请输入姓名' }]}
           >
             <Input placeholder="请输入姓名" />
           </Form.Item>
+
+          <Form.Item
+            name="username"
+            label="登录名"
+            rules={[{ required: true, message: '请输入登录名' }]}
+          >
+            <Input placeholder="请输入登录名" />
+          </Form.Item>
+
           
           <Form.Item
             name="roleId"
@@ -337,17 +361,23 @@ const OrganizationManagement = () => {
             <Select placeholder="请选择岗位角色">
               {roles.map(role => (
                 <Select.Option key={role.id} value={role.id}>
-                  {role.name}
+                  {role.roleName}
                 </Select.Option>
               ))}
             </Select>
           </Form.Item>
           
+          {/* <Form.Item
+            name="orgUnitId"
+            label="所属组织"
+          >
+            <Input disabled value={selectedNode.createdTime} />
+          </Form.Item> */}
           <Form.Item
             name="orgUnitId"
             label="所属组织"
           >
-            <Input disabled value={selectedNode?.name} />
+            {selectedNode?.orgName}
           </Form.Item>
         </Form>
       </Modal>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  Tabs,
   Card, 
   Table, 
   Button, 
@@ -43,12 +44,58 @@ const RoleConfiguration = () => {
   const [copyingRole, setCopyingRole] = useState(null);
   const [copyForm] = Form.useForm();
 
+  const [activeTab, setActiveTab] = useState('system');
+  const [businessLoading, setBusinessLoading] = useState(false);
+  const [systemLoading, setSystemLoading] = useState(false);
+  const [systemRoleConfigs, setSystemRoleConfigs] = useState([]);
+const [businessRoleConfigs, setBusinessRoleConfigs] = useState([]);
+
+// 系统角色表格列定义
+const systemRoleColumns = [
+  // 与原columns类似，但只包含系统角色相关的列
+  { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
+  { title: '角色类型', dataIndex: 'roleType', key: 'roleType', render: type => '系统角色' },
+  { title: '适用组织类型', dataIndex: 'orgTypes', key: 'orgTypes', render: types => types.join(', ') },
+  { title: '创建时间', dataIndex: 'createdTime', key: 'createdTime' },
+  { title: '操作', key: 'action', render: (_, record) => (
+    <Space size="middle">
+      <a onClick={() => handleEdit(record)}>编辑</a>
+      <a onClick={() => handleDelete(record.id)}>删除</a>
+    </Space>
+  )}
+];
+
+// 业务和自定义角色表格列定义
+const businessRoleColumns = [
+  { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
+  { title: '角色类型', dataIndex: 'roleType', key: 'roleType' },
+  { title: '适用组织类型', dataIndex: 'orgTypes', key: 'orgTypes', render: types => types.join(', ') },
+  { title: '创建时间', dataIndex: 'createdTime', key: 'createdTime' },
+  { title: '操作', key: 'action', render: (_, record) => (
+    <Space size="middle">
+      <a onClick={() => handleEdit(record)}>编辑</a>
+      <a onClick={() => handleDelete(record.id)}>删除</a>
+    </Space>
+  )}
+];
+
   // 初始化加载数据
   useEffect(() => {
     loadRoleConfigurations();
     loadPermissions();
     loadOrgTreeData();
   }, []);
+
+  // 切换标签页时的处理函数
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+    console.log(key);
+    if (key === 'system') {
+      loadRoleConfigurations();
+    } else {
+      fetchBusinessRoles();
+    }
+  };
 
   // 加载角色配置列表
   const loadRoleConfigurations = async () => {
@@ -65,6 +112,23 @@ const RoleConfiguration = () => {
       console.error('获取角色配置列表失败:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 加载业务角色列表
+  const fetchBusinessRoles = async () => {
+    try {
+      setBusinessLoading(true);
+      const result = await api.getBusinessRoles();
+      if (result.success) {
+        setBusinessRoleConfigs(result.data);
+      } else {
+        message.error(result.message || '获取业务角色列表失败');
+      }
+    } catch (error) {
+      console.error('获取业务角色列表失败:', error);
+    } finally {
+      setBusinessLoading(false);
     }
   };
 
@@ -124,13 +188,18 @@ const RoleConfiguration = () => {
       const result = await api.copyRoleConfiguration(
         copyingRole.id, 
         values.roleName, 
-        values.description
+        values.description,
+        copyingRole
       );
       
       if (result.success) {
         message.success('复制角色配置成功');
         setCopyModalVisible(false);
-        loadRoleConfigurations();
+        if (activeTab === 'system') {
+          loadRoleConfigurations();
+        } else {
+          fetchBusinessRoles();
+        }
       } else {
         message.error(result.message || '复制角色配置失败');
       }
@@ -164,7 +233,11 @@ const RoleConfiguration = () => {
           const result = await api.deleteRoleConfiguration(record.id);
           if (result.success) {
             message.success('删除角色配置成功');
-            loadRoleConfigurations();
+            if (activeTab === 'system') {
+              loadRoleConfigurations();
+            } else {
+              fetchBusinessRoles();
+            }
           } else {
             message.error(result.message || '删除角色配置失败');
           }
@@ -191,7 +264,11 @@ const RoleConfiguration = () => {
       if (result.success) {
         message.success(editingRole ? '更新角色配置成功' : '添加角色配置成功');
         setModalVisible(false);
-        loadRoleConfigurations();
+        if (activeTab === 'system') {
+          loadRoleConfigurations();
+        } else {
+          fetchBusinessRoles();
+        }
       } else {
         message.error(result.message || '保存角色配置失败');
       }
@@ -234,10 +311,10 @@ const RoleConfiguration = () => {
         <Space wrap>
           {(orgTypes || []).map(type => {
             const typeMap = {
-              'HEADQUARTER': '总部',
+              'MERCHANT': '商户',
+              'COMPANY': '公司',
+              'REGION': '区域',
               'DEPARTMENT': '部门',
-              'CITY_BRANCH': '分公司',
-              'SERVICE_AREA': '服务区',
               'GAS_STATION': '加油站'
             };
             return (
@@ -284,8 +361,8 @@ const RoleConfiguration = () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      dataIndex: 'createdTime',
+      key: 'createdTime',
       width: 150,
       render: (time) => new Date(time).toLocaleDateString()
     },
@@ -359,16 +436,80 @@ const RoleConfiguration = () => {
               管理系统角色和权限配置，支持自定义角色权限设置
             </p>
           </div>
-          <Button 
+          {/* <Button 
             type="primary" 
             icon={<PlusOutlined />}
             onClick={handleAdd}
           >
             新增角色
-          </Button>
+          </Button> */}
         </div>
 
-        <Table
+      {/* 添加Tabs组件实现菜单页切换 */}
+      <Tabs
+        defaultActiveKey="system"
+        style={{ marginTop: 16 }}
+        onChange={handleTabChange}
+        tabBarExtraContent={
+          <Button 
+            type="primary"
+            icon={<PlusOutlined />}
+            size="small"
+            onClick={handleAdd}
+          >
+            新增角色
+          </Button>
+        }
+      >
+            {/* 系统管理菜单页 */}
+    <Tabs.TabPane
+      key="system"
+      tab={
+        <span>
+          <SettingOutlined /> 系统管理
+        </span>
+      }
+    >
+      <Table
+        columns={columns}
+        dataSource={roleConfigs}
+        rowKey="id"
+        loading={systemLoading}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total) => `共 ${total} 条记录`
+        }}
+        scroll={{ x: 1200 }}
+      />
+    </Tabs.TabPane>
+        {/* 业务和自定义角色管理菜单页 */}
+    <Tabs.TabPane
+      key="business"
+      tab={
+        <span>
+          <SettingOutlined /> 业务和自定义角色管理
+        </span>
+      }
+    >
+      <Table
+        columns={columns}
+        dataSource={businessRoleConfigs}
+        rowKey="id"
+        loading={businessLoading}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total) => `共 ${total} 条记录`
+        }}
+        scroll={{ x: 1200 }}
+      />
+    </Tabs.TabPane>
+  </Tabs>
+
+        {/* <Table
           columns={columns}
           dataSource={roleConfigs}
           rowKey="id"
@@ -380,7 +521,7 @@ const RoleConfiguration = () => {
             showTotal: (total) => `共 ${total} 条记录`
           }}
           scroll={{ x: 1200 }}
-        />
+        /> */}
       </Card>
 
       {/* 角色配置弹窗 */}

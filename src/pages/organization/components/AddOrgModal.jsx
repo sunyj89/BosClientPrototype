@@ -14,11 +14,12 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
       loadLegalEntities();
       // 设置默认值
       if (isEdit && editingOrg) {
+        console.log('editingOrg', editingOrg);
         // 编辑模式
         form.setFieldsValue({
           name: editingOrg.name,
           orgType: editingOrg.orgType,
-          legalEntityId: editingOrg.legalEntity?.id,
+          legalEntityId: editingOrg.legalEntityId,
           parentName: editingOrg.parentName
         });
       } else if (selectedNode) {
@@ -58,20 +59,22 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
 
   // 根据父节点类型过滤可选的组织类型
   const getAvailableOrgTypes = () => {
+    console.log(selectedNode);
+    console.log(orgTypes);
     if (!selectedNode) return orgTypes;
     
     const { orgType } = selectedNode;
     switch (orgType) {
       case 'HEADQUARTER':
         return orgTypes.filter(type => 
-          type.value === 'DEPARTMENT' || type.value === 'CITY_BRANCH'
+          type.itemCode === 'DEPARTMENT' || type.itemCode === 'CITY_BRANCH'
         );
       case 'DEPARTMENT':
         return []; // 部门下不能创建子节点
       case 'CITY_BRANCH':
-        return orgTypes.filter(type => type.value === 'SERVICE_AREA');
+        return orgTypes.filter(type => type.itemCode === 'SERVICE_AREA');
       case 'SERVICE_AREA':
-        return orgTypes.filter(type => type.value === 'GAS_STATION');
+        return orgTypes.filter(type => type.itemCode === 'GAS_STATION');
       case 'GAS_STATION':
         return []; // 加油站下不能创建子节点
       default:
@@ -105,8 +108,8 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
         const orgData = {
           name: values.name,
           orgType: values.orgType,
-          parentId: selectedNode.id,
-          parentName: selectedNode.name,
+          parentId: selectedNode?.id || null,
+          parentName: selectedNode?.name || null,
           legalEntity: legalEntity
         };
         result = await api.addOrgUnit(orgData);
@@ -186,8 +189,8 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
             disabled={availableOrgTypes.length === 0}
           >
             {availableOrgTypes.map(type => (
-              <Select.Option key={type.value} value={type.value}>
-                {type.label}
+              <Select.Option key={type.id} value={type.itemCode}>
+                {type.itemName}
               </Select.Option>
             ))}
           </Select>
@@ -201,7 +204,7 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
           <Select placeholder="请选择法人主体">
             {legalEntities.map(entity => (
               <Select.Option key={entity.id} value={entity.id}>
-                {entity.name}
+                {entity.itemName}
               </Select.Option>
             ))}
           </Select>

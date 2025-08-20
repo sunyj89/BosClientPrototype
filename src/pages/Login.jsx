@@ -9,26 +9,27 @@ const Login = ({ onLogin }) => {
 
   const onFinish = async (values) => {
     // 模拟登录验证
-    if (values.username === 'admin' && values.password === 'admin') {
-      message.success('登录成功！');
-      onLogin();
-      navigate('/dashboard');
-    } else {
-      message.error('用户名或密码错误！');
-    }
-    // try {
-    //   var data = {
-    //     username: values.username,
-    //     password: values.password
-    //   }
-    //   const res = await post('/api/users/login', data);
+    // if (values.username === 'admin' && values.password === 'admin') {
     //   message.success('登录成功！');
-    //   localStorage.setItem('token', res.token); // 保存token
     //   onLogin();
     //   navigate('/dashboard');
-    // } catch (error) {
+    // } else {
     //   message.error('用户名或密码错误！');
     // }
+    try {
+      var data = {
+        username: values.username,
+        password: values.password
+      }
+      const res = await post('/merchant/api/auth/login',data);
+      console.log(res);
+      message.success('登录成功！');
+      localStorage.setItem('token', res.data.token); // 保存token
+      onLogin();
+      navigate('/dashboard');
+    } catch (error) {
+      message.error('用户名或密码错误！');
+    }
   };
 
   return (
