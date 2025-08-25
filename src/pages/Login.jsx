@@ -28,7 +28,7 @@ const Login = ({ onLogin }) => {
       onLogin();
       navigate('/dashboard');
     } catch (error) {
-      message.error('用户名或密码错误！');
+      // message.error('用户名或密码错误！');
     }
   };
 

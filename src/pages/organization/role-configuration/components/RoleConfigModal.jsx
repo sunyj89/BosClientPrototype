@@ -25,6 +25,7 @@ import {
   ShopOutlined
 } from '@ant-design/icons';
 import StationSelector from './StationSelector';
+import * as api from '../../services/api';
 
 const { Option } = Select;
 const { TextArea, Search } = Input;
@@ -40,9 +41,14 @@ const RoleConfigModal = ({
   onSave, 
   onCancel 
 }) => {
+  const [stationList, setStationList] = useState([]);
+  const [orgTree, setOrgTree] = useState([]);
+  const [roleTypes, setRoleTypes] = useState([]);
   const [form] = Form.useForm();
+  const [dataScopes, setDataScopes] = useState([]);
+  const [orgTypes, setOrgTypes] = useState([]);
   const [selectedPageOperations, setSelectedPageOperations] = useState([]);
-  const [selectedDataScope, setSelectedDataScope] = useState('self');
+  const [selectedDataScope, setSelectedDataScope] = useState('');
   const [selectedPosDevices, setSelectedPosDevices] = useState([]);
   const [selectedOrgTypes, setSelectedOrgTypes] = useState([]);
   const [selectedRoleType, setSelectedRoleType] = useState('');
@@ -74,15 +80,16 @@ const RoleConfigModal = ({
     
     return pageOperations.map(page => {
       const pageNode = {
-        title: page.name,
+        title: page.menuName,
         key: page.id,
         children: []
       };
+      // page.operations = page.children || [];
 
       // 添加操作权限作为子节点
       if (page.operations && page.operations.length > 0) {
         pageNode.children = page.operations.map(operation => ({
-          title: operation.name,
+          title: operation.menuName,
           key: operation.id,
           isLeaf: true
         }));
@@ -91,10 +98,10 @@ const RoleConfigModal = ({
       // 处理子页面
       if (page.children && page.children.length > 0) {
         const childPages = page.children.map(childPage => ({
-          title: childPage.name,
+          title: childPage.menuName,
           key: childPage.id,
           children: childPage.operations ? childPage.operations.map(operation => ({
-            title: operation.name,
+            title: operation.menuName,
             key: operation.id,
             isLeaf: true
           })) : []
@@ -143,9 +150,15 @@ const RoleConfigModal = ({
     return filteredData;
   };
 
+
   // 获取过滤后的树数据
   const getFilteredTreeData = () => {
-    const originalTreeData = convertToTreeData(permissions.pageOperations);
+    // console.log('-------')
+    // console.log(permissions);
+    // console.log(permissions.pageOperations);
+    const originalTreeData = convertToTreeData(permissions);
+    // console.log('originalTreeData')
+    // console.log(originalTreeData);
     return filterTreeData(originalTreeData, pagePermissionSearchValue);
   };
 
@@ -184,14 +197,14 @@ const RoleConfigModal = ({
         });
         setSelectedPageOperations(editingRole.permissions.pageOperations || []);
         setCheckedKeys(editingRole.permissions.pageOperations || []);
-        setSelectedDataScope(editingRole.permissions.dataScope || 'self');
+        setSelectedDataScope(editingRole.permissions.dataScope || '');
         setSelectedPosDevices(editingRole.permissions.posDevices || []);
         setSelectedStations(editingRole.permissions.associatedStations || []);
         setSelectedOrgTypes(editingRole.orgTypes || []);
         setSelectedRoleType(editingRole.roleType || ''); 
         // 设置展开的节点（展开所有页面节点）
-        if (permissions.pageOperations) {
-          const expandKeys = permissions.pageOperations.map(page => page.id);
+        if (permissions) {
+          const expandKeys = permissions.map(page => page.id);
           setExpandedKeys(expandKeys);
         }
       } else {
@@ -199,7 +212,7 @@ const RoleConfigModal = ({
         form.resetFields();
         setSelectedPageOperations([]);
         setCheckedKeys([]);
-        setSelectedDataScope('self');
+        setSelectedDataScope('');
         setSelectedPosDevices([]);
         setSelectedStations([]);
         setSelectedOrgTypes([]);
@@ -208,6 +221,11 @@ const RoleConfigModal = ({
         setPosDeviceSearchValue('');
         setSelectedRoleType('');
       }
+      getDataScope();
+      getOrgTypes();
+      getRoleTypes();
+      // getOrgTree();
+      getStationList();
     }
   }, [visible, editingRole, form, permissions]);
 
@@ -263,6 +281,43 @@ const RoleConfigModal = ({
     }
   };
 
+  const getDataScope = async () => {
+    const res = await api.getDict('data_scope');
+    console.log('getDataScope---------',res);
+    if (res.success) {
+      setDataScopes(res.data);
+    }
+  }
+
+  const getOrgTypes = async () => {
+    const res = await api.getOrgTypes();
+    if (res.success) {
+      setOrgTypes(res.data);
+    }
+  }
+
+  const getRoleTypes = async () => {
+    const res = await api.getDict('role_type');
+    if (res.success) {
+      setRoleTypes(res.data);
+    }
+  }
+
+  const getStationList = async () => {
+    const res = await api.getStationList();
+    if (res.success) {
+      setOrgTree(res.data.list);
+    }
+  }
+
+  // const getOrgTree = async () => {
+  //   const res = await api.getOrgTree();
+  //   console.log('getOrgTree---------',res);
+  //   if (res.success) {
+  //     setOrgTree(res.data);
+  //   }
+  // }
+
   // POS设备权限搜索处理
   const handlePosDeviceSearch = (value) => {
     setPosDeviceSearchValue(value);
@@ -291,8 +346,10 @@ const RoleConfigModal = ({
       });
     };
     
-    if (permissions.pageOperations) {
-      const treeData = convertToTreeData(permissions.pageOperations);
+    if (permissions) {
+      console.log('permissions')
+      console.log(permissions)
+      const treeData = convertToTreeData(permissions);
       traverse(treeData);
     }
     return allIds;
@@ -372,9 +429,9 @@ const RoleConfigModal = ({
                   placeholder="请选择适用的组织类型"
                   onChange={setSelectedOrgTypes}
                 >
-                  {orgTypeOptions.map(option => (
-                    <Option key={option.value} value={option.value}>
-                      {option.label}
+                  {orgTypes.map(option => (
+                    <Option key={option.itemCode} value={option.itemCode}>
+                      {option.itemName}
                     </Option>
                   ))}
                 </Select>
@@ -390,9 +447,9 @@ const RoleConfigModal = ({
                   placeholder="请选择适用的角色类型"
                   onChange={setSelectedRoleType}
                 >
-                  {roleTypeOptions.map(option => (
-                    <Option key={option.value} value={option.value}>
-                      {option.label}
+                  {roleTypes.map(option => (
+                    <Option key={option.itemCode} value={option.itemCode}>
+                      {option.itemName}
                     </Option>
                   ))}
                 </Select>
@@ -526,7 +583,7 @@ const RoleConfigModal = ({
                 <DatabaseOutlined style={{ color: '#fa8c16' }} />
                 <Text strong>数据权限</Text>
                 <Tag color="orange">
-                  {permissions.dataScopes?.find(ds => ds.id === selectedDataScope)?.name}
+                  {dataScopes?.find(ds => ds.id === selectedDataScope)?.name}
                 </Tag>
               </Space>
             } 
@@ -546,9 +603,9 @@ const RoleConfigModal = ({
                 style={{ width: '100%' }}
                 placeholder="请选择数据权限范围"
               >
-                {permissions.dataScopes?.map(scope => (
-                  <Option key={scope.id} value={scope.id}>
-                    {scope.name}
+                {dataScopes?.map(scope => (
+                  <Option key={scope.id} value={scope.itemCode}>
+                    {scope.itemName}
                   </Option>
                 ))}
               </Select>
@@ -661,7 +718,7 @@ const RoleConfigModal = ({
             key="4"
           >
             <StationSelector
-              orgTreeData={orgTreeData}
+              orgTreeData={orgTree}
               selectedStations={selectedStations.map(id => `station_${id}`)}
               onChange={handleStationChange}
             />

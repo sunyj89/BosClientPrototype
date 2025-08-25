@@ -34,12 +34,20 @@ service.interceptors.response.use(
     const res = response.data;
     // 这里可以根据后端返回的状态码做统一处理
     if (res.code !== 0) {
+      console.log(res);
       message.error(res.message || '请求失败');
       return Promise.reject(new Error(res.message || '请求失败'));
     }
     return res;
   },
   error => {
+    if (error.response && error.response.data && (error.response.data.code === 990001 || error.response.data.code === 990004)) {
+      // 处理未认证错误，例如跳转到登录页
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+
+
     // 处理响应错误
     console.error('响应错误:', error);
     message.error('网络异常，请稍后再试');

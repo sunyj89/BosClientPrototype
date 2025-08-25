@@ -34,7 +34,7 @@ const { confirm } = Modal;
 const RoleConfiguration = () => {
   const navigate = useNavigate();
   const [roleConfigs, setRoleConfigs] = useState([]);
-  const [permissions, setPermissions] = useState({});
+  const [permissions, setPermissions] = useState([]);
   const [orgTreeData, setOrgTreeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -135,10 +135,15 @@ const businessRoleColumns = [
   // 加载权限定义
   const loadPermissions = async () => {
     try {
-      const result = await api.getPermissions();
-      if (result.success) {
-        setPermissions(result.data);
+      const menus =  await api.getMenus()
+      console.log(menus);
+      if (menus.success) {
+        setPermissions(menus.data);
       }
+      // const result = await api.getPermissions();
+      // if (result.success) {
+      //   setPermissions(result.data);
+      // }
     } catch (error) {
       console.error('获取权限定义失败:', error);
     }

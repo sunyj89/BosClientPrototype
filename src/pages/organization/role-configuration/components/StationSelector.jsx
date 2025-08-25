@@ -36,6 +36,7 @@ const StationSelector = ({
 
   // 初始化选中状态
   useEffect(() => {
+    console.log('selectedStations', orgTreeData);
     // 确保selectedStations是正确格式的数组（station_前缀）
     const formattedKeys = Array.isArray(selectedStations) 
       ? selectedStations.filter(key => typeof key === 'string' && key.startsWith('station_'))
@@ -43,32 +44,34 @@ const StationSelector = ({
     setCheckedKeys(formattedKeys);
   }, [selectedStations]);
 
+  console.log('orgTreeData', orgTreeData);
   // 从组织树中提取所有服务区和油站
   const extractStationsFromTree = (treeData) => {
     const stations = [];
     const serviceAreas = [];
     
     const traverse = (nodes) => {
+      console.log('nodes', nodes);
       nodes.forEach(node => {
         if (node.orgType === 'SERVICE_AREA') {
           serviceAreas.push({
             id: node.id,
-            name: node.name,
+            name: node.orgName,
             parentName: node.parentName,
             type: 'SERVICE_AREA',
             key: `service_${node.id}`,
-            title: node.name,
+            title: node.orgName,
             icon: <EnvironmentOutlined style={{ color: '#faad14' }} />,
             children: []
           });
         } else if (node.orgType === 'GAS_STATION') {
           stations.push({
             id: node.id,
-            name: node.name,
+            name: node.orgName,
             parentName: node.parentName,
             type: 'GAS_STATION',
             key: `station_${node.id}`,
-            title: node.name,
+            title: node.orgName,
             icon: <ShopOutlined style={{ color: '#ff4d4f' }} />,
             isLeaf: true
           });

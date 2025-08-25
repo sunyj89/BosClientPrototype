@@ -537,7 +537,11 @@ export const addRoleConfiguration = async (roleConfigData) => {
     "roleDescription": roleConfigData.description,
     "dataScope": roleConfigData.permissions.dataScope,
     "roleType": roleConfigData.roleType,
-    "isSystemRole": roleConfigData.roleType === "SYSTEM" ? 1:0
+    "isSystemRole": roleConfigData.roleType === "SYSTEM" ? 1:0,
+    "status": 100,
+    "menuIds": roleConfigData.permissions.pageOperations,
+    "gasStationIds": roleConfigData.permissions.associatedStations,
+    "posDeviceIds": roleConfigData.permissions.associatedStations
   }
   console.log(data)
 
@@ -686,3 +690,59 @@ export const copyRoleConfiguration = async (id, newRoleName, newDescription, cop
     };
   }
 }; 
+
+// 获取菜单
+export const getMenus = async () => {
+  const res = await get(`/merchant/api/roles/users/menus`);
+  if (res.code === 0) {
+    return {
+      success: true,
+      data: res.data,
+      message: '获取菜单成功'
+    };
+  }else{
+    return {
+      success: false,
+      data: null,
+      message: '获取菜单失败'
+    };
+  }
+};
+
+// 获取字典
+export const getDict = async (modelCode) => {
+  const res = await get(`/merchant/api/dictionary/model/${modelCode}`);
+  if (res.code === 0) {
+    return {
+      success: true,
+      data: res.data,
+      message: '获取字典成功'
+    };
+  }else{
+    return {
+      success: false,
+      data: null,
+      message: '获取字典失败'
+    };
+  }
+};
+
+// 获取油站列表
+export const getStationList = async (params) => {
+  const res = await get('/microservice-station/api/stations',params);
+  console.log(res);
+
+  if (res.code === 0) {
+    return {
+      success: true,
+      data: res.data,
+      message: '获取油站列表成功'
+    };
+  }else{
+    return {
+      success: false,
+      data: null,
+      message: res.msg
+    };
+  }
+};

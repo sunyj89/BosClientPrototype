@@ -73,7 +73,8 @@ const OrganizationManagement = () => {
       try {
         setLoading(true);
         setSelectedNode(node);
-        console.log(node);
+        console.log('node', node);
+        
         // 获取用户列表
         const userResult = await api.getUsersByOrgId(node.id);
         if (userResult.success) {
@@ -211,7 +212,14 @@ const OrganizationManagement = () => {
 
   // 编辑组织
   const handleEditOrg = () => {
-    setEditingOrg(selectedNode);
+    console.log('selectedNode', selectedNode);
+    // 确保editingOrg包含完整的节点信息，包括可能需要的父级信息
+    setEditingOrg({
+      ...selectedNode,
+      // 确保包含parentId和parentName字段，以保持与AddOrgModal组件的兼容性
+      parentId: selectedNode.parentId || (selectedNode.parent && selectedNode.parent.id),
+      parentName: selectedNode.parentName || (selectedNode.parent && selectedNode.parent.name)
+    });
     setEditOrgModalVisible(true);
   };
 
@@ -395,7 +403,7 @@ const OrganizationManagement = () => {
         visible={editOrgModalVisible}
         onCancel={() => setEditOrgModalVisible(false)}
         onSuccess={handleEditOrgSuccess}
-        selectedNode={editingOrg?.parentId ? { id: editingOrg.parentId, name: editingOrg.parentName } : null}
+        selectedNode={editingOrg?.parentId ? { id: editingOrg.parentId, name: editingOrg.parentName, orgType: editingOrg.orgType } : null}
         editingOrg={editingOrg}
         isEdit={true}
       />
@@ -403,4 +411,4 @@ const OrganizationManagement = () => {
   );
 };
 
-export default OrganizationManagement; 
+export default OrganizationManagement;

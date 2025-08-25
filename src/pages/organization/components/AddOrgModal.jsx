@@ -9,6 +9,9 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
   const [legalEntities, setLegalEntities] = useState([]);
 
   useEffect(() => {
+    console.log('----------------------------------')
+    console.log('visible', visible);
+    console.log('selectedNode', selectedNode);
     if (visible) {
       loadOrgTypes();
       loadLegalEntities();
@@ -16,12 +19,15 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
       if (isEdit && editingOrg) {
         console.log('editingOrg', editingOrg);
         // 编辑模式
-        form.setFieldsValue({
-          name: editingOrg.name,
-          orgType: editingOrg.orgType,
-          legalEntityId: editingOrg.legalEntityId,
-          parentName: editingOrg.parentName
-        });
+        // 确保editingOrg存在并有必要的属性
+        if (editingOrg) {
+          form.setFieldsValue({
+            orgName: editingOrg.orgName || '',
+            orgType: editingOrg.orgType || '',
+            legalEntityId: editingOrg.legalEntityId || '',
+            parentName: editingOrg.parentName || ''
+          });
+        }
       } else if (selectedNode) {
         // 新增模式
         form.setFieldsValue({
@@ -59,8 +65,8 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
 
   // 根据父节点类型过滤可选的组织类型
   const getAvailableOrgTypes = () => {
-    console.log(selectedNode);
-    console.log(orgTypes);
+    console.log('selectedNode', selectedNode);
+    console.log('orgTypes', orgTypes);
     if (!selectedNode) return orgTypes;
     
     const { orgType } = selectedNode;
@@ -96,7 +102,7 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
         // 编辑模式
         const orgData = {
           id: editingOrg.id,
-          name: values.name,
+          name: values.orgName,
           orgType: values.orgType,
           parentId: editingOrg.parentId,
           parentName: editingOrg.parentName,
@@ -106,12 +112,13 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
       } else {
         // 新增模式
         const orgData = {
-          name: values.name,
+          name: values.orgName,
           orgType: values.orgType,
           parentId: selectedNode?.id || null,
           parentName: selectedNode?.name || null,
           legalEntity: legalEntity
         };
+        console.log('----------------------------------')
         result = await api.addOrgUnit(orgData);
       }
 
@@ -149,8 +156,8 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
           {isEdit ? '编辑组织单元' : '新增组织单元'}
           <div style={{ fontSize: '12px', color: '#666', fontWeight: 'normal', marginTop: '4px' }}>
             {isEdit 
-              ? `编辑组织单元 "${editingOrg?.name}"` 
-              : `在 "${selectedNode?.name}" 下创建子组织`
+              ? `编辑组织单元 "${editingOrg?.orgName}"` 
+              : `在 "${selectedNode?.orgName}" 下创建子组织`
             }
           </div>
         </div>
@@ -168,7 +175,7 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
         preserve={false}
       >
         <Form.Item
-          name="name"
+          name="orgName"
           label="组织名称"
           rules={[
             { required: true, message: '请输入组织名称' },
@@ -210,12 +217,12 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
           </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="parentName"
           label="上级组织"
         >
           <Input disabled />
-        </Form.Item>
+        </Form.Item> */}
 
         {availableOrgTypes.length === 0 && (
           <div style={{ 
@@ -235,4 +242,4 @@ const AddOrgModal = ({ visible, onCancel, onSuccess, selectedNode, editingOrg, i
   );
 };
 
-export default AddOrgModal; 
+export default AddOrgModal;
