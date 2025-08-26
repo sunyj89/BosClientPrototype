@@ -59,25 +59,6 @@ const buildStationTreeData = () => {
   }));
 };
 
-// 生成油枪选项数据
-const generateGunOptions = () => {
-  const guns = [];
-  for (let i = 1; i <= 9; i++) {
-    if (i <= 8) {
-      guns.push({
-        value: `G${String(i).padStart(3, '0')}`,
-        label: `${i}号枪`
-      });
-    } else {
-      guns.push({
-        value: `G${String(i).padStart(3, '0')}`,
-        label: '尿素枪'
-      });
-    }
-  }
-  return guns;
-};
-
 const TankManagement = () => {
   const [activeTab, setActiveTab] = useState('tankList');
   const [loading, setLoading] = useState(false);
@@ -236,7 +217,6 @@ const TankManagement = () => {
       form.setFieldsValue({
         ...tank,
         stationId: tank.stationId,
-        associatedGuns: tank.associatedGuns || [],
         thresholds: tank.thresholds || {
           minLevelAlarm: 0,
           minLevelDeviation: 0,
@@ -285,16 +265,12 @@ const TankManagement = () => {
       // 获取选中油站的详细信息
       const selectedStation = stationData.stations?.find(station => station.id === values.stationId);
       
-              const tankInfo = {
-          ...values,
-          id: editingTank ? editingTank.id : `T${String(tankList.length + 1).padStart(3, '0')}`,
-          stationName: selectedStation ? selectedStation.name : '',
-          organizationId: selectedStation ? selectedStation.branchId : '',
-          organizationName: selectedStation ? selectedStation.branchName : '',
-        associatedGunNames: values.associatedGuns ? values.associatedGuns.map(gunId => {
-          const gunOption = generateGunOptions().find(gun => gun.value === gunId);
-          return gunOption ? gunOption.label : gunId;
-        }) : [],
+      const tankInfo = {
+        ...values,
+        id: editingTank ? editingTank.id : `T${String(tankList.length + 1).padStart(3, '0')}`,
+        stationName: selectedStation ? selectedStation.name : '',
+        organizationId: selectedStation ? selectedStation.branchId : '',
+        organizationName: selectedStation ? selectedStation.branchName : '',
         currentVolume: editingTank ? editingTank.currentVolume : 0,
         createTime: editingTank ? editingTank.createTime : new Date().toLocaleString('zh-CN'),
         updateTime: new Date().toLocaleString('zh-CN')
@@ -865,20 +841,7 @@ const TankManagement = () => {
           </Row>
 
           <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="associatedGuns"
-                label="关联油枪"
-                rules={[{ required: true, message: '请选择关联油枪' }]}
-              >
-                <Select
-                  mode="multiple"
-                  placeholder="请选择关联油枪"
-                  options={generateGunOptions()}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
+            <Col span={24}>
               <Form.Item
                 name="defaultDensity"
                 label="默认密度(g/ml)"
@@ -1132,7 +1095,6 @@ const TankManagement = () => {
               <Descriptions.Item label="最大罐容">{viewingTank.maxCapacity?.toLocaleString()} L</Descriptions.Item>
               <Descriptions.Item label="设计罐容">{viewingTank.designCapacity?.toLocaleString()} L</Descriptions.Item>
               <Descriptions.Item label="当前存量">{viewingTank.currentVolume?.toLocaleString()} L</Descriptions.Item>
-              <Descriptions.Item label="关联油枪">{viewingTank.associatedGunNames?.join(', ')}</Descriptions.Item>
               <Descriptions.Item label="默认密度">{viewingTank.defaultDensity} {viewingTank.densityUnit}</Descriptions.Item>
               <Descriptions.Item label="液位仪接口">{viewingTank.levelMeterInterface}</Descriptions.Item>
               <Descriptions.Item label="波特率">{viewingTank.baudRate ? `${viewingTank.baudRate} Hz` : '-'}</Descriptions.Item>
