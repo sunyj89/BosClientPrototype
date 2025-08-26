@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Tabs, Table, Button, Form, Input, Select, DatePicker, Space, Tag, Badge, Modal, Row, Col, Statistic, Progress, Spin, message, Tooltip, Switch, InputNumber, Divider, Rate } from 'antd';
 import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, ExportOutlined, SettingOutlined, CommentOutlined, StarOutlined, BarChartOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons';
-import mockData from '../../../mock/member/feedbackEvaluationData.json';
 import './index.css';
 
 const { RangePicker } = DatePicker;
@@ -35,10 +34,11 @@ const MemberFeedbackEvaluation = () => {
     setLoading(true);
     setTimeout(() => {
       // 加载Mock数据
-      setFeedbackData(mockData.feedbackData || []);
-      setEvaluationData(mockData.evaluationData || []);
-      setStatisticsData(mockData.statisticsData || {});
-      setEvaluationRules(mockData.evaluationRules || {});
+      const mockData = require('../../../mock/member/feedbackEvaluationData.json');
+      setFeedbackData(mockData.feedbackData);
+      setEvaluationData(mockData.evaluationData);
+      setStatisticsData(mockData.statisticsData);
+      setEvaluationRules(mockData.evaluationRules);
       setLoading(false);
     }, 500);
   };

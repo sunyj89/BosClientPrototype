@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, TreeSelect, Popconfirm, Progress, Statistic, Alert, Radio, Upload, Collapse, Typography, Switch } from 'antd';
-import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, SafetyOutlined, ScanOutlined, EnvironmentOutlined, AlertOutlined, BarChartOutlined, HistoryOutlined, UploadOutlined, DownloadOutlined } from '@ant-design/icons';
+import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Modal, Tag, Descriptions, message, DatePicker, TreeSelect, Popconfirm, Progress, Statistic, Alert, Radio, Upload, Collapse, Typography, Switch, TimePicker, InputNumber, Checkbox, Divider } from 'antd';
+import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, SafetyOutlined, ScanOutlined, EnvironmentOutlined, AlertOutlined, BarChartOutlined, HistoryOutlined, UploadOutlined, DownloadOutlined, MinusCircleOutlined, FileTextOutlined, CameraOutlined, VideoCameraOutlined, CheckOutlined, NumberOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import './index.css';
 import inspectionData from '../../../mock/security/inspectionData.json';
@@ -19,6 +19,7 @@ const InspectionManagement = () => {
   const [taskForm] = Form.useForm();
   const [nfcForm] = Form.useForm();
   const [pointForm] = Form.useForm();
+  const [workOrderForm] = Form.useForm();
   
   // 数据状态
   const [taskList, setTaskList] = useState([]);
@@ -63,10 +64,42 @@ const InspectionManagement = () => {
   const [uploadFileList, setUploadFileList] = useState([]);
   const [nfcSearchValue, setNfcSearchValue] = useState('');
   const [filteredNfcTags, setFilteredNfcTags] = useState([]);
+  
+  // 工单关联巡检单状态
+  const [selectedInspectionIds, setSelectedInspectionIds] = useState([]);
+  const [inspectionIssues, setInspectionIssues] = useState([]);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  
+  // 重复事件相关状态
+  const [frequencyMode, setFrequencyMode] = useState('preset'); // 'preset' 或 'custom'
+  const [presetFrequency, setPresetFrequency] = useState(''); // 预设频率
+  const [customFrequency, setCustomFrequency] = useState({
+    interval: 1, // 间隔数值
+    unit: 'day', // 间隔单位: day, week, month, quarter, year
+    weekdays: [], // 周几（当unit为week时）
+    monthDate: 1, // 每月的第几天
+    quarterOffset: 1 // 季度的第几天
+  });
+  const [scheduleTime, setScheduleTime] = useState({
+    startTime: '08:00',
+    endTime: '09:00'
+  });
+  const [scheduleRule, setScheduleRule] = useState(''); // 动态生成的规则描述
+
+  // 检查项管理相关状态
+  const [inspectionItems, setInspectionItems] = useState([]);
+  const [currentInspectionItem, setCurrentInspectionItem] = useState(null);
 
   useEffect(() => {
     loadData();
   }, [activeTab]);
+
+  // 初始化规则描述
+  useEffect(() => {
+    if (frequencyMode && (presetFrequency || customFrequency)) {
+      setScheduleRule(generateScheduleRule());
+    }
+  }, [frequencyMode, presetFrequency, customFrequency, scheduleTime]);
 
   // 监听NFC标签数据变化，初始化过滤列表
   useEffect(() => {
@@ -222,6 +255,23 @@ const InspectionManagement = () => {
   const handleAddTask = () => {
     setModalType('add');
     taskForm.resetFields();
+    
+    // 重置重复事件状态
+    setFrequencyMode('preset');
+    setPresetFrequency('');
+    setCustomFrequency({
+      interval: 1,
+      unit: 'day',
+      weekdays: [],
+      monthMode: 'date',
+      monthDate: 1,
+      monthWeekday: { nth: 'first', day: 'monday' },
+      quarterMode: 'first',
+      quarterOffset: 1
+    });
+    setScheduleTime({ startTime: '08:00', endTime: '09:00' });
+    setScheduleRule('');
+    
     // 为新增模式生成临时ID
     const tempId = `TASK${String(Math.floor(Math.random() * 90000000) + 10000000)}`;
     const today = dayjs();
@@ -310,7 +360,7 @@ const InspectionManagement = () => {
       const taskData = {
         taskName: values.taskName,
         inspectionType: values.inspectionType,
-        frequency: values.frequency,
+        frequency: scheduleRule || values.frequency, // 使用生成的规则描述
         priority: values.priority,
         creator: values.creator,
         description: values.description,
@@ -322,7 +372,15 @@ const InspectionManagement = () => {
         status: '待执行',
         createTime: new Date().toISOString().split('T')[0],
         validityStartDate: values.validityStartDate ? values.validityStartDate.format('YYYY-MM-DD') : null,
-        validityEndDate: values.validityEndDate ? values.validityEndDate.format('YYYY-MM-DD') : null
+        validityEndDate: values.validityEndDate ? values.validityEndDate.format('YYYY-MM-DD') : null,
+        // 重复事件数据
+        scheduleData: {
+          frequencyMode,
+          presetFrequency: frequencyMode === 'preset' ? presetFrequency : null,
+          customFrequency: frequencyMode === 'custom' ? customFrequency : null,
+          scheduleTime,
+          scheduleRule
+        }
       };
 
       if (modalType === 'add') {
@@ -535,6 +593,10 @@ const InspectionManagement = () => {
   const handleAddPoint = () => {
     setModalType('add');
     pointForm.resetFields();
+    
+    // 初始化检查项数据
+    setInspectionItems([]);
+    
     // 为新增模式生成临时ID
     const tempId = `checkpoint${String(Math.floor(Math.random() * 900000) + 100000)}`;
     pointForm.setFieldsValue({ pointId: tempId });
@@ -545,17 +607,106 @@ const InspectionManagement = () => {
   const handleEditPoint = (record) => {
     setModalType('edit');
     setCurrentRecord(record);
+    
+    // 初始化检查项数据，兼容旧数据结构
+    const items = (record.inspectionItems || []).map(item => {
+      // 如果是旧数据结构，转换为新结构
+      if (item.inspectionMethod && !item.inspectionMethods) {
+        return {
+          ...item,
+          inspectionMethods: [{
+            method: item.inspectionMethod
+          }]
+        };
+      }
+      return item;
+    });
+    setInspectionItems(items);
+    
     pointForm.setFieldsValue({
       pointId: record.id,
+      pointName: record.pointName,
       checkArea: record.checkArea,
       checkPoints: record.checkPoints,
-      stationId: record.stationId,
       locationDesc: record.locationDesc,
-      associatedNfcTag: record.associatedLabels?.length > 0 ? record.associatedLabels[0].id : null,
-      nfcTagCode: record.associatedLabels?.length > 0 ? record.associatedLabels[0].code : '',
-      inspectionItems: record.inspectionItems || []
+      inspectionItems: items
     });
     setPointModalVisible(true);
+  };
+
+  // 检查项管理函数
+  // 添加检查项
+  const handleAddInspectionItem = () => {
+    const newItem = {
+      id: `item_${Date.now()}`,
+      itemName: '',
+      inspectionMethods: [{
+        method: 'text'
+      }], // 支持多个检查方式
+      description: ''
+    };
+    setInspectionItems([...inspectionItems, newItem]);
+  };
+
+  // 删除检查项
+  const handleRemoveInspectionItem = (itemId) => {
+    setInspectionItems(inspectionItems.filter(item => item.id !== itemId));
+  };
+
+  // 更新检查项
+  const handleUpdateInspectionItem = (itemId, field, value) => {
+    setInspectionItems(inspectionItems.map(item => 
+      item.id === itemId 
+        ? { ...item, [field]: value }
+        : item
+    ));
+  };
+
+  // 切换检查方式
+  const handleToggleInspectionMethod = (itemId, methodKey) => {
+    setInspectionItems(inspectionItems.map(item => {
+      if (item.id === itemId) {
+        const currentMethods = item.inspectionMethods || [];
+        const existingIndex = currentMethods.findIndex(m => m.method === methodKey);
+        
+        let newMethods;
+        if (existingIndex >= 0) {
+          // 如果已存在，则移除
+          newMethods = currentMethods.filter(m => m.method !== methodKey);
+        } else {
+          // 如果不存在，则添加
+          newMethods = [...currentMethods, { method: methodKey }];
+        }
+        
+        return { ...item, inspectionMethods: newMethods };
+      }
+      return item;
+    }));
+  };
+
+  // 更新检查方式的必填状态
+  // 获取检查方式的展示名称
+  const getInspectionMethodName = (method) => {
+    const methodMap = {
+      'text': '文字记录',
+      'photo': '拍照记录',
+      'video': '视频记录',
+      'checkbox': '勾选检查',
+      'number': '数值记录'
+    };
+    return methodMap[method] || method;
+  };
+
+  // 获取检查方式的图标
+  const getInspectionMethodIcon = (method) => {
+    const iconMap = {
+      'text': <FileTextOutlined />,
+      'photo': <CameraOutlined />,
+      'video': <VideoCameraOutlined />,
+      'checkbox': <CheckOutlined />,
+      'number': <NumberOutlined />
+    };
+    return iconMap[method] || <FileTextOutlined />;
   };
 
   // 查看点位详情
@@ -574,47 +725,49 @@ const InspectionManagement = () => {
   // 保存点位
   const handleSavePoint = async (values) => {
     try {
-      // 根据选择的油站ID获取对应的groupId
-      const selectedStation = stationData.stations.find(s => s.id === values.stationId);
-      if (!selectedStation) {
-        message.error('请选择有效的油站');
+      // 校验检查项数据
+      if (inspectionItems.length === 0) {
+        message.error('请至少添加一个检查项');
+        return;
+      }
+      
+      // 校验检查项必填字段
+      const invalidItems = inspectionItems.filter(item => 
+        !item.itemName.trim() || 
+        !item.inspectionMethods || 
+        item.inspectionMethods.length === 0
+      );
+      if (invalidItems.length > 0) {
+        message.error('请填写所有检查项的名称并选择至少一种检查方式');
         return;
       }
 
-      // 获取选中的NFC标签信息
-      const selectedNfcTag = values.associatedNfcTag ? 
-        nfcTags.find(tag => tag.id === values.associatedNfcTag) : null;
-
       const pointData = {
         checkArea: values.checkArea,
+        pointName: values.pointName,
         checkPoints: values.checkPoints,
-        stationId: values.stationId,
-        stationName: selectedStation.name,
-        groupId: selectedStation.branchId, // 使用分公司ID作为groupId
         locationDesc: values.locationDesc,
         isDelete: 0,
-        associatedLabels: selectedNfcTag ? [{
-          id: selectedNfcTag.id,
-          code: selectedNfcTag.tagCode,
-          name: selectedNfcTag.tagName
-        }] : [],
-        inspectionItems: values.inspectionItems || []
+        associatedLabels: [],
+        inspectionItems: inspectionItems.map(item => ({
+          ...item,
+          id: item.id.startsWith('item_') ? `${values.pointId || currentRecord?.id}_${item.id}` : item.id
+        })) // 保存检查项数据
       };
 
       if (modalType === 'add') {
         // 系统自动生成点位ID：checkpoint+6位数字
         pointData.id = `checkpoint${String(Math.floor(Math.random() * 900000) + 100000)}`;
         console.log('新增点位:', pointData);
-        const nfcMessage = selectedNfcTag ? `，并关联NFC标签：${selectedNfcTag.tagName}` : '';
-        message.success('点位创建成功！系统自动分配点位ID：' + pointData.id + nfcMessage);
+        message.success(`点位创建成功！系统自动分配点位ID：${pointData.id}，已添加${inspectionItems.length}个检查项`);
       } else {
         pointData.id = currentRecord.id;
         console.log('更新点位:', pointData);
-        const nfcMessage = selectedNfcTag ? `，并更新NFC标签关联：${selectedNfcTag.tagName}` : '，移除NFC标签关联';
-        message.success('点位更新成功' + (values.associatedNfcTag || currentRecord.associatedLabels?.length > 0 ? nfcMessage : ''));
+        message.success(`点位更新成功，已更新${inspectionItems.length}个检查项`);
       }
       
       setPointModalVisible(false);
+      setInspectionItems([]); // 清空检查项状态
       loadData();
     } catch (error) {
       message.error('保存失败');
@@ -641,6 +794,7 @@ const InspectionManagement = () => {
       tagCode: record.tagCode,
       tagName: record.tagName,
       stationId: record.stationId,
+      pointId: record.pointId || undefined,
       description: record.description
     });
     setNfcModalVisible(true);
@@ -654,6 +808,7 @@ const InspectionManagement = () => {
       tagCode: record.tagCode,
       tagName: record.tagName,
       stationId: record.stationId,
+      pointId: record.pointId || undefined,
       description: record.description
     });
     setNfcModalVisible(true);
@@ -677,11 +832,26 @@ const InspectionManagement = () => {
         return;
       }
 
+      // 如果选择了巡检点位，获取点位信息
+      let selectedPoint = null;
+      if (values.pointId) {
+        selectedPoint = inspectionPoints.find(p => p.id === values.pointId);
+        if (!selectedPoint) {
+          message.error('选择的巡检点位不存在，请重新选择');
+          return;
+        }
+      }
+
       const nfcData = {
         tagCode: values.tagCode,
         tagName: values.tagName,
         stationId: values.stationId,
         stationName: selectedStation.name,
+        // 关联点位信息，只保存点位ID
+        pointId: values.pointId || null,
+        // 如果需要显示点位详情，可以在显示时动态获取
+        checkArea: selectedPoint ? selectedPoint.checkArea : null,
+        checkPoints: selectedPoint ? selectedPoint.checkPoints : null,
         description: values.description || null,
         installDate: new Date().toISOString().split('T')[0] // 自动记录安装日期
       };
@@ -690,11 +860,11 @@ const InspectionManagement = () => {
         // 系统自动生成NFC标签ID：NFC+6位数字
         nfcData.id = `NFC${String(Math.floor(Math.random() * 900000) + 100000)}`;
         console.log('新增NFC标签:', nfcData);
-        message.success('NFC标签创建成功！系统自动分配标签ID：' + nfcData.id);
+        message.success(`NFC标签创建成功！系统自动分配标签ID：${nfcData.id}${selectedPoint ? `，已关联巡检点位：${selectedPoint.checkArea}-${selectedPoint.checkPoints}` : ''}`);
       } else {
         nfcData.id = currentRecord.id;
         console.log('更新NFC标签:', nfcData);
-        message.success('NFC标签更新成功');
+        message.success(`NFC标签更新成功${selectedPoint ? `，已关联巡检点位：${selectedPoint.checkArea}-${selectedPoint.checkPoints}` : ''}`);
       }
       
       setNfcModalVisible(false);
@@ -966,6 +1136,7 @@ const InspectionManagement = () => {
 
   // 查看工单详情
   const handleViewWorkOrder = (record) => {
+    setModalType('view');
     setCurrentRecord(record);
     setWorkOrderModalVisible(true);
   };
@@ -987,6 +1158,222 @@ const InspectionManagement = () => {
     message.success(`删除工单"${record.title}"成功`);
     console.log('删除工单:', record);
   };
+
+  // 手工创建工单
+  const handleCreateWorkOrder = () => {
+    setModalType('add');
+    workOrderForm.resetFields();
+    
+    // 重置巡检单相关状态
+    setSelectedInspectionIds([]);
+    setInspectionIssues([]);
+    setSelectedIssue(null);
+    
+    // 生成工单编号
+    const today = dayjs();
+    const workOrderId = `WO-${today.format('YYYYMMDD')}-${String(Math.floor(Math.random() * 900) + 100)}`;
+    workOrderForm.setFieldsValue({
+      workOrderId: workOrderId,
+      sourceType: '手动创建',
+      urgency: '一般',
+      status: '待处理',
+      submitter: '当前用户', // 去掉系统自动名称
+      createTime: today.format('YYYY-MM-DD HH:mm:ss')
+    });
+    setWorkOrderModalVisible(true);
+  };
+
+  // 保存工单
+  const handleSaveWorkOrder = (values) => {
+    console.log('保存工单数据:', values);
+    
+    // 处理日期格式
+    const processedValues = {
+      ...values,
+      deadline: values.deadline ? dayjs(values.deadline).format('YYYY-MM-DD HH:mm:ss') : null
+    };
+    
+    // 构造完整的工单数据
+    const workOrderData = {
+      id: `WO${String(Math.floor(Math.random() * 900) + 100)}`,
+      ...processedValues,
+      sourceId: selectedInspectionIds.length > 0 ? selectedInspectionIds.join(',') : null, // 关联的巡检单ID(多个用逗号分隔)
+      sourceType: selectedInspectionIds.length > 0 ? '巡检异常' : '手动创建', // 根据是否关联巡检单设置来源类型
+      handler: null, // 初始状态没有处理人
+      relatedIssues: inspectionIssues, // 关联的所有问题信息
+    };
+    
+    message.success(`工单创建成功！${selectedInspectionIds.length > 0 ? `（已关联${selectedInspectionIds.length}个巡检单）` : ''}`);
+    setWorkOrderModalVisible(false);
+    workOrderForm.resetFields();
+    
+    // 重置巡检单相关状态
+    setSelectedInspectionIds([]);
+    setInspectionIssues([]);
+    setSelectedIssue(null);
+    
+    // 这里应该调用API保存数据，暂时只是模拟
+    console.log('新建工单:', workOrderData);
+  };
+
+  // 生成重复事件规则描述
+  const generateScheduleRule = () => {
+    if (frequencyMode === 'preset') {
+      // 预设模式的描述
+      const timeStr = `${scheduleTime.startTime}-${scheduleTime.endTime}`;
+      switch (presetFrequency) {
+        case 'none':
+          return '不重复，仅执行一次';
+        case 'daily':
+          return `每天 ${timeStr} 执行巡检任务`;
+        case 'weekly':
+          return `每周 ${timeStr} 执行巡检任务`;
+        case 'monthly':
+          return `每月 ${timeStr} 执行巡检任务`;
+        case 'quarterly':
+          return `每季度 ${timeStr} 执行巡检任务`;
+        case 'yearly':
+          return `每年 ${timeStr} 执行巡检任务`;
+        default:
+          return '请选择巡检频率';
+      }
+    } else {
+      // 自定义模式的描述
+      const { interval, unit, weekdays, monthDate, quarterOffset } = customFrequency;
+      const timeStr = `${scheduleTime.startTime}-${scheduleTime.endTime}`;
+      
+      let baseText = '';
+      if (interval === 1) {
+        switch (unit) {
+          case 'day':
+            baseText = '每天';
+            break;
+          case 'week':
+            baseText = '每周';
+            break;
+          case 'month':
+            baseText = '每月';
+            break;
+          case 'quarter':
+            baseText = '每季度';
+            break;
+          case 'year':
+            baseText = '每年';
+            break;
+        }
+      } else {
+        const unitText = {
+          day: '天',
+          week: '周',
+          month: '个月',
+          quarter: '个季度',
+          year: '年'
+        };
+        baseText = `每${interval}${unitText[unit]}`;
+      }
+      
+      let detailText = '';
+      if (unit === 'week' && weekdays.length > 0) {
+        const dayNames = {
+          1: '周一', 2: '周二', 3: '周三', 4: '周四',
+          5: '周五', 6: '周六', 0: '周日'
+        };
+        const selectedDays = weekdays.map(day => dayNames[day]).join('、');
+        detailText = `的${selectedDays}`;
+      } else if (unit === 'month') {
+        detailText = `的第${monthDate}天`;
+      } else if (unit === 'quarter') {
+        detailText = `的第${quarterOffset}天`;
+      }
+      
+      return `${baseText}${detailText} ${timeStr} 执行巡检任务`;
+    }
+  };
+
+  // 处理频率模式切换
+  const handleFrequencyModeChange = (mode) => {
+    setFrequencyMode(mode);
+    if (mode === 'preset') {
+      setPresetFrequency('');
+    }
+    // 重新生成规则描述
+    setTimeout(() => {
+      setScheduleRule(generateScheduleRule());
+    }, 0);
+  };
+
+  // 处理预设频率选择
+  const handlePresetFrequencyChange = (value) => {
+    setPresetFrequency(value);
+    setScheduleRule(generateScheduleRule());
+  };
+
+  // 处理自定义频率变更
+  const handleCustomFrequencyChange = (field, value) => {
+    setCustomFrequency(prev => ({ ...prev, [field]: value }));
+    setTimeout(() => {
+      setScheduleRule(generateScheduleRule());
+    }, 0);
+  };
+
+  // 处理时间设置变更
+  const handleScheduleTimeChange = (field, value) => {
+    setScheduleTime(prev => ({ ...prev, [field]: value }));
+    setTimeout(() => {
+      setScheduleRule(generateScheduleRule());
+    }, 0);
+  };
+
+  // 处理巡检单选择（支持多选）
+  const handleInspectionSelect = (inspectionIds) => {
+    setSelectedInspectionIds(inspectionIds || []);
+    setSelectedIssue(null);
+    
+    if (inspectionIds && inspectionIds.length > 0) {
+      // 查找选中的所有巡检单
+      const selectedInspections = inspectionDetails.filter(detail => 
+        inspectionIds.includes(detail.inspectionId)
+      );
+      
+      if (selectedInspections.length > 0) {
+        // 合并所有选中巡检单的异常项目
+        let allIssues = [];
+        selectedInspections.forEach(inspection => {
+          const issues = inspection.inspectionItems.filter(item => item.result === '异常');
+          // 为每个问题添加巡检单信息
+          const issuesWithInspectionInfo = issues.map(issue => ({
+            ...issue,
+            inspectionId: inspection.inspectionId,
+            stationName: inspection.stationName,
+            inspectionDate: inspection.inspectionDate
+          }));
+          allIssues = allIssues.concat(issuesWithInspectionInfo);
+        });
+        
+        setInspectionIssues(allIssues);
+        
+        // 如果只选了一个巡检单，自动填充油站信息
+        if (selectedInspections.length === 1) {
+          workOrderForm.setFieldsValue({
+            stationId: selectedInspections[0].stationId,
+            stationName: selectedInspections[0].stationName
+          });
+        } else {
+          // 多个巡检单清空油站信息，由用户手动选择
+          workOrderForm.setFieldsValue({
+            stationId: null,
+            stationName: null
+          });
+        }
+      } else {
+        setInspectionIssues([]);
+      }
+    } else {
+      setInspectionIssues([]);
+    }
+  };
+
+
 
   // 查看修改记录详情
   const handleViewChangeRecord = (record) => {
@@ -1208,13 +1595,6 @@ const InspectionManagement = () => {
       render: (text) => text || <span style={{ color: '#999' }}>未关联</span>
     },
     {
-      title: '所属油站',
-      dataIndex: 'stationName',
-      key: 'stationName',
-      width: 180,
-      render: (text) => text || <span style={{ color: '#999' }}>未关联</span>
-    },
-    {
       title: '维护人',
       dataIndex: 'maintainer',
       key: 'maintainer',
@@ -1259,6 +1639,13 @@ const InspectionManagement = () => {
       render: (text) => <span style={{ fontWeight: 'bold', fontFamily: 'monospace' }}>{text}</span>
     },
     {
+      title: '点位名称',
+      dataIndex: 'pointName',
+      key: 'pointName',
+      width: 150,
+      render: (text) => <span style={{ fontWeight: 'bold' }}>{text || '-'}</span>
+    },
+    {
       title: '检查区域',
       dataIndex: 'checkArea',
       key: 'checkArea',
@@ -1269,12 +1656,30 @@ const InspectionManagement = () => {
       title: '检查点位',
       dataIndex: 'checkPoints',
       key: 'checkPoints',
-      width: 250,
+      width: 200,
       render: (text) => (
-        <div style={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <div style={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {text}
         </div>
       )
+    },
+    {
+      title: '检查项数量',
+      dataIndex: 'inspectionItems',
+      key: 'inspectionItemsCount',
+      width: 120,
+      align: 'center',
+      render: (items) => {
+        const count = items ? items.length : 0;
+        return (
+          <span style={{ 
+            fontWeight: 'bold',
+            color: count > 0 ? '#1890ff' : '#999'
+          }}>
+            {count} 项
+          </span>
+        );
+      }
     },
     {
       title: '位置描述',
@@ -1509,6 +1914,27 @@ const InspectionManagement = () => {
       render: (text) => <span style={{ fontWeight: 'bold' }}>{text}</span>
     },
     {
+      title: '所属油站',
+      dataIndex: 'stationName',
+      key: 'stationName',
+      width: 180,
+      render: (text) => text || '-'
+    },
+    {
+      title: '所属分公司',
+      dataIndex: 'branchName',
+      key: 'branchName',
+      width: 120,
+      render: (text, record) => {
+        // 根据油站ID查找对应的分公司
+        if (record.stationId) {
+          const station = stationData.stations.find(s => s.id === record.stationId);
+          return station ? station.branchName : '-';
+        }
+        return text || '-';
+      }
+    },
+    {
       title: '来源',
       key: 'source',
       width: 120,
@@ -1540,12 +1966,10 @@ const InspectionManagement = () => {
       width: 100,
       render: (text) => {
         const colorMap = {
-          '待分配': 'default',
           '待处理': 'orange',
           '处理中': 'processing',
-          '待审核': 'warning',
           '已完成': 'success',
-          '已逾期': 'error'
+          '已过期': 'error'
         };
         return <Tag color={colorMap[text]}>{text}</Tag>;
       }
@@ -1554,7 +1978,11 @@ const InspectionManagement = () => {
       title: '提交人',
       dataIndex: 'submitter',
       key: 'submitter',
-      width: 100
+      width: 100,
+      render: (text) => {
+        // 去掉'系统自动'名称
+        return text === '系统自动' ? '-' : (text || '-');
+      }
     },
     {
       title: '处理人',
@@ -1576,15 +2004,8 @@ const InspectionManagement = () => {
       width: 150,
       render: (text) => {
         if (!text) return '-';
-        const now = new Date();
-        const deadline = new Date(text);
-        const isOverdue = deadline < now;
-        return (
-          <span style={{ color: isOverdue ? '#ff4d4f' : undefined }}>
-            {text}
-            {isOverdue && <Tag color="red" size="small" style={{ marginLeft: 4 }}>逾期</Tag>}
-          </span>
-        );
+        // 去掉逾期提示，只显示时间
+        return <span>{text}</span>;
       }
     },
     {
@@ -1602,12 +2023,7 @@ const InspectionManagement = () => {
               处理
             </Button>
           )}
-          {record.status === '待审核' && (
-            <Button type="primary" size="small" icon={<EditOutlined />} onClick={() => handleAuditWorkOrder(record)}>
-              审核
-            </Button>
-          )}
-          {(['待分配', '待处理'].includes(record.status)) && (
+          {(['待处理', '处理中'].includes(record.status)) && (
             <Popconfirm title="确定要删除这个工单吗？" onConfirm={() => handleDeleteWorkOrder(record)}>
               <Button type="primary" size="small" danger icon={<DeleteOutlined />}>
                 删除
@@ -2247,33 +2663,11 @@ const InspectionManagement = () => {
                   </Form.Item>
                 </Col>
                 <Col span={6}>
-                  <Form.Item name="stationId" label="所属油站">
-                    <TreeSelect
-                      placeholder="请选择油站"
-                      allowClear
-                      treeData={[
-                        {
-                          title: '全部油站',
-                          value: 'all',
-                          children: stationData.branches.map(branch => ({
-                            title: branch.name,
-                            value: branch.id,
-                            children: stationData.stations.filter(s => s.branchId === branch.id).map(station => ({
-                              title: station.name,
-                              value: station.id
-                            }))
-                          }))
-                        }
-                      ]}
-                    />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
                   <Form.Item name="locationDesc" label="位置描述">
                     <Input placeholder="请输入位置描述" />
                   </Form.Item>
                 </Col>
-                <Col span={6} style={{ textAlign: 'right' }}>
+                <Col span={12} style={{ textAlign: 'right' }}>
                   <Space>
                     <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
                       查询
@@ -2388,12 +2782,10 @@ const InspectionManagement = () => {
                 <Col span={4}>
                   <Form.Item name="workOrderStatus" label="工单状态">
                     <Select placeholder="请选择状态" allowClear>
-                      <Option value="待分配">待分配</Option>
                       <Option value="待处理">待处理</Option>
                       <Option value="处理中">处理中</Option>
-                      <Option value="待审核">待审核</Option>
                       <Option value="已完成">已完成</Option>
-                      <Option value="已逾期">已逾期</Option>
+                      <Option value="已过期">已过期</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -2423,13 +2815,38 @@ const InspectionManagement = () => {
                 </Col>
               </Row>
               <Row gutter={16}>
-                <Col span={24}>
+                <Col span={6}>
+                  <Form.Item name="organizationTree" label="组织机构">
+                    <TreeSelect
+                      placeholder="请选择组织机构"
+                      allowClear
+                      treeData={[
+                        {
+                          title: '江西交投化石能源公司',
+                          value: 'ALL',
+                          key: 'root',
+                          children: stationData.branches.map(branch => ({
+                            title: branch.name,
+                            value: branch.id,
+                            key: branch.id,
+                            children: stationData.stations
+                              .filter(station => station.branchId === branch.id)
+                              .map(station => ({
+                                title: station.name,
+                                value: station.id,
+                                key: station.id
+                              }))
+                          }))
+                        }
+                      ]}
+                      style={{ width: '200px' }}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col span={18}>
                   <Space>
-                    <Button type="primary" icon={<PlusOutlined />}>
+                    <Button type="primary" icon={<PlusOutlined />} onClick={handleCreateWorkOrder}>
                       手动创建工单
-                    </Button>
-                    <Button icon={<HistoryOutlined />} onClick={handleViewChanges}>
-                      处理记录
                     </Button>
                   </Space>
                 </Col>
@@ -2578,14 +2995,160 @@ const InspectionManagement = () => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="frequency" label="巡检频率" rules={[{ required: true, message: '请输入巡检频率' }]}>
-                <Select placeholder="请选择巡检频率">
-                  <Option value="每日一次">每日一次</Option>
-                  <Option value="每周一次">每周一次</Option>
-                  <Option value="每月一次">每月一次</Option>
-                  <Option value="每季度一次">每季度一次</Option>
-                  <Option value="每年一次">每年一次</Option>
-                </Select>
+              <Form.Item name="frequency" label="巡检频率" rules={[{ required: true, message: '请配置巡检频率' }]}>
+                <div style={{ border: '1px solid #d9d9d9', borderRadius: '6px', padding: '12px' }}>
+                  {/* 频率模式选择 */}
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '13px' }}>频率模式</div>
+                    <Radio.Group
+                      value={frequencyMode}
+                      onChange={(e) => handleFrequencyModeChange(e.target.value)}
+                      style={{ width: '100%' }}
+                    >
+                      <Radio value="preset">预设模式</Radio>
+                      <Radio value="custom">自定义模式</Radio>
+                    </Radio.Group>
+                  </div>
+                  
+                  {/* 预设模式 */}
+                  {frequencyMode === 'preset' && (
+                    <div style={{ marginBottom: '12px' }}>
+                      <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '13px' }}>选择频率</div>
+                      <Select
+                        value={presetFrequency}
+                        onChange={handlePresetFrequencyChange}
+                        placeholder="请选择巡检频率"
+                        style={{ width: '100%' }}
+                      >
+                        <Option value="none">不重复</Option>
+                        <Option value="daily">每天</Option>
+                        <Option value="weekly">每周</Option>
+                        <Option value="monthly">每月</Option>
+                        <Option value="quarterly">每季度</Option>
+                        <Option value="yearly">每年</Option>
+                      </Select>
+                    </div>
+                  )}
+                  
+                  {/* 自定义模式 */}
+                  {frequencyMode === 'custom' && (
+                    <div style={{ marginBottom: '12px' }}>
+                      <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '13px' }}>自定义设置</div>
+                      
+                      {/* 间隔设置 */}
+                      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', gap: '8px' }}>
+                        <span>每</span>
+                        <InputNumber
+                          value={customFrequency.interval}
+                          onChange={(value) => handleCustomFrequencyChange('interval', value)}
+                          min={1}
+                          max={99}
+                          style={{ width: '60px' }}
+                        />
+                        <Select
+                          value={customFrequency.unit}
+                          onChange={(value) => handleCustomFrequencyChange('unit', value)}
+                          style={{ width: '80px' }}
+                        >
+                          <Option value="day">天</Option>
+                          <Option value="week">周</Option>
+                          <Option value="month">月</Option>
+                          <Option value="quarter">季度</Option>
+                        </Select>
+                      </div>
+                      
+                      {/* 周设置 */}
+                      {customFrequency.unit === 'week' && (
+                        <div style={{ marginBottom: '8px' }}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>选择在周几执行</div>
+                          <Checkbox.Group
+                            value={customFrequency.weekdays}
+                            onChange={(values) => handleCustomFrequencyChange('weekdays', values)}
+                          >
+                            <Checkbox value={1}>周一</Checkbox>
+                            <Checkbox value={2}>周二</Checkbox>
+                            <Checkbox value={3}>周三</Checkbox>
+                            <Checkbox value={4}>周四</Checkbox>
+                            <Checkbox value={5}>周五</Checkbox>
+                            <Checkbox value={6}>周六</Checkbox>
+                            <Checkbox value={0}>周日</Checkbox>
+                          </Checkbox.Group>
+                        </div>
+                      )}
+                      
+                      {/* 月设置 */}
+                      {customFrequency.unit === 'month' && (
+                        <div style={{ marginBottom: '8px' }}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>每月的第几天执行</div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>每月第</span>
+                            <InputNumber
+                              value={customFrequency.monthDate}
+                              onChange={(value) => handleCustomFrequencyChange('monthDate', value)}
+                              min={1}
+                              max={31}
+                              style={{ width: '60px' }}
+                            />
+                            <span>天</span>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* 季度设置 */}
+                      {customFrequency.unit === 'quarter' && (
+                        <div style={{ marginBottom: '8px' }}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>季度第几天执行</div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <span>季度第</span>
+                            <InputNumber
+                              value={customFrequency.quarterOffset}
+                              onChange={(value) => handleCustomFrequencyChange('quarterOffset', value)}
+                              min={1}
+                              max={90}
+                              style={{ width: '60px' }}
+                            />
+                            <span>天</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* 执行时间设置 */}
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ fontWeight: 'bold', marginBottom: '8px', fontSize: '13px' }}>执行时间段</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span>从</span>
+                      <TimePicker
+                        value={scheduleTime.startTime ? dayjs(scheduleTime.startTime, 'HH:mm') : null}
+                        onChange={(time) => handleScheduleTimeChange('startTime', time ? time.format('HH:mm') : '08:00')}
+                        format="HH:mm"
+                        style={{ width: '80px' }}
+                      />
+                      <span>到</span>
+                      <TimePicker
+                        value={scheduleTime.endTime ? dayjs(scheduleTime.endTime, 'HH:mm') : null}
+                        onChange={(time) => handleScheduleTimeChange('endTime', time ? time.format('HH:mm') : '09:00')}
+                        format="HH:mm"
+                        style={{ width: '80px' }}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* 规则描述 */}
+                  {scheduleRule && (
+                    <div style={{ 
+                      background: '#f6ffed', 
+                      border: '1px solid #b7eb8f', 
+                      borderRadius: '4px', 
+                      padding: '8px',
+                      fontSize: '12px'
+                    }}>
+                      <div style={{ fontWeight: 'bold', color: '#389e0d', marginBottom: '4px' }}>规则描述：</div>
+                      <div style={{ color: '#389e0d' }}>{scheduleRule}</div>
+                    </div>
+                  )}
+                </div>
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -3227,10 +3790,16 @@ const InspectionManagement = () => {
       <Modal
         title={modalType === 'add' ? '新增巡检点位' : '编辑巡检点位'}
         open={pointModalVisible}
-        onCancel={() => setPointModalVisible(false)}
-        width={1000}
+        onCancel={() => {
+          setPointModalVisible(false);
+          setInspectionItems([]); // 清空检查项状态
+        }}
+        width={1200}
         footer={[
-          <Button key="cancel" onClick={() => setPointModalVisible(false)}>
+          <Button key="cancel" onClick={() => {
+            setPointModalVisible(false);
+            setInspectionItems([]);
+          }}>
             取消
           </Button>,
           <Button key="submit" type="primary" onClick={() => pointForm.submit()}>
@@ -3258,18 +3827,37 @@ const InspectionManagement = () => {
             </Col>
             <Col span={12}>
               <Form.Item 
+                name="pointName" 
+                label="点位名称" 
+                rules={[{ required: true, message: '请输入点位名称' }]}
+              >
+                <Input 
+                  placeholder="请输入点位名称，如：主油罐区、一号加油机等" 
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
                 name="checkArea" 
                 label="检查区域" 
                 rules={[{ required: true, message: '请选择检查区域' }]}
               >
                 <Select placeholder="请选择检查区域">
-                  {inspectionData.checkAreaOptions?.map(area => (
-                    <Option key={area} value={area}>{area}</Option>
-                  ))}
+                  <Option value="油罐区">油罐区</Option>
+                  <Option value="加油区">加油区</Option>
+                  <Option value="配电房">配电房</Option>
+                  <Option value="便利店">便利店</Option>
+                  <Option value="卡油区">卡油区</Option>
+                  <Option value="环保设备">环保设备</Option>
                 </Select>
               </Form.Item>
             </Col>
           </Row>
+          
+
           
           <Row gutter={16}>
             <Col span={24}>
@@ -3291,8 +3879,142 @@ const InspectionManagement = () => {
             label="位置描述"
             rules={[{ required: true, message: '请输入位置描述' }]}
           >
-            <TextArea rows={3} placeholder="请输入点位的详细位置描述" />
+            <TextArea rows={2} placeholder="请输入点位的详细位置描述" />
           </Form.Item>
+
+          {/* 检查项管理区域 */}
+          <Divider>检查项管理</Divider>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              marginBottom: '12px' 
+            }}>
+              <div style={{ fontWeight: 'bold', fontSize: '14px' }}>
+                检查项列表 ({inspectionItems.length}个)
+              </div>
+              <Button 
+                type="primary" 
+                size="small" 
+                icon={<PlusOutlined />}
+                onClick={handleAddInspectionItem}
+              >
+                添加检查项
+              </Button>
+            </div>
+            
+            {inspectionItems.length === 0 ? (
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '40px 0', 
+                background: '#fafafa',
+                border: '1px dashed #d9d9d9',
+                borderRadius: '6px',
+                color: '#999'
+              }}>
+                <div style={{ marginBottom: '8px' }}>暂无检查项</div>
+                <div style={{ fontSize: '12px' }}>请点击上方“添加检查项”按钮添加巡检内容</div>
+              </div>
+            ) : (
+              <div style={{ 
+                maxHeight: '400px', 
+                overflowY: 'auto',
+                border: '1px solid #f0f0f0',
+                borderRadius: '6px'
+              }}>
+                {inspectionItems.map((item, index) => (
+                  <div key={item.id} style={{
+                    padding: '16px',
+                    borderBottom: index < inspectionItems.length - 1 ? '1px solid #f0f0f0' : 'none',
+                    background: index % 2 === 0 ? '#fafafa' : '#fff'
+                  }}>
+                    <Row gutter={16} align="middle">
+                      <Col span={1}>
+                        <div style={{
+                          width: '24px',
+                          height: '24px',
+                          borderRadius: '50%',
+                          background: '#1890ff',
+                          color: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '12px',
+                          fontWeight: 'bold'
+                        }}>
+                          {index + 1}
+                        </div>
+                      </Col>
+                      <Col span={5}>
+                        <div style={{ marginBottom: '4px', fontSize: '12px', color: '#666' }}>检查项名称 *</div>
+                        <Input
+                          value={item.itemName}
+                          onChange={(e) => handleUpdateInspectionItem(item.id, 'itemName', e.target.value)}
+                          placeholder="请输入检查项名称"
+                          size="small"
+                        />
+                      </Col>
+                      <Col span={8}>
+                        <div style={{ marginBottom: '4px', fontSize: '12px', color: '#666' }}>检查方式（可多选）</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          {[
+                            { key: 'text', label: '文字记录' },
+                            { key: 'photo', label: '拍照记录' },
+                            { key: 'video', label: '视频记录' },
+                            { key: 'checkbox', label: '勾选检查' },
+                            { key: 'number', label: '数值记录' }
+                          ].map(method => {
+                            const methodConfig = item.inspectionMethods?.find(m => m.method === method.key);
+                            const isSelected = !!methodConfig;
+                            
+                            return (
+                              <div key={method.key} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                fontSize: '12px'
+                              }}>
+                                <Checkbox
+                                  checked={isSelected}
+                                  onChange={(e) => {
+                                    handleToggleInspectionMethod(item.id, method.key);
+                                  }}
+                                >
+                                  {method.label}
+                                </Checkbox>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div style={{ marginBottom: '4px', fontSize: '12px', color: '#666' }}>检查说明</div>
+                        <TextArea
+                          value={item.description}
+                          onChange={(e) => handleUpdateInspectionItem(item.id, 'description', e.target.value)}
+                          placeholder="请输入检查说明或注意事项"
+                          size="small"
+                          rows={2}
+                          style={{ resize: 'none' }}
+                        />
+                      </Col>
+                      <Col span={2} style={{ textAlign: 'right' }}>
+                        <Button
+                          type="text"
+                          danger
+                          size="small"
+                          icon={<MinusCircleOutlined />}
+                          onClick={() => handleRemoveInspectionItem(item.id)}
+                          title="删除检查项"
+                        />
+                      </Col>
+                    </Row>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </Form>
       </Modal>
 
@@ -3535,10 +4257,329 @@ const InspectionManagement = () => {
         )}
       </Modal>
 
+      {/* 工单创建/编辑弹窗 */}
+      <Modal
+        title={modalType === 'add' ? '手工创建工单' : '编辑工单'}
+        open={workOrderModalVisible && modalType === 'add'}
+        onCancel={() => {
+          setWorkOrderModalVisible(false);
+          workOrderForm.resetFields();
+          // 重置巡检单相关状态
+          setSelectedInspectionIds([]);
+          setInspectionIssues([]);
+          setSelectedIssue(null);
+        }}
+        width={800}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setWorkOrderModalVisible(false);
+            workOrderForm.resetFields();
+            // 重置巡检单相关状态
+            setSelectedInspectionIds([]);
+            setInspectionIssues([]);
+            setSelectedIssue(null);
+          }}>
+            取消
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => workOrderForm.submit()}>
+            保存
+          </Button>
+        ]}
+      >
+        <Form
+          form={workOrderForm}
+          layout="vertical"
+          onFinish={handleSaveWorkOrder}
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item 
+                name="workOrderId" 
+                label="工单编号"
+              >
+                <Input disabled style={{ fontFamily: 'monospace', fontWeight: 'bold' }} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item 
+                name="sourceType" 
+                label="来源类型"
+              >
+                <Input disabled />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="title" 
+                label="工单标题"
+                rules={[{ required: true, message: '请输入工单标题' }]}
+              >
+                <Input placeholder="请输入工单标题" maxLength={100} />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/* 巡检单关联区域 */}
+          <div style={{ 
+            margin: '16px 0', 
+            padding: '16px', 
+            background: '#f8f9fa', 
+            border: '1px solid #e9ecef', 
+            borderRadius: '6px' 
+          }}>
+            <div style={{ 
+              fontWeight: 'bold', 
+              marginBottom: '12px', 
+              color: '#495057',
+              fontSize: '14px'
+            }}>
+              🔗 关联巡检问题（可选）
+            </div>
+            
+            <Row gutter={16}>
+              <Col span={24}>
+                <div style={{ marginBottom: '8px', fontSize: '13px', color: '#666' }}>选择巡检单ID（支持多选）</div>
+                <Select
+                  mode="multiple"
+                  placeholder="请选择巡检单ID"
+                  allowClear
+                  value={selectedInspectionIds}
+                  onChange={handleInspectionSelect}
+                  style={{ width: '100%' }}
+                  showSearch
+                  optionFilterProp="children"
+                  filterOption={(input, option) => 
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                >
+                  {inspectionDetails
+                    .filter(detail => detail.issueCount > 0) // 只显示有问题的巡检单
+                    .map(detail => (
+                      <Option key={detail.inspectionId} value={detail.inspectionId}>
+                        {detail.inspectionId}
+                      </Option>
+                    ))
+                  }
+                </Select>
+              </Col>
+            </Row>
+              
+            
+            {/* 问题详情展示 */}
+            {inspectionIssues.length > 0 && (
+              <div style={{ 
+                marginTop: '12px', 
+                padding: '12px', 
+                background: '#fff', 
+                border: '1px solid #dee2e6', 
+                borderRadius: '4px' 
+              }}>
+                <div style={{ fontWeight: 'bold', marginBottom: '12px', color: '#495057' }}>
+                  📝 问题详情（共{inspectionIssues.length}个问题）
+                </div>
+                <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                  {inspectionIssues.map((issue, index) => (
+                    <div key={index} style={{
+                      padding: '8px',
+                      marginBottom: '8px',
+                      background: '#f8f9fa',
+                      border: '1px solid #e9ecef',
+                      borderRadius: '4px',
+                      borderLeft: '3px solid #007bff'
+                    }}>
+                      <Row gutter={16}>
+                        <Col span={6}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>巡检单ID</div>
+                          <div style={{ fontFamily: 'monospace', fontWeight: 'bold', fontSize: '11px' }}>
+                            {issue.inspectionId}
+                          </div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>油站</div>
+                          <div style={{ fontSize: '12px' }}>{issue.stationName}</div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>检查点位</div>
+                          <div style={{ fontWeight: 'bold', fontSize: '12px' }}>{issue.pointName}</div>
+                        </Col>
+                        <Col span={6}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>检查时间</div>
+                          <div style={{ fontSize: '11px' }}>{issue.checkTime}</div>
+                        </Col>
+                      </Row>
+                      <Row gutter={16} style={{ marginTop: '8px' }}>
+                        <Col span={12}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>检查项目</div>
+                          <div style={{ fontWeight: 'bold', fontSize: '12px' }}>{issue.itemName}</div>
+                        </Col>
+                        <Col span={12}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>检查结果</div>
+                          <Tag color="red" size="small">{issue.result}</Tag>
+                        </Col>
+                      </Row>
+                      <div style={{ marginTop: '8px' }}>
+                        <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>问题描述</div>
+                        <div style={{ 
+                          padding: '6px', 
+                          background: '#fff', 
+                          borderRadius: '3px',
+                          border: '1px solid #e9ecef',
+                          fontSize: '12px'
+                        }}>
+                          {issue.remark}
+                        </div>
+                      </div>
+                      {issue.photos && issue.photos.length > 0 && (
+                        <div style={{ marginTop: '8px' }}>
+                          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>相关照片</div>
+                          <div>
+                            {issue.photos.map((photo, photoIndex) => (
+                              <Tag key={photoIndex} color="blue" size="small" style={{ marginBottom: '2px' }}>
+                                📷 {photo}
+                              </Tag>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Row gutter={16}>
+            <Col span={8}>
+              <Form.Item 
+                name="urgency" 
+                label="紧急程度"
+                rules={[{ required: true, message: '请选择紧急程度' }]}
+              >
+                <Select placeholder="请选择紧急程度">
+                  <Option value="紧急">紧急</Option>
+                  <Option value="重要">重要</Option>
+                  <Option value="一般">一般</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item 
+                name="stationId" 
+                label="所属油站"
+              >
+                <TreeSelect
+                  placeholder="请选择油站"
+                  allowClear
+                  treeData={[
+                    {
+                      title: '江西交投化石能源公司',
+                      value: 'ALL',
+                      key: 'root',
+                      children: stationData.branches.map(branch => ({
+                        title: branch.name,
+                        value: branch.id,
+                        key: branch.id,
+                        children: stationData.stations
+                          .filter(station => station.branchId === branch.id)
+                          .map(station => ({
+                            title: station.name,
+                            value: station.id,
+                            key: station.id
+                          }))
+                      }))
+                    }
+                  ]}
+                  onChange={(value, label, extra) => {
+                    // 设置对应的油站名称
+                    if (value && extra?.triggerNode) {
+                      const station = stationData.stations.find(s => s.id === value);
+                      if (station) {
+                        workOrderForm.setFieldsValue({ stationName: station.name });
+                      } else if (value === 'ALL') {
+                        workOrderForm.setFieldsValue({ stationName: '全部油站' });
+                      }
+                    } else {
+                      workOrderForm.setFieldsValue({ stationName: null });
+                    }
+                  }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item 
+                name="deadline" 
+                label="截止时间"
+                rules={[{ required: true, message: '请选择截止时间' }]}
+              >
+                <DatePicker 
+                  showTime
+                  placeholder="请选择截止时间"
+                  style={{ width: '100%' }}
+                  disabledDate={(current) => current && current < dayjs().startOf('day')}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="description" 
+                label="问题描述"
+                rules={[{ required: true, message: '请输入问题描述' }]}
+              >
+                <TextArea 
+                  rows={4} 
+                  placeholder="请详细描述需要处理的问题或事项"
+                  maxLength={500}
+                  showCount
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item 
+                name="submitter" 
+                label="提交人"
+              >
+                <Input disabled />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item 
+                name="createTime" 
+                label="创建时间"
+              >
+                <Input disabled />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/* 隐藏字段 */}
+          <Form.Item name="status" hidden>
+            <Input />
+          </Form.Item>
+          <Form.Item name="stationName" hidden>
+            <Input />
+          </Form.Item>
+          <Form.Item name="relatedInspectionId" hidden>
+            <Input />
+          </Form.Item>
+          <Form.Item name="relatedIssueInfo" hidden>
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
+
       {/* 工单详情查看弹窗 */}
       <Modal
         title="工单详情"
-        open={workOrderModalVisible}
+        open={workOrderModalVisible && modalType === 'view'}
         onCancel={() => setWorkOrderModalVisible(false)}
         footer={[
           <Button key="close" onClick={() => setWorkOrderModalVisible(false)}>
@@ -3586,13 +4627,8 @@ const InspectionManagement = () => {
               <Descriptions.Item label="处理人">{currentRecord.handler || '-'}</Descriptions.Item>
               <Descriptions.Item label="创建时间">{currentRecord.createTime}</Descriptions.Item>
               <Descriptions.Item label="截止时间">
-                <span style={{
-                  color: currentRecord.deadline && new Date(currentRecord.deadline) < new Date() ? '#ff4d4f' : '#333'
-                }}>
+                <span>
                   {currentRecord.deadline || '-'}
-                  {currentRecord.deadline && new Date(currentRecord.deadline) < new Date() && 
-                    <Tag color="red" size="small" style={{ marginLeft: 4 }}>逾期</Tag>
-                  }
                 </span>
               </Descriptions.Item>
               <Descriptions.Item label="所属油站">{currentRecord.stationName || '-'}</Descriptions.Item>
@@ -3821,6 +4857,151 @@ const InspectionManagement = () => {
         )}
       </Modal>
 
+      {/* NFC标签编辑/新增弹窗 */}
+      <Modal
+        title={modalType === 'add' ? '新增NFC标签' : modalType === 'edit' ? '编辑NFC标签' : '查看NFC标签'}
+        open={nfcModalVisible}
+        onCancel={() => setNfcModalVisible(false)}
+        width={700}
+        footer={modalType === 'view' ? [
+          <Button key="close" onClick={() => setNfcModalVisible(false)}>
+            关闭
+          </Button>
+        ] : [
+          <Button key="cancel" onClick={() => setNfcModalVisible(false)}>
+            取消
+          </Button>,
+          <Button key="submit" type="primary" onClick={() => nfcForm.submit()}>
+            保存
+          </Button>
+        ]}
+      >
+        <Form
+          form={nfcForm}
+          layout="vertical"
+          onFinish={handleSaveNfc}
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item 
+                name="tagId" 
+                label="标签ID"
+              >
+                <Input 
+                  disabled 
+                  placeholder="系统自动生成" 
+                  style={{ backgroundColor: '#f5f5f5', color: '#666' }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item 
+                name="tagCode" 
+                label="标签编码" 
+                rules={[{ required: true, message: '请输入标签编码' }]}
+              >
+                <Input 
+                  placeholder="请输入标签编码"
+                  disabled={modalType === 'view'}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="tagName" 
+                label="标签名称" 
+                rules={[{ required: true, message: '请输入标签名称' }]}
+              >
+                <Input 
+                  placeholder="请输入标签名称"
+                  disabled={modalType === 'view'}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="stationId" 
+                label="所属油站" 
+                rules={[{ required: true, message: '请选择所属油站' }]}
+              >
+                <Select 
+                  placeholder="请选择所属油站"
+                  disabled={modalType === 'view'}
+                >
+                  {stationData.stations.map(station => (
+                    <Option key={station.id} value={station.id}>{station.name}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="pointId" 
+                label="关联巡检点位"
+                rules={[{ required: true, message: '请选择关联的巡检点位' }]}
+              >
+                <Select 
+                  placeholder="请选择关联的巡检点位"
+                  allowClear
+                  showSearch
+                  disabled={modalType === 'view'}
+                  filterOption={(input, option) => {
+                    // 根据点位名称、检查区域进行搜索
+                    const point = inspectionPoints.find(p => p.id === option.value);
+                    if (!point) return false;
+                    const searchText = input.toLowerCase();
+                    return (
+                      (point.pointName && point.pointName.toLowerCase().includes(searchText)) ||
+                      point.checkArea.toLowerCase().includes(searchText) ||
+                      point.id.toLowerCase().includes(searchText)
+                    );
+                  }}
+                  onChange={(pointId) => {
+                    // 当选择点位时，不需要自动填充其他信息
+                    // 只保存点位ID即可
+                  }}
+                >
+                  {inspectionPoints.map(point => (
+                    <Option key={point.id} value={point.id}>
+                      <div>
+                        <div style={{ fontWeight: 'bold' }}>
+                          {point.pointName ? `${point.pointName} (${point.checkArea})` : point.checkArea}
+                        </div>
+                        <div style={{ fontSize: '11px', color: '#999' }}>点位ID: {point.id}</div>
+                      </div>
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item 
+                name="description" 
+                label="描述信息"
+              >
+                <TextArea 
+                  rows={3} 
+                  placeholder="请输入描述信息"
+                  disabled={modalType === 'view'}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
+
       {/* NFC标签详情查看弹窗 */}
       <Modal
         title="NFC标签详情"
@@ -3883,7 +5064,7 @@ const InspectionManagement = () => {
             关闭
           </Button>
         ]}
-        width={700}
+        width={900}
       >
         {currentRecord && (
           <div>
@@ -3904,12 +5085,6 @@ const InspectionManagement = () => {
                   {currentRecord.checkPoints}
                 </div>
               </Descriptions.Item>
-              <Descriptions.Item label="所属油站">{currentRecord.stationName || '-'}</Descriptions.Item>
-              <Descriptions.Item label="分组ID">
-                {currentRecord.groupId ? (
-                  <span style={{ fontFamily: 'monospace' }}>{currentRecord.groupId}</span>
-                ) : '-'}
-              </Descriptions.Item>
               <Descriptions.Item label="位置描述" span={2}>
                 <div style={{ 
                   padding: '8px 12px', 
@@ -3920,26 +5095,105 @@ const InspectionManagement = () => {
                   {currentRecord.locationDesc || '暂无描述'}
                 </div>
               </Descriptions.Item>
-              <Descriptions.Item label="关联NFC标签" span={2}>
-                {currentRecord.associatedLabels && currentRecord.associatedLabels.length > 0 ? (
-                  <div>
-                    {currentRecord.associatedLabels.map((label, index) => (
-                      <Tag key={index} color="blue" style={{ marginBottom: 4 }}>
-                        {label.name} ({label.code})
-                      </Tag>
-                    ))}
-                  </div>
-                ) : (
-                  <span style={{ color: '#999' }}>暂无关联标签</span>
-                )}
-              </Descriptions.Item>
-              <Descriptions.Item label="状态">
-                <Tag color={currentRecord.isDelete === 0 ? 'success' : 'error'}>
-                  {currentRecord.isDelete === 0 ? '正常' : '已删除'}
-                </Tag>
-              </Descriptions.Item>
-              <Descriptions.Item label="创建时间">{currentRecord.createTime || '-'}</Descriptions.Item>
+              <Descriptions.Item label="创建人">{currentRecord.creator || '系统管理员'}</Descriptions.Item>
+              <Descriptions.Item label="创建时间">{currentRecord.createTime || new Date().toISOString().split('T')[0]}</Descriptions.Item>
             </Descriptions>
+            
+            {/* 检查项详情 */}
+            <div style={{ 
+              fontSize: 16, 
+              fontWeight: 'bold', 
+              marginTop: 24,
+              marginBottom: 16,
+              borderBottom: '1px solid #f0f0f0',
+              paddingBottom: 8
+            }}>
+              检查项详情 ({currentRecord.inspectionItems?.length || 0}个)
+            </div>
+            
+            {currentRecord.inspectionItems && currentRecord.inspectionItems.length > 0 ? (
+              <div style={{ 
+                maxHeight: '300px', 
+                overflowY: 'auto',
+                border: '1px solid #f0f0f0',
+                borderRadius: '6px'
+              }}>
+                {currentRecord.inspectionItems.map((item, index) => (
+                  <div key={item.id || index} style={{
+                    padding: '12px 16px',
+                    borderBottom: index < currentRecord.inspectionItems.length - 1 ? '1px solid #f0f0f0' : 'none',
+                    background: index % 2 === 0 ? '#fafafa' : '#fff'
+                  }}>
+                    <Row gutter={16} align="top">
+                      <Col span={1}>
+                        <div style={{
+                          width: '20px',
+                          height: '20px',
+                          borderRadius: '50%',
+                          background: '#1890ff',
+                          color: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '12px',
+                          fontWeight: 'bold'
+                        }}>
+                          {index + 1}
+                        </div>
+                      </Col>
+                      <Col span={6}>
+                        <div style={{ fontSize: '14px', fontWeight: 'bold', marginBottom: '8px' }}>
+                          {item.itemName}
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div style={{ marginBottom: '4px', fontSize: '12px', color: '#666' }}>检查方式</div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                          {item.inspectionMethods && item.inspectionMethods.length > 0 ? (
+                            item.inspectionMethods.map(method => (
+                              <Tag key={method.method} color="blue" size="small">
+                                {getInspectionMethodName(method.method)}
+                              </Tag>
+                            ))
+                          ) : item.inspectionMethod ? (
+                            // 兼容旧数据结构
+                            <Tag color="blue" size="small">
+                              {getInspectionMethodName(item.inspectionMethod)}
+                            </Tag>
+                          ) : (
+                            <span style={{ color: '#999', fontSize: '12px' }}>暂无配置</span>
+                          )}
+                        </div>
+                      </Col>
+                      <Col span={9}>
+                        <div style={{ marginBottom: '4px', fontSize: '12px', color: '#666' }}>检查说明</div>
+                        <div style={{ 
+                          fontSize: '12px', 
+                          color: '#666',
+                          lineHeight: '1.4',
+                          minHeight: '32px',
+                          padding: '4px 0'
+                        }}>
+                          {item.description || '暂无说明'}
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '40px 0',
+                background: '#fafafa',
+                border: '1px dashed #d9d9d9',
+                borderRadius: '6px',
+                color: '#999'
+              }}>
+                <div style={{ marginBottom: '8px' }}>暂无检查项</div>
+                <div style={{ fontSize: '12px' }}>此点位还没有配置检查项</div>
+              </div>
+            )}
           </div>
         )}
       </Modal>
@@ -3974,6 +5228,16 @@ const InspectionManagement = () => {
           • <strong>NFC标签管理：</strong> 独立的NFC标签查看弹窗，显示完整的标签信息和关联关系<br/>
           • <strong>巡检点位维护：</strong> 独立的点位详情查看弹窗，显示点位信息和关联的NFC标签<br/>
           • <strong>修改记录管理：</strong> 独立的修改记录查看弹窗，显示变更前后的对比信息和审批流程<br/>
+          • <strong>巡检闢率重复事件：</strong> 实现了预设模式和自定义模式的重复事件设置，支持复杂的巡检频率配置<br/>
+          • <strong>频率预设模式：</strong> 支持不重复、每天、每周、每月、每季度、每年等常用频率快速设置<br/>
+          • <strong>自定义频率模式：</strong> 支持灵活的间隔设置（每N天/周/月/季度），支持按周几、按每月日期、按季度日期等实用规则<br/>
+          • <strong>执行时间设置：</strong> 支持设置巡检任务的执行时间段，明确巡检窗口期<br/>
+          • <strong>动态规则描述：</strong> 实时生成可读性强的规则描述，方便用户理解和验证设置的重复规则<br/>
+          • <strong>工单管理功能：</strong> 新增手工创建工单功能，支持工单标题、紧急程度、所属油站、截止时间、问题描述等完整信息录入<br/>
+          • <strong>工单创建流程：</strong> 自动生成工单编号，默认状态为"待分配"，支持树形选择油站，表单验证完整<br/>
+          • <strong>工单查看功能：</strong> 独立的工单详情查看弹窗，显示工单基本信息、处理记录和当前状态<br/>
+          • <strong>巡检单关联功能：</strong> 支持选择巡检单ID关联具体问题，自动获取问题描述和照片链接，自动填充工单标题和内容<br/>
+          • <strong>问题快速关联：</strong> 仅显示有异常问题的巡检单，支持搜索和选择具体问题，显示问题详情和相关照片<br/>
           • <strong>演示备注：</strong> 本页面已按照设计规范完善，所有功能模块相互独立，便于系统演示和测试
         </div>
       </div>
