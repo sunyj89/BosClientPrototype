@@ -1,0 +1,348 @@
+{
+  "invoiceRecords": [
+    {
+      "id": 1,
+      "orderCode": "INV202508270001",
+      "invoiceNo": "36220119001",
+      "buyerName": "江西高速公路有限公司",
+      "buyerTaxNo": "91360100123456789X",
+      "buyerAddress": "江西省南昌市红谷滩新区",
+      "buyerPhone": "0791-88888888",
+      "sellerName": "江西交投化石能源有限公司昌北收费站服务区",
+      "sellerTaxNo": "91360100987654321A",
+      "totalAmount": 1000.00,
+      "totalTax": 130.00,
+      "totalAmountWithTax": 1130.00,
+      "invoiceStatus": "02",
+      "invoiceType": "01",
+      "createTime": "2025-08-27 09:30:00",
+      "invoiceTime": "2025-08-27 09:35:00",
+      "emailAddress": "finance@jxgs.com",
+      "oilStationName": "昌北收费站服务区加油站",
+      "operatorName": "张三",
+      "remarks": "正常开票",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270001",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 565.0,
+          "amountWithoutTax": 500.0,
+          "taxAmount": 65.0,
+          "transactionTime": "2025-08-27 09:20:00"
+        },
+        {
+          "orderNo": "ORD202508270002",
+          "productName": "95#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 565.0,
+          "amountWithoutTax": 500.0,
+          "taxAmount": 65.0,
+          "transactionTime": "2025-08-27 09:25:00"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "orderCode": "INV202508270002",
+      "invoiceNo": "36220119002",
+      "buyerName": "中国石化销售股份有限公司江西分公司",
+      "buyerTaxNo": "91360100111222333Y",
+      "buyerAddress": "江西省南昌市东湖区八一大道",
+      "buyerPhone": "0791-86666666",
+      "sellerName": "江西交投化石能源有限公司德安服务区",
+      "sellerTaxNo": "91360100555666777B",
+      "totalAmount": 2500.00,
+      "totalTax": 325.00,
+      "totalAmountWithTax": 2825.00,
+      "invoiceStatus": "01",
+      "invoiceType": "01",
+      "createTime": "2025-08-27 10:15:00",
+      "invoiceTime": null,
+      "emailAddress": "billing@sinopec.com",
+      "oilStationName": "德安服务区加油站",
+      "operatorName": "李四",
+      "remarks": "开票中",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270003",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 1412.5,
+          "amountWithoutTax": 1250.0,
+          "taxAmount": 162.5,
+          "transactionTime": "2025-08-27 10:05:00"
+        },
+        {
+          "orderNo": "ORD202508270004",
+          "productName": "0#柴油",
+          "taxRate": 0.13,
+          "amountWithTax": 1412.5,
+          "amountWithoutTax": 1250.0,
+          "taxAmount": 162.5,
+          "transactionTime": "2025-08-27 10:10:00"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "orderCode": "INV202508270003",
+      "invoiceNo": "",
+      "buyerName": "江西省交通运输厅",
+      "buyerTaxNo": "91360100444555666C",
+      "buyerAddress": "江西省南昌市西湖区丁公路",
+      "buyerPhone": "0791-87777777",
+      "sellerName": "江西交投化石能源有限公司庐山服务区",
+      "sellerTaxNo": "91360100222333444D",
+      "totalAmount": 800.00,
+      "totalTax": 104.00,
+      "totalAmountWithTax": 904.00,
+      "invoiceStatus": "03",
+      "invoiceType": "01",
+      "createTime": "2025-08-27 11:00:00",
+      "invoiceTime": null,
+      "emailAddress": "jt@jiangxi.gov.cn",
+      "oilStationName": "庐山服务区加油站",
+      "operatorName": "王五",
+      "remarks": "开票失败",
+      "errorCode": "E001001",
+      "errorMessage": "税控设备连接超时，请检查设备状态后重试",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270006",
+          "productName": "0#柴油",
+          "taxRate": 0.13,
+          "amountWithTax": 904.0,
+          "amountWithoutTax": 800.0,
+          "taxAmount": 104.0,
+          "transactionTime": "2025-08-27 10:50:00"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "orderCode": "INV202508270004",
+      "invoiceNo": "36220119003",
+      "buyerName": "个人用户",
+      "buyerTaxNo": "",
+      "buyerAddress": "",
+      "buyerPhone": "",
+      "sellerName": "江西交投化石能源有限公司南昌西服务区",
+      "sellerTaxNo": "91360100333444555E",
+      "totalAmount": 400.00,
+      "totalTax": 52.00,
+      "totalAmountWithTax": 452.00,
+      "invoiceStatus": "02",
+      "invoiceType": "02",
+      "createTime": "2025-08-27 12:30:00",
+      "invoiceTime": "2025-08-27 12:33:00",
+      "emailAddress": "",
+      "oilStationName": "南昌西服务区加油站",
+      "operatorName": "赵六",
+      "remarks": "个人消费",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270007",
+          "productName": "95#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 452.0,
+          "amountWithoutTax": 400.0,
+          "taxAmount": 52.0,
+          "transactionTime": "2025-08-27 12:25:00"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "orderCode": "INV202508270005",
+      "invoiceNo": "",
+      "buyerName": "江西省能源集团有限公司",
+      "buyerTaxNo": "91360100666777888F",
+      "buyerAddress": "江西省南昌市青山湖区",
+      "buyerPhone": "0791-85555555",
+      "sellerName": "江西交投化石能源有限公司新余服务区",
+      "sellerTaxNo": "91360100777888999G",
+      "totalAmount": 3200.00,
+      "totalTax": 416.00,
+      "totalAmountWithTax": 3616.00,
+      "invoiceStatus": "00",
+      "invoiceType": "01",
+      "createTime": "2025-08-27 14:20:00",
+      "invoiceTime": null,
+      "emailAddress": "finance@jxny.com",
+      "oilStationName": "新余服务区加油站",
+      "operatorName": "孙七",
+      "remarks": "待开票",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270008",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 1808.0,
+          "amountWithoutTax": 1600.0,
+          "taxAmount": 208.0,
+          "transactionTime": "2025-08-27 14:10:00"
+        },
+        {
+          "orderNo": "ORD202508270009",
+          "productName": "0#柴油",
+          "taxRate": 0.13,
+          "amountWithTax": 1808.0,
+          "amountWithoutTax": 1600.0,
+          "taxAmount": 208.0,
+          "transactionTime": "2025-08-27 14:15:00"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "orderCode": "INV202508270006",
+      "invoiceNo": "36220119004",
+      "buyerName": "江西昌九高速公路股份有限公司",
+      "buyerTaxNo": "91360100888999000H",
+      "buyerAddress": "江西省九江市浔阳区",
+      "buyerPhone": "0792-83333333",
+      "sellerName": "江西交投化石能源有限公司九江服务区",
+      "sellerTaxNo": "91360100999000111I",
+      "totalAmount": 1800.00,
+      "totalTax": 234.00,
+      "totalAmountWithTax": 2034.00,
+      "invoiceStatus": "05",
+      "invoiceType": "01",
+      "createTime": "2025-08-26 16:45:00",
+      "invoiceTime": "2025-08-26 16:50:00",
+      "emailAddress": "bill@cj-highway.com",
+      "oilStationName": "九江服务区加油站",
+      "operatorName": "周八",
+      "remarks": "红冲申请中",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508260010",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 1017.0,
+          "amountWithoutTax": 900.0,
+          "taxAmount": 117.0,
+          "transactionTime": "2025-08-26 16:35:00"
+        },
+        {
+          "orderNo": "ORD202508260011",
+          "productName": "95#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 1017.0,
+          "amountWithoutTax": 900.0,
+          "taxAmount": 117.0,
+          "transactionTime": "2025-08-26 16:40:00"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "orderCode": "INV202508270007",
+      "invoiceNo": "36220119005",
+      "buyerName": "中国石油天然气股份有限公司江西分公司",
+      "buyerTaxNo": "91360100000111222J",
+      "buyerAddress": "江西省南昌市青云谱区",
+      "buyerPhone": "0791-82222222",
+      "sellerName": "江西交投化石能源有限公司吉安服务区",
+      "sellerTaxNo": "91360100111222333K",
+      "totalAmount": 5000.00,
+      "totalTax": 650.00,
+      "totalAmountWithTax": 5650.00,
+      "invoiceStatus": "02",
+      "invoiceType": "01",
+      "createTime": "2025-08-25 08:15:00",
+      "invoiceTime": "2025-08-25 08:20:00",
+      "emailAddress": "finance@cnpc.com.cn",
+      "oilStationName": "吉安服务区加油站",
+      "operatorName": "吴九",
+      "remarks": "大额开票",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508250012",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 2825.0,
+          "amountWithoutTax": 2500.0,
+          "taxAmount": 325.0,
+          "transactionTime": "2025-08-25 08:05:00"
+        },
+        {
+          "orderNo": "ORD202508250013",
+          "productName": "0#柴油",
+          "taxRate": 0.13,
+          "amountWithTax": 2825.0,
+          "amountWithoutTax": 2500.0,
+          "taxAmount": 325.0,
+          "transactionTime": "2025-08-25 08:10:00"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "orderCode": "INV202508270008",
+      "invoiceNo": "",
+      "buyerName": "江西省公路开发有限责任公司",
+      "buyerTaxNo": "91360100222333444L",
+      "buyerAddress": "江西省南昌市高新区",
+      "buyerPhone": "0791-88111111",
+      "sellerName": "江西交投化石能源有限公司赣州服务区",
+      "sellerTaxNo": "91360100333444555M",
+      "totalAmount": 1500.00,
+      "totalTax": 195.00,
+      "totalAmountWithTax": 1695.00,
+      "invoiceStatus": "03",
+      "invoiceType": "01",
+      "createTime": "2025-08-27 15:30:00",
+      "invoiceTime": null,
+      "emailAddress": "development@jxgl.com",
+      "oilStationName": "赣州服务区加油站",
+      "operatorName": "郑十",
+      "remarks": "开票失败",
+      "errorCode": "E002003",
+      "errorMessage": "网络连接异常，发票系统响应超时(timeout: 30s)",
+      "orderDetails": [
+        {
+          "orderNo": "ORD202508270015",
+          "productName": "92#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 847.5,
+          "amountWithoutTax": 750.0,
+          "taxAmount": 97.5,
+          "transactionTime": "2025-08-27 15:20:00"
+        },
+        {
+          "orderNo": "ORD202508270016",
+          "productName": "95#汽油",
+          "taxRate": 0.13,
+          "amountWithTax": 847.5,
+          "amountWithoutTax": 750.0,
+          "taxAmount": 97.5,
+          "transactionTime": "2025-08-27 15:25:00"
+        }
+      ]
+    }
+  ],
+  "totalCount": 8,
+  "statusCount": {
+    "pending": 1,
+    "processing": 1,
+    "success": 4,
+    "failed": 2,
+    "redInvoiceApplying": 1
+  },
+  "statusMapping": {
+    "00": "待开票",
+    "01": "开票中", 
+    "02": "开票成功",
+    "03": "开票失败",
+    "04": "已取消",
+    "05": "红冲申请中",
+    "06": "红冲成功",
+    "07": "红冲失败"
+  },
+  "invoiceTypeMapping": {
+    "01": "增值税普通发票",
+    "02": "增值税电子普通发票"
+  }
+}

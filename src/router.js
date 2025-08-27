@@ -66,6 +66,10 @@ import OrderMarketing from './pages/marketing/order-marketing';
 
 // 支付管理
 import PaymentAcceptanceConfig from './pages/payment/acceptance-config';
+
+// 发票管理
+import InvoiceManagement from './pages/invoice';
+import InvoiceSettings from './pages/invoice/settings';
 import MemberIdentity from './pages/marketing/member-identity';
 import MemberLevel from './pages/marketing/member-level';
 
@@ -360,6 +364,12 @@ const AppRouter = () => {
       {/* 支付管理路由 */}
       <Route path="/payment">
         <Route path="acceptance-config" element={<PaymentAcceptanceConfig />} />
+      </Route>
+
+      {/* 发票管理路由 */}
+      <Route path="/invoice">
+        <Route index element={<InvoiceManagement />} />
+        <Route path="settings" element={<InvoiceSettings />} />
       </Route>
 
       

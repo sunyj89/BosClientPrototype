@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿﻿﻿﻿﻿import React from 'react';
 import { Layout, Menu, Tooltip } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -44,6 +44,7 @@ import {
   CrownOutlined,
   ShareAltOutlined,
   TagOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -527,6 +528,24 @@ const AppSider = ({ collapsed }) => {
           key: 'payment_acceptance_config',
           icon: <SettingOutlined />,
           label: <MenuItemLabel text="支付受理配置" link="/payment/acceptance-config" />,
+        },
+      ],
+    },
+
+    {
+      key: 'invoice',
+      icon: <FileTextOutlined />,
+      label: '发票管理',
+      children: [
+        {
+          key: 'invoice_records',
+          icon: <FileTextOutlined />,
+          label: <MenuItemLabel text="开票记录" link="/invoice" />,
+        },
+        {
+          key: 'invoice_settings',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="发票设置" link="/invoice/settings" />,
         },
       ],
     },

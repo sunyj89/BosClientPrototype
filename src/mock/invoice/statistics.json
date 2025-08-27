@@ -1,0 +1,204 @@
+{
+  "overview": {
+    "today": {
+      "totalCount": 45,
+      "successCount": 42,
+      "failedCount": 2,
+      "pendingCount": 1,
+      "totalAmount": 125680.50,
+      "successRate": 93.33
+    },
+    "thisWeek": {
+      "totalCount": 312,
+      "successCount": 298,
+      "failedCount": 10,
+      "pendingCount": 4,
+      "totalAmount": 856420.80,
+      "successRate": 95.51
+    },
+    "thisMonth": {
+      "totalCount": 1245,
+      "successCount": 1189,
+      "failedCount": 45,
+      "pendingCount": 11,
+      "totalAmount": 3456789.60,
+      "successRate": 95.50
+    }
+  },
+  "trendData": {
+    "daily": [
+      { "date": "2025-08-21", "total": 38, "success": 36, "failed": 2, "amount": 98560.30 },
+      { "date": "2025-08-22", "total": 42, "success": 40, "failed": 1, "amount": 112340.50 },
+      { "date": "2025-08-23", "total": 39, "success": 38, "failed": 1, "amount": 105680.20 },
+      { "date": "2025-08-24", "total": 45, "success": 43, "failed": 2, "amount": 125890.80 },
+      { "date": "2025-08-25", "total": 48, "success": 46, "failed": 1, "amount": 134520.40 },
+      { "date": "2025-08-26", "total": 55, "success": 53, "failed": 2, "amount": 154320.70 },
+      { "date": "2025-08-27", "total": 45, "success": 42, "failed": 2, "amount": 125680.50 }
+    ],
+    "hourly": [
+      { "hour": "09", "count": 5, "amount": 12850.30 },
+      { "hour": "10", "count": 8, "amount": 18560.20 },
+      { "hour": "11", "count": 6, "amount": 15680.50 },
+      { "hour": "12", "count": 4, "amount": 9840.80 },
+      { "hour": "13", "count": 3, "amount": 7520.40 },
+      { "hour": "14", "count": 7, "amount": 16890.60 },
+      { "hour": "15", "count": 9, "amount": 22340.70 },
+      { "hour": "16", "count": 3, "amount": 8520.90 }
+    ]
+  },
+  "stationStats": [
+    {
+      "stationName": "昌北收费站服务区加油站",
+      "totalCount": 89,
+      "successCount": 85,
+      "failedCount": 3,
+      "pendingCount": 1,
+      "totalAmount": 245680.50,
+      "successRate": 95.51,
+      "avgAmount": 2761.69
+    },
+    {
+      "stationName": "德安服务区加油站",
+      "totalCount": 76,
+      "successCount": 73,
+      "failedCount": 2,
+      "pendingCount": 1,
+      "totalAmount": 198560.30,
+      "successRate": 96.05,
+      "avgAmount": 2612.64
+    },
+    {
+      "stationName": "庐山服务区加油站",
+      "totalCount": 68,
+      "successCount": 65,
+      "failedCount": 2,
+      "pendingCount": 1,
+      "totalAmount": 186420.80,
+      "successRate": 95.59,
+      "avgAmount": 2741.48
+    },
+    {
+      "stationName": "南昌西服务区加油站",
+      "totalCount": 92,
+      "successCount": 88,
+      "failedCount": 3,
+      "pendingCount": 1,
+      "totalAmount": 268590.40,
+      "successRate": 95.65,
+      "avgAmount": 2919.46
+    },
+    {
+      "stationName": "新余服务区加油站",
+      "totalCount": 58,
+      "successCount": 56,
+      "failedCount": 1,
+      "pendingCount": 1,
+      "totalAmount": 156780.20,
+      "successRate": 96.55,
+      "avgAmount": 2703.10
+    },
+    {
+      "stationName": "九江服务区加油站",
+      "totalCount": 72,
+      "successCount": 69,
+      "failedCount": 2,
+      "pendingCount": 1,
+      "totalAmount": 198460.70,
+      "successRate": 95.83,
+      "avgAmount": 2756.40
+    },
+    {
+      "stationName": "吉安服务区加油站",
+      "totalCount": 84,
+      "successCount": 81,
+      "failedCount": 2,
+      "pendingCount": 1,
+      "totalAmount": 235680.90,
+      "successRate": 96.43,
+      "avgAmount": 2805.73
+    },
+    {
+      "stationName": "赣州服务区加油站",
+      "totalCount": 93,
+      "successCount": 89,
+      "failedCount": 3,
+      "pendingCount": 1,
+      "totalAmount": 276840.50,
+      "successRate": 95.70,
+      "avgAmount": 2977.21
+    }
+  ],
+  "invoiceTypeStats": [
+    {
+      "invoiceType": "增值税普通发票",
+      "count": 586,
+      "percentage": 76.84,
+      "amount": 2456780.30
+    },
+    {
+      "invoiceType": "增值税电子普通发票",
+      "count": 177,
+      "percentage": 23.16,
+      "amount": 856420.80
+    }
+  ],
+  "failureReasons": [
+    {
+      "reason": "税控设备故障",
+      "count": 18,
+      "percentage": 40.0
+    },
+    {
+      "reason": "网络连接异常",
+      "count": 12,
+      "percentage": 26.67
+    },
+    {
+      "reason": "税号格式错误",
+      "count": 8,
+      "percentage": 17.78
+    },
+    {
+      "reason": "开票金额超限",
+      "count": 4,
+      "percentage": 8.89
+    },
+    {
+      "reason": "其他原因",
+      "count": 3,
+      "percentage": 6.67
+    }
+  ],
+  "amountDistribution": [
+    {
+      "range": "0-500元",
+      "count": 268,
+      "percentage": 35.12,
+      "amount": 89650.40
+    },
+    {
+      "range": "500-1000元",
+      "count": 195,
+      "percentage": 25.56,
+      "amount": 146820.30
+    },
+    {
+      "range": "1000-3000元",
+      "count": 178,
+      "percentage": 23.32,
+      "amount": 365480.70
+    },
+    {
+      "range": "3000-5000元",
+      "count": 89,
+      "percentage": 11.66,
+      "amount": 356780.20
+    },
+    {
+      "range": "5000元以上",
+      "count": 33,
+      "percentage": 4.32,
+      "amount": 1254890.50
+    }
+  ]
+}

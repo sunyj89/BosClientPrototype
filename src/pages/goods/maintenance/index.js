@@ -489,11 +489,33 @@ const ProductMaintenance = () => {
 
   const handleModalOk = () => {
     productForm.validateFields().then(values => {
-      console.log('表单数据:', values);
-      setModalVisible(false);
-      message.success(`${modalType === 'create' ? '创建' : '编辑'}成功`);
-      // 实际项目中这里会调用API
+      // 验证税收信息业务逻辑
+      if (values.is_tax_free && values.tax_rate && values.tax_rate > 0) {
+        message.error('已开启免税开关，税率必须为0');
+        return;
+      }
+      
+      if (!values.is_tax_free && values.tax_rate === undefined) {
+        // 如果未开启免税，建议设置税率
+        Modal.confirm({
+          title: '提示',
+          content: '未开启免税且未设置税率，是否继续？',
+          onOk() {
+            submitForm(values);
+          }
+        });
+        return;
+      }
+      
+      submitForm(values);
     });
+  };
+
+  const submitForm = (values) => {
+    console.log('表单数据:', values);
+    setModalVisible(false);
+    message.success(`${modalType === 'create' ? '创建' : '编辑'}成功`);
+    // 实际项目中这里会调用API
   };
 
   const handleBatchImport = () => {
@@ -934,6 +956,86 @@ const ProductMaintenance = () => {
                 </Form.Item>
                 </Col>
             </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="tax_classification"
+                  label="税收分类"
+                  rules={[
+                    {
+                      pattern: /^\d+$/,
+                      message: '税收分类只能输入纯数字'
+                    }
+                  ]}
+                >
+                  <Input
+                    placeholder="请输入税收分类编码（纯数字）"
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="is_tax_free"
+                  label="免税开关"
+                  valuePropName="checked"
+                >
+                  <Switch 
+                    checkedChildren="免税"
+                    unCheckedChildren="征税"
+                    onChange={(checked) => {
+                      if (checked) {
+                        productForm.setFieldsValue({ tax_rate: 0 });
+                      }
+                    }}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="tax_rate"
+                  label="税率（%）"
+                >
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    placeholder="请输入税率"
+                    min={0}
+                    max={100}
+                    precision={2}
+                    disabled={productForm.getFieldValue('is_tax_free')}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="erp_product_code"
+                  label="ERP商品编码"
+                >
+                  <Input
+                    placeholder="请输入ERP商品编码"
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="erp_category_code"
+                  label="ERP分类编码"
+                >
+                  <Input
+                    placeholder="请输入ERP分类编码"
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
           </Card>
 
           {/* 库存管理 */}
@@ -998,6 +1100,24 @@ const ProductMaintenance = () => {
         data={currentRecord}
         onClose={handleViewModalClose}
       />
+      
+      {/* 页面备注信息 */}
+      <div style={{
+        marginTop: '24px',
+        padding: '16px',
+        backgroundColor: '#f0f2f5',
+        borderRadius: '6px',
+        fontSize: '12px',
+        color: '#666',
+        borderLeft: '4px solid #1890ff'
+      }}>
+        <strong>功能说明：</strong>
+        <br />1. 新增了商品税收信息管理功能，包括税收分类（纯数字）、税率设置、免税开关等
+        <br />2. 免税开关开启时，税率自动设为0且不可编辑；关闭时可手动设置税率
+        <br />3. 新增ERP商品编码和ERP分类编码字段，便于与外部ERP系统集成
+        <br />4. 表单验证：税收分类仅支持纯数字，税率范围0-100%
+        <br />5. 演示时请重点展示税收信息的联动逻辑和验证规则
+      </div>
     </div>
   );
 };

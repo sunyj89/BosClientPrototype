@@ -1,0 +1,116 @@
+{
+  "oilStationConfigs": [
+    {
+      "id": 1,
+      "stationName": "昌北收费站服务区加油站",
+      "stationCode": "CB001",
+      "companyName": "江西交投化石能源有限公司昌北收费站服务区",
+      "taxNo": "91360100987654321A",
+      "address": "江西省南昌市新建区昌北大道",
+      "phone": "0791-88888888",
+      "bankName": "中国工商银行南昌昌北支行",
+      "bankAccount": "3902010209200123456",
+      "taxRate": 0.13,
+      "invoiceProvider": "百望云",
+      "status": "启用",
+      "updateTime": "2025-08-25 10:00:00"
+    },
+    {
+      "id": 2,
+      "stationName": "德安服务区加油站",
+      "stationCode": "DA001",
+      "companyName": "江西交投化石能源有限公司德安服务区",
+      "taxNo": "91360100555666777B",
+      "address": "江西省九江市德安县德白公路",
+      "phone": "0792-46666666",
+      "bankName": "中国农业银行德安支行",
+      "bankAccount": "2201010209200789012",
+      "taxRate": 0.13,
+      "invoiceProvider": "航天信息",
+      "status": "启用",
+      "updateTime": "2025-08-25 10:00:00"
+    },
+    {
+      "id": 3,
+      "stationName": "庐山服务区加油站",
+      "stationCode": "LS001",
+      "companyName": "江西交投化石能源有限公司庐山服务区",
+      "taxNo": "91360100222333444D",
+      "address": "江西省九江市庐山市环庐山路",
+      "phone": "0792-83333333",
+      "bankName": "中国建设银行庐山支行",
+      "bankAccount": "3601010209200345678",
+      "taxRate": 0.13,
+      "invoiceProvider": "百望云",
+      "status": "启用",
+      "updateTime": "2025-08-25 10:00:00"
+    },
+    {
+      "id": 4,
+      "stationName": "南昌西服务区加油站",
+      "stationCode": "NCX001",
+      "companyName": "江西交投化石能源有限公司南昌西服务区",
+      "taxNo": "91360100333444555E",
+      "address": "江西省南昌市新建区西山路",
+      "phone": "0791-87777777",
+      "bankName": "中国银行南昌西支行",
+      "bankAccount": "6088010209200456789",
+      "taxRate": 0.13,
+      "invoiceProvider": "航天信息",
+      "status": "启用",
+      "updateTime": "2025-08-25 10:00:00"
+    }
+  ],
+  "invoiceProviders": [
+    {
+      "id": 1,
+      "providerName": "百望云",
+      "providerCode": "BWY",
+      "apiUrl": "https://api.baiwang.com/v1/",
+      "appKey": "BWY_APP_KEY_123456",
+      "appSecret": "BWY_APP_SECRET_789012",
+      "status": "启用",
+      "description": "百望云电子发票服务商"
+    },
+    {
+      "id": 2,
+      "providerName": "航天信息",
+      "providerCode": "HTXX",
+      "apiUrl": "https://api.htxx.com/v1/",
+      "appKey": "HTXX_APP_KEY_654321",
+      "appSecret": "HTXX_APP_SECRET_210987",
+      "status": "启用",
+      "description": "航天信息电子发票服务商"
+    }
+  ],
+  "systemParameters": [
+    {
+      "id": 1,
+      "paramKey": "DAILY_INVOICE_LIMIT",
+      "paramValue": "1000",
+      "description": "单日最大开票数量限制",
+      "category": "开票限制"
+    },
+    {
+      "id": 2,
+      "paramKey": "SINGLE_AMOUNT_LIMIT",
+      "paramValue": "100000",
+      "description": "单张发票最大金额限制（元）",
+      "category": "开票限制"
+    },
+    {
+      "id": 3,
+      "paramKey": "AUTO_RETRY_COUNT",
+      "paramValue": "3",
+      "description": "开票失败自动重试次数",
+      "category": "开票设置"
+    },
+    {
+      "id": 4,
+      "paramKey": "EMAIL_SEND_TIMEOUT",
+      "paramValue": "30",
+      "description": "发票邮件发送超时时间（秒）",
+      "category": "邮件设置"
+    }
+  ]
+}

@@ -1,0 +1,402 @@
+{
+  "activityList": [
+    {
+      "id": "RP001",
+      "activityName": "新春红包雨",
+      "activityType": "normal",
+      "pageTitle": "新春红包雨活动",
+      "stationLogo": "/images/stations/station_logo_001.png",
+      "stationName": "江西交投南昌东服务区加油站",
+      "mainTitle": "新春送红包",
+      "validityType": "fixed_time",
+      "startTime": "2025-02-08 00:00:00",
+      "endTime": "2025-02-15 23:59:59",
+      "validityDays": null,
+      "cycleType": "daily",
+      "cycleConfig": {
+        "timeSlots": [
+          {
+            "startTime": "08:00:00",
+            "endTime": "12:00:00"
+          },
+          {
+            "startTime": "14:00:00",
+            "endTime": "18:00:00"
+          }
+        ]
+      },
+      "identityType": 0,
+      "identityConfig": "",
+      "levelType": 0,
+      "levelConfig": "",
+      "userType": 2,
+      "repeatType": 1,
+      "shareType": 2,
+      "ifFree": 1,
+      "eachCost": 0.00,
+      "timesLimit": 3,
+      "isNeedPlate": 0,
+      "pageTemplate": "CouponsGiftInfo",
+      "activityRules": "1. 每位用户每天可领取1个红包\n2. 红包内含随机优惠券\n3. 优惠券需在有效期内使用\n4. 活动期间每人最多可领取3次",
+      "packageCount": 5000,
+      "totalBudget": 25000.00,
+      "browserEnable": 1,
+      "activityUrl": "https://activity.jxjt.com/redpackage/RP001",
+      "qrCodePath": "/images/qrcodes/RP001_qr.png",
+      "status": "active",
+      "merchantId": 1,
+      "stationId": 15,
+      "creatorId": 1,
+      "createTime": "2025-01-20 10:30:00",
+      "updateTime": "2025-01-25 14:20:00",
+      "coupons": [
+        {
+          "couponId": "ZX3K8N2M9Q1P",
+          "couponName": "新用户注册优惠券",
+          "faceValue": 10.00,
+          "couponType": "oil",
+          "couponCount": 2,
+          "totalCount": 10000
+        },
+        {
+          "couponId": "A8F5G2H9J4K7",
+          "couponName": "加油满减券",
+          "faceValue": 20.00,
+          "couponType": "oil", 
+          "couponCount": 1,
+          "totalCount": 5000
+        }
+      ],
+      "statistics": {
+        "participantCount": 2880,
+        "issuedCount": 2880,
+        "usedCount": 1650,
+        "totalAmount": 14400.00,
+        "usedAmount": 8250.00
+      }
+    },
+    {
+      "id": "RP002",
+      "activityName": "新用户专享红包",
+      "activityType": "normal",
+      "pageTitle": "新用户专享红包",
+      "stationLogo": "/images/stations/station_logo_002.png",
+      "stationName": "江西交投南昌西服务区加油站",
+      "mainTitle": "新用户专享",
+      "validityType": "relative_days",
+      "startTime": null,
+      "endTime": null,
+      "validityDays": 30,
+      "cycleType": "none",
+      "cycleConfig": null,
+      "identityType": 0,
+      "identityConfig": "",
+      "levelType": 0,
+      "levelConfig": "",
+      "userType": 1,
+      "repeatType": 0,
+      "shareType": 1,
+      "ifFree": 1,
+      "eachCost": 0.00,
+      "timesLimit": 1,
+      "isNeedPlate": 1,
+      "pageTemplate": "CouponsGiftInfo",
+      "activityRules": "1. 仅限首次注册用户领取\n2. 需要输入车牌号验证\n3. 红包自领取后30天有效\n4. 每位用户仅可领取1次",
+      "packageCount": 2000,
+      "totalBudget": 30000.00,
+      "browserEnable": 0,
+      "activityUrl": "https://activity.jxjt.com/redpackage/RP002",
+      "qrCodePath": "/images/qrcodes/RP002_qr.png",
+      "status": "active",
+      "merchantId": 1,
+      "stationId": 16,
+      "creatorId": 2,
+      "createTime": "2025-01-15 09:15:00",
+      "updateTime": "2025-01-20 11:30:00",
+      "coupons": [
+        {
+          "couponId": "Q9W3E4R5T6Y7",
+          "couponName": "非油商品优惠券",
+          "faceValue": 15.00,
+          "couponType": "non-oil",
+          "couponCount": 1,
+          "totalCount": 2000
+        }
+      ],
+      "statistics": {
+        "participantCount": 680,
+        "issuedCount": 680,
+        "usedCount": 290,
+        "totalAmount": 10200.00,
+        "usedAmount": 4350.00
+      }
+    },
+    {
+      "id": "RP003",
+      "activityName": "裂变分享红包",
+      "activityType": "fission",
+      "pageTitle": "邀请好友领红包",
+      "stationLogo": "/images/stations/station_logo_003.png",
+      "stationName": "江西交投九江北服务区加油站",
+      "mainTitle": "分享有礼",
+      "validityType": "fixed_time",
+      "startTime": "2025-02-01 00:00:00",
+      "endTime": "2025-03-31 23:59:59",
+      "validityDays": null,
+      "cycleType": "weekly",
+      "cycleConfig": {
+        "weekdays": [6, 7],
+        "timeSlots": [
+          {
+            "startTime": "10:00:00",
+            "endTime": "20:00:00"
+          }
+        ]
+      },
+      "identityType": 2,
+      "identityConfig": "3,4",
+      "levelType": 2,
+      "levelConfig": "2,3,4",
+      "userType": 2,
+      "repeatType": 1,
+      "shareType": 2,
+      "ifFree": 1,
+      "eachCost": 0.00,
+      "timesLimit": 5,
+      "isNeedPlate": 0,
+      "pageTemplate": "CouponsGiftInfo",
+      "activityRules": "1. 周末专享活动时间\n2. 分享后好友领取，你也能获得奖励\n3. 每周最多可获得5次分享红包\n4. 限制部分会员等级参与",
+      "packageCount": 8000,
+      "totalBudget": 40000.00,
+      "browserEnable": 1,
+      "activityUrl": "https://activity.jxjt.com/redpackage/RP003",
+      "qrCodePath": "/images/qrcodes/RP003_qr.png",
+      "status": "pending",
+      "merchantId": 1,
+      "stationId": 18,
+      "creatorId": 1,
+      "createTime": "2025-01-25 16:45:00",
+      "updateTime": "2025-01-25 16:45:00",
+      "coupons": [
+        {
+          "couponId": "ZX3K8N2M9Q1P",
+          "couponName": "新用户注册优惠券",
+          "faceValue": 10.00,
+          "couponType": "oil",
+          "couponCount": 1,
+          "totalCount": 8000
+        },
+        {
+          "couponId": "U2I8O5P1A6S9",
+          "couponName": "充值赠金券",
+          "faceValue": 30.00,
+          "couponType": "recharge",
+          "couponCount": 1,
+          "totalCount": 8000
+        }
+      ],
+      "statistics": {
+        "participantCount": 0,
+        "issuedCount": 0,
+        "usedCount": 0,
+        "totalAmount": 0.00,
+        "usedAmount": 0.00
+      }
+    },
+    {
+      "id": "RP004",
+      "activityName": "元宵节特惠红包",
+      "activityType": "normal",
+      "pageTitle": "元宵节特惠红包",
+      "stationLogo": "/images/stations/station_logo_004.png",
+      "stationName": "江西交投赣州南服务区加油站",
+      "mainTitle": "元宵送福",
+      "validityType": "fixed_time",
+      "startTime": "2025-02-12 00:00:00",
+      "endTime": "2025-02-14 23:59:59",
+      "validityDays": null,
+      "cycleType": "none",
+      "cycleConfig": null,
+      "identityType": 0,
+      "identityConfig": "",
+      "levelType": 0,
+      "levelConfig": "",
+      "userType": 2,
+      "repeatType": 0,
+      "shareType": 1,
+      "ifFree": 2,
+      "eachCost": 1.99,
+      "timesLimit": 1,
+      "isNeedPlate": 0,
+      "pageTemplate": "CouponsGiftInfo",
+      "activityRules": "1. 元宵节限时活动\n2. 需要支付1.99元购买红包\n3. 红包价值远超购买价格\n4. 每人限购1个红包",
+      "packageCount": 1000,
+      "totalBudget": 15000.00,
+      "browserEnable": 1,
+      "activityUrl": "https://activity.jxjt.com/redpackage/RP004",
+      "qrCodePath": "/images/qrcodes/RP004_qr.png",
+      "status": "ended",
+      "merchantId": 1,
+      "stationId": 21,
+      "creatorId": 3,
+      "createTime": "2025-02-10 08:00:00",
+      "updateTime": "2025-02-15 00:00:00",
+      "coupons": [
+        {
+          "couponId": "A8F5G2H9J4K7",
+          "couponName": "加油满减券",
+          "faceValue": 20.00,
+          "couponType": "oil",
+          "couponCount": 1,
+          "totalCount": 1000
+        }
+      ],
+      "statistics": {
+        "participantCount": 850,
+        "issuedCount": 850,
+        "usedCount": 780,
+        "totalAmount": 17000.00,
+        "usedAmount": 15600.00
+      }
+    },
+    {
+      "id": "RP005",
+      "activityName": "VIP会员专享红包",
+      "activityType": "normal",
+      "pageTitle": "VIP会员专享红包",
+      "stationLogo": "/images/stations/station_logo_005.png",
+      "stationName": "江西交投吉安北服务区加油站",
+      "mainTitle": "VIP专享",
+      "validityType": "relative_days",
+      "startTime": null,
+      "endTime": null,
+      "validityDays": 7,
+      "cycleType": "monthly",
+      "cycleConfig": {
+        "days": [1, 15],
+        "timeSlots": [
+          {
+            "startTime": "00:00:00",
+            "endTime": "23:59:59"
+          }
+        ]
+      },
+      "identityType": 1,
+      "identityConfig": "1,2",
+      "levelType": 2,
+      "levelConfig": "4,5",
+      "userType": 2,
+      "repeatType": 1,
+      "shareType": 2,
+      "ifFree": 1,
+      "eachCost": 0.00,
+      "timesLimit": 2,
+      "isNeedPlate": 1,
+      "pageTemplate": "CouponsGiftInfo",
+      "activityRules": "1. 仅限VIP会员参与\n2. 每月1号和15号可领取\n3. 需要绑定车牌号\n4. 红包7天有效期",
+      "packageCount": 500,
+      "totalBudget": 12500.00,
+      "browserEnable": 0,
+      "activityUrl": "https://activity.jxjt.com/redpackage/RP005",
+      "qrCodePath": "/images/qrcodes/RP005_qr.png",
+      "status": "paused",
+      "merchantId": 1,
+      "stationId": 24,
+      "creatorId": 2,
+      "createTime": "2025-01-01 00:00:00",
+      "updateTime": "2025-01-20 16:30:00",
+      "coupons": [
+        {
+          "couponId": "U2I8O5P1A6S9",
+          "couponName": "充值赠金券",
+          "faceValue": 25.00,
+          "couponType": "recharge",
+          "couponCount": 1,
+          "totalCount": 500
+        }
+      ],
+      "statistics": {
+        "participantCount": 120,
+        "issuedCount": 120,
+        "usedCount": 95,
+        "totalAmount": 3000.00,
+        "usedAmount": 2375.00
+      }
+    }
+  ],
+  "pageTemplates": [
+    {
+      "id": "CouponsGiftInfo",
+      "name": "优惠券红包模板",
+      "code": "CouponsGiftInfo",
+      "previewImage": "/images/templates/hongbao_template_CouponsGiftInfo.png",
+      "description": "适用于优惠券红包活动的标准模板"
+    },
+    {
+      "id": "LuckyDraw",
+      "name": "抽奖红包模板",
+      "code": "LuckyDraw", 
+      "previewImage": "/images/templates/hongbao_template_LuckyDraw.png",
+      "description": "适用于抽奖类红包活动的模板"
+    }
+  ],
+  "driverTypes": [
+    {
+      "subTypeId": 1,
+      "subTypeName": "私家车主",
+      "description": "个人私家车车主"
+    },
+    {
+      "subTypeId": 2,
+      "subTypeName": "货车司机",
+      "description": "货运车辆司机"
+    },
+    {
+      "subTypeId": 3,
+      "subTypeName": "客车司机",
+      "description": "客运车辆司机"
+    },
+    {
+      "subTypeId": 4,
+      "subTypeName": "出租车司机",
+      "description": "出租车司机"
+    }
+  ],
+  "memberLevels": [
+    {
+      "id": 1,
+      "levelName": "普通会员",
+      "levelCode": "NORMAL",
+      "minPoints": 0,
+      "maxPoints": 999
+    },
+    {
+      "id": 2,
+      "levelName": "银卡会员",
+      "levelCode": "SILVER", 
+      "minPoints": 1000,
+      "maxPoints": 4999
+    },
+    {
+      "id": 3,
+      "levelName": "金卡会员",
+      "levelCode": "GOLD",
+      "minPoints": 5000,
+      "maxPoints": 19999
+    },
+    {
+      "id": 4,
+      "levelName": "铂金会员", 
+      "levelCode": "PLATINUM",
+      "minPoints": 20000,
+      "maxPoints": 49999
+    },
+    {
+      "id": 5,
+      "levelName": "钻石会员",
+      "levelCode": "DIAMOND",
+      "minPoints": 50000,
+      "maxPoints": null
+    }
+  ]
+}
