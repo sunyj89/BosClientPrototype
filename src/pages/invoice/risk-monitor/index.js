@@ -30,6 +30,13 @@ import {
   DeleteOutlined
 } from '@ant-design/icons';
 
+import InvoiceStatusTag from '../components/InvoiceStatusTag';
+import InvoiceAmountDisplay from '../components/InvoiceAmountDisplay';
+import InvoiceActionButtons from '../components/InvoiceActionButtons';
+import InvoiceDetailModal from '../components/InvoiceDetailModal';
+import RedInvoiceModal from '../components/RedInvoiceModal';
+import BlacklistForm from '../components/BlacklistForm';
+
 // 模拟数据导入
 import riskMonitorData from '../../../mock/invoice/riskMonitor.json';
 
@@ -44,6 +51,9 @@ const RiskMonitor = () => {
   const [blackList, setBlackList] = useState([]);
   const [riskRules, setRiskRules] = useState([]);
   const [activeTab, setActiveTab] = useState('alerts');
+  const [blacklistModalVisible, setBlacklistModalVisible] = useState(false);
+  const [blacklistModalType, setBlacklistModalType] = useState('create'); // create | edit
+  const [selectedBlacklistRecord, setSelectedBlacklistRecord] = useState(null);
 
   useEffect(() => {
     loadData();
@@ -104,11 +114,38 @@ const RiskMonitor = () => {
   };
 
   const handleAddBlacklist = () => {
-    message.info('添加黑名单功能开发中...');
+    setBlacklistModalType('create');
+    setSelectedBlacklistRecord(null);
+    setBlacklistModalVisible(true);
   };
 
   const handleEditBlacklist = (record) => {
-    message.info('编辑黑名单功能开发中...');
+    setBlacklistModalType('edit');
+    setSelectedBlacklistRecord(record);
+    setBlacklistModalVisible(true);
+  };
+
+  const handleBlacklistSubmit = async (formData) => {
+    try {
+      setLoading(true);
+      
+      // 模拟 API 调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (blacklistModalType === 'create') {
+        message.success('黑名单添加成功');
+      } else {
+        message.success('黑名单更新成功');
+      }
+      
+      setBlacklistModalVisible(false);
+      setSelectedBlacklistRecord(null);
+      loadData(); // 重新加载数据
+    } catch (error) {
+      message.error('操作失败');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeleteBlacklist = (record) => {
@@ -386,61 +423,65 @@ const RiskMonitor = () => {
 
       {/* 风险预警列表 */}
       <Card title="风险预警列表" style={{ marginBottom: 16 }}>
-        <Form 
-          form={alertForm} 
-          layout="inline" 
-          onFinish={handleAlertSearch}
-          style={{ marginBottom: 16 }}
-        >
-          <Form.Item name="alertType" label="预警类型" style={{ width: 150 }}>
-            <Select placeholder="请选择" allowClear>
-              <Option value="频繁开票">频繁开票</Option>
-              <Option value="异常金额">异常金额</Option>
-              <Option value="税号异常">税号异常</Option>
-              <Option value="重复开票">重复开票</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="riskLevel" label="风险等级" style={{ width: 120 }}>
-            <Select placeholder="请选择" allowClear>
-              <Option value="高">高风险</Option>
-              <Option value="中">中风险</Option>
-              <Option value="低">低风险</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="status" label="处理状态" style={{ width: 120 }}>
-            <Select placeholder="请选择" allowClear>
-              <Option value="待处理">待处理</Option>
-              <Option value="已处理">已处理</Option>
-              <Option value="已阻止">已阻止</Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="buyerName" label="企业名称" style={{ width: 200 }}>
-            <Input placeholder="请输入企业名称" />
-          </Form.Item>
-
-          <Form.Item>
-            <Space>
-              <Button 
-                type="primary" 
-                htmlType="submit" 
-                icon={<SearchOutlined />}
-                style={{ borderRadius: '2px' }}
-              >
-                查询
-              </Button>
-              <Button 
-                icon={<ReloadOutlined />} 
-                onClick={handleAlertReset}
-                style={{ borderRadius: '2px' }}
-              >
-                重置
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+        <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+          <Form form={alertForm} onFinish={handleAlertSearch}>
+            {/* 第一行：筛选条件 */}
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+              <Col span={4}>
+                <Form.Item name="alertType" label="预警类型">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Option value="频繁开票">频繁开票</Option>
+                    <Option value="异常金额">异常金额</Option>
+                    <Option value="税号异常">税号异常</Option>
+                    <Option value="重复开票">重复开票</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="riskLevel" label="风险等级">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Option value="高">高风险</Option>
+                    <Option value="中">中风险</Option>
+                    <Option value="低">低风险</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="status" label="处理状态">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Option value="待处理">待处理</Option>
+                    <Option value="已处理">已处理</Option>
+                    <Option value="已阻止">已阻止</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item name="buyerName" label="企业名称">
+                  <Input placeholder="请输入企业名称" style={{ width: '100%' }} allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={6} style={{ textAlign: 'right' }}>
+                <Space>
+                  <Button 
+                    type="primary" 
+                    htmlType="submit" 
+                    icon={<SearchOutlined />}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    查询
+                  </Button>
+                  <Button 
+                    icon={<ReloadOutlined />} 
+                    onClick={handleAlertReset}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    重置
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+        </div>
 
         <Table
           columns={alertColumns}
@@ -463,48 +504,63 @@ const RiskMonitor = () => {
 
       {/* 黑名单管理 */}
       <Card title="黑名单管理" style={{ marginBottom: 16 }}>
-        <Form 
-          form={blacklistForm} 
-          layout="inline" 
-          onFinish={handleBlacklistSearch}
-          style={{ marginBottom: 16 }}
-        >
-          <Form.Item name="companyName" label="企业名称" style={{ width: 200 }}>
-            <Input placeholder="请输入企业名称" />
-          </Form.Item>
-          
-          <Form.Item name="taxNo" label="税号" style={{ width: 200 }}>
-            <Input placeholder="请输入税号" />
-          </Form.Item>
-
-          <Form.Item>
-            <Space>
-              <Button 
-                type="primary" 
-                htmlType="submit" 
-                icon={<SearchOutlined />}
-                style={{ borderRadius: '2px' }}
-              >
-                查询
-              </Button>
-              <Button 
-                icon={<ReloadOutlined />} 
-                onClick={handleBlacklistReset}
-                style={{ borderRadius: '2px' }}
-              >
-                重置
-              </Button>
-              <Button 
-                type="primary" 
-                icon={<PlusOutlined />} 
-                onClick={handleAddBlacklist}
-                style={{ borderRadius: '2px' }}
-              >
-                添加黑名单
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+        <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+          <Form form={blacklistForm} onFinish={handleBlacklistSearch}>
+            {/* 第一行：筛选条件 */}
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+              <Col span={6}>
+                <Form.Item name="companyName" label="企业名称">
+                  <Input placeholder="请输入企业名称" style={{ width: '100%' }} allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item name="taxNo" label="税号">
+                  <Input placeholder="请输入税号" style={{ width: '100%' }} allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item name="phone" label="联系电话">
+                  <Input placeholder="请输入联系电话" style={{ width: '100%' }} allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={6} style={{ textAlign: 'right' }}>
+                <Space>
+                  <Button 
+                    type="primary" 
+                    htmlType="submit" 
+                    icon={<SearchOutlined />}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    查询
+                  </Button>
+                  <Button 
+                    icon={<ReloadOutlined />} 
+                    onClick={handleBlacklistReset}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    重置
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+            
+            {/* 第二行：功能按钮 */}
+            <Row gutter={16}>
+              <Col span={24}>
+                <Space>
+                  <Button 
+                    type="primary" 
+                    icon={<PlusOutlined />} 
+                    onClick={handleAddBlacklist}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    添加黑名单
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+        </div>
 
         <Table
           columns={blacklistColumns}
@@ -533,6 +589,18 @@ const RiskMonitor = () => {
           size="middle"
         />
       </Card>
+
+      {/* 黑名单表单弹窗 */}
+      <BlacklistForm
+        visible={blacklistModalVisible}
+        type={blacklistModalType}
+        data={selectedBlacklistRecord}
+        onOk={handleBlacklistSubmit}
+        onCancel={() => {
+          setBlacklistModalVisible(false);
+          setSelectedBlacklistRecord(null);
+        }}
+      />
     </div>
   );
 };

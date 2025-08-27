@@ -37,6 +37,7 @@ const { TextArea } = Input;
 
 const InvoiceSettings = () => {
   const [stationForm] = Form.useForm();
+  const [providerForm] = Form.useForm();
   const [paramForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [oilStationConfigs, setOilStationConfigs] = useState([]);
@@ -81,6 +82,10 @@ const InvoiceSettings = () => {
     setSelectedConfig(null);
     if (activeTab === 'oilStation') {
       stationForm.resetFields();
+    } else if (activeTab === 'provider') {
+      providerForm.resetFields();
+    } else if (activeTab === 'parameter') {
+      paramForm.resetFields();
     }
     setConfigModalVisible(true);
   };
@@ -90,6 +95,10 @@ const InvoiceSettings = () => {
     setSelectedConfig(record);
     if (activeTab === 'oilStation') {
       stationForm.setFieldsValue(record);
+    } else if (activeTab === 'provider') {
+      providerForm.setFieldsValue(record);
+    } else if (activeTab === 'parameter') {
+      paramForm.setFieldsValue(record);
     }
     setConfigModalVisible(true);
   };
@@ -120,11 +129,16 @@ const InvoiceSettings = () => {
 
   const handleConfigSave = async () => {
     try {
+      let values;
       if (activeTab === 'oilStation') {
-        const values = await stationForm.validateFields();
-        console.log('保存配置:', values);
+        values = await stationForm.validateFields();
+      } else if (activeTab === 'provider') {
+        values = await providerForm.validateFields();
+      } else if (activeTab === 'parameter') {
+        values = await paramForm.validateFields();
       }
       
+      console.log('保存配置:', values);
       message.loading('正在保存...', 2);
       await new Promise(resolve => setTimeout(resolve, 2000));
       message.success('保存成功');
@@ -319,7 +333,7 @@ const InvoiceSettings = () => {
   const renderStationModal = () => (
     <Modal
       title={modalType === 'add' ? '新增油站配置' : modalType === 'edit' ? '编辑油站配置' : '查看油站配置'}
-      open={configModalVisible}
+      open={configModalVisible && activeTab === 'oilStation'}
       onCancel={() => setConfigModalVisible(false)}
       onOk={modalType !== 'view' ? handleConfigSave : undefined}
       width={800}
@@ -438,6 +452,147 @@ const InvoiceSettings = () => {
     </Modal>
   );
 
+  // 渲染服务商设置弹窗
+  const renderProviderModal = () => (
+    <Modal
+      title={modalType === 'add' ? '新增服务商' : modalType === 'edit' ? '编辑服务商' : '查看服务商'}
+      open={configModalVisible && activeTab === 'provider'}
+      onCancel={() => setConfigModalVisible(false)}
+      onOk={modalType !== 'view' ? handleConfigSave : undefined}
+      width={600}
+      style={{ borderRadius: '2px' }}
+      footer={modalType === 'view' ? [
+        <Button key="close" onClick={() => setConfigModalVisible(false)}>
+          关闭
+        </Button>
+      ] : undefined}
+    >
+      {modalType === 'view' && selectedConfig ? (
+        <Descriptions column={2} bordered>
+          <Descriptions.Item label="服务商名称">{selectedConfig.providerName}</Descriptions.Item>
+          <Descriptions.Item label="服务商代码">{selectedConfig.providerCode}</Descriptions.Item>
+          <Descriptions.Item label="API地址" span={2}>{selectedConfig.apiUrl}</Descriptions.Item>
+          <Descriptions.Item label="状态">{selectedConfig.status}</Descriptions.Item>
+          <Descriptions.Item label="描述" span={2}>{selectedConfig.description}</Descriptions.Item>
+        </Descriptions>
+      ) : (
+        <Form
+          form={providerForm}
+          layout="vertical"
+        >
+          <Form.Item
+            name="providerName"
+            label="服务商名称"
+            rules={[{ required: true, message: '请输入服务商名称' }]}
+          >
+            <Input placeholder="请输入服务商名称" />
+          </Form.Item>
+          
+          <Form.Item
+            name="providerCode"
+            label="服务商代码"
+            rules={[{ required: true, message: '请输入服务商代码' }]}
+          >
+            <Input placeholder="请输入服务商代码" />
+          </Form.Item>
+          
+          <Form.Item
+            name="apiUrl"
+            label="API地址"
+            rules={[{ required: true, message: '请输入API地址' }]}
+          >
+            <Input placeholder="请输入API地址" />
+          </Form.Item>
+          
+          <Form.Item
+            name="status"
+            label="状态"
+            rules={[{ required: true, message: '请选择状态' }]}
+          >
+            <Select placeholder="请选择状态">
+              <Option value="启用">启用</Option>
+              <Option value="禁用">禁用</Option>
+            </Select>
+          </Form.Item>
+          
+          <Form.Item
+            name="description"
+            label="描述"
+          >
+            <TextArea rows={3} placeholder="请输入描述信息" />
+          </Form.Item>
+        </Form>
+      )}
+    </Modal>
+  );
+
+  // 渲染系统参数弹窗
+  const renderParameterModal = () => (
+    <Modal
+      title={modalType === 'add' ? '新增系统参数' : modalType === 'edit' ? '编辑系统参数' : '查看系统参数'}
+      open={configModalVisible && activeTab === 'parameter'}
+      onCancel={() => setConfigModalVisible(false)}
+      onOk={modalType !== 'view' ? handleConfigSave : undefined}
+      width={600}
+      style={{ borderRadius: '2px' }}
+      footer={modalType === 'view' ? [
+        <Button key="close" onClick={() => setConfigModalVisible(false)}>
+          关闭
+        </Button>
+      ] : undefined}
+    >
+      {modalType === 'view' && selectedConfig ? (
+        <Descriptions column={2} bordered>
+          <Descriptions.Item label="参数名称">{selectedConfig.paramKey}</Descriptions.Item>
+          <Descriptions.Item label="参数值">{selectedConfig.paramValue}</Descriptions.Item>
+          <Descriptions.Item label="分类">{selectedConfig.category}</Descriptions.Item>
+          <Descriptions.Item label="描述" span={2}>{selectedConfig.description}</Descriptions.Item>
+        </Descriptions>
+      ) : (
+        <Form
+          form={paramForm}
+          layout="vertical"
+        >
+          <Form.Item
+            name="paramKey"
+            label="参数名称"
+            rules={[{ required: true, message: '请输入参数名称' }]}
+          >
+            <Input placeholder="请输入参数名称" />
+          </Form.Item>
+          
+          <Form.Item
+            name="paramValue"
+            label="参数值"
+            rules={[{ required: true, message: '请输入参数值' }]}
+          >
+            <Input placeholder="请输入参数值" />
+          </Form.Item>
+          
+          <Form.Item
+            name="category"
+            label="分类"
+            rules={[{ required: true, message: '请选择分类' }]}
+          >
+            <Select placeholder="请选择分类">
+              <Option value="开票参数">开票参数</Option>
+              <Option value="系统参数">系统参数</Option>
+              <Option value="接口参数">接口参数</Option>
+            </Select>
+          </Form.Item>
+          
+          <Form.Item
+            name="description"
+            label="描述"
+            rules={[{ required: true, message: '请输入描述' }]}
+          >
+            <TextArea rows={3} placeholder="请输入参数描述" />
+          </Form.Item>
+        </Form>
+      )}
+    </Modal>
+  );
+
   const tabItems = [
     {
       key: 'oilStation',
@@ -503,6 +658,8 @@ const InvoiceSettings = () => {
           </Card>
 
           {renderStationModal()}
+          {renderProviderModal()}
+          {renderParameterModal()}
         </div>
       )
     },
@@ -510,30 +667,60 @@ const InvoiceSettings = () => {
       key: 'provider',
       label: '服务商设置',
       children: (
-        <Card title="开票服务商配置">
-          <Table
-            columns={providerColumns}
-            dataSource={invoiceProviders}
-            loading={loading}
-            scroll={{ x: 'max-content' }}
-            size="middle"
-          />
-        </Card>
+        <div>
+          <Card style={{ marginBottom: 16 }}>
+            <div style={{ marginBottom: 16, textAlign: 'right' }}>
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />} 
+                onClick={handleAdd}
+                style={{ borderRadius: '2px' }}
+              >
+                新增服务商
+              </Button>
+            </div>
+          </Card>
+          
+          <Card title="开票服务商配置">
+            <Table
+              columns={providerColumns}
+              dataSource={invoiceProviders}
+              loading={loading}
+              scroll={{ x: 'max-content' }}
+              size="middle"
+            />
+          </Card>
+        </div>
       )
     },
     {
       key: 'parameter',
       label: '系统参数',
       children: (
-        <Card title="系统参数配置">
-          <Table
-            columns={parameterColumns}
-            dataSource={systemParameters}
-            loading={loading}
-            scroll={{ x: 'max-content' }}
-            size="middle"
-          />
-        </Card>
+        <div>
+          <Card style={{ marginBottom: 16 }}>
+            <div style={{ marginBottom: 16, textAlign: 'right' }}>
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />} 
+                onClick={handleAdd}
+                style={{ borderRadius: '2px' }}
+              >
+                新增参数
+              </Button>
+            </div>
+          </Card>
+          
+          <Card title="系统参数配置">
+            <Table
+              columns={parameterColumns}
+              dataSource={systemParameters}
+              loading={loading}
+              scroll={{ x: 'max-content' }}
+              size="middle"
+            />
+          </Card>
+        </div>
       )
     },
     {

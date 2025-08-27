@@ -3,7 +3,7 @@ import { Card, Tabs, Spin } from 'antd';
 import './index.css';
 
 // 导入各个子页面组件
-import RecordsManagement from './records';
+import RecordsManagement from './records/RecordsManagement';
 import RiskMonitor from './risk-monitor';
 import StatisticsAnalysis from './statistics';
 import RecordHistory from './shared/RecordHistory';
@@ -20,7 +20,11 @@ const InvoiceManagement = () => {
     {
       key: 'records',
       label: '开票记录',
-      children: <RecordsManagement />
+      children: (
+        <div>
+          <RecordsManagement />
+        </div>
+      )
     },
     {
       key: 'risk-monitor',
@@ -54,7 +58,7 @@ const InvoiceManagement = () => {
       </Card>
       
       <div className="page-remark">
-        <p><strong>功能说明：</strong></p>
+        <p><strong>发票管理功能说明：</strong></p>
         <p>1. 开票记录：管理所有发票开具记录，支持查看、下载、重试、红冲等操作</p>
         <p>2. 风险监控：实时监控开票风险，包括频率控制、金额限制等</p>
         <p>3. 统计分析：提供开票数据的统计分析和报表功能</p>

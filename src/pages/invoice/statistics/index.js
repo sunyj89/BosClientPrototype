@@ -11,7 +11,8 @@ import {
   Space, 
   message,
   Progress,
-  Divider
+  Divider,
+  Form
 } from 'antd';
 import { 
   BarChartOutlined, 
@@ -21,7 +22,9 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   ClockCircleOutlined,
-  DollarOutlined
+  DollarOutlined,
+  SearchOutlined,
+  ReloadOutlined
 } from '@ant-design/icons';
 import * as echarts from 'echarts';
 
@@ -32,6 +35,7 @@ const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 const StatisticsAnalysis = () => {
+  const [filterForm] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [overview, setOverview] = useState({});
   const [trendData, setTrendData] = useState({});
@@ -66,6 +70,18 @@ const StatisticsAnalysis = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleFilterSearch = async (values) => {
+    console.log('筛选条件:', values);
+    await loadData();
+    message.success('查询完成');
+  };
+
+  const handleFilterReset = () => {
+    filterForm.resetFields();
+    setDateRange('thisMonth');
+    loadData();
   };
 
   const initCharts = () => {
@@ -347,24 +363,71 @@ const StatisticsAnalysis = () => {
 
   return (
     <div>
-      {/* 时间范围选择 */}
+      {/* 筛选区域 */}
       <Card style={{ marginBottom: 16 }}>
-        <Space>
-          <span>统计周期：</span>
-          <Select
-            value={dateRange}
-            onChange={setDateRange}
-            style={{ width: 120 }}
-          >
-            <Option value="today">今日</Option>
-            <Option value="thisWeek">本周</Option>
-            <Option value="thisMonth">本月</Option>
-          </Select>
-          <RangePicker />
-          <Button type="primary" style={{ borderRadius: '2px' }}>
-            查询
-          </Button>
-        </Space>
+        <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+          <Form form={filterForm} onFinish={handleFilterSearch}>
+            {/* 第一行：筛选条件 */}
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+              <Col span={4}>
+                <Form.Item name="dateRange" label="统计周期">
+                  <Select 
+                    placeholder="请选择" 
+                    style={{ width: '100%' }} 
+                    value={dateRange}
+                    onChange={setDateRange}
+                    allowClear
+                  >
+                    <Option value="today">今日</Option>
+                    <Option value="thisWeek">本周</Option>
+                    <Option value="thisMonth">本月</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item name="customDateRange" label="自定义时间">
+                  <RangePicker style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="stationName" label="油站筛选">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Option value="station1">昌北服务区加油站</Option>
+                    <Option value="station2">庐山服务区加油站</Option>
+                    <Option value="station3">九江服务区加油站</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="invoiceType" label="发票类型">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Option value="01">增值税普通发票</Option>
+                    <Option value="04">增值税电子普通发票</Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6} style={{ textAlign: 'right' }}>
+                <Space>
+                  <Button 
+                    type="primary" 
+                    htmlType="submit" 
+                    icon={<SearchOutlined />}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    查询
+                  </Button>
+                  <Button 
+                    icon={<ReloadOutlined />} 
+                    onClick={handleFilterReset}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    重置
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+        </div>
       </Card>
 
       {/* 概览统计 */}

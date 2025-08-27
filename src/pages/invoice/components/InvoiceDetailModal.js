@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Descriptions, Tag, Button, Space, Table, Alert } from 'antd';
-import { DownloadOutlined, MailOutlined } from '@ant-design/icons';
+import { DownloadOutlined, MailOutlined, MessageOutlined } from '@ant-design/icons';
 import InvoiceStatusTag from './InvoiceStatusTag';
 import InvoiceAmountDisplay from './InvoiceAmountDisplay';
 
@@ -9,7 +9,11 @@ const InvoiceDetailModal = ({
   onCancel, 
   invoiceData,
   onDownload,
-  onResendEmail 
+  onResendEmail,
+  onResendSMS,
+  onRetry,
+  onEdit,
+  onRedInvoice
 }) => {
   if (!invoiceData) return null;
 
@@ -82,36 +86,101 @@ const InvoiceDetailModal = ({
   };
 
   const renderFooter = () => {
-    const buttons = [
-      <Button key="close" onClick={onCancel}>
-        关闭
-      </Button>
-    ];
+    const buttons = [];
 
-    if (invoiceData.invoiceStatus === '02') {
-      buttons.unshift(
-        <Button 
-          key="download" 
-          type="primary" 
-          icon={<DownloadOutlined />}
-          onClick={() => onDownload?.(invoiceData)}
-        >
-          下载发票
-        </Button>
-      );
-      
-      if (invoiceData.emailAddress) {
-        buttons.unshift(
+    // 根据发票状态显示不同操作按钮
+    switch (invoiceData.invoiceStatus) {
+      case '02': // 开票成功
+        buttons.push(
           <Button 
-            key="resend" 
-            icon={<MailOutlined />}
-            onClick={() => onResendEmail?.(invoiceData)}
+            key="download" 
+            type="primary" 
+            icon={<DownloadOutlined />}
+            onClick={() => onDownload?.(invoiceData)}
+            style={{ borderRadius: '2px' }}
           >
-            重发邮件
+            下载发票
           </Button>
         );
-      }
+        
+        if (invoiceData.emailAddress) {
+          buttons.push(
+            <Button 
+              key="resend" 
+              type="primary"
+              icon={<MailOutlined />}
+              onClick={() => onResendEmail?.(invoiceData)}
+              style={{ borderRadius: '2px' }}
+            >
+              重发邮件
+            </Button>
+          );
+        }
+
+        if (invoiceData.buyerMobile) {
+          buttons.push(
+            <Button 
+              key="resendSMS" 
+              type="primary"
+              icon={<MessageOutlined />}
+              onClick={() => onResendSMS?.(invoiceData)}
+              style={{ borderRadius: '2px' }}
+            >
+              重发短信
+            </Button>
+          );
+        }
+        
+        // 添加红冲按钮
+        buttons.push(
+          <Button 
+            key="redInvoice"
+            type="primary" 
+            danger
+            onClick={() => onRedInvoice?.(invoiceData)}
+            style={{ borderRadius: '2px' }}
+          >
+            红冲申请
+          </Button>
+        );
+        break;
+        
+      case '03': // 开票失败
+        buttons.push(
+          <Button 
+            key="retry"
+            type="primary" 
+            onClick={() => onRetry?.(invoiceData)}
+            style={{ borderRadius: '2px' }}
+          >
+            重试开票
+          </Button>
+        );
+        break;
+        
+      case '00': // 待开票
+        buttons.push(
+          <Button 
+            key="edit"
+            type="primary" 
+            onClick={() => onEdit?.(invoiceData)}
+            style={{ borderRadius: '2px' }}
+          >
+            编辑
+          </Button>
+        );
+        break;
+        
+      default:
+        break;
     }
+
+    // 始终显示关闭按钮
+    buttons.push(
+      <Button key="close" onClick={onCancel} style={{ borderRadius: '2px' }}>
+        关闭
+      </Button>
+    );
 
     return buttons;
   };
@@ -151,8 +220,15 @@ const InvoiceDetailModal = ({
         <Descriptions.Item label="纳税人识别号" span={1}>
           {invoiceData.buyerTaxNo || '无'}
         </Descriptions.Item>
+        <Descriptions.Item label="手机号" span={1}>
+          {invoiceData.buyerMobile || '无'}
+        </Descriptions.Item>
+        
         <Descriptions.Item label="联系电话" span={1}>
           {invoiceData.buyerPhone || '无'}
+        </Descriptions.Item>
+        <Descriptions.Item label="邮箱地址" span={1}>
+          {invoiceData.emailAddress || '无'}
         </Descriptions.Item>
         
         <Descriptions.Item label="购买方地址" span={2}>
@@ -186,11 +262,8 @@ const InvoiceDetailModal = ({
           {invoiceData.invoiceTime || '暂无'}
         </Descriptions.Item>
         
-        <Descriptions.Item label="操作员" span={1}>
+        <Descriptions.Item label="操作员" span={2}>
           {invoiceData.operatorName}
-        </Descriptions.Item>
-        <Descriptions.Item label="邮箱地址" span={1}>
-          {invoiceData.emailAddress || '无'}
         </Descriptions.Item>
         
         <Descriptions.Item label="备注信息" span={2}>

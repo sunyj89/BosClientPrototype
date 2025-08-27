@@ -12,7 +12,6 @@ import {
   Descriptions,
   Timeline,
   Tag,
-  Badge,
   Tooltip,
   Row,
   Col,
@@ -35,39 +34,119 @@ const getModuleMockData = (moduleType) => {
       return [
         {
           id: "LOG001",
-          productId: "INV001",
-          productName: "发票开票记录",
-          changeType: "create",
-          changeField: "开票信息",
-          changeDescription: "新建发票开票记录",
+          productId: "INV202508270001",
+          productName: "发票流水号-INV202508270001",
+          changeType: "operation",
+          changeField: "下载操作",
+          changeDescription: "下载发票文件",
           operator: "张三",
           operatorId: "USER001",
-          changeTime: "2025-01-18 14:30:25",
+          changeTime: "2025-08-27 10:15:30",
           oldValue: null,
           newValue: { 
-            invoiceNo: "INV20250118001", 
-            amount: 1000.00,
-            buyerName: "江西交投化石能源公司"
+            action: "download",
+            invoiceNo: "36220119001",
+            fileName: "增值税普通发票_36220119001.pdf",
+            downloadTime: "2025-08-27 10:15:30"
           },
-          reason: "客户申请开票",
-          approver: "李经理",
-          status: "approved"
+          reason: "管理员下载发票文件"
         },
         {
           id: "LOG002",
-          productId: "INV001",
-          productName: "发票开票记录",
-          changeType: "update",
-          changeField: "发票状态",
-          changeDescription: "更新发票状态为已开具",
+          productId: "INV202508270001",
+          productName: "发票流水号-INV202508270001",
+          changeType: "operation",
+          changeField: "重发邮件",
+          changeDescription: "重新发送发票邮件",
           operator: "李四",
           operatorId: "USER002",
-          changeTime: "2025-01-18 15:45:10",
-          oldValue: { status: "申请中" },
-          newValue: { status: "已开具" },
-          reason: "发票开具完成",
-          approver: "王经理",
-          status: "approved"
+          changeTime: "2025-08-27 11:20:15",
+          oldValue: null,
+          newValue: { 
+            action: "resend_email",
+            emailAddress: "finance@jxgs.com",
+            invoiceNo: "36220119001",
+            sendTime: "2025-08-27 11:20:15"
+          },
+          reason: "客户未收到邮件，管理员重新发送"
+        },
+        {
+          id: "LOG003",
+          productId: "INV202508270004",
+          productName: "发票流水号-INV202508270004",
+          changeType: "operation",
+          changeField: "重发短信",
+          changeDescription: "重新发送发票短信通知",
+          operator: "王五",
+          operatorId: "USER003",
+          changeTime: "2025-08-27 12:45:22",
+          oldValue: null,
+          newValue: { 
+            action: "resend_sms",
+            mobile: "18970001234",
+            invoiceNo: "36220119003",
+            sendTime: "2025-08-27 12:45:22"
+          },
+          reason: "个人用户未收到短信，管理员重新发送"
+        },
+        {
+          id: "LOG004",
+          productId: "INV202508270002",
+          productName: "发票流水号-INV202508270002",
+          changeType: "operation",
+          changeField: "重试开票",
+          changeDescription: "重试开票操作",
+          operator: "赵六",
+          operatorId: "USER004",
+          changeTime: "2025-08-27 13:30:18",
+          oldValue: { 
+            invoiceStatus: "03",
+            statusText: "开票失败"
+          },
+          newValue: { 
+            invoiceStatus: "01",
+            statusText: "开票中",
+            retryTime: "2025-08-27 13:30:18"
+          },
+          reason: "系统故障恢复，管理员手动重试开票"
+        },
+        {
+          id: "LOG005",
+          productId: "INV202508270006",
+          productName: "发票流水号-INV202508270006",
+          changeType: "operation",
+          changeField: "红冲申请",
+          changeDescription: "提交发票红冲申请",
+          operator: "孙七",
+          operatorId: "USER005",
+          changeTime: "2025-08-27 14:15:45",
+          oldValue: null,
+          newValue: { 
+            action: "red_invoice_apply",
+            redInvoiceReason: "客户要求红冲",
+            originalInvoiceNo: "36220119004",
+            applyTime: "2025-08-27 14:15:45"
+          },
+          reason: "客户申请发票红冲，管理员提交申请"
+        },
+        {
+          id: "LOG006",
+          productId: "INV202508270007",
+          productName: "发票流水号-INV202508270007",
+          changeType: "operation",
+          changeField: "下载操作",
+          changeDescription: "下载发票文件",
+          operator: "吴八",
+          operatorId: "USER006",
+          changeTime: "2025-08-27 15:22:10",
+          oldValue: null,
+          newValue: { 
+            action: "download",
+            invoiceNo: "36220119005",
+            fileName: "增值税普通发票_36220119005.pdf",
+            downloadTime: "2025-08-27 15:22:10"
+          },
+          reason: "管理员下载大额发票备份"
         }
       ];
     case 'invoice-records':
@@ -216,7 +295,8 @@ const RecordHistory = ({ moduleType = 'default' }) => {
     const typeMap = {
       create: { color: 'success', icon: <PlusOutlined />, text: '新建' },
       update: { color: 'warning', icon: <EditOutlined />, text: '修改' },
-      delete: { color: 'error', icon: <DeleteOutlined />, text: '删除' }
+      delete: { color: 'error', icon: <DeleteOutlined />, text: '删除' },
+      operation: { color: 'processing', icon: <EyeOutlined />, text: '操作' }
     };
     const config = typeMap[type] || { color: 'default', icon: null, text: type };
     return (
@@ -224,16 +304,6 @@ const RecordHistory = ({ moduleType = 'default' }) => {
         {config.text}
       </Tag>
     );
-  };
-
-  const getStatusBadge = (status) => {
-    const statusMap = {
-      approved: { status: 'success', text: '已通过' },
-      pending: { status: 'warning', text: '待审批' },
-      rejected: { status: 'error', text: '已拒绝' }
-    };
-    const config = statusMap[status] || { status: 'default', text: status };
-    return <Badge status={config.status} text={config.text} />;
   };
 
   // 渲染值对比
@@ -358,19 +428,6 @@ const RecordHistory = ({ moduleType = 'default' }) => {
       )
     },
     {
-      title: '审批人',
-      dataIndex: 'approver',
-      key: 'approver',
-      width: 100
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (text) => getStatusBadge(text)
-    },
-    {
       title: '操作',
       key: 'action',
       width: 100,
@@ -395,55 +452,28 @@ const RecordHistory = ({ moduleType = 'default' }) => {
         color: 'blue',
         children: (
           <div>
-            <div><strong>提交变更</strong></div>
+            <div><strong>操作执行</strong></div>
             <div style={{ fontSize: '12px', color: '#666' }}>
-              {record.operator} 于 {record.changeTime} 提交变更申请
+              {record.operator} 于 {record.changeTime} 执行了{record.changeDescription}
             </div>
             <div style={{ fontSize: '12px', color: '#666' }}>
-              变更原因: {record.reason}
+              操作原因: {record.reason}
+            </div>
+          </div>
+        )
+      },
+      {
+        color: 'green',
+        children: (
+          <div>
+            <div><strong>操作完成</strong></div>
+            <div style={{ fontSize: '12px', color: '#666' }}>
+              操作已成功执行
             </div>
           </div>
         )
       }
     ];
-
-    if (record.status === 'approved') {
-      items.push({
-        color: 'green',
-        children: (
-          <div>
-            <div><strong>审批通过</strong></div>
-            <div style={{ fontSize: '12px', color: '#666' }}>
-              {record.approver} 审批通过
-            </div>
-          </div>
-        )
-      });
-    } else if (record.status === 'rejected') {
-      items.push({
-        color: 'red',
-        children: (
-          <div>
-            <div><strong>审批拒绝</strong></div>
-            <div style={{ fontSize: '12px', color: '#666' }}>
-              {record.approver} 审批拒绝
-            </div>
-          </div>
-        )
-      });
-    } else {
-      items.push({
-        color: 'gray',
-        children: (
-          <div>
-            <div><strong>等待审批</strong></div>
-            <div style={{ fontSize: '12px', color: '#666' }}>
-              等待 {record.approver} 审批
-            </div>
-          </div>
-        )
-      });
-    }
 
     return items;
   };
@@ -452,54 +482,66 @@ const RecordHistory = ({ moduleType = 'default' }) => {
     <div>
       {/* 筛选区域 */}
       <Card style={{ marginBottom: 16 }}>
-        <Form
-          form={searchForm}
-          layout="inline"
-          onFinish={handleSearch}
-        >
-          <Form.Item name="keyword" label="关键词">
-            <Input placeholder="名称/ID/操作人" style={{ width: 200 }} />
-          </Form.Item>
-          
-          <Form.Item name="changeType" label="变更类型">
-            <Select placeholder="请选择" style={{ width: 120 }} allowClear>
-              <Select.Option value="create">新建</Select.Option>
-              <Select.Option value="update">修改</Select.Option>
-              <Select.Option value="delete">删除</Select.Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="changeField" label="变更字段">
-            <Select placeholder="请选择" style={{ width: 120 }} allowClear>
-              <Select.Option value="基本信息">基本信息</Select.Option>
-              <Select.Option value="配置信息">配置信息</Select.Option>
-              <Select.Option value="状态信息">状态信息</Select.Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="status" label="状态">
-            <Select placeholder="请选择" style={{ width: 120 }} allowClear>
-              <Select.Option value="approved">已通过</Select.Option>
-              <Select.Option value="pending">待审批</Select.Option>
-              <Select.Option value="rejected">已拒绝</Select.Option>
-            </Select>
-          </Form.Item>
-          
-          <Form.Item name="timeRange" label="时间范围">
-            <DatePicker.RangePicker style={{ width: 240 }} />
-          </Form.Item>
-
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                搜索
-              </Button>
-              <Button onClick={handleReset}>
-                重置
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+        <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+          <Form form={searchForm} onFinish={handleSearch}>
+            {/* 第一行：筛选条件 */}
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+              <Col span={4}>
+                <Form.Item name="keyword" label="关键词">
+                  <Input placeholder="名称/ID/操作人" style={{ width: '100%' }} allowClear />
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="changeType" label="变更类型">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Select.Option value="create">新建</Select.Option>
+                    <Select.Option value="update">修改</Select.Option>
+                    <Select.Option value="delete">删除</Select.Option>
+                    <Select.Option value="operation">操作</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={4}>
+                <Form.Item name="changeField" label="变更字段">
+                  <Select placeholder="请选择" style={{ width: '100%' }} allowClear>
+                    <Select.Option value="基本信息">基本信息</Select.Option>
+                    <Select.Option value="配置信息">配置信息</Select.Option>
+                    <Select.Option value="状态信息">状态信息</Select.Option>
+                    <Select.Option value="下载操作">下载操作</Select.Option>
+                    <Select.Option value="重发邮件">重发邮件</Select.Option>
+                    <Select.Option value="重发短信">重发短信</Select.Option>
+                    <Select.Option value="重试开票">重试开票</Select.Option>
+                    <Select.Option value="红冲申请">红冲申请</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item name="timeRange" label="时间范围">
+                  <DatePicker.RangePicker style={{ width: '100%' }} />
+                </Form.Item>
+              </Col>
+              <Col span={6} style={{ textAlign: 'right' }}>
+                <Space>
+                  <Button 
+                    type="primary" 
+                    htmlType="submit" 
+                    icon={<SearchOutlined />}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    搜索
+                  </Button>
+                  <Button 
+                    onClick={handleReset}
+                    icon={<ReloadOutlined />}
+                    style={{ borderRadius: '2px' }}
+                  >
+                    重置
+                  </Button>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+        </div>
       </Card>
 
       {/* 记录列表 */}
@@ -545,8 +587,8 @@ const RecordHistory = ({ moduleType = 'default' }) => {
               <Descriptions.Item label="变更类型">{getChangeTypeTag(selectedRecord.changeType)}</Descriptions.Item>
               <Descriptions.Item label="变更字段">{selectedRecord.changeField}</Descriptions.Item>
               <Descriptions.Item label="操作人">{selectedRecord.operator} ({selectedRecord.operatorId})</Descriptions.Item>
-              <Descriptions.Item label="变更时间">{selectedRecord.changeTime}</Descriptions.Item>
-              <Descriptions.Item label="变更原因" span={2}>{selectedRecord.reason}</Descriptions.Item>
+              <Descriptions.Item label="操作时间">{selectedRecord.changeTime}</Descriptions.Item>
+              <Descriptions.Item label="操作原因" span={2}>{selectedRecord.reason}</Descriptions.Item>
             </Descriptions>
 
             <Row gutter={16}>
@@ -556,7 +598,7 @@ const RecordHistory = ({ moduleType = 'default' }) => {
                 </Card>
               </Col>
               <Col span={12}>
-                <Card title="操作流程" size="small">
+                <Card title="操作详情" size="small">
                   <Timeline items={getTimelineItems(selectedRecord)} />
                 </Card>
               </Col>

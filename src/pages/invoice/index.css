@@ -6,13 +6,12 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-/* 筛选卡片样式 */
-.filter-card {
+/* 筛选区域样式 */
+.invoice-filter-form {
   background: #fff;
-}
-
-.filter-card .ant-card-body {
-  padding: 16px 24px;
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
 }
 
 /* 按钮统一圆角 */

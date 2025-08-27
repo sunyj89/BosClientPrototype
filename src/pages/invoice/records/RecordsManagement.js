@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, message, Modal } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Table, message, Modal, Button } from 'antd';
+import { ExclamationCircleOutlined, EyeOutlined } from '@ant-design/icons';
 import InvoiceSearchForm from '../components/InvoiceSearchForm';
 import InvoiceStatusTag from '../components/InvoiceStatusTag';
 import InvoiceAmountDisplay from '../components/InvoiceAmountDisplay';
@@ -117,6 +117,23 @@ const RecordsManagement = () => {
     });
   };
 
+  const handleResendSMS = (record) => {
+    Modal.confirm({
+      title: '确认重发短信',
+      content: `确定要重新发送发票短信吗？\n手机号：${record.buyerMobile}`,
+      icon: <ExclamationCircleOutlined />,
+      onOk: async () => {
+        try {
+          message.loading('正在发送短信...', 2);
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          message.success('短信发送成功');
+        } catch (error) {
+          message.error('短信发送失败');
+        }
+      }
+    });
+  };
+
   const handleEdit = (record) => {
     message.info('编辑功能开发中...');
   };
@@ -212,18 +229,18 @@ const RecordsManagement = () => {
     {
       title: '操作',
       key: 'action',
-      width: 280,
+      width: 100,
       fixed: 'right',
       render: (_, record) => (
-        <InvoiceActionButtons
-          record={record}
-          onView={handleView}
-          onDownload={handleDownload}
-          onRetry={handleRetry}
-          onResend={handleResend}
-          onEdit={handleEdit}
-          onRedInvoice={handleRedInvoice}
-        />
+        <Button
+          type="primary"
+          size="small"
+          icon={<EyeOutlined />}
+          onClick={() => handleView(record)}
+          style={{ borderRadius: '2px' }}
+        >
+          查看
+        </Button>
       )
     }
   ];
@@ -233,7 +250,6 @@ const RecordsManagement = () => {
       <InvoiceSearchForm
         onSearch={handleSearch}
         onReset={handleReset}
-        onExport={handleExport}
         loading={loading}
       />
 
@@ -253,6 +269,10 @@ const RecordsManagement = () => {
         invoiceData={selectedInvoice}
         onDownload={handleDownload}
         onResendEmail={handleResend}
+        onResendSMS={handleResendSMS}
+        onRetry={handleRetry}
+        onEdit={handleEdit}
+        onRedInvoice={handleRedInvoice}
       />
 
       <RedInvoiceModal
