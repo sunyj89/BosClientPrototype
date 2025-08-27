@@ -1,0 +1,53 @@
+{
+  "pendingApprovals": [
+    {
+      "id": "INQAPR20240518001",
+      "inquiryId": "INQ20240501002",
+      "inquiryName": "5月份95#汽油询价单",
+      "oilType": "95#汽油",
+      "submitter": "张三",
+      "submitTime": "2024-05-18 11:30:45",
+      "status": "待审批",
+      "approver": "",
+      "approveTime": ""
+    }
+  ],
+  "approvalHistory": [
+    {
+      "id": "INQAPR20240518002",
+      "inquiryId": "INQ20240501003",
+      "inquiryName": "5月份98#汽油询价单",
+      "oilType": "98#汽油",
+      "submitter": "李四",
+      "submitTime": "2024-05-18 14:50:20",
+      "status": "已通过",
+      "approver": "王经理",
+      "approveTime": "2024-05-18 16:35:10",
+      "remarks": "价格合理，同意发布"
+    },
+    {
+      "id": "INQAPR20240417001",
+      "inquiryId": "INQ20240415001",
+      "inquiryName": "4月份92#汽油询价单",
+      "oilType": "92#汽油",
+      "submitter": "王五",
+      "submitTime": "2024-04-18 10:20:30",
+      "status": "已通过",
+      "approver": "李经理",
+      "approveTime": "2024-04-18 15:45:20",
+      "remarks": "同意发布"
+    },
+    {
+      "id": "INQAPR20240417002",
+      "inquiryId": "INQ20240501004",
+      "inquiryName": "5月份0#柴油询价单",
+      "oilType": "0#柴油",
+      "submitter": "李四",
+      "submitTime": "2024-05-17 16:45:15",
+      "status": "已通过",
+      "approver": "张经理",
+      "approveTime": "2024-05-18 09:15:30",
+      "remarks": "同意发布"
+    }
+  ]
+} 

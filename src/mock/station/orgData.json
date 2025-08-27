@@ -1,0 +1,369 @@
+[
+  {
+    "id": "JXJTFS",
+    "name": "江西交投化石能源公司",
+    "type": "organization",
+    "children": [
+      {
+        "id": "GZ",
+        "name": "赣中分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GZ-FW1",
+            "name": "赣中服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GZ-FW1-YZ1",
+                "name": "赣中服务区1油站1",
+                "type": "station",
+                "address": "江西省南昌市青山湖区昌东大道1号"
+              },
+              {
+                "id": "GZ-FW1-YZ2",
+                "name": "赣中服务区1油站2",
+                "type": "station",
+                "address": "江西省南昌市青山湖区昌东大道2号"
+              }
+            ]
+          },
+          {
+            "id": "GZ-FW2",
+            "name": "赣中服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GZ-FW2-YZ1",
+                "name": "赣中服务区2油站1",
+                "type": "station",
+                "address": "江西省南昌市红谷滩区红谷中大道1号"
+              },
+              {
+                "id": "GZ-FW2-YZ2",
+                "name": "赣中服务区2油站2",
+                "type": "station",
+                "address": "江西省南昌市红谷滩区红谷中大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GDB",
+        "name": "赣东北分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GDB-FW1",
+            "name": "赣东北服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GDB-FW1-YZ1",
+                "name": "赣东北服务区1油站1",
+                "type": "station",
+                "address": "江西省上饶市信州区带湖路1号"
+              },
+              {
+                "id": "GDB-FW1-YZ2",
+                "name": "赣东北服务区1油站2",
+                "type": "station",
+                "address": "江西省上饶市信州区带湖路2号"
+              }
+            ]
+          },
+          {
+            "id": "GDB-FW2",
+            "name": "赣东北服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GDB-FW2-YZ1",
+                "name": "赣东北服务区2油站1",
+                "type": "station",
+                "address": "江西省景德镇市昌江区瓷都大道1号"
+              },
+              {
+                "id": "GDB-FW2-YZ2",
+                "name": "赣东北服务区2油站2",
+                "type": "station",
+                "address": "江西省景德镇市昌江区瓷都大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GD",
+        "name": "赣东分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GD-FW1",
+            "name": "赣东服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GD-FW1-YZ1",
+                "name": "赣东服务区1油站1",
+                "type": "station",
+                "address": "江西省鹰潭市月湖区信江北路1号"
+              },
+              {
+                "id": "GD-FW1-YZ2",
+                "name": "赣东服务区1油站2",
+                "type": "station",
+                "address": "江西省鹰潭市月湖区信江北路2号"
+              }
+            ]
+          },
+          {
+            "id": "GD-FW2",
+            "name": "赣东服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GD-FW2-YZ1",
+                "name": "赣东服务区2油站1",
+                "type": "station",
+                "address": "江西省抚州市临川区抚临路1号"
+              },
+              {
+                "id": "GD-FW2-YZ2",
+                "name": "赣东服务区2油站2",
+                "type": "station",
+                "address": "江西省抚州市临川区抚临路2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GDN",
+        "name": "赣东南分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GDN-FW1",
+            "name": "赣东南服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GDN-FW1-YZ1",
+                "name": "赣东南服务区1油站1",
+                "type": "station",
+                "address": "江西省赣州市章贡区章江北大道1号"
+              },
+              {
+                "id": "GDN-FW1-YZ2",
+                "name": "赣东南服务区1油站2",
+                "type": "station",
+                "address": "江西省赣州市章贡区章江北大道2号"
+              }
+            ]
+          },
+          {
+            "id": "GDN-FW2",
+            "name": "赣东南服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GDN-FW2-YZ1",
+                "name": "赣东南服务区2油站1",
+                "type": "station",
+                "address": "江西省赣州市南康区蓉江大道1号"
+              },
+              {
+                "id": "GDN-FW2-YZ2",
+                "name": "赣东南服务区2油站2",
+                "type": "station",
+                "address": "江西省赣州市南康区蓉江大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GN",
+        "name": "赣南分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GN-FW1",
+            "name": "赣南服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GN-FW1-YZ1",
+                "name": "赣南服务区1油站1",
+                "type": "station",
+                "address": "江西省吉安市吉州区吉州大道1号"
+              },
+              {
+                "id": "GN-FW1-YZ2",
+                "name": "赣南服务区1油站2",
+                "type": "station",
+                "address": "江西省吉安市吉州区吉州大道2号"
+              }
+            ]
+          },
+          {
+            "id": "GN-FW2",
+            "name": "赣南服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GN-FW2-YZ1",
+                "name": "赣南服务区2油站1",
+                "type": "station",
+                "address": "江西省井冈山市茨坪镇井冈山大道1号"
+              },
+              {
+                "id": "GN-FW2-YZ2",
+                "name": "赣南服务区2油站2",
+                "type": "station",
+                "address": "江西省井冈山市茨坪镇井冈山大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GXN",
+        "name": "赣西南分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GXN-FW1",
+            "name": "赣西南服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GXN-FW1-YZ1",
+                "name": "赣西南服务区1油站1",
+                "type": "station",
+                "address": "江西省萍乡市安源区萍安路1号"
+              },
+              {
+                "id": "GXN-FW1-YZ2",
+                "name": "赣西南服务区1油站2",
+                "type": "station",
+                "address": "江西省萍乡市安源区萍安路2号"
+              }
+            ]
+          },
+          {
+            "id": "GXN-FW2",
+            "name": "赣西南服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GXN-FW2-YZ1",
+                "name": "赣西南服务区2油站1",
+                "type": "station",
+                "address": "江西省新余市渝水区仙来大道1号"
+              },
+              {
+                "id": "GXN-FW2-YZ2",
+                "name": "赣西南服务区2油站2",
+                "type": "station",
+                "address": "江西省新余市渝水区仙来大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GX",
+        "name": "赣西分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GX-FW1",
+            "name": "赣西服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GX-FW1-YZ1",
+                "name": "赣西服务区1油站1",
+                "type": "station",
+                "address": "江西省宜春市袁州区宜春南路1号"
+              },
+              {
+                "id": "GX-FW1-YZ2",
+                "name": "赣西服务区1油站2",
+                "type": "station",
+                "address": "江西省宜春市袁州区宜春南路2号"
+              }
+            ]
+          },
+          {
+            "id": "GX-FW2",
+            "name": "赣西服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GX-FW2-YZ1",
+                "name": "赣西服务区2油站1",
+                "type": "station",
+                "address": "江西省高安市瑞阳大道1号"
+              },
+              {
+                "id": "GX-FW2-YZ2",
+                "name": "赣西服务区2油站2",
+                "type": "station",
+                "address": "江西省高安市瑞阳大道2号"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "GXB",
+        "name": "赣西北分公司",
+        "type": "organization",
+        "children": [
+          {
+            "id": "GXB-FW1",
+            "name": "赣西北服务区1",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GXB-FW1-YZ1",
+                "name": "赣西北服务区1油站1",
+                "type": "station",
+                "address": "江西省九江市浔阳区九江大道1号"
+              },
+              {
+                "id": "GXB-FW1-YZ2",
+                "name": "赣西北服务区1油站2",
+                "type": "station",
+                "address": "江西省九江市浔阳区九江大道2号"
+              }
+            ]
+          },
+          {
+            "id": "GXB-FW2",
+            "name": "赣西北服务区2",
+            "type": "serviceArea",
+            "children": [
+              {
+                "id": "GXB-FW2-YZ1",
+                "name": "赣西北服务区2油站1",
+                "type": "station",
+                "address": "江西省九江市庐山市庐山大道1号"
+              },
+              {
+                "id": "GXB-FW2-YZ2",
+                "name": "赣西北服务区2油站2",
+                "type": "station",
+                "address": "江西省九江市庐山市庐山大道2号"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+] 

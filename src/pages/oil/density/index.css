@@ -1,0 +1,82 @@
+.oil-density-container {
+  padding: 24px;
+}
+
+.oil-density-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 表格样式 */
+.density-table {
+  margin-top: 16px;
+}
+
+.density-table .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.density-table .ant-table-tbody > tr:hover > td {
+  background-color: #f0f7ff;
+}
+
+/* 表单样式 */
+.density-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.density-form .ant-form-item-label {
+  font-weight: 500;
+}
+
+/* 按钮样式 */
+.oil-density-container .ant-btn {
+  border-radius: 2px;
+}
+
+.oil-density-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.oil-density-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+.density-button {
+  margin-right: 8px;
+}
+
+/* 标签样式 */
+.density-tag {
+  min-width: 50px;
+  text-align: center;
+}
+
+/* 状态标签颜色 */
+.status-normal {
+  color: #32AF50;
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+}
+
+.status-warning {
+  color: #fa8c16;
+  background-color: #fff7e6;
+  border-color: #ffd591;
+}
+
+.status-error {
+  color: #f5222d;
+  background-color: #fff1f0;
+  border-color: #ffa39e;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .density-form-inline .ant-form-item {
+    margin-right: 0;
+    width: 100%;
+  }
+} 

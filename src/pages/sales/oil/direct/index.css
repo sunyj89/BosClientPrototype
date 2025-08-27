@@ -1,0 +1,257 @@
+.direct-sales-container {
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 4px;
+  min-height: calc(100vh - 200px);
+}
+
+.direct-sales-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.direct-sales-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.direct-sales-tabs {
+  margin-bottom: 16px;
+}
+
+.direct-sales-search {
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.direct-sales-table {
+  margin-top: 16px;
+}
+
+.direct-sales-drawer {
+  position: relative;
+}
+
+.direct-sales-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.direct-sales-drawer-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.direct-sales-drawer-content {
+  padding-bottom: 60px;
+}
+
+.direct-sales-drawer-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  background-color: #fff;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.direct-sales-form-item {
+  margin-bottom: 16px;
+}
+
+.direct-sales-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.direct-sales-stats-card {
+  margin-bottom: 24px;
+}
+
+.direct-sales-stats-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.direct-sales-chart-container {
+  height: 400px;
+  margin-bottom: 24px;
+}
+
+.direct-sales-table-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.direct-sales-table-action-btn {
+  margin-right: 8px;
+}
+
+.direct-sales-status-tag {
+  min-width: 70px;
+  text-align: center;
+}
+
+.direct-sales-approval-steps {
+  margin-top: 24px;
+}
+
+.direct-sales-approval-logs {
+  margin-top: 24px;
+}
+
+.direct-sales-approval-log-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.direct-sales-approval-log-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.direct-sales-approval-log-content {
+  margin-top: 4px;
+}
+
+.direct-sales-approval-log-comment {
+  margin-top: 4px;
+  color: #666;
+}
+
+.direct-sales-oil-type-table {
+  margin-top: 16px;
+}
+
+.direct-sales-completion-rate {
+  display: inline-block;
+  min-width: 70px;
+  text-align: center;
+}
+
+.direct-sales-completion-rate-high {
+  color: #52c41a;
+}
+
+.direct-sales-completion-rate-medium {
+  color: #faad14;
+}
+
+.direct-sales-completion-rate-low {
+  color: #f5222d;
+}
+
+/* 添加创建订单页面的样式 */
+.direct-sales-form-card {
+  margin-top: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.direct-sales-form-card .ant-form-item-label > label {
+  font-weight: 500;
+  color: #333;
+}
+
+.direct-sales-form-card .ant-divider-inner-text {
+  font-weight: 500;
+  color: #1890ff;
+}
+
+.direct-sales-form-card .ant-input-number-disabled {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* 按钮样式规范 */
+.direct-sales-container .ant-btn-primary {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.direct-sales-container .ant-btn-primary:hover,
+.direct-sales-container .ant-btn-primary:focus {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
+.direct-sales-container .ant-btn-success {
+  background-color: #52c41a;
+  border-color: #52c41a;
+  color: #fff;
+}
+
+.direct-sales-container .ant-btn-success:hover,
+.direct-sales-container .ant-btn-success:focus {
+  background-color: #73d13d;
+  border-color: #73d13d;
+  color: #fff;
+}
+
+.direct-sales-container .ant-btn-danger {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+  color: #fff;
+}
+
+.direct-sales-container .ant-btn-danger:hover,
+.direct-sales-container .ant-btn-danger:focus {
+  background-color: #ff7875;
+  border-color: #ff7875;
+  color: #fff;
+}
+
+/* 增强统计功能的样式 */
+.direct-sales-chart-container {
+  margin-bottom: 24px;
+}
+
+.direct-sales-chart-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.direct-sales-customer-rank {
+  display: flex;
+  align-items: center;
+}
+
+.direct-sales-customer-rank-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.direct-sales-customer-rank-1 {
+  background-color: #f5222d;
+  color: #fff;
+}
+
+.direct-sales-customer-rank-2 {
+  background-color: #fa8c16;
+  color: #fff;
+}
+
+.direct-sales-customer-rank-3 {
+  background-color: #faad14;
+  color: #fff;
+} 

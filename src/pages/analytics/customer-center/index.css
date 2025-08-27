@@ -1,0 +1,210 @@
+.customer-center-container {
+  padding: 24px;
+}
+
+.customer-center-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+
+.customer-center-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.customer-center-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.customer-center-container .dashboard-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.customer-center-container .dashboard-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.customer-center-container .dashboard-card .ant-card-body {
+  padding: 20px;
+}
+
+.customer-center-container .ant-btn {
+  border-radius: 2px;
+}
+
+.customer-center-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.customer-center-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+}
+
+.customer-center-container .ant-select {
+  border-radius: 2px;
+}
+
+.customer-center-container .ant-picker {
+  border-radius: 2px;
+}
+
+.customer-center-container .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.customer-center-container .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.customer-center-container .ant-statistic-content-suffix {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+/* Tab图标样式 */
+.customer-center-container .ant-tabs-tab .anticon {
+  margin-right: 6px;
+}
+
+/* 统计卡片样式 */
+.customer-center-container .ant-card-small {
+  border-radius: 2px;
+}
+
+.customer-center-container .ant-card-small .ant-card-body {
+  padding: 16px;
+}
+
+/* 表单样式 */
+.customer-center-container .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.customer-center-container .ant-form-item-label {
+  font-weight: 500;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .customer-center-container {
+    padding: 16px;
+  }
+  
+  .customer-center-container .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .customer-center-container .dashboard-card .ant-card-body {
+    padding: 16px;
+  }
+  
+  .customer-center-container .ant-statistic-content {
+    font-size: 20px;
+  }
+}
+
+/* 图表容器样式 */
+.customer-center-container .echarts-container {
+  width: 100%;
+  height: 400px;
+}
+
+/* 备注信息样式 */
+.customer-center-container .demo-note {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f6f8fa;
+  border-radius: 4px;
+  border: 1px solid #e1e8ed;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.customer-center-container .demo-note strong {
+  color: #333;
+}
+
+/* 空状态样式 */
+.customer-center-container .empty-state {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.customer-center-container .empty-state .anticon {
+  font-size: 64px;
+  color: #1890ff;
+  margin-bottom: 24px;
+}
+
+.customer-center-container .empty-state h2 {
+  font-size: 20px;
+  color: #262626;
+  margin-bottom: 8px;
+}
+
+.customer-center-container .empty-state p {
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+
+/* 渠道贡献卡片样式 */
+.customer-center-container .channel-contribution-card {
+  flex: 1 1 calc(20% - 16px);
+  min-width: 200px;
+  margin-bottom: 16px;
+}
+
+.customer-center-container .channel-contribution-card .ant-statistic-title {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.customer-center-container .channel-contribution-card .ant-statistic-content {
+  font-size: 18px;
+}
+
+.customer-center-container .channel-meta {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* 等级分布详情样式 */
+.customer-center-container .level-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.customer-center-container .level-detail-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.customer-center-container .level-detail-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.customer-center-container .level-detail-value {
+  font-weight: 600;
+  color: #1890ff;
+}
+
+.customer-center-container .level-detail-percentage {
+  color: #666;
+  margin-left: 8px;
+  font-size: 12px;
+}

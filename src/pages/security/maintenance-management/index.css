@@ -1,0 +1,236 @@
+.maintenance-management-container {
+  padding: 24px;
+}
+
+.maintenance-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+}
+
+.maintenance-management-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.maintenance-management-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.maintenance-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.maintenance-management-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.maintenance-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+}
+
+/* 危险操作按钮样式 */
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.maintenance-management-container .ant-select,
+.maintenance-management-container .ant-input,
+.maintenance-management-container .ant-picker {
+  border-radius: 2px;
+}
+
+/* Tab图标样式 */
+.maintenance-management-container .ant-tabs-tab .anticon {
+  margin-right: 6px;
+}
+
+/* 表格样式 */
+.maintenance-management-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.maintenance-management-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 统计卡片样式 */
+.maintenance-management-container .ant-statistic {
+  text-align: center;
+}
+
+.maintenance-management-container .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.maintenance-management-container .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* 申报单号样式 */
+.maintenance-management-container .application-number {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+/* 状态标签样式 */
+.maintenance-management-container .ant-tag {
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.maintenance-management-container .status-draft {
+  background-color: #f0f0f0;
+  color: #666;
+  border-color: #d9d9d9;
+}
+
+.maintenance-management-container .status-pending {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  border-color: #91d5ff;
+}
+
+.maintenance-management-container .status-approved {
+  background-color: #f6ffed;
+  color: #52c41a;
+  border-color: #b7eb8f;
+}
+
+.maintenance-management-container .status-rejected {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+  border-color: #ffccc7;
+}
+
+/* 步骤条样式 */
+.maintenance-management-container .ant-steps {
+  margin-bottom: 24px;
+}
+
+.maintenance-management-container .ant-steps-item-title {
+  font-weight: 600;
+}
+
+.maintenance-management-container .ant-steps-item-description {
+  color: #666;
+  font-size: 12px;
+}
+
+/* 表单样式 */
+.maintenance-management-container .ant-form-item-label {
+  font-weight: 500;
+}
+
+.maintenance-management-container .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.maintenance-management-container .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 描述列表样式 */
+.maintenance-management-container .ant-descriptions-item-label {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+/* 时间信息样式 */
+.maintenance-management-container .time-info {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 施工单位信息样式 */
+.maintenance-management-container .unit-info {
+  font-size: 13px;
+}
+
+.maintenance-management-container .unit-name {
+  font-weight: 600;
+  color: #262626;
+}
+
+.maintenance-management-container .contact-info {
+  color: #666;
+  margin-top: 2px;
+}
+
+/* 操作按钮组样式 */
+.maintenance-management-container .action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.maintenance-management-container .action-buttons .ant-btn-sm {
+  height: 28px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+/* 警告提示样式 */
+.maintenance-management-container .ant-alert {
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .maintenance-management-container {
+    padding: 16px;
+  }
+  
+  .maintenance-management-container .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .maintenance-management-container .ant-statistic-content {
+    font-size: 20px;
+  }
+  
+  .maintenance-management-container .action-buttons {
+    flex-direction: column;
+  }
+  
+  .maintenance-management-container .action-buttons .ant-btn {
+    width: 100%;
+  }
+}
+
+/* 备注信息样式 */
+.maintenance-management-container .demo-note {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f6f8fa;
+  border-radius: 4px;
+  border: 1px solid #e1e8ed;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.maintenance-management-container .demo-note strong {
+  color: #333;
+} 

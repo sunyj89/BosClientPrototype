@@ -1,0 +1,121 @@
+.price-discount-config-container {
+  padding: 24px;  /* 页面四周留白 */
+}
+
+.price-discount-config-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+
+.price-discount-config-container .ant-tabs-tab {
+  font-size: 14px;     /* Tab文字大小 */
+  font-weight: 500;    /* Tab文字粗细 */
+}
+
+.price-discount-config-container .ant-tabs-content-holder {
+  padding: 16px 0;     /* Tab内容区域内边距 */
+}
+
+.price-discount-config-container .ant-btn {
+  border-radius: 2px;
+}
+
+.price-discount-config-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.price-discount-config-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 危险操作按钮样式 */
+.price-discount-config-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.price-discount-config-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.price-discount-config-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+/* 演示备注样式 */
+.demo-note {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.demo-note p {
+  margin: 0 0 8px 0;
+  color: #666;
+}
+
+.demo-note ul {
+  margin: 8px 0 0 20px;
+  color: #666;
+}
+
+.demo-note li {
+  margin-bottom: 4px;
+}
+
+/* 面包屑样式 */
+.breadcrumb-container {
+  margin-bottom: 24px;
+}
+
+/* 分步表单样式 */
+.step-form-container {
+  .ant-steps {
+    margin-bottom: 32px;
+  }
+  
+  .step-content {
+    min-height: 400px;
+    background-color: #fafafa;
+    padding: 24px;
+    border-radius: 6px;
+  }
+  
+  .step-actions {
+    margin-top: 24px;
+    text-align: right;
+  }
+}
+
+/* 规则列表样式 */
+.rule-list-item {
+  background: #f5f5f5;
+  padding: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+}
+
+.rule-list-item:hover {
+  border-color: var(--primary-color);
+}
+
+.rule-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rule-item-content {
+  color: #666;
+  font-size: 12px;
+}

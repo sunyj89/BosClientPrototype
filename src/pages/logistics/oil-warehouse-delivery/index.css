@@ -1,0 +1,71 @@
+.oil-warehouse-delivery-container {
+  padding: 24px;
+}
+
+.oil-warehouse-delivery-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.oil-warehouse-delivery-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.oil-warehouse-delivery-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.oil-warehouse-delivery-container .ant-btn {
+  border-radius: 2px;
+}
+
+.oil-warehouse-delivery-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.oil-warehouse-delivery-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 搜索表单样式 */
+.oil-warehouse-delivery-container .ant-form {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+}
+
+.oil-warehouse-delivery-container .ant-form .ant-form-item {
+  margin-bottom: 8px;
+}
+
+/* 表格样式优化 */
+.oil-warehouse-delivery-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.oil-warehouse-delivery-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 上传区域样式 */
+.oil-warehouse-delivery-container .ant-upload-btn {
+  width: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .oil-warehouse-delivery-container {
+    padding: 16px;
+  }
+  
+  .oil-warehouse-delivery-container .ant-form {
+    padding: 12px;
+  }
+  
+  .oil-warehouse-delivery-container .ant-form-item {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+} 

@@ -1,0 +1,141 @@
+{
+  "list": [
+    {
+      "id": "LOG001",
+      "couponId": "A1B2C3D4E5F6",
+      "couponName": "新用户注册券",
+      "changeType": "create",
+      "changeField": "优惠券创建",
+      "changeDescription": "创建新用户注册优惠券",
+      "operator": "张经理",
+      "operatorId": "USER001",
+      "changeTime": "2025-01-25 14:30:25",
+      "oldValue": null,
+      "newValue": {
+        "name": "新用户注册券",
+        "type": "oil",
+        "amount": 10,
+        "validityType": "days_from_receive",
+        "validityDays": 30,
+        "usageScenario": ["online", "offline"]
+      },
+      "reason": "新用户拉新活动",
+      "affectedCoupons": ["A1B2C3D4E5F6"],
+      "approver": "李总监",
+      "status": "approved"
+    },
+    {
+      "id": "LOG002",
+      "couponId": "G7H8I9J0K1L2",
+      "couponName": "满减优惠券",
+      "changeType": "update",
+      "changeField": "券面额配置",
+      "changeDescription": "调整优惠券面额和使用条件",
+      "operator": "王助理",
+      "operatorId": "USER002",
+      "changeTime": "2025-01-24 09:15:30",
+      "oldValue": {
+        "amount": 15,
+        "usageConditions": [
+          { "oilType": "所有油品", "conditionType": "original", "value": 100 }
+        ]
+      },
+      "newValue": {
+        "amount": 20,
+        "usageConditions": [
+          { "oilType": "所有油品", "conditionType": "original", "value": 120 }
+        ]
+      },
+      "reason": "提升券的吸引力，调整使用门槛",
+      "affectedCoupons": ["G7H8I9J0K1L2"],
+      "approver": "张经理",
+      "status": "approved"
+    },
+    {
+      "id": "LOG003",
+      "couponId": "M3N4O5P6Q7R8",
+      "couponName": "周末加油券",
+      "changeType": "update",
+      "changeField": "时间限制",
+      "changeDescription": "修改时间使用限制",
+      "operator": "刘专员",
+      "operatorId": "USER003",
+      "changeTime": "2025-01-23 16:45:12",
+      "oldValue": {
+        "timeRestrictionType": "anytime"
+      },
+      "newValue": {
+        "timeRestrictionType": "specific_allow",
+        "timeRestrictionPattern": "weekly",
+        "weeklyTimeSlots": [
+          { "weekdays": [0, 6], "startTime": "00:00:00", "endTime": "23:59:59" }
+        ]
+      },
+      "reason": "限制为周末使用，提升周末销量",
+      "affectedCoupons": ["M3N4O5P6Q7R8"],
+      "approver": "李总监",
+      "status": "approved"
+    },
+    {
+      "id": "LOG004",
+      "couponId": "S9T0U1V2W3X4",
+      "couponName": "充值赠金券",
+      "changeType": "update",
+      "changeField": "券状态",
+      "changeDescription": "券状态变更为已作废",
+      "operator": "陈管理员",
+      "operatorId": "USER004",
+      "changeTime": "2025-01-22 11:20:45",
+      "oldValue": { "status": "active" },
+      "newValue": { "status": "voided" },
+      "reason": "活动结束，券已过期失效",
+      "affectedCoupons": ["S9T0U1V2W3X4"],
+      "approver": "王主管",
+      "status": "approved"
+    },
+    {
+      "id": "LOG005",
+      "couponId": "Y5Z6A7B8C9D0",
+      "couponName": "会员专享券",
+      "changeType": "update",
+      "changeField": "油站限制",
+      "changeDescription": "调整可用油站范围",
+      "operator": "孙运营",
+      "operatorId": "USER005",
+      "changeTime": "2025-01-21 13:10:20",
+      "oldValue": {
+        "stationRestriction": "all"
+      },
+      "newValue": {
+        "stationRestriction": "selected",
+        "stationIds": ["ST001", "ST002", "ST004"]
+      },
+      "reason": "限制高级会员券使用范围，提升服务质量",
+      "affectedCoupons": ["Y5Z6A7B8C9D0"],
+      "approver": "张经理",
+      "status": "pending"
+    },
+    {
+      "id": "LOG006",
+      "couponId": "E1F2G3H4I5J6",
+      "couponName": "生日专享券",
+      "changeType": "delete",
+      "changeField": "优惠券删除",
+      "changeDescription": "永久删除生日专享券",
+      "operator": "赵维护",
+      "operatorId": "USER006",
+      "changeTime": "2025-01-20 15:35:10",
+      "oldValue": {
+        "status": "active",
+        "name": "生日专享券",
+        "type": "recharge",
+        "amount": 30
+      },
+      "newValue": { "status": "deleted" },
+      "reason": "券配置有误，需要重新设计",
+      "affectedCoupons": ["E1F2G3H4I5J6"],
+      "approver": "李总监",
+      "status": "approved"
+    }
+  ]
+} 

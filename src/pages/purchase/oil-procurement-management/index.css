@@ -1,0 +1,14 @@
+
+
+.oil-procurement-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+
+.oil-procurement-management-container .ant-tabs-tab {
+  font-size: 14px;     /* Tab文字大小 */
+  font-weight: 500;    /* Tab文字粗细 */
+}
+
+.oil-procurement-management-container .ant-tabs-content-holder {
+  padding: 16px 0;     /* Tab内容区域内边距 */
+}

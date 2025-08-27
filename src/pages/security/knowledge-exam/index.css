@@ -1,0 +1,266 @@
+.knowledge-exam-container {
+  padding: 24px;
+}
+
+.knowledge-exam-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.knowledge-exam-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.knowledge-exam-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.knowledge-exam-container .ant-btn {
+  border-radius: 2px;
+}
+
+.knowledge-exam-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.knowledge-exam-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 危险操作按钮样式 */
+.knowledge-exam-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.knowledge-exam-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.knowledge-exam-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+/* 题库导航区域样式 */
+.knowledge-exam-container .ant-layout-sider {
+  background: #fff !important;
+}
+
+.knowledge-exam-container .ant-tree {
+  background: transparent;
+}
+
+.knowledge-exam-container .ant-tree .ant-tree-node-content-wrapper {
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.knowledge-exam-container .ant-tree .ant-tree-node-content-wrapper:hover {
+  background-color: #f5f5f5;
+}
+
+.knowledge-exam-container .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+/* 步骤条样式 */
+.knowledge-exam-container .ant-steps {
+  margin-bottom: 24px;
+}
+
+.knowledge-exam-container .ant-steps .ant-steps-item-process .ant-steps-item-icon {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* 表格样式优化 */
+.knowledge-exam-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.knowledge-exam-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+/* 标签样式 */
+.knowledge-exam-container .ant-tag {
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+/* 统计卡片样式 */
+.knowledge-exam-container .ant-statistic {
+  text-align: center;
+}
+
+.knowledge-exam-container .ant-statistic-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.knowledge-exam-container .ant-statistic-content {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+/* 上传区域样式 */
+.knowledge-exam-container .ant-upload-drag {
+  border: 2px dashed #d9d9d9;
+  border-radius: 6px;
+  background: #fafafa;
+  padding: 40px 20px;
+}
+
+.knowledge-exam-container .ant-upload-drag:hover {
+  border-color: var(--primary-color);
+}
+
+.knowledge-exam-container .ant-upload-drag-icon {
+  color: #999;
+  font-size: 48px;
+}
+
+.knowledge-exam-container .ant-upload-text {
+  color: #666;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.knowledge-exam-container .ant-upload-hint {
+  color: #999;
+  font-size: 14px;
+}
+
+/* 试卷预览样式 */
+.knowledge-exam-container .paper-preview {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+}
+
+.knowledge-exam-container .paper-preview h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.knowledge-exam-container .paper-preview h4 {
+  color: #333;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.knowledge-exam-container .paper-preview .question-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.knowledge-exam-container .paper-preview .question-content {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.knowledge-exam-container .paper-preview .question-options {
+  padding-left: 20px;
+}
+
+.knowledge-exam-container .paper-preview .question-options p {
+  margin: 5px 0;
+  color: #666;
+}
+
+/* 考试状态指示器 */
+.knowledge-exam-container .exam-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.knowledge-exam-container .exam-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.knowledge-exam-container .exam-status-dot.not-started {
+  background-color: #d9d9d9;
+}
+
+.knowledge-exam-container .exam-status-dot.in-progress {
+  background-color: #1890ff;
+  animation: pulse 2s infinite;
+}
+
+.knowledge-exam-container .exam-status-dot.completed {
+  background-color: #52c41a;
+}
+
+.knowledge-exam-container .exam-status-dot.cancelled {
+  background-color: #ff4d4f;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .knowledge-exam-container {
+    padding: 16px;
+  }
+  
+  .knowledge-exam-container .ant-layout-sider {
+    width: 250px !important;
+  }
+  
+  .knowledge-exam-container .ant-table {
+    font-size: 12px;
+  }
+  
+  .knowledge-exam-container .ant-btn-group .ant-btn {
+    padding: 0 8px;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .knowledge-exam-container .ant-btn,
+  .knowledge-exam-container .ant-pagination,
+  .knowledge-exam-container .ant-table-filter-column,
+  .knowledge-exam-container .ant-card-head-wrapper {
+    display: none;
+  }
+  
+  .knowledge-exam-container .ant-table {
+    font-size: 12px;
+  }
+  
+  .knowledge-exam-container .paper-preview {
+    box-shadow: none;
+    border: none;
+  }
+}

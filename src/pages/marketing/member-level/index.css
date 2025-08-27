@@ -1,0 +1,30 @@
+.member-level-container {
+  padding: 24px;
+}
+
+.member-level-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.member-level-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.member-level-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+.member-level-container .ant-btn {
+  border-radius: 2px;
+}
+
+.member-level-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.member-level-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}

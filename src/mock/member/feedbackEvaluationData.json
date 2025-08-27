@@ -1,0 +1,288 @@
+{
+  "feedbackData": [
+    {
+      "feedbackId": "FB202501001",
+      "memberName": "张三",
+      "memberPhone": "138****1234",
+      "feedbackType": "服务投诉",
+      "content": "昨天在南昌高速服务区加油站加油时，工作人员服务态度不好，没有主动提供发票，希望能够改进服务质量。",
+      "createTime": "2025-01-26 14:30:00",
+      "status": "待处理",
+      "stationName": "南昌高速服务区加油站",
+      "images": ["/images/feedback1.jpg"],
+      "urgencyLevel": "普通"
+    },
+    {
+      "feedbackId": "FB202501002",
+      "memberName": "李四",
+      "memberPhone": "139****5678",
+      "feedbackType": "功能建议",
+      "content": "建议在小程序中增加油价预测功能，这样可以帮助我们选择最佳的加油时机，提升用户体验。",
+      "createTime": "2025-01-26 10:15:00",
+      "status": "处理中",
+      "stationName": "",
+      "images": [],
+      "urgencyLevel": "普通"
+    },
+    {
+      "feedbackId": "FB202501003",
+      "memberName": "王五",
+      "memberPhone": "136****9876",
+      "feedbackType": "系统问题",
+      "content": "在使用积分兑换优惠券时，系统提示兑换失败，但积分已经扣除，请协助处理这个问题。",
+      "createTime": "2025-01-25 16:45:00",
+      "status": "已回复",
+      "stationName": "",
+      "images": ["/images/feedback3.jpg"],
+      "urgencyLevel": "紧急"
+    },
+    {
+      "feedbackId": "FB202501004",
+      "memberName": "赵六",
+      "memberPhone": "137****3456",
+      "feedbackType": "服务投诉",
+      "content": "加油过程中发现油枪计量不准确，实际加油量与显示量不符，希望检查设备。",
+      "createTime": "2025-01-25 09:20:00",
+      "status": "已关闭",
+      "stationName": "上饶高速服务区加油站",
+      "images": [],
+      "urgencyLevel": "重要"
+    },
+    {
+      "feedbackId": "FB202501005",
+      "memberName": "钱七",
+      "memberPhone": "135****7890",
+      "feedbackType": "其他",
+      "content": "希望能在服务区内增加更多的便民设施，比如母婴室、休息区等，提升整体服务水平。",
+      "createTime": "2025-01-24 11:30:00",
+      "status": "待处理",
+      "stationName": "南昌高速服务区加油站",
+      "images": [],
+      "urgencyLevel": "普通"
+    },
+    {
+      "feedbackId": "FB202501006",
+      "memberName": "孙八",
+      "memberPhone": "134****2468",
+      "feedbackType": "功能建议",
+      "content": "建议增加预约加油功能，可以提前预约时间段，避免高峰期排队等待。",
+      "createTime": "2025-01-24 08:45:00",
+      "status": "处理中",
+      "stationName": "",
+      "images": [],
+      "urgencyLevel": "普通"
+    },
+    {
+      "feedbackId": "FB202501007",
+      "memberName": "周九",
+      "memberPhone": "133****1357",
+      "feedbackType": "系统问题",
+      "content": "手机APP经常闪退，特别是在查看订单历史时，影响使用体验，请修复这个bug。",
+      "createTime": "2025-01-23 15:20:00",
+      "status": "已回复",
+      "stationName": "",
+      "images": ["/images/feedback7.jpg"],
+      "urgencyLevel": "重要"
+    },
+    {
+      "feedbackId": "FB202501008",
+      "memberName": "吴十",
+      "memberPhone": "132****9753",
+      "feedbackType": "服务投诉",
+      "content": "洗车服务质量不佳，洗完后车身还有污渍，工作人员态度敷衍，需要改进。",
+      "createTime": "2025-01-23 12:10:00",
+      "status": "待处理",
+      "stationName": "上饶高速服务区加油站",
+      "images": ["/images/feedback8.jpg"],
+      "urgencyLevel": "普通"
+    }
+  ],
+  "evaluationData": [
+    {
+      "evaluationId": "EV202501001",
+      "memberName": "张三",
+      "memberPhone": "138****1234",
+      "orderId": "ORD202501260001",
+      "orderAmount": "326.50",
+      "rating": 5,
+      "content": "服务很好，工作人员热情周到，加油速度快，环境干净整洁，会继续选择这里加油。",
+      "createTime": "2025-01-26 15:30:00",
+      "stationName": "南昌高速服务区加油站",
+      "oilType": "92#汽油",
+      "serviceItems": ["加油服务", "洗车服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501002",
+      "memberName": "李四",
+      "memberPhone": "139****5678",
+      "orderId": "ORD202501260002",
+      "orderAmount": "289.80",
+      "rating": 4,
+      "content": "整体不错，就是等待时间稍长，希望能提高服务效率。",
+      "createTime": "2025-01-26 11:45:00",
+      "stationName": "上饶高速服务区加油站",
+      "oilType": "95#汽油",
+      "serviceItems": ["加油服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501003",
+      "memberName": "王五",
+      "memberPhone": "136****9876",
+      "orderId": "ORD202501250003",
+      "orderAmount": "412.30",
+      "rating": 3,
+      "content": "服务一般，设施有些老旧，建议升级改造。",
+      "createTime": "2025-01-25 17:20:00",
+      "stationName": "南昌高速服务区加油站",
+      "oilType": "0#柴油",
+      "serviceItems": ["加油服务", "便利店"],
+      "hasReward": false
+    },
+    {
+      "evaluationId": "EV202501004",
+      "memberName": "赵六",
+      "memberPhone": "137****3456",
+      "orderId": "ORD202501250004",
+      "orderAmount": "198.60",
+      "rating": 5,
+      "content": "非常满意！工作人员专业、热情，服务质量很高，强烈推荐。",
+      "createTime": "2025-01-25 13:15:00",
+      "stationName": "上饶高速服务区加油站",
+      "oilType": "92#汽油",
+      "serviceItems": ["加油服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501005",
+      "memberName": "钱七",
+      "memberPhone": "135****7890",
+      "orderId": "ORD202501240005",
+      "orderAmount": "356.40",
+      "rating": 2,
+      "content": "服务态度不好，等待时间过长，设施老旧，希望改进。",
+      "createTime": "2025-01-24 16:30:00",
+      "stationName": "南昌高速服务区加油站",
+      "oilType": "95#汽油",
+      "serviceItems": ["加油服务", "洗车服务"],
+      "hasReward": false
+    },
+    {
+      "evaluationId": "EV202501006",
+      "memberName": "孙八",
+      "memberPhone": "134****2468",
+      "orderId": "ORD202501240006",
+      "orderAmount": "278.90",
+      "rating": 4,
+      "content": "总体满意，加油速度快，价格合理，就是洗手间需要改善。",
+      "createTime": "2025-01-24 10:45:00",
+      "stationName": "上饶高速服务区加油站",
+      "oilType": "92#汽油",
+      "serviceItems": ["加油服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501007",
+      "memberName": "周九",
+      "memberPhone": "133****1357",
+      "orderId": "ORD202501230007",
+      "orderAmount": "445.20",
+      "rating": 5,
+      "content": "优质服务，环境优美，工作人员训练有素，值得信赖。",
+      "createTime": "2025-01-23 18:20:00",
+      "stationName": "南昌高速服务区加油站",
+      "oilType": "0#柴油",
+      "serviceItems": ["加油服务", "便利店", "洗车服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501008",
+      "memberName": "吴十",
+      "memberPhone": "132****9753",
+      "orderId": "ORD202501230008",
+      "orderAmount": "234.70",
+      "rating": 3,
+      "content": "",
+      "createTime": "2025-01-23 14:50:00",
+      "stationName": "上饶高速服务区加油站",
+      "oilType": "95#汽油",
+      "serviceItems": ["加油服务"],
+      "hasReward": false
+    },
+    {
+      "evaluationId": "EV202501009",
+      "memberName": "郑十一",
+      "memberPhone": "131****8642",
+      "orderId": "ORD202501220009",
+      "orderAmount": "389.50",
+      "rating": 4,
+      "content": "服务不错，但是等待时间稍微有点长，总体还是满意的。",
+      "createTime": "2025-01-22 20:15:00",
+      "stationName": "南昌高速服务区加油站",
+      "oilType": "92#汽油",
+      "serviceItems": ["加油服务", "洗车服务"],
+      "hasReward": true
+    },
+    {
+      "evaluationId": "EV202501010",
+      "memberName": "王十二",
+      "memberPhone": "130****7531",
+      "orderId": "ORD202501220010",
+      "orderAmount": "156.80",
+      "rating": 5,
+      "content": "非常棒的服务体验，工作人员态度好，设施完善，下次还会来。",
+      "createTime": "2025-01-22 16:40:00",
+      "stationName": "上饶高速服务区加油站",
+      "oilType": "92#汽油",
+      "serviceItems": ["加油服务"],
+      "hasReward": true
+    }
+  ],
+  "statisticsData": {
+    "totalEvaluations": 156,
+    "participationRate": 78.5,
+    "averageRating": 4.2,
+    "positiveRate": 82.3,
+    "ratingDistribution": {
+      "5star": 45,
+      "4star": 38,
+      "3star": 28,
+      "2star": 18,
+      "1star": 27
+    },
+    "monthlyTrend": [
+      { "month": "2024-08", "evaluations": 89, "rating": 4.1 },
+      { "month": "2024-09", "evaluations": 95, "rating": 4.0 },
+      { "month": "2024-10", "evaluations": 103, "rating": 4.3 },
+      { "month": "2024-11", "evaluations": 112, "rating": 4.2 },
+      { "month": "2024-12", "evaluations": 128, "rating": 4.4 },
+      { "month": "2025-01", "evaluations": 156, "rating": 4.2 }
+    ],
+    "stationComparison": [
+      {
+        "stationName": "南昌高速服务区加油站",
+        "totalEvaluations": 89,
+        "averageRating": 4.3,
+        "participationRate": 81.2
+      },
+      {
+        "stationName": "上饶高速服务区加油站",
+        "totalEvaluations": 67,
+        "averageRating": 4.1,
+        "participationRate": 75.8
+      }
+    ]
+  },
+  "evaluationRules": {
+    "enableAutoRequest": true,
+    "requestDelay": 2,
+    "reminderCount": 2,
+    "incentivePoints": 10,
+    "validityPeriod": 7,
+    "autoCloseAfterDays": 30,
+    "enablePhotoUpload": true,
+    "minRatingForReward": 3,
+    "maxDailyRequests": 50
+  }
+} 

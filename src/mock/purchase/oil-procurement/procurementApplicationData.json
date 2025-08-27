@@ -1,0 +1,264 @@
+{
+  "procurementApplications": [
+  {
+    "id": "PA202407190001",
+    "applicationNumber": "PA202407190001",
+    "stationId": "ST001",
+    "stationName": "南昌高速服务区加油站",
+    "stationCode": "01010001",
+    "branchId": "BR001",
+    "branchName": "赣中分公司",
+    "serviceAreaId": "SA001",
+    "serviceAreaName": "南昌服务区",
+    "oilCode": "100001",
+    "oilName": "92号汽油国V",
+    "shortName": "92#汽油",
+    "quantity": 50.5,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-25 10:00:00",
+    "status": "审批通过",
+    "createTime": "2024-07-19 09:30:00",
+    "updateTime": "2024-07-19 14:20:00",
+    "createdBy": "张站长",
+    "applicantName": "张站长",
+    "applicantPhone": "13800138001",
+    "deliveryAddress": "江西省南昌市高速公路南昌服务区加油站",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "张站长",
+        "approveTime": "2024-07-19 09:30:00",
+        "status": "已通过",
+        "remark": "申请创建"
+      },
+      {
+        "step": 2,
+        "stepName": "服务区经理审批",
+        "approver": "李经理",
+        "approveTime": "2024-07-19 11:15:00",
+        "status": "已通过",
+        "remark": "同意申请"
+      },
+      {
+        "step": 3,
+        "stepName": "分公司总经理审批",
+        "approver": "王总经理",
+        "approveTime": "2024-07-19 14:20:00",
+        "status": "已通过",
+        "remark": "审批通过，安排采购"
+      }
+    ]
+  },
+  {
+    "id": "PA202407190002",
+    "applicationNumber": "PA202407190002",
+    "stationId": "ST002",
+    "stationName": "南昌高速服务区加油站（反向）",
+    "stationCode": "01010002",
+    "branchId": "BR001",
+    "branchName": "赣中分公司",
+    "serviceAreaId": "SA001",
+    "serviceAreaName": "南昌服务区",
+    "oilCode": "100003",
+    "oilName": "95号汽油国V",
+    "shortName": "95#汽油",
+    "quantity": 30.0,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-26 14:00:00",
+    "status": "审批中",
+    "createTime": "2024-07-19 10:45:00",
+    "updateTime": "2024-07-19 13:30:00",
+    "createdBy": "赵站长",
+    "applicantName": "赵站长",
+    "applicantPhone": "13800138002",
+    "deliveryAddress": "江西省南昌市高速公路南昌服务区加油站（反向）",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "赵站长",
+        "approveTime": "2024-07-19 10:45:00",
+        "status": "已通过",
+        "remark": "申请创建"
+      },
+      {
+        "step": 2,
+        "stepName": "服务区经理审批",
+        "approver": "李经理",
+        "approveTime": "2024-07-19 13:30:00",
+        "status": "已通过",
+        "remark": "同意申请"
+      },
+      {
+        "step": 3,
+        "stepName": "分公司总经理审批",
+        "approver": "王总经理",
+        "approveTime": "",
+        "status": "审批中",
+        "remark": ""
+      }
+    ]
+  },
+  {
+    "id": "PA202407190003",
+    "applicationNumber": "PA202407190003",
+    "stationId": "ST009",
+    "stationName": "鹰潭高速服务区加油站",
+    "stationCode": "05010001",
+    "branchId": "BR005",
+    "branchName": "赣东分公司",
+    "serviceAreaId": "SA009",
+    "serviceAreaName": "鹰潭服务区",
+    "oilCode": "100005",
+    "oilName": "0号柴油国V",
+    "shortName": "0#柴油",
+    "quantity": 80.0,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-24 16:00:00",
+    "status": "待审批",
+    "createTime": "2024-07-19 14:15:00",
+    "updateTime": "2024-07-19 14:15:00",
+    "createdBy": "孙站长",
+    "applicantName": "孙站长",
+    "applicantPhone": "13800138003",
+    "deliveryAddress": "江西省鹰潭市高速公路鹰潭服务区加油站",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "孙站长",
+        "approveTime": "2024-07-19 14:15:00",
+        "status": "已通过",
+        "remark": "申请创建"
+      },
+      {
+        "step": 2,
+        "stepName": "服务区经理审批",
+        "approver": "陈经理",
+        "approveTime": "",
+        "status": "待审批",
+        "remark": ""
+      },
+      {
+        "step": 3,
+        "stepName": "分公司总经理审批",
+        "approver": "刘总经理",
+        "approveTime": "",
+        "status": "待审批",
+        "remark": ""
+      }
+    ]
+  },
+  {
+    "id": "PA202407190004",
+    "applicationNumber": "PA202407190004",
+    "stationId": "ST007",
+    "stationName": "九江高速服务区加油站",
+    "stationCode": "04010001",
+    "branchId": "BR004",
+    "branchName": "赣北分公司",
+    "serviceAreaId": "SA007",
+    "serviceAreaName": "九江服务区",
+    "oilCode": "100001",
+    "oilName": "92号汽油国V",
+    "shortName": "92#汽油",
+    "quantity": 45.0,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-27 08:00:00",
+    "status": "已拒绝",
+    "createTime": "2024-07-19 08:20:00",
+    "updateTime": "2024-07-19 12:45:00",
+    "createdBy": "周站长",
+    "applicantName": "周站长",
+    "applicantPhone": "13800138004",
+    "deliveryAddress": "江西省九江市高速公路九江服务区加油站",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "周站长",
+        "approveTime": "2024-07-19 08:20:00",
+        "status": "已通过",
+        "remark": "申请创建"
+      },
+      {
+        "step": 2,
+        "stepName": "服务区经理审批",
+        "approver": "吴经理",
+        "approveTime": "2024-07-19 12:45:00",
+        "status": "已拒绝",
+        "remark": "库存充足，暂不需要采购"
+      }
+    ]
+  },
+  {
+    "id": "PA202407190005",
+    "applicationNumber": "PA202407190005",
+    "stationId": "ST003",
+    "stationName": "上饶高速服务区加油站",
+    "stationCode": "02010001",
+    "branchId": "BR002",
+    "branchName": "赣东北分公司",
+    "serviceAreaId": "SA003",
+    "serviceAreaName": "上饶服务区",
+    "oilCode": "100004",
+    "oilName": "95号汽油国VIA",
+    "shortName": "95#汽油VIA",
+    "quantity": 25.5,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-28 12:00:00",
+    "status": "草稿",
+    "createTime": "2024-07-19 16:30:00",
+    "updateTime": "2024-07-19 16:30:00",
+    "createdBy": "钱站长",
+    "applicantName": "钱站长",
+    "applicantPhone": "13800138005",
+    "deliveryAddress": "江西省上饶市高速公路上饶服务区加油站",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "钱站长",
+        "approveTime": "",
+        "status": "草稿",
+        "remark": "草稿状态，未提交"
+      }
+    ]
+  },
+  {
+    "id": "PA202407180001",
+    "applicationNumber": "PA202407180001",
+    "stationId": "ST005",
+    "stationName": "赣州高速服务区加油站",
+    "stationCode": "03010001",
+    "branchId": "BR003",
+    "branchName": "赣南分公司",
+    "serviceAreaId": "SA005",
+    "serviceAreaName": "赣州服务区",
+    "oilCode": "100006",
+    "oilName": "98号汽油国VIA",
+    "shortName": "98#汽油",
+    "quantity": 15.0,
+    "unit": "吨",
+    "expectedDeliveryTime": "2024-07-30 10:00:00",
+    "status": "草稿",
+    "createTime": "2024-07-18 15:20:00",
+    "updateTime": "2024-07-19 09:10:00",
+    "createdBy": "马站长",
+    "applicantName": "马站长",
+    "applicantPhone": "13800138006",
+    "deliveryAddress": "江西省赣州市高速公路赣州服务区加油站",
+    "approvalProgress": [
+      {
+        "step": 1,
+        "stepName": "站长申请",
+        "approver": "马站长",
+        "approveTime": "",
+        "status": "草稿",
+        "remark": "草稿状态，未提交"
+      }
+    ]
+  }
+  ]
+} 

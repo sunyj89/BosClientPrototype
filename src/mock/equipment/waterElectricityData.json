@@ -1,0 +1,848 @@
+{
+  "handoverRecords": [
+    {
+      "id": "HE001",
+      "recordNumber": "SDJ2024070001",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "shift": "早班",
+      "waterMeter1": {
+        "startReading": 1250.5,
+        "endReading": 1280.3,
+        "consumption": 29.8
+      },
+      "waterMeter2": {
+        "startReading": 890.2,
+        "endReading": 920.1,
+        "consumption": 29.9
+      },
+      "totalWaterConsumption": 59.7,
+      "electricMeter1": {
+        "startReading": 4560.8,
+        "endReading": 4620.5,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 3200.3,
+        "endReading": 3250.9,
+        "consumption": 50.6
+      },
+      "totalElectricConsumption": 110.3,
+      "handoverPerson": "张师傅",
+      "takeoverPerson": "李师傅",
+      "creator": "王班长",
+      "remark": "早班交接正常，设备运行良好",
+      "createTime": "2024-07-15T08:00:00Z"
+    },
+    {
+      "id": "HE002",
+      "recordNumber": "SDJ2024070002",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "shift": "中班",
+      "waterMeter1": {
+        "startReading": 1280.3,
+        "endReading": 1310.8,
+        "consumption": 30.5
+      },
+      "waterMeter2": {
+        "startReading": 920.1,
+        "endReading": 950.6,
+        "consumption": 30.5
+      },
+      "totalWaterConsumption": 61.0,
+      "electricMeter1": {
+        "startReading": 4620.5,
+        "endReading": 4680.2,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 3250.9,
+        "endReading": 3300.4,
+        "consumption": 49.5
+      },
+      "totalElectricConsumption": 109.2,
+      "handoverPerson": "李师傅",
+      "takeoverPerson": "王师傅",
+      "creator": "王班长",
+      "remark": "中班用水量略有增加",
+      "createTime": "2024-07-15T16:00:00Z"
+    },
+    {
+      "id": "HE003",
+      "recordNumber": "SDJ2024070003",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "shift": "早班",
+      "waterMeter1": {
+        "startReading": 980.5,
+        "endReading": 1010.2,
+        "consumption": 29.7
+      },
+      "waterMeter2": {
+        "startReading": 650.8,
+        "endReading": 680.3,
+        "consumption": 29.5
+      },
+      "totalWaterConsumption": 59.2,
+      "electricMeter1": {
+        "startReading": 3800.2,
+        "endReading": 3860.8,
+        "consumption": 60.6
+      },
+      "electricMeter2": {
+        "startReading": 2600.5,
+        "endReading": 2650.1,
+        "consumption": 49.6
+      },
+      "totalElectricConsumption": 110.2,
+      "handoverPerson": "陈师傅",
+      "takeoverPerson": "刘师傅",
+      "creator": "赵班长",
+      "remark": "早班交接正常",
+      "createTime": "2024-07-15T08:00:00Z"
+    },
+    {
+      "id": "HE004",
+      "recordNumber": "SDJ2024070004",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "shift": "中班",
+      "waterMeter1": {
+        "startReading": 1010.2,
+        "endReading": 1040.8,
+        "consumption": 30.6
+      },
+      "waterMeter2": {
+        "startReading": 680.3,
+        "endReading": 710.9,
+        "consumption": 30.6
+      },
+      "totalWaterConsumption": 61.2,
+      "electricMeter1": {
+        "startReading": 3860.8,
+        "endReading": 3920.5,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 2650.1,
+        "endReading": 2700.8,
+        "consumption": 50.7
+      },
+      "totalElectricConsumption": 110.4,
+      "handoverPerson": "刘师傅",
+      "takeoverPerson": "孙师傅",
+      "creator": "赵班长",
+      "remark": "中班用电量正常",
+      "createTime": "2024-07-15T16:00:00Z"
+    },
+    {
+      "id": "HE005",
+      "recordNumber": "SDJ2024070005",
+      "stationId": "ST003",
+      "stationName": "赣州高速服务区加油站",
+      "shift": "早班",
+      "waterMeter1": {
+        "startReading": 1100.3,
+        "endReading": 1130.9,
+        "consumption": 30.6
+      },
+      "waterMeter2": {
+        "startReading": 750.2,
+        "endReading": 780.8,
+        "consumption": 30.6
+      },
+      "totalWaterConsumption": 61.2,
+      "electricMeter1": {
+        "startReading": 4200.5,
+        "endReading": 4260.2,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 2900.8,
+        "endReading": 2950.4,
+        "consumption": 49.6
+      },
+      "totalElectricConsumption": 109.3,
+      "handoverPerson": "周师傅",
+      "takeoverPerson": "吴师傅",
+      "creator": "王班长",
+      "remark": "早班交接正常",
+      "createTime": "2024-07-15T08:00:00Z"
+    },
+    {
+      "id": "HE006",
+      "recordNumber": "SDJ2024070006",
+      "stationId": "ST003",
+      "stationName": "赣州高速服务区加油站",
+      "shift": "中班",
+      "waterMeter1": {
+        "startReading": 1130.9,
+        "endReading": 1160.5,
+        "consumption": 29.6
+      },
+      "waterMeter2": {
+        "startReading": 780.8,
+        "endReading": 810.3,
+        "consumption": 29.5
+      },
+      "totalWaterConsumption": 59.1,
+      "electricMeter1": {
+        "startReading": 4260.2,
+        "endReading": 4320.8,
+        "consumption": 60.6
+      },
+      "electricMeter2": {
+        "startReading": 2950.4,
+        "endReading": 3000.1,
+        "consumption": 49.7
+      },
+      "totalElectricConsumption": 110.3,
+      "handoverPerson": "吴师傅",
+      "takeoverPerson": "郑师傅",
+      "creator": "王班长",
+      "remark": "中班用水量正常",
+      "createTime": "2024-07-15T16:00:00Z"
+    },
+    {
+      "id": "HE007",
+      "recordNumber": "SDJ2024070007",
+      "stationId": "ST004",
+      "stationName": "九江高速服务区加油站",
+      "shift": "早班",
+      "waterMeter1": {
+        "startReading": 850.6,
+        "endReading": 880.2,
+        "consumption": 29.6
+      },
+      "waterMeter2": {
+        "startReading": 580.4,
+        "endReading": 610.9,
+        "consumption": 30.5
+      },
+      "totalWaterConsumption": 60.1,
+      "electricMeter1": {
+        "startReading": 3600.8,
+        "endReading": 3660.5,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 2400.2,
+        "endReading": 2450.8,
+        "consumption": 50.6
+      },
+      "totalElectricConsumption": 110.3,
+      "handoverPerson": "林师傅",
+      "takeoverPerson": "黄师傅",
+      "creator": "陈班长",
+      "remark": "早班交接正常",
+      "createTime": "2024-07-15T08:00:00Z"
+    },
+    {
+      "id": "HE008",
+      "recordNumber": "SDJ2024070008",
+      "stationId": "ST004",
+      "stationName": "九江高速服务区加油站",
+      "shift": "中班",
+      "waterMeter1": {
+        "startReading": 880.2,
+        "endReading": 910.8,
+        "consumption": 30.6
+      },
+      "waterMeter2": {
+        "startReading": 610.9,
+        "endReading": 640.5,
+        "consumption": 29.6
+      },
+      "totalWaterConsumption": 60.2,
+      "electricMeter1": {
+        "startReading": 3660.5,
+        "endReading": 3720.2,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 2450.8,
+        "endReading": 2500.4,
+        "consumption": 49.6
+      },
+      "totalElectricConsumption": 109.3,
+      "handoverPerson": "黄师傅",
+      "takeoverPerson": "孙师傅",
+      "creator": "陈班长",
+      "remark": "中班交接正常",
+      "createTime": "2024-07-15T16:00:00Z"
+    },
+    {
+      "id": "HE009",
+      "recordNumber": "SDJ2024070009",
+      "stationId": "ST005",
+      "stationName": "鹰潭高速服务区加油站",
+      "shift": "早班",
+      "waterMeter1": {
+        "startReading": 920.8,
+        "endReading": 950.4,
+        "consumption": 29.6
+      },
+      "waterMeter2": {
+        "startReading": 620.5,
+        "endReading": 650.2,
+        "consumption": 29.7
+      },
+      "totalWaterConsumption": 59.3,
+      "electricMeter1": {
+        "startReading": 3900.3,
+        "endReading": 3960.9,
+        "consumption": 60.6
+      },
+      "electricMeter2": {
+        "startReading": 2700.6,
+        "endReading": 2750.3,
+        "consumption": 49.7
+      },
+      "totalElectricConsumption": 110.3,
+      "handoverPerson": "张师傅",
+      "takeoverPerson": "李师傅",
+      "creator": "张班长",
+      "remark": "早班交接正常",
+      "createTime": "2024-07-15T08:00:00Z"
+    },
+    {
+      "id": "HE010",
+      "recordNumber": "SDJ2024070010",
+      "stationId": "ST005",
+      "stationName": "鹰潭高速服务区加油站",
+      "shift": "中班",
+      "waterMeter1": {
+        "startReading": 950.4,
+        "endReading": 980.1,
+        "consumption": 29.7
+      },
+      "waterMeter2": {
+        "startReading": 650.2,
+        "endReading": 680.8,
+        "consumption": 30.6
+      },
+      "totalWaterConsumption": 60.3,
+      "electricMeter1": {
+        "startReading": 3960.9,
+        "endReading": 4020.6,
+        "consumption": 59.7
+      },
+      "electricMeter2": {
+        "startReading": 2750.3,
+        "endReading": 2800.9,
+        "consumption": 50.6
+      },
+      "totalElectricConsumption": 110.3,
+      "handoverPerson": "李师傅",
+      "takeoverPerson": "王师傅",
+      "creator": "张班长",
+      "remark": "中班交接正常",
+      "createTime": "2024-07-15T16:00:00Z"
+    }
+  ],
+  "monthlyReports": [
+    {
+      "id": "MR001",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "reportMonth": "2024-07",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 1250.5,
+          "endReading": 1310.8,
+          "consumption": 60.3
+        },
+        "waterMeter2": {
+          "startReading": 890.2,
+          "endReading": 950.6,
+          "consumption": 60.4
+        },
+        "totalConsumption": 120.7,
+        "oilVolume": 150.5,
+        "waterPerTon": 0.80
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 4560.8,
+          "endReading": 4680.2,
+          "consumption": 119.4
+        },
+        "electricMeter2": {
+          "startReading": 3200.3,
+          "endReading": 3300.4,
+          "consumption": 100.1
+        },
+        "totalConsumption": 219.5,
+        "oilVolume": 150.5,
+        "electricPerTon": 1.46
+      },
+      "generateTime": "2024-07-31T23:59:59Z"
+    },
+    {
+      "id": "MR002",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "reportMonth": "2024-07",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 980.5,
+          "endReading": 1040.8,
+          "consumption": 60.3
+        },
+        "waterMeter2": {
+          "startReading": 650.8,
+          "endReading": 710.9,
+          "consumption": 60.1
+        },
+        "totalConsumption": 120.4,
+        "oilVolume": 120.8,
+        "waterPerTon": 1.00
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3800.2,
+          "endReading": 3920.5,
+          "consumption": 120.3
+        },
+        "electricMeter2": {
+          "startReading": 2600.5,
+          "endReading": 2700.8,
+          "consumption": 100.3
+        },
+        "totalConsumption": 220.6,
+        "oilVolume": 120.8,
+        "electricPerTon": 1.83
+      },
+      "generateTime": "2024-07-31T23:59:59Z"
+    },
+    {
+      "id": "MR003",
+      "stationId": "ST003",
+      "stationName": "赣州高速服务区加油站",
+      "reportMonth": "2024-07",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 1100.3,
+          "endReading": 1160.5,
+          "consumption": 60.2
+        },
+        "waterMeter2": {
+          "startReading": 750.2,
+          "endReading": 810.3,
+          "consumption": 60.1
+        },
+        "totalConsumption": 120.3,
+        "oilVolume": 135.2,
+        "waterPerTon": 0.89
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 4200.5,
+          "endReading": 4320.8,
+          "consumption": 120.3
+        },
+        "electricMeter2": {
+          "startReading": 2900.8,
+          "endReading": 3000.1,
+          "consumption": 99.3
+        },
+        "totalConsumption": 219.6,
+        "oilVolume": 135.2,
+        "electricPerTon": 1.62
+      },
+      "generateTime": "2024-07-31T23:59:59Z"
+    },
+    {
+      "id": "MR004",
+      "stationId": "ST004",
+      "stationName": "九江高速服务区加油站",
+      "reportMonth": "2024-07",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 850.6,
+          "endReading": 910.8,
+          "consumption": 60.2
+        },
+        "waterMeter2": {
+          "startReading": 580.4,
+          "endReading": 640.5,
+          "consumption": 60.1
+        },
+        "totalConsumption": 120.3,
+        "oilVolume": 110.6,
+        "waterPerTon": 1.09
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3600.8,
+          "endReading": 3720.2,
+          "consumption": 119.4
+        },
+        "electricMeter2": {
+          "startReading": 2400.2,
+          "endReading": 2500.4,
+          "consumption": 100.2
+        },
+        "totalConsumption": 219.6,
+        "oilVolume": 110.6,
+        "electricPerTon": 1.99
+      },
+      "generateTime": "2024-07-31T23:59:59Z"
+    },
+    {
+      "id": "MR005",
+      "stationId": "ST005",
+      "stationName": "鹰潭高速服务区加油站",
+      "reportMonth": "2024-07",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 920.8,
+          "endReading": 980.1,
+          "consumption": 59.3
+        },
+        "waterMeter2": {
+          "startReading": 620.5,
+          "endReading": 680.8,
+          "consumption": 60.3
+        },
+        "totalConsumption": 119.6,
+        "oilVolume": 125.3,
+        "waterPerTon": 0.95
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3900.3,
+          "endReading": 4020.6,
+          "consumption": 120.3
+        },
+        "electricMeter2": {
+          "startReading": 2700.6,
+          "endReading": 2800.9,
+          "consumption": 100.3
+        },
+        "totalConsumption": 220.6,
+        "oilVolume": 125.3,
+        "electricPerTon": 1.76
+      },
+      "generateTime": "2024-07-31T23:59:59Z"
+    },
+    {
+      "id": "MR006",
+      "stationId": "ST001",
+      "stationName": "南昌高速服务区加油站",
+      "reportMonth": "2024-06",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 1190.2,
+          "endReading": 1250.5,
+          "consumption": 60.3
+        },
+        "waterMeter2": {
+          "startReading": 830.1,
+          "endReading": 890.2,
+          "consumption": 60.1
+        },
+        "totalConsumption": 120.4,
+        "oilVolume": 145.8,
+        "waterPerTon": 0.83
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 4440.3,
+          "endReading": 4560.8,
+          "consumption": 120.5
+        },
+        "electricMeter2": {
+          "startReading": 3080.1,
+          "endReading": 3200.3,
+          "consumption": 120.2
+        },
+        "totalConsumption": 240.7,
+        "oilVolume": 145.8,
+        "electricPerTon": 1.65
+      },
+      "generateTime": "2024-06-30T23:59:59Z"
+    },
+    {
+      "id": "MR007",
+      "stationId": "ST002",
+      "stationName": "上饶高速服务区加油站",
+      "reportMonth": "2024-06",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 920.2,
+          "endReading": 980.5,
+          "consumption": 60.3
+        },
+        "waterMeter2": {
+          "startReading": 590.5,
+          "endReading": 650.8,
+          "consumption": 60.3
+        },
+        "totalConsumption": 120.6,
+        "oilVolume": 118.5,
+        "waterPerTon": 1.02
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3680.1,
+          "endReading": 3800.2,
+          "consumption": 120.1
+        },
+        "electricMeter2": {
+          "startReading": 2480.4,
+          "endReading": 2600.5,
+          "consumption": 120.1
+        },
+        "totalConsumption": 240.2,
+        "oilVolume": 118.5,
+        "electricPerTon": 2.03
+      },
+      "generateTime": "2024-06-30T23:59:59Z"
+    },
+    {
+      "id": "MR008",
+      "stationId": "ST003",
+      "stationName": "赣州高速服务区加油站",
+      "reportMonth": "2024-06",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 1040.1,
+          "endReading": 1100.3,
+          "consumption": 60.2
+        },
+        "waterMeter2": {
+          "startReading": 690.0,
+          "endReading": 750.2,
+          "consumption": 60.2
+        },
+        "totalConsumption": 120.4,
+        "oilVolume": 132.8,
+        "waterPerTon": 0.91
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 4080.2,
+          "endReading": 4200.5,
+          "consumption": 120.3
+        },
+        "electricMeter2": {
+          "startReading": 2780.5,
+          "endReading": 2900.8,
+          "consumption": 120.3
+        },
+        "totalConsumption": 240.6,
+        "oilVolume": 132.8,
+        "electricPerTon": 1.81
+      },
+      "generateTime": "2024-06-30T23:59:59Z"
+    },
+    {
+      "id": "MR009",
+      "stationId": "ST004",
+      "stationName": "九江高速服务区加油站",
+      "reportMonth": "2024-06",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 790.4,
+          "endReading": 850.6,
+          "consumption": 60.2
+        },
+        "waterMeter2": {
+          "startReading": 520.2,
+          "endReading": 580.4,
+          "consumption": 60.2
+        },
+        "totalConsumption": 120.4,
+        "oilVolume": 108.9,
+        "waterPerTon": 1.11
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3540.6,
+          "endReading": 3600.8,
+          "consumption": 60.2
+        },
+        "electricMeter2": {
+          "startReading": 2340.0,
+          "endReading": 2400.2,
+          "consumption": 60.2
+        },
+        "totalConsumption": 120.4,
+        "oilVolume": 108.9,
+        "electricPerTon": 1.11
+      },
+      "generateTime": "2024-06-30T23:59:59Z"
+    },
+    {
+      "id": "MR010",
+      "stationId": "ST005",
+      "stationName": "鹰潭高速服务区加油站",
+      "reportMonth": "2024-06",
+      "waterRecords": {
+        "waterMeter1": {
+          "startReading": 860.5,
+          "endReading": 920.8,
+          "consumption": 60.3
+        },
+        "waterMeter2": {
+          "startReading": 560.2,
+          "endReading": 620.5,
+          "consumption": 60.3
+        },
+        "totalConsumption": 120.6,
+        "oilVolume": 122.7,
+        "waterPerTon": 0.98
+      },
+      "electricRecords": {
+        "electricMeter1": {
+          "startReading": 3840.0,
+          "endReading": 3900.3,
+          "consumption": 60.3
+        },
+        "electricMeter2": {
+          "startReading": 2640.3,
+          "endReading": 2700.6,
+          "consumption": 60.3
+        },
+        "totalConsumption": 120.6,
+        "oilVolume": 122.7,
+        "electricPerTon": 0.98
+      },
+      "generateTime": "2024-06-30T23:59:59Z"
+    }
+  ],
+  "modifyRecords": [
+    {
+      "id": "MR001",
+      "recordNumber": "SDJ2024070001",
+      "operationType": "编辑",
+      "operatorName": "张师傅",
+      "operateTime": "2024-07-15T09:30:00Z",
+      "description": "修正水表1交班数",
+      "changes": "水表1交班数从1280.3修正为1280.5",
+      "approvalStatus": "已审批",
+      "approver": "李主管",
+      "approvalTime": "2024-07-15T10:00:00Z",
+      "approvalRemark": "数据修正准确"
+    },
+    {
+      "id": "MR002",
+      "recordNumber": "SDJ2024070002",
+      "operationType": "新增",
+      "operatorName": "李师傅",
+      "operateTime": "2024-07-15T16:30:00Z",
+      "description": "创建中班交接记录",
+      "changes": "新建中班水电表交接记录",
+      "approvalStatus": "审批中",
+      "approver": "",
+      "approvalTime": "",
+      "approvalRemark": ""
+    },
+    {
+      "id": "MR003",
+      "recordNumber": "SDJ2024070003",
+      "operationType": "编辑",
+      "operatorName": "陈师傅",
+      "operateTime": "2024-07-15T08:30:00Z",
+      "description": "修正电表2走字数",
+      "changes": "电表2走字数从49.6修正为49.8",
+      "approvalStatus": "已审批",
+      "approver": "赵主管",
+      "approvalTime": "2024-07-15T09:00:00Z",
+      "approvalRemark": "计算正确"
+    },
+    {
+      "id": "MR004",
+      "recordNumber": "SDJ2024070004",
+      "operationType": "编辑",
+      "operatorName": "刘师傅",
+      "operateTime": "2024-07-15T16:30:00Z",
+      "description": "补充备注信息",
+      "changes": "补充中班用电量正常说明",
+      "approvalStatus": "已驳回",
+      "approver": "赵主管",
+      "approvalTime": "2024-07-15T17:00:00Z",
+      "approvalRemark": "备注信息不够详细"
+    },
+    {
+      "id": "MR005",
+      "recordNumber": "SDJ2024070005",
+      "operationType": "新增",
+      "operatorName": "周师傅",
+      "operateTime": "2024-07-15T08:30:00Z",
+      "description": "创建早班交接记录",
+      "changes": "新建早班水电表交接记录",
+      "approvalStatus": "审批中",
+      "approver": "",
+      "approvalTime": "",
+      "approvalRemark": ""
+    },
+    {
+      "id": "MR006",
+      "recordNumber": "SDJ2024070006",
+      "operationType": "编辑",
+      "operatorName": "吴师傅",
+      "operateTime": "2024-07-15T16:30:00Z",
+      "description": "修正水表总度数",
+      "changes": "本班水表总度数从59.1修正为59.2",
+      "approvalStatus": "已审批",
+      "approver": "王主管",
+      "approvalTime": "2024-07-15T17:00:00Z",
+      "approvalRemark": "计算准确"
+    },
+    {
+      "id": "MR007",
+      "recordNumber": "SDJ2024070007",
+      "operationType": "新增",
+      "operatorName": "林师傅",
+      "operateTime": "2024-07-15T08:30:00Z",
+      "description": "创建早班交接记录",
+      "changes": "新建早班水电表交接记录",
+      "approvalStatus": "已审批",
+      "approver": "陈主管",
+      "approvalTime": "2024-07-15T09:00:00Z",
+      "approvalRemark": "记录完整"
+    },
+    {
+      "id": "MR008",
+      "recordNumber": "SDJ2024070008",
+      "operationType": "编辑",
+      "operatorName": "黄师傅",
+      "operateTime": "2024-07-15T16:30:00Z",
+      "description": "修正电表读数",
+      "changes": "电表2交班数从2500.4修正为2500.6",
+      "approvalStatus": "已驳回",
+      "approver": "陈主管",
+      "approvalTime": "2024-07-15T17:00:00Z",
+      "approvalRemark": "需要提供修正依据"
+    },
+    {
+      "id": "MR009",
+      "recordNumber": "SDJ2024070009",
+      "operationType": "新增",
+      "operatorName": "张师傅",
+      "operateTime": "2024-07-15T08:30:00Z",
+      "description": "创建早班交接记录",
+      "changes": "新建早班水电表交接记录",
+      "approvalStatus": "审批中",
+      "approver": "",
+      "approvalTime": "",
+      "approvalRemark": ""
+    },
+    {
+      "id": "MR010",
+      "recordNumber": "SDJ2024070010",
+      "operationType": "编辑",
+      "operatorName": "李师傅",
+      "operateTime": "2024-07-15T16:30:00Z",
+      "description": "补充交接人信息",
+      "changes": "补充接班人王师傅信息",
+      "approvalStatus": "已审批",
+      "approver": "张主管",
+      "approvalTime": "2024-07-15T17:00:00Z",
+      "approvalRemark": "信息补充完整"
+    }
+  ]
+} 

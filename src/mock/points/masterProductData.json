@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "productCode": "PSG000001",
+    "productName": "洗车服务券",
+    "categoryCode": "SV001",
+    "categoryName": "汽车服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:30:00"
+  },
+  {
+    "id": 2,
+    "productCode": "PSG000002",
+    "productName": "保养套餐券",
+    "categoryCode": "SV001",
+    "categoryName": "汽车服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:31:00"
+  },
+  {
+    "id": 3,
+    "productCode": "PSG000003",
+    "productName": "维修服务券",
+    "categoryCode": "SV001",
+    "categoryName": "汽车服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:32:00"
+  },
+  {
+    "id": 4,
+    "productCode": "PSG000004",
+    "productName": "快递服务券",
+    "categoryCode": "LS001",
+    "categoryName": "生活服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:33:00"
+  },
+  {
+    "id": 5,
+    "productCode": "PSG000005",
+    "productName": "外卖代金券",
+    "categoryCode": "LS001",
+    "categoryName": "生活服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:34:00"
+  },
+  {
+    "id": 6,
+    "productCode": "PSG000006",
+    "productName": "影票代金券",
+    "categoryCode": "LS001",
+    "categoryName": "生活服务",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:35:00"
+  },
+  {
+    "id": 7,
+    "productCode": "PSG000007",
+    "productName": "毛巾套装",
+    "categoryCode": "DG001",
+    "categoryName": "日用百货",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:36:00"
+  },
+  {
+    "id": 8,
+    "productCode": "PSG000008",
+    "productName": "洗衣液套装",
+    "categoryCode": "DG001",
+    "categoryName": "日用百货",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:37:00"
+  },
+  {
+    "id": 9,
+    "productCode": "PSG000009",
+    "productName": "纸巾礼盒",
+    "categoryCode": "DG001",
+    "categoryName": "日用百货",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:38:00"
+  },
+  {
+    "id": 10,
+    "productCode": "PSG000010",
+    "productName": "小米手机13",
+    "categoryCode": "JD001",
+    "categoryName": "京东商品",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:39:00"
+  },
+  {
+    "id": 11,
+    "productCode": "PSG000011",
+    "productName": "华为MatePad",
+    "categoryCode": "JD001",
+    "categoryName": "京东商品",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:40:00"
+  },
+  {
+    "id": 12,
+    "productCode": "PSG000012",
+    "productName": "AirPods Pro",
+    "categoryCode": "JD001",
+    "categoryName": "京东商品",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:41:00"
+  },
+  {
+    "id": 13,
+    "productCode": "PSG000013",
+    "productName": "50元代金券",
+    "categoryCode": "VC001",
+    "categoryName": "代金券",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:42:00"
+  },
+  {
+    "id": 14,
+    "productCode": "PSG000014",
+    "productName": "100元代金券",
+    "categoryCode": "VC001",
+    "categoryName": "代金券",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:43:00"
+  },
+  {
+    "id": 15,
+    "productCode": "PSG000015",
+    "productName": "200元代金券",
+    "categoryCode": "VC001",
+    "categoryName": "代金券",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:44:00"
+  },
+  {
+    "id": 16,
+    "productCode": "PSG000016",
+    "productName": "笔记本电脑",
+    "categoryCode": "EL001",
+    "categoryName": "数码电器",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:45:00"
+  },
+  {
+    "id": 17,
+    "productCode": "PSG000017",
+    "productName": "智能手表",
+    "categoryCode": "EL001",
+    "categoryName": "数码电器",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:46:00"
+  },
+  {
+    "id": 18,
+    "productCode": "PSG000018",
+    "productName": "蓝牙耳机",
+    "categoryCode": "EL001",
+    "categoryName": "数码电器",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:47:00"
+  },
+  {
+    "id": 19,
+    "productCode": "PSG000019",
+    "productName": "充电宝",
+    "categoryCode": "EL001",
+    "categoryName": "数码电器",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:48:00"
+  },
+  {
+    "id": 20,
+    "productCode": "PSG000020",
+    "productName": "无线充电器",
+    "categoryCode": "EL001",
+    "categoryName": "数码电器",
+    "status": "ACTIVE",
+    "createTime": "2024-01-15 10:49:00"
+  }
+] 

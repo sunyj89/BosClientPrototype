@@ -1,0 +1,46 @@
+.contactless-config-container {
+  padding: 24px;
+}
+
+.contactless-config-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.contactless-config-container .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contactless-config-container .ant-form-item-label > label {
+  font-weight: 500;
+}
+
+.contactless-config-container .ant-divider-inner-text {
+  font-weight: 600;
+  color: #262626;
+}
+
+.contactless-config-container .ant-switch-checked {
+  background-color: #52c41a;
+}
+
+.contactless-config-container .ant-input-number {
+  width: 100%;
+}
+
+.contactless-config-container .ant-alert {
+  border-radius: 8px;
+}
+
+.contactless-config-container .ant-table-small {
+  font-size: 12px;
+}
+
+.contactless-config-container .ant-table-small .ant-table-thead > tr > th {
+  padding: 8px;
+  background-color: #fafafa;
+}
+
+.contactless-config-container .ant-table-small .ant-table-tbody > tr > td {
+  padding: 8px;
+}

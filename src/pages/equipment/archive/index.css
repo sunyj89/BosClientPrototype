@@ -1,0 +1,43 @@
+.equipment-archive-container {
+  padding: 24px;
+}
+
+.equipment-archive-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background-color: white;
+}
+
+.equipment-archive-container .ant-tabs-tab {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.equipment-archive-container .ant-tabs-content-holder {
+  padding: 16px 0;
+}
+
+
+.equipment-archive-container .ant-space-item {
+  display: flex;
+  align-items: center;
+}
+
+.equipment-archive-container .ant-tree-select-dropdown {
+  z-index: 1050;
+}
+
+/* 筛选区域样式 */
+.equipment-archive-container .ant-form-item {
+  margin-bottom: 0;
+}
+
+.equipment-archive-container .ant-input,
+.equipment-archive-container .ant-select-selector,
+.equipment-archive-container .ant-tree-select-selector {
+  border-radius: 2px;
+}
+
+/* 确保筛选区域背景为白色 */
+.equipment-archive-container .ant-card .ant-card-body {
+  background-color: white;
+} 

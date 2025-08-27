@@ -1,0 +1,226 @@
+[
+  {
+    "id": "D001",
+    "taskDate": "2023-03-05",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "status": "已完成",
+    "deliveryTime": "2023-03-05 08:30:00",
+    "completionTime": "2023-03-05 10:15:00",
+    "deliveryPerson": "张师傅",
+    "deliveryPhone": "13812345678",
+    "vehicleNumber": "京A12345",
+    "items": [
+      {
+        "oilType": "92#汽油",
+        "volume": 8000,
+        "tankNumber": "1号油罐"
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 6000,
+        "tankNumber": "2号油罐"
+      }
+    ],
+    "totalVolume": 14000,
+    "notes": "正常配送完成",
+    "acceptedBy": "王站长",
+    "acceptedTime": "2023-03-05 10:20:00"
+  },
+  {
+    "id": "D002",
+    "taskDate": "2023-03-06",
+    "stationId": "BJ001",
+    "stationName": "北京海淀油站",
+    "status": "已完成",
+    "deliveryTime": "2023-03-06 09:15:00",
+    "completionTime": "2023-03-06 11:00:00",
+    "deliveryPerson": "李师傅",
+    "deliveryPhone": "13898765432",
+    "vehicleNumber": "京A54321",
+    "items": [
+      {
+        "oilType": "98#汽油",
+        "volume": 4000,
+        "tankNumber": "3号油罐"
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 5000,
+        "tankNumber": "4号油罐"
+      }
+    ],
+    "totalVolume": 9000,
+    "notes": "正常配送完成",
+    "acceptedBy": "王站长",
+    "acceptedTime": "2023-03-06 11:05:00"
+  },
+  {
+    "id": "D003",
+    "taskDate": "2023-03-07",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "status": "已完成",
+    "deliveryTime": "2023-03-07 08:00:00",
+    "completionTime": "2023-03-07 09:45:00",
+    "deliveryPerson": "赵师傅",
+    "deliveryPhone": "13876543210",
+    "vehicleNumber": "京B12345",
+    "items": [
+      {
+        "oilType": "92#汽油",
+        "volume": 10000,
+        "tankNumber": "1号油罐"
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 8000,
+        "tankNumber": "2号油罐"
+      }
+    ],
+    "totalVolume": 18000,
+    "notes": "正常配送完成",
+    "acceptedBy": "陈站长",
+    "acceptedTime": "2023-03-07 09:50:00"
+  },
+  {
+    "id": "D004",
+    "taskDate": "2023-03-08",
+    "stationId": "BJ002",
+    "stationName": "北京朝阳油站",
+    "status": "已完成",
+    "deliveryTime": "2023-03-08 14:30:00",
+    "completionTime": "2023-03-08 16:15:00",
+    "deliveryPerson": "孙师傅",
+    "deliveryPhone": "13665432109",
+    "vehicleNumber": "京B54321",
+    "items": [
+      {
+        "oilType": "98#汽油",
+        "volume": 5000,
+        "tankNumber": "3号油罐"
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 6000,
+        "tankNumber": "4号油罐"
+      }
+    ],
+    "totalVolume": 11000,
+    "notes": "正常配送完成",
+    "acceptedBy": "周副站长",
+    "acceptedTime": "2023-03-08 16:20:00"
+  },
+  {
+    "id": "D005",
+    "taskDate": "2023-03-09",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "status": "进行中",
+    "deliveryTime": "2023-03-09 08:30:00",
+    "completionTime": null,
+    "deliveryPerson": "钱师傅",
+    "deliveryPhone": "13987654321",
+    "vehicleNumber": "沪A12345",
+    "items": [
+      {
+        "oilType": "92#汽油",
+        "volume": 12000,
+        "tankNumber": "1号油罐"
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 9000,
+        "tankNumber": "2号油罐"
+      },
+      {
+        "oilType": "98#汽油",
+        "volume": 6000,
+        "tankNumber": "3号油罐"
+      }
+    ],
+    "totalVolume": 27000,
+    "notes": "正在卸油中",
+    "acceptedBy": null,
+    "acceptedTime": null
+  },
+  {
+    "id": "D006",
+    "taskDate": "2023-03-10",
+    "stationId": "SH001",
+    "stationName": "上海黄浦油站",
+    "status": "待执行",
+    "deliveryTime": "2023-03-10 09:00:00",
+    "completionTime": null,
+    "deliveryPerson": "吴师傅",
+    "deliveryPhone": "13612345678",
+    "vehicleNumber": "沪A54321",
+    "items": [
+      {
+        "oilType": "0#柴油",
+        "volume": 8000,
+        "tankNumber": "4号油罐"
+      }
+    ],
+    "totalVolume": 8000,
+    "notes": "等待配送",
+    "acceptedBy": null,
+    "acceptedTime": null
+  },
+  {
+    "id": "D007",
+    "taskDate": "2023-03-05",
+    "stationId": "SH002",
+    "stationName": "上海浦东油站",
+    "status": "已完成",
+    "deliveryTime": "2023-03-05 10:00:00",
+    "completionTime": "2023-03-05 11:45:00",
+    "deliveryPerson": "郑师傅",
+    "deliveryPhone": "13723456789",
+    "vehicleNumber": "沪B12345",
+    "items": [
+      {
+        "oilType": "92#汽油",
+        "volume": 11000,
+        "tankNumber": "1号油罐"
+      },
+      {
+        "oilType": "95#汽油",
+        "volume": 9000,
+        "tankNumber": "2号油罐"
+      }
+    ],
+    "totalVolume": 20000,
+    "notes": "正常配送完成",
+    "acceptedBy": "高站长",
+    "acceptedTime": "2023-03-05 11:50:00"
+  },
+  {
+    "id": "D008",
+    "taskDate": "2023-03-11",
+    "stationId": "SH002",
+    "stationName": "上海浦东油站",
+    "status": "待执行",
+    "deliveryTime": "2023-03-11 08:30:00",
+    "completionTime": null,
+    "deliveryPerson": "王师傅",
+    "deliveryPhone": "13834567890",
+    "vehicleNumber": "沪B54321",
+    "items": [
+      {
+        "oilType": "98#汽油",
+        "volume": 5000,
+        "tankNumber": "3号油罐"
+      },
+      {
+        "oilType": "0#柴油",
+        "volume": 7000,
+        "tankNumber": "4号油罐"
+      }
+    ],
+    "totalVolume": 12000,
+    "notes": "等待配送",
+    "acceptedBy": null,
+    "acceptedTime": null
+  }
+] 

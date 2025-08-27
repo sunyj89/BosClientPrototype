@@ -1,0 +1,104 @@
+{
+  "unloadingSlips": [
+    {
+      "id": "1",
+      "slipNumber": "XY202501230001",
+      "vehicleNumber": "粤A12345",
+      "oilType": "92#汽油",
+      "stationName": "广深高速服务区加油站",
+      "tankNumber": "1#罐",
+      "unloadingDate": "2025-01-23",
+      "unloadingTime": "14:30",
+      "tankData": {
+        "totalHeight": 1250,
+        "waterHeight": 15,
+        "tankTemperature": 18.5,
+        "totalVolume": 12500,
+        "waterVolume": 150,
+        "oilVolumeVt": 12350,
+        "oilVolumeV20": 12280
+      },
+      "status": "已完成"
+    },
+    {
+      "id": "2",
+      "slipNumber": "XY202501230002",
+      "vehicleNumber": "粤B67890",
+      "oilType": "95#汽油",
+      "stationName": "京珠高速服务区加油站",
+      "tankNumber": "2#罐",
+      "unloadingDate": "2025-01-23",
+      "unloadingTime": "16:45",
+      "tankData": {
+        "totalHeight": 1180,
+        "waterHeight": 12,
+        "tankTemperature": 19.2,
+        "totalVolume": 11800,
+        "waterVolume": 120,
+        "oilVolumeVt": 11680,
+        "oilVolumeV20": 11620
+      },
+      "status": "已完成"
+    },
+    {
+      "id": "3",
+      "slipNumber": "XY202501230003",
+      "vehicleNumber": "粤C11223",
+      "oilType": "0#柴油",
+      "stationName": "沈海高速服务区加油站",
+      "tankNumber": "3#罐",
+      "unloadingDate": "2025-01-23",
+      "unloadingTime": "10:15",
+      "tankData": {
+        "totalHeight": 1320,
+        "waterHeight": 18,
+        "tankTemperature": 17.8,
+        "totalVolume": 13200,
+        "waterVolume": 180,
+        "oilVolumeVt": 13020,
+        "oilVolumeV20": 12950
+      },
+      "status": "已完成"
+    },
+    {
+      "id": "4",
+      "slipNumber": "XY202501230004",
+      "vehicleNumber": "粤D33445",
+      "oilType": "92#汽油",
+      "stationName": "广深高速服务区加油站",
+      "tankNumber": "4#罐",
+      "unloadingDate": "2025-01-23",
+      "unloadingTime": "09:20",
+      "tankData": {
+        "totalHeight": 1420,
+        "waterHeight": 20,
+        "tankTemperature": 18.9,
+        "totalVolume": 14200,
+        "waterVolume": 200,
+        "oilVolumeVt": 14000,
+        "oilVolumeV20": 13920
+      },
+      "status": "已完成"
+    },
+    {
+      "id": "5",
+      "slipNumber": "XY202501230005",
+      "vehicleNumber": "粤E55667",
+      "oilType": "95#汽油",
+      "stationName": "京珠高速服务区加油站",
+      "tankNumber": "1#罐",
+      "unloadingDate": "2025-01-23",
+      "unloadingTime": "15:30",
+      "tankData": {
+        "totalHeight": 1100,
+        "waterHeight": 8,
+        "tankTemperature": 20.1,
+        "totalVolume": 11000,
+        "waterVolume": 80,
+        "oilVolumeVt": 10920,
+        "oilVolumeV20": 10850
+      },
+      "status": "已完成"
+    }
+  ]
+}
