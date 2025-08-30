@@ -1,0 +1,106 @@
+{
+  "riskOverview": {
+    "todayAlerts": 3,
+    "weeklyAlerts": 12,
+    "blacklistCount": 5,
+    "suspiciousCount": 8
+  },
+  "riskAlerts": [
+    {
+      "id": 1,
+      "alertType": "频繁开票",
+      "riskLevel": "高",
+      "buyerName": "某商贸公司",
+      "buyerTaxNo": "91360100123456789X",
+      "alertTime": "2025-08-27 14:30:00",
+      "description": "该企业1小时内申请开票15次，超过正常阈值",
+      "status": "待处理",
+      "operatorName": "系统自动检测"
+    },
+    {
+      "id": 2,
+      "alertType": "异常金额",
+      "riskLevel": "中",
+      "buyerName": "江西某物流公司",
+      "buyerTaxNo": "91360100987654321B",
+      "alertTime": "2025-08-27 13:45:00",
+      "description": "开票金额50万元，超过该企业历史最高金额5倍",
+      "status": "已处理",
+      "operatorName": "李四"
+    },
+    {
+      "id": 3,
+      "alertType": "税号异常",
+      "riskLevel": "高",
+      "buyerName": "测试企业",
+      "buyerTaxNo": "91360100111111111C",
+      "alertTime": "2025-08-27 12:20:00",
+      "description": "使用了已注销的统一社会信用代码",
+      "status": "已阻止",
+      "operatorName": "王五"
+    },
+    {
+      "id": 4,
+      "alertType": "重复开票",
+      "riskLevel": "中",
+      "buyerName": "江西高速公路有限公司",
+      "buyerTaxNo": "91360100444444444D",
+      "alertTime": "2025-08-27 11:10:00",
+      "description": "相同订单号重复申请开票",
+      "status": "待处理",
+      "operatorName": "系统自动检测"
+    }
+  ],
+  "blacklist": [
+    {
+      "id": 1,
+      "companyName": "某虚假公司",
+      "taxNo": "91360100999999999E",
+      "reason": "虚开增值税发票",
+      "addTime": "2025-08-20 10:00:00",
+      "operatorName": "张三",
+      "status": "生效中"
+    },
+    {
+      "id": 2,
+      "companyName": "违规企业A",
+      "taxNo": "91360100888888888F",
+      "reason": "恶意套取发票",
+      "addTime": "2025-08-15 14:30:00",
+      "operatorName": "李四",
+      "status": "生效中"
+    }
+  ],
+  "riskRules": [
+    {
+      "id": 1,
+      "ruleName": "频繁开票检测",
+      "ruleType": "频率限制",
+      "threshold": "1小时内超过10次",
+      "riskLevel": "高",
+      "action": "自动阻止",
+      "status": "启用",
+      "updateTime": "2025-08-25 09:00:00"
+    },
+    {
+      "id": 2,
+      "ruleName": "异常金额检测",
+      "ruleType": "金额检测",
+      "threshold": "超过历史平均金额3倍",
+      "riskLevel": "中",
+      "action": "人工审核",
+      "status": "启用",
+      "updateTime": "2025-08-25 09:00:00"
+    },
+    {
+      "id": 3,
+      "ruleName": "税号有效性检测",
+      "ruleType": "税号验证",
+      "threshold": "税号格式或状态异常",
+      "riskLevel": "高",
+      "action": "自动阻止",
+      "status": "启用",
+      "updateTime": "2025-08-25 09:00:00"
+    }
+  ]
+}

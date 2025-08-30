@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import { Tabs, Breadcrumb } from 'antd';
+import { Tabs, Card, Spin } from 'antd';
 import ProductMaintenance from '../maintenance';
 import CategoryManagement from '../category';
 import ComboProduct from '../combo';
@@ -8,6 +8,7 @@ import ChangeRecord from '../shared/ChangeRecord';
 
 const ProductMasterData = () => {
   const [activeTab, setActiveTab] = useState('maintenance');
+  const [loading, setLoading] = useState(false);
 
   const tabItems = [
     {
@@ -33,26 +34,18 @@ const ProductMasterData = () => {
   ];
 
   return (
-    <div>
-      <div className="page-header">
-        <Breadcrumb>
-          <Breadcrumb.Item>商品管理</Breadcrumb.Item>
-          <Breadcrumb.Item>商品主数据</Breadcrumb.Item>
-        </Breadcrumb>
-      </div>
-
-      <Tabs
-        activeKey={activeTab}
-        onChange={setActiveTab}
-        items={tabItems}
-        size="large"
-        style={{
-          backgroundColor: '#fff',
-          padding: '16px',
-          borderRadius: '8px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-        }}
-      />
+    <div className="module-container">
+      <Card>
+        <Spin spinning={loading}>
+          <Tabs
+            activeKey={activeTab}
+            onChange={setActiveTab}
+            size="large"
+            tabBarStyle={{ marginBottom: '16px' }}
+            items={tabItems}
+          />
+        </Spin>
+      </Card>
     </div>
   );
 };

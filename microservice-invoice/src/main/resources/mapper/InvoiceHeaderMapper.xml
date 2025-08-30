@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microservice.invoice.mapper.InvoiceHeaderMapper">
+
+    <!-- 发票抬头列表查询结果映射 -->
+    <resultMap id="InvoiceHeaderListVOMap" type="com.microservice.invoice.vo.InvoiceHeaderListVO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="header_name" property="headerName"/>
+        <result column="tax_id" property="taxId"/>
+        <result column="header_type" property="headerType"/>
+        <result column="header_type_name" property="headerTypeName"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="bank_account" property="bankAccount"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="is_default_name" property="isDefaultName"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_by" property="updatedBy"/>
+    </resultMap>
+
+    <!-- 根据用户ID查询发票抬头列表 -->
+    <select id="selectInvoiceHeadersByUserId" resultMap="InvoiceHeaderListVOMap">
+        SELECT
+            id,
+            user_id,
+            header_name,
+            tax_id,
+            header_type,
+            CASE header_type
+                WHEN 1 THEN '个人'
+                WHEN 2 THEN '企业'
+                ELSE '未知'
+            END AS header_type_name,
+            phone,
+            email,
+            address,
+            bank_name,
+            bank_account,
+            is_default,
+            CASE is_default
+                WHEN 1 THEN '默认'
+                WHEN 0 THEN '非默认'
+                ELSE '未知'
+            END AS is_default_name,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by
+        FROM invoice_header
+        WHERE deleted = 0
+          AND user_id = #{userId}
+        ORDER BY is_default DESC, created_time DESC
+    </select>
+
+    <!-- 根据用户ID获取默认发票抬头 -->
+    <select id="selectDefaultInvoiceHeaderByUserId" resultMap="InvoiceHeaderListVOMap">
+        SELECT
+            id,
+            user_id,
+            header_name,
+            tax_id,
+            header_type,
+            CASE header_type
+                WHEN 1 THEN '个人'
+                WHEN 2 THEN '企业'
+                ELSE '未知'
+            END AS header_type_name,
+            phone,
+            email,
+            address,
+            bank_name,
+            bank_account,
+            is_default,
+            CASE is_default
+                WHEN 1 THEN '默认'
+                WHEN 0 THEN '非默认'
+                ELSE '未知'
+            END AS is_default_name,
+            created_time,
+            updated_time,
+            created_by,
+            updated_by
+        FROM invoice_header
+        WHERE deleted = 0
+          AND user_id = #{userId}
+          AND is_default = 1
+        LIMIT 1
+    </select>
+
+    <!-- 将用户的所有发票抬头设置为非默认 -->
+    <update id="clearDefaultInvoiceHeadersByUserId">
+        UPDATE invoice_header
+        SET is_default = 0,
+            updated_time = NOW(),
+            updated_by = 'system'
+        WHERE deleted = 0
+          AND user_id = #{userId}
+          AND is_default = 1
+    </update>
+
+    <!-- 设置指定发票抬头为默认 -->
+    <update id="setAsDefaultInvoiceHeader">
+        UPDATE invoice_header
+        SET is_default = 1,
+            updated_time = NOW(),
+            updated_by = 'system'
+        WHERE deleted = 0
+          AND id = #{id}
+          AND user_id = #{userId}
+    </update>
+
+</mapper>

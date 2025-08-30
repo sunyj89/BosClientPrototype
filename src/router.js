@@ -25,6 +25,12 @@ import NonOilProcurement from './pages/purchase/non-oil-procurement';
 // 物流管理
 import OilWarehouseDelivery from './pages/logistics/oil-warehouse-delivery';
 
+// 库存管理
+import OilInventoryManagement from './pages/inventory/oil-inventory';
+import OilTransfer from './pages/inventory/oil-transfer';
+import InventoryGoodsManagement from './pages/inventory/goods-inventory';
+import InventoryGoodsTransfer from './pages/inventory/goods-transfer';
+
 // 供应商管理
 import SupplierRoutes from './pages/supplier';
 
@@ -33,7 +39,6 @@ import GoodsManagement from './pages/goods';
 import CategoryManagement from './pages/goods/category';
 import ProductMaintenance from './pages/goods/maintenance';
 import ComboProduct from './pages/goods/combo';
-import GoodsInventoryManagement from './pages/goods/inventory';
 import GoodsPriceManagement from './pages/goods/pricing';
 import GoodsPurchaseManagement from './pages/goods/purchase';
 import ProductMasterData from './pages/goods/master-data';
@@ -66,6 +71,10 @@ import OrderMarketing from './pages/marketing/order-marketing';
 
 // 支付管理
 import PaymentAcceptanceConfig from './pages/payment/acceptance-config';
+
+// 发票管理
+import InvoiceManagement from './pages/invoice';
+import InvoiceSettings from './pages/invoice/settings';
 import MemberIdentity from './pages/marketing/member-identity';
 import MemberLevel from './pages/marketing/member-level';
 
@@ -213,6 +222,18 @@ const AppRouter = () => {
         <Route path="oil-warehouse-delivery" element={<OilWarehouseDelivery />} />
       </Route>
       
+      {/* 库存管理路由 */}
+      <Route path="/inventory">
+        {/* 油品库存管理 */}
+        <Route path="oil-inventory" element={<OilInventoryManagement />} />
+        {/* 油品调拨 */}
+        <Route path="oil-transfer" element={<OilTransfer />} />
+        {/* 非油品库存管理 */}
+        <Route path="goods-inventory" element={<InventoryGoodsManagement />} />
+        {/* 非油品调拨 */}
+        <Route path="goods-transfer" element={<InventoryGoodsTransfer />} />
+      </Route>
+      
       {/* 商品管理路由 */}
       <Route path="/goods">
         <Route index element={<GoodsManagement />} />
@@ -220,7 +241,6 @@ const AppRouter = () => {
         <Route path="maintenance" element={<ProductMaintenance />} />
         <Route path="combo" element={<ComboProduct />} />
         <Route path="master-data" element={<ProductMasterData />} />
-        <Route path="inventory" element={<GoodsInventoryManagement />} />
         <Route path="price" element={<GoodsPriceManagement />} />
         <Route path="purchase" element={<GoodsPurchaseManagement />} />
       </Route>
@@ -360,6 +380,12 @@ const AppRouter = () => {
       {/* 支付管理路由 */}
       <Route path="/payment">
         <Route path="acceptance-config" element={<PaymentAcceptanceConfig />} />
+      </Route>
+
+      {/* 发票管理路由 */}
+      <Route path="/invoice">
+        <Route index element={<InvoiceManagement />} />
+        <Route path="settings" element={<InvoiceSettings />} />
       </Route>
 
       

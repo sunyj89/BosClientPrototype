@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, InputNumber, Button, Space, Row, Col, TreeSelect } from 'antd';
+import { Form, Input, Select, InputNumber, Button, Space, Row, Col, TreeSelect, message } from 'antd';
 
 const { Option } = Select;
 
@@ -392,6 +392,27 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
   };
 
   const handleSubmit = (values) => {
+    // 验证财务信息业务逻辑
+    if (!values.input_tax_rate) {
+      message.error('进项税率为必填项');
+      return;
+    }
+    
+    if (!values.output_tax_rate) {
+      message.error('销项税率为必填项');
+      return;
+    }
+    
+    if (values.input_tax_rate < 0 || values.input_tax_rate > 100) {
+      message.error('进项税率必须在0-100之间');
+      return;
+    }
+    
+    if (values.output_tax_rate < 0 || values.output_tax_rate > 100) {
+      message.error('销项税率必须在0-100之间');
+      return;
+    }
+    
     onOk(values);
     form.resetFields();
   };
@@ -526,6 +547,110 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
               max={1.0}
               step={0.001}
               precision={3}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      {/* 财务信息 */}
+      <div style={{ 
+        margin: '24px 0 16px 0', 
+        padding: '12px 16px', 
+        background: '#f5f5f5', 
+        borderRadius: '4px',
+        fontSize: '14px',
+        fontWeight: 'bold'
+      }}>
+        财务信息
+      </div>
+
+      <Row gutter={16}>
+        <Col span={12}>
+          <Form.Item
+            name="input_tax_rate"
+            label="进项税（%）"
+            rules={[{ required: true, message: '请输入进项税率' }]}
+          >
+            <InputNumber
+              placeholder="请输入进项税率"
+              min={0}
+              max={100}
+              precision={2}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name="output_tax_rate"
+            label="销项税（%）"
+            rules={[{ required: true, message: '请输入销项税率' }]}
+          >
+            <InputNumber
+              placeholder="请输入销项税率"
+              min={0}
+              max={100}
+              precision={2}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={12}>
+          <Form.Item
+            name="tax_classification"
+            label="税收分类"
+            rules={[
+              {
+                pattern: /^\d+$/,
+                message: '税收分类只能输入纯数字'
+              }
+            ]}
+          >
+            <Input
+              placeholder="请输入税收分类编码（纯数字）"
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name="tax_rate"
+            label="税率（%）"
+          >
+            <InputNumber
+              placeholder="请输入税率"
+              min={0}
+              max={100}
+              precision={2}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <Row gutter={16}>
+        <Col span={12}>
+          <Form.Item
+            name="erp_product_code"
+            label="ERP商品编码"
+          >
+            <Input
+              placeholder="请输入ERP商品编码"
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+        </Col>
+        <Col span={12}>
+          <Form.Item
+            name="erp_category_code"
+            label="ERP分类编码"
+          >
+            <Input
+              placeholder="请输入ERP分类编码"
               style={{ width: '100%' }}
             />
           </Form.Item>

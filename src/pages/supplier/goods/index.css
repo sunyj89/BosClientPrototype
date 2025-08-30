@@ -18,4 +18,26 @@
 .goods-supplier-container .ant-btn-primary:hover {
   background-color: var(--primary-color-light, #4FC16A);
   border-color: var(--primary-color-light, #4FC16A);
-} 
+}
+
+.goods-supplier-container .ant-statistic-title {
+  font-size: 14px;
+  color: #666;
+}
+
+.goods-supplier-container .ant-statistic-content {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.goods-supplier-container .ant-tag {
+  border-radius: 2px;
+}
+
+.goods-supplier-container .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.goods-supplier-container .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+}

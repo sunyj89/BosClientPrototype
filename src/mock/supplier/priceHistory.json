@@ -1,0 +1,149 @@
+{
+  "priceHistory": {
+    "UNI001": {
+      "SKU001": [
+        {
+          "id": "PH001",
+          "productId": "SKU001",
+          "supplierId": "UNI001",
+          "price": 25.80,
+          "unit": "瓶",
+          "startDate": "2025-08-01",
+          "endDate": null,
+          "status": "current",
+          "notes": "季度合同价",
+          "createTime": "2025-08-01 09:00:00",
+          "operator": "张三"
+        },
+        {
+          "id": "PH002",
+          "productId": "SKU001",
+          "supplierId": "UNI001",
+          "price": 24.50,
+          "unit": "瓶",
+          "startDate": "2025-05-01",
+          "endDate": "2025-07-31",
+          "status": "expired",
+          "notes": "促销采购价",
+          "createTime": "2025-05-01 10:30:00",
+          "operator": "李四"
+        }
+      ],
+      "SKU006": [
+        {
+          "id": "PH003",
+          "productId": "SKU006",
+          "supplierId": "UNI001",
+          "price": 23.50,
+          "unit": "瓶",
+          "startDate": "2025-08-01",
+          "endDate": null,
+          "status": "current",
+          "notes": "长期合作价",
+          "createTime": "2025-08-01 09:00:00",
+          "operator": "张三"
+        }
+      ]
+    },
+    "KMF001": {
+      "SKU002": [
+        {
+          "id": "PH004",
+          "productId": "SKU002",
+          "supplierId": "KMF001",
+          "price": 4.80,
+          "unit": "包",
+          "startDate": "2025-07-15",
+          "endDate": null,
+          "status": "current",
+          "notes": "批量采购价",
+          "createTime": "2025-07-15 14:20:00",
+          "operator": "王五"
+        },
+        {
+          "id": "PH005",
+          "productId": "SKU002",
+          "supplierId": "KMF001",
+          "price": 5.20,
+          "unit": "包",
+          "startDate": "2025-09-01",
+          "endDate": null,
+          "status": "future",
+          "notes": "新季度调价",
+          "createTime": "2025-08-28 16:00:00",
+          "operator": "赵六"
+        }
+      ],
+      "SKU007": [
+        {
+          "id": "PH006",
+          "productId": "SKU007",
+          "supplierId": "KMF001",
+          "price": 28.60,
+          "unit": "瓶",
+          "startDate": "2025-08-10",
+          "endDate": null,
+          "status": "current",
+          "notes": "标准采购价",
+          "createTime": "2025-08-10 11:45:00",
+          "operator": "孙七"
+        }
+      ]
+    },
+    "WHG001": {
+      "SKU003": [
+        {
+          "id": "PH007",
+          "productId": "SKU003",
+          "supplierId": "WHG001",
+          "price": 12.80,
+          "unit": "包",
+          "startDate": "2025-08-01",
+          "endDate": null,
+          "status": "current",
+          "notes": "休闲食品采购价",
+          "createTime": "2025-08-01 13:30:00",
+          "operator": "周八"
+        },
+        {
+          "id": "PH008",
+          "productId": "SKU003",
+          "supplierId": "WHG001",
+          "price": 11.50,
+          "unit": "包",
+          "startDate": "2025-06-01",
+          "endDate": "2025-07-31",
+          "status": "expired",
+          "notes": "夏季促销价",
+          "createTime": "2025-06-01 09:15:00",
+          "operator": "吴九"
+        }
+      ],
+      "SKU008": [
+        {
+          "id": "PH009",
+          "productId": "SKU008",
+          "supplierId": "WHG001",
+          "price": 15.20,
+          "unit": "包",
+          "startDate": "2025-08-15",
+          "endDate": null,
+          "status": "current",
+          "notes": "仙贝系列采购价",
+          "createTime": "2025-08-15 15:10:00",
+          "operator": "郑十"
+        }
+      ]
+    }
+  },
+  "units": [
+    { "value": "瓶", "label": "瓶", "category": "液体" },
+    { "value": "箱", "label": "箱", "category": "包装" },
+    { "value": "包", "label": "包", "category": "包装" },
+    { "value": "个", "label": "个", "category": "计数" },
+    { "value": "盒", "label": "盒", "category": "包装" },
+    { "value": "袋", "label": "袋", "category": "包装" },
+    { "value": "罐", "label": "罐", "category": "容器" },
+    { "value": "支", "label": "支", "category": "计数" }
+  ]
+}

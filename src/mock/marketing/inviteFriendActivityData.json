@@ -1,0 +1,337 @@
+{
+  "activityList": [
+    {
+      "id": "IF001",
+      "activityName": "春节邀请好友送大礼",
+      "activityType": 1,
+      "activityTypeText": "1级邀请",
+      "status": "active",
+      "startTime": "2025-01-20 00:00:00",
+      "endTime": "2025-02-20 23:59:59",
+      "pageTitle": "春节大礼|邀请有奖",
+      "mainSlogan": "邀请好友领大礼",
+      "guideSlogan": "邀请好友注册即可获得丰厚奖励，快来参与吧！",
+      "activityRule": "活动时间：2025-01-20至2025-02-20\n1. 用户通过邀请链接邀请好友注册\n2. 好友成功注册后，邀请人获得奖励\n3. 被邀请人同时获得新人奖励\n4. 每个用户仅能被邀请一次",
+      "inviterQualification": "所有用户",
+      "inviteeQualification": "未注册用户",
+      "completeCondition": "注册即完成",
+      "inviterReward": {
+        "acceptReward": {
+          "type": "coupon",
+          "content": "20元加油券",
+          "amount": 20
+        },
+        "completeReward": {
+          "type": "coupon", 
+          "content": "50元加油券",
+          "amount": 50
+        }
+      },
+      "inviteeReward": {
+        "type": "coupon",
+        "content": "新人礼包(30元券)",
+        "amount": 30
+      },
+      "shareConfig": {
+        "shareTitle": "春节邀请好友送大礼",
+        "shareContent": "我在参加春节邀请活动，邀请你一起来领取大礼包！",
+        "shareLogo": "/images/activity/spring-logo.png"
+      },
+      "statistics": {
+        "totalInvites": 1568,
+        "acceptedInvites": 1125,
+        "completedInvites": 892,
+        "successRate": 56.9,
+        "totalRewardAmount": 89200
+      },
+      "activityUrl": "https://example.com/invite/IF001",
+      "createTime": "2025-01-15 14:30:00",
+      "updateTime": "2025-01-26 10:15:00"
+    },
+    {
+      "id": "IF002", 
+      "activityName": "会员邀请2级奖励活动",
+      "activityType": 2,
+      "activityTypeText": "2级邀请",
+      "status": "pending",
+      "startTime": "2025-02-01 00:00:00",
+      "endTime": "2025-03-31 23:59:59",
+      "pageTitle": "会员邀请|双重奖励",
+      "mainSlogan": "邀请好友享双重奖励",
+      "guideSlogan": "邀请好友成为会员，不仅你有奖励，好友的好友也能为你带来额外奖励！",
+      "activityRule": "活动时间：2025-02-01至2025-03-31\n1. 已注册会员可邀请好友注册\n2. 好友注册并完成首次加油，邀请人获得1级奖励\n3. 好友再邀请其他人，原邀请人获得2级奖励\n4. 支持2级邀请关系奖励",
+      "inviterQualification": "已注册会员",
+      "inviteeQualification": "未注册会员",
+      "completeCondition": "注册并首次加油满100元",
+      "inviterReward": {
+        "acceptReward": {
+          "type": "points",
+          "content": "100积分",
+          "amount": 100
+        },
+        "completeReward": {
+          "type": "coupon",
+          "content": "100元加油券",
+          "amount": 100
+        },
+        "level2Reward": {
+          "type": "coupon",
+          "content": "30元加油券",
+          "amount": 30
+        }
+      },
+      "inviteeReward": {
+        "type": "coupon",
+        "content": "新会员大礼包(80元券)",
+        "amount": 80
+      },
+      "shareConfig": {
+        "shareTitle": "邀请好友成为会员，享受双重奖励",
+        "shareContent": "我在参加会员邀请活动，邀请你成为会员一起享受优惠！",
+        "shareLogo": "/images/activity/member-logo.png"
+      },
+      "statistics": {
+        "totalInvites": 0,
+        "acceptedInvites": 0,
+        "completedInvites": 0,
+        "successRate": 0,
+        "totalRewardAmount": 0
+      },
+      "activityUrl": "https://example.com/invite/IF002",
+      "createTime": "2025-01-25 16:45:00",
+      "updateTime": "2025-01-25 16:45:00"
+    },
+    {
+      "id": "IF003",
+      "activityName": "代理商推广专项活动", 
+      "activityType": 5,
+      "activityTypeText": "代理商模式",
+      "status": "ended",
+      "startTime": "2024-12-01 00:00:00",
+      "endTime": "2024-12-31 23:59:59",
+      "pageTitle": "代理商推广|专享奖励",
+      "mainSlogan": "代理商专享推广奖励",
+      "guideSlogan": "认证代理商专享推广活动，邀请客户注册获得更丰厚奖励！",
+      "activityRule": "活动时间：2024-12-01至2024-12-31\n1. 仅限认证代理商参与\n2. 邀请客户注册并完成首次加油\n3. 根据邀请数量享受阶梯奖励\n4. 月度奖励结算",
+      "inviterQualification": "认证代理商",
+      "inviteeQualification": "未注册用户",
+      "completeCondition": "注册并首次加油满200元",
+      "inviterReward": {
+        "acceptReward": {
+          "type": "cash",
+          "content": "现金奖励50元",
+          "amount": 50
+        },
+        "completeReward": {
+          "type": "cash",
+          "content": "现金奖励200元", 
+          "amount": 200
+        },
+        "ladderReward": {
+          "type": "cash",
+          "content": "阶梯奖励500-2000元",
+          "amount": 1000
+        }
+      },
+      "inviteeReward": {
+        "type": "coupon",
+        "content": "新客户专享(100元券)",
+        "amount": 100
+      },
+      "shareConfig": {
+        "shareTitle": "专业代理商推荐，值得信赖",
+        "shareContent": "我是认证代理商，推荐你使用我们的服务，享受专业优质服务！",
+        "shareLogo": "/images/activity/agent-logo.png"
+      },
+      "statistics": {
+        "totalInvites": 2156,
+        "acceptedInvites": 1847,
+        "completedInvites": 1623,
+        "successRate": 75.3,
+        "totalRewardAmount": 405750
+      },
+      "activityUrl": "https://example.com/invite/IF003",
+      "createTime": "2024-11-25 09:00:00",
+      "updateTime": "2025-01-01 00:00:00"
+    },
+    {
+      "id": "IF004",
+      "activityName": "积分兑换邀请活动",
+      "activityType": 1,
+      "activityTypeText": "1级邀请", 
+      "status": "paused",
+      "startTime": "2025-01-10 00:00:00",
+      "endTime": "2025-04-10 23:59:59",
+      "pageTitle": "积分兑换|邀请有礼",
+      "mainSlogan": "邀请好友赚积分",
+      "guideSlogan": "邀请好友注册即可获得积分奖励，积分可兑换各种礼品！",
+      "activityRule": "活动时间：2025-01-10至2025-04-10\n1. 邀请好友注册获得积分\n2. 积分可在积分商城兑换礼品\n3. 好友完成任务，邀请人获得额外积分\n4. 积分不设有效期",
+      "inviterQualification": "所有用户",
+      "inviteeQualification": "未注册用户", 
+      "completeCondition": "注册即完成",
+      "inviterReward": {
+        "acceptReward": {
+          "type": "points",
+          "content": "500积分",
+          "amount": 500
+        },
+        "completeReward": {
+          "type": "points",
+          "content": "1000积分",
+          "amount": 1000
+        }
+      },
+      "inviteeReward": {
+        "type": "points",
+        "content": "新人积分(300积分)",
+        "amount": 300
+      },
+      "shareConfig": {
+        "shareTitle": "邀请好友赚积分，积分兑好礼",
+        "shareContent": "我在参加积分邀请活动，邀请你一起来赚积分兑换礼品！",
+        "shareLogo": "/images/activity/points-logo.png"
+      },
+      "statistics": {
+        "totalInvites": 458,
+        "acceptedInvites": 367,
+        "completedInvites": 298,
+        "successRate": 65.1,
+        "totalRewardAmount": 447000
+      },
+      "activityUrl": "https://example.com/invite/IF004",
+      "createTime": "2025-01-08 11:20:00",
+      "updateTime": "2025-01-20 15:30:00"
+    },
+    {
+      "id": "IF005",
+      "activityName": "油品体验邀请活动",
+      "activityType": 1,
+      "activityTypeText": "1级邀请",
+      "status": "active",
+      "startTime": "2025-01-15 00:00:00", 
+      "endTime": "2025-05-15 23:59:59",
+      "pageTitle": "油品体验|邀请尝鲜",
+      "mainSlogan": "邀请好友体验优质油品",
+      "guideSlogan": "邀请好友体验我们的优质油品，一起享受高品质服务！",
+      "activityRule": "活动时间：2025-01-15至2025-05-15\n1. 邀请好友注册并完成首次加油\n2. 好友享受油品优惠\n3. 邀请人获得油品折扣券\n4. 累计邀请享受更多优惠",
+      "inviterQualification": "加过油用户",
+      "inviteeQualification": "未加油用户",
+      "completeCondition": "注册并首次加油满50元",
+      "inviterReward": {
+        "acceptReward": {
+          "type": "oil_discount",
+          "content": "油品优惠每升0.2元",
+          "amount": 0.2
+        },
+        "completeReward": {
+          "type": "coupon",
+          "content": "80元加油券",
+          "amount": 80
+        }
+      },
+      "inviteeReward": {
+        "type": "oil_discount",
+        "content": "新客户油品优惠每升0.5元",
+        "amount": 0.5
+      },
+      "shareConfig": {
+        "shareTitle": "邀请体验优质油品，享受专属优惠",
+        "shareContent": "我在使用这家的优质油品，邀请你一起来体验，还有专属优惠！",
+        "shareLogo": "/images/activity/oil-logo.png"
+      },
+      "statistics": {
+        "totalInvites": 723,
+        "acceptedInvites": 589,
+        "completedInvites": 456,
+        "successRate": 63.1,
+        "totalRewardAmount": 36480
+      },
+      "activityUrl": "https://example.com/invite/IF005",
+      "createTime": "2025-01-12 13:45:00",
+      "updateTime": "2025-01-26 09:20:00"
+    }
+  ],
+  "rewardTypes": [
+    {
+      "value": "coupon",
+      "label": "抵用券",
+      "description": "加油站抵用券"
+    },
+    {
+      "value": "points", 
+      "label": "积分",
+      "description": "平台积分奖励"
+    },
+    {
+      "value": "points_exp",
+      "label": "积分+经验值",
+      "description": "积分和经验值组合奖励"
+    },
+    {
+      "value": "cash",
+      "label": "现金红包",
+      "description": "微信现金红包"
+    },
+    {
+      "value": "oil_discount",
+      "label": "油品优惠",
+      "description": "每升油品优惠"
+    }
+  ],
+  "qualificationTypes": {
+    "inviter": [
+      {
+        "value": 1,
+        "label": "所有用户",
+        "description": "平台所有注册用户"
+      },
+      {
+        "value": 2,
+        "label": "加过油用户",
+        "description": "已有加油记录的用户"
+      },
+      {
+        "value": 12,
+        "label": "已注册会员",
+        "description": "已注册集团会员的用户"
+      },
+      {
+        "value": 31,
+        "label": "认证代理商",
+        "description": "经过认证的代理商用户"
+      }
+    ],
+    "invitee": [
+      {
+        "value": 1,
+        "label": "未加油用户",
+        "description": "从未加过油的新用户"
+      },
+      {
+        "value": 11,
+        "label": "未注册会员",
+        "description": "未注册集团会员的用户"
+      }
+    ]
+  },
+  "templateTypes": [
+    {
+      "id": 1,
+      "name": "经典模板",
+      "preview": "/images/templates/classic.png",
+      "description": "简洁大方的经典邀请页面"
+    },
+    {
+      "id": 2,
+      "name": "春节模板",
+      "preview": "/images/templates/spring.png", 
+      "description": "喜庆的春节主题页面"
+    },
+    {
+      "id": 3,
+      "name": "商务模板",
+      "preview": "/images/templates/business.png",
+      "description": "专业的商务风格页面"
+    }
+  ]
+}

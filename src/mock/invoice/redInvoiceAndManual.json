@@ -1,0 +1,209 @@
+{
+  "redInvoiceRequests": [
+    {
+      "id": 1,
+      "originalInvoiceNo": "36220119001",
+      "originalOrderCode": "INV202508260001",
+      "redInvoiceNo": "36220119R001",
+      "redOrderCode": "RED202508270001",
+      "requestReason": "客户要求重开",
+      "requestType": "全额红冲",
+      "originalAmount": 1130.00,
+      "redAmount": 1130.00,
+      "buyerName": "江西高速公路有限公司",
+      "buyerTaxNo": "91360100123456789X",
+      "requestTime": "2025-08-27 09:00:00",
+      "approvalStatus": "已审批",
+      "approvalTime": "2025-08-27 09:15:00",
+      "approverName": "张经理",
+      "processStatus": "红冲成功",
+      "redInvoiceTime": "2025-08-27 09:20:00",
+      "operatorName": "李四",
+      "remarks": "客户信息变更需要重开"
+    },
+    {
+      "id": 2,
+      "originalInvoiceNo": "36220119002",
+      "originalOrderCode": "INV202508260002",
+      "redInvoiceNo": "",
+      "redOrderCode": "RED202508270002",
+      "requestReason": "金额有误",
+      "requestType": "部分红冲",
+      "originalAmount": 2825.00,
+      "redAmount": 500.00,
+      "buyerName": "中国石化销售股份有限公司江西分公司",
+      "buyerTaxNo": "91360100111222333Y",
+      "requestTime": "2025-08-27 10:30:00",
+      "approvalStatus": "待审批",
+      "approvalTime": null,
+      "approverName": null,
+      "processStatus": "待处理",
+      "redInvoiceTime": null,
+      "operatorName": "王五",
+      "remarks": "实际加油金额少于开票金额"
+    },
+    {
+      "id": 3,
+      "originalInvoiceNo": "36220119003",
+      "originalOrderCode": "INV202508260003",
+      "redInvoiceNo": "",
+      "redOrderCode": "RED202508270003",
+      "requestReason": "发票丢失重开",
+      "requestType": "全额红冲",
+      "originalAmount": 904.00,
+      "redAmount": 904.00,
+      "buyerName": "江西省交通运输厅",
+      "buyerTaxNo": "91360100444555666C",
+      "requestTime": "2025-08-27 11:45:00",
+      "approvalStatus": "已拒绝",
+      "approvalTime": "2025-08-27 12:00:00",
+      "approverName": "赵经理",
+      "processStatus": "拒绝处理",
+      "redInvoiceTime": null,
+      "operatorName": "孙七",
+      "remarks": "拒绝原因：发票丢失应通过其他途径处理"
+    }
+  ],
+  "manualInvoiceOrders": [
+    {
+      "id": 1,
+      "orderCode": "ORD202508270001",
+      "stationName": "昌北收费站服务区加油站",
+      "customerType": "企业",
+      "buyerName": "江西某贸易公司",
+      "buyerTaxNo": "91360100777888999H",
+      "buyerAddress": "江西省南昌市青山湖区",
+      "buyerPhone": "0791-88899999",
+      "totalAmount": 856.50,
+      "totalTax": 111.35,
+      "totalAmountWithTax": 967.85,
+      "orderTime": "2025-08-27 08:30:00",
+      "orderStatus": "已完成",
+      "paymentStatus": "已支付",
+      "canInvoice": true,
+      "hasInvoice": false,
+      "products": [
+        {
+          "productName": "92#汽油",
+          "quantity": 40.0,
+          "unit": "升",
+          "unitPrice": 7.85,
+          "amount": 314.00,
+          "taxRate": 0.13
+        },
+        {
+          "productName": "95#汽油", 
+          "quantity": 35.0,
+          "unit": "升",
+          "unitPrice": 8.35,
+          "amount": 292.25,
+          "taxRate": 0.13
+        },
+        {
+          "productName": "矿泉水",
+          "quantity": 10,
+          "unit": "瓶",
+          "unitPrice": 3.0,
+          "amount": 30.0,
+          "taxRate": 0.13
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "orderCode": "ORD202508270002",
+      "stationName": "德安服务区加油站",
+      "customerType": "个人",
+      "buyerName": "个人用户",
+      "buyerTaxNo": "",
+      "buyerAddress": "",
+      "buyerPhone": "",
+      "totalAmount": 628.00,
+      "totalTax": 81.64,
+      "totalAmountWithTax": 709.64,
+      "orderTime": "2025-08-27 09:15:00",
+      "orderStatus": "已完成",
+      "paymentStatus": "已支付",
+      "canInvoice": true,
+      "hasInvoice": false,
+      "products": [
+        {
+          "productName": "0#柴油",
+          "quantity": 80.0,
+          "unit": "升",
+          "unitPrice": 7.35,
+          "amount": 588.00,
+          "taxRate": 0.13
+        },
+        {
+          "productName": "车用尿素",
+          "quantity": 2,
+          "unit": "桶",
+          "unitPrice": 20.0,
+          "amount": 40.0,
+          "taxRate": 0.13
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "orderCode": "ORD202508270003",
+      "stationName": "庐山服务区加油站",
+      "customerType": "企业",
+      "buyerName": "江西物流有限公司",
+      "buyerTaxNo": "91360100555666777I",
+      "buyerAddress": "江西省九江市浔阳区长江大道",
+      "buyerPhone": "0792-83456789",
+      "totalAmount": 1256.80,
+      "totalTax": 163.38,
+      "totalAmountWithTax": 1420.18,
+      "orderTime": "2025-08-27 10:20:00",
+      "orderStatus": "已完成",
+      "paymentStatus": "已支付",
+      "canInvoice": true,
+      "hasInvoice": true,
+      "products": [
+        {
+          "productName": "92#汽油",
+          "quantity": 80.0,
+          "unit": "升",
+          "unitPrice": 7.85,
+          "amount": 628.00,
+          "taxRate": 0.13
+        },
+        {
+          "productName": "95#汽油",
+          "quantity": 75.0,
+          "unit": "升",
+          "unitPrice": 8.35,
+          "amount": 626.25,
+          "taxRate": 0.13
+        },
+        {
+          "productName": "便当",
+          "quantity": 1,
+          "unit": "份",
+          "unitPrice": 15.0,
+          "amount": 15.0,
+          "taxRate": 0.13
+        }
+      ]
+    }
+  ],
+  "approvalStatuses": {
+    "pending": "待审批",
+    "approved": "已审批",
+    "rejected": "已拒绝"
+  },
+  "processStatuses": {
+    "pending": "待处理",
+    "processing": "处理中",
+    "success": "红冲成功",
+    "failed": "红冲失败",
+    "rejected": "拒绝处理"
+  },
+  "redInvoiceTypes": {
+    "full": "全额红冲",
+    "partial": "部分红冲"
+  }
+}

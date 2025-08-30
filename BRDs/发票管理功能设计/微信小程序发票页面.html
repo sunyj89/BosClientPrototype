@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发票功能模块</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Icon库 (Lucide Icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 引入Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 自定义样式和动画 */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+        }
+
+        /* 页面容器样式，模拟iPhone 12 Pro尺寸 (390x844) */
+        .mobile-screen {
+            max-width: 390px;
+            height: 844px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 页面切换动画 */
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f8f9fa;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page.hidden {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .page.active {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+        
+        /* 从左侧滑入的动画 (用于后退) */
+        .page.slide-from-left {
+             transform: translateX(-100%);
+        }
+
+        /* 底部操作栏 */
+        .bottom-bar {
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* 自定义滚动条 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 20px;
+        }
+
+        /* 激活的Tab样式 */
+        .tab-active {
+            color: #3b82f6;
+            border-bottom: 2px solid #3b82f6;
+            font-weight: 600;
+        }
+        
+        /* 订单选中效果 */
+        .order-card.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        /* 模态框背景 */
+        .modal-overlay {
+            transition: opacity 0.2s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.2s ease-in-out;
+        }
+    </style>
+    
+    <!-- 主要的应用逻辑脚本，使用defer确保DOM解析完毕后执行 -->
+    <script defer>
+        // 使用DOMContentLoaded确保所有HTML元素都已加载
+        document.addEventListener('DOMContentLoaded', () => {
+            // ===================================================================
+            // ========================== Mock Data ==============================
+            // ===================================================================
+            const mockInvoices = [
+                { id: 1, type: '加油消费', amount: 300.00, date: '2025-08-26', status: 'success', statusText: '开票成功', company: '某某科技有限公司' },
+                { id: 2, type: '商品消费', amount: 158.50, date: '2025-08-25', status: 'processing', statusText: '开票中', company: '个人' },
+                { id: 3, type: '加油消费', amount: 250.00, date: '2025-08-24', status: 'failed', statusText: '开票失败', company: '某某网络公司' },
+                { id: 4, type: '商品消费', amount: 88.00, date: '2025-08-22', status: 'success', statusText: '开票成功', company: '个人' },
+                { id: 5, type: '加油消费', amount: 350.00, date: '2025-08-20', status: 'success', statusText: '开票成功', company: '某某科技有限公司' },
+            ];
+
+            const mockOrders = [
+                { id: 101, type: '加油消费', amount: 280.00, date: '2025-08-27', station: '总部加油站' },
+                { id: 102, type: '商品消费', amount: 65.50, date: '2025-08-26', station: '便利店' },
+                { id: 103, type: '加油消费', amount: 320.00, date: '2025-08-25', station: '城南加油站' },
+                { id: 104, type: '商品消费', amount: 12.00, date: '2025-08-25', station: '便利店' },
+                { id: 105, type: '商品消费', amount: 48.00, date: '2025-08-24', station: '便利店' },
+                { id: 106, type: '商品消费', amount: 110.00, date: '2025-08-23', station: '便利店' },
+                { id: 107, type: '加油消费', amount: 300.00, date: '2025-08-22', station: '总部加油站' },
+                { id: 108, type: '商品消费', amount: 25.00, date: '2025-08-21', station: '便利店' },
+            ];
+
+            const mockHeaders = [
+                { id: 1, type: 'company', name: '某某科技有限公司', taxId: '91440101MA59G12345', isDefault: true },
+                { id: 2, type: 'personal', name: '个人', taxId: '', isDefault: false },
+                { id: 3, type: 'company', name: '另一个网络公司', taxId: '91440300MA59H56789', isDefault: false },
+            ];
+
+            // ===================================================================
+            // ========================== UI Rendering ===========================
+            // ===================================================================
+            const recentInvoicesList = document.getElementById('recent-invoices-list');
+            const allInvoicesList = document.getElementById('all-invoices-list');
+            const orderList = document.getElementById('order-list');
+            const invoiceHeadersList = document.getElementById('invoice-headers-list');
+
+            const statusClasses = {
+                success: { bg: 'bg-green-100', text: 'text-green-700', icon: 'check-circle-2' },
+                processing: { bg: 'bg-blue-100', text: 'text-blue-700', icon: 'loader-2' },
+                failed: { bg: 'bg-red-100', text: 'text-red-700', icon: 'x-circle' },
+            };
+
+            function createInvoiceCard(invoice) {
+                const statusStyle = statusClasses[invoice.status];
+                return `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between transition-transform duration-200 active:scale-[0.98]">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full ${statusStyle.bg} ${statusStyle.text}">
+                                <i data-lucide="${statusStyle.icon}" class="${invoice.status === 'processing' ? 'animate-spin' : ''}"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">${invoice.type}</p>
+                                <p class="text-sm text-gray-500">${invoice.date}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                             <p class="font-bold text-lg text-gray-800">¥${invoice.amount.toFixed(2)}</p>
+                             <p class="text-xs px-2 py-0.5 rounded-full mt-1 ${statusStyle.bg} ${statusStyle.text}">${invoice.statusText}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function createOrderCard(order) {
+                return `
+                    <div class="order-card bg-white p-4 rounded-xl shadow-sm border-2 border-transparent flex items-center justify-between cursor-pointer" data-order-id="${order.id}" data-order-amount="${order.amount}">
+                        <div class="flex items-center space-x-4">
+                             <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-100 text-gray-500">
+                                <i data-lucide="${order.type === '加油消费' ? 'fuel' : 'shopping-basket'}"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">${order.type}</p>
+                                <p class="text-sm text-gray-500">${order.date} - ${order.station}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                             <p class="font-bold text-lg text-gray-800">¥${order.amount.toFixed(2)}</p>
+                             <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center transition-all duration-200 check-icon">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                             </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function createHeaderCard(header) {
+                return `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-semibold px-2 py-1 rounded-md ${header.type === 'company' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}">
+                                        ${header.type === 'company' ? '企业' : '个人'}
+                                    </span>
+                                    ${header.isDefault ? '<span class="text-xs font-semibold px-2 py-1 rounded-md bg-yellow-100 text-yellow-700">默认</span>' : ''}
+                                </div>
+                                <p class="font-bold text-lg text-gray-800 mt-2">${header.name}</p>
+                                ${header.taxId ? `<p class="text-sm text-gray-500 mt-1 font-mono">税号: ${header.taxId}</p>` : ''}
+                            </div>
+                            <button class="text-gray-400 hover:text-blue-500"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function renderContent() {
+                // 首页最近记录
+                recentInvoicesList.innerHTML = mockInvoices.slice(0, 3).map(createInvoiceCard).join('');
+                // 开票记录页
+                allInvoicesList.innerHTML = mockInvoices.map(createInvoiceCard).join('');
+                // 订单选择页
+                orderList.innerHTML = mockOrders.map(createOrderCard).join('');
+                // 抬头管理页
+                invoiceHeadersList.innerHTML = mockHeaders.map(createHeaderCard).join('');
+                
+                // 渲染图标
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            }
+
+            // ===================================================================
+            // ======================== Page Navigation ========================
+            // ===================================================================
+            const pages = document.querySelectorAll('.page');
+            const pageHistory = ['page-home']; // 页面历史栈
+
+            function showPage(pageId, isBack = false) {
+                const targetPage = document.getElementById(pageId);
+                if (!targetPage) return;
+
+                const currentPageId = pageHistory[pageHistory.length - 1];
+                const currentPage = document.getElementById(currentPageId);
+
+                if (isBack) {
+                    // 后退动画
+                    if (currentPage) {
+                        currentPage.classList.add('hidden');
+                        currentPage.classList.remove('active');
+                    }
+                    
+                    targetPage.classList.remove('slide-from-left');
+                    targetPage.classList.remove('hidden');
+                    targetPage.classList.add('active');
+                    
+                    pageHistory.pop();
+                } else {
+                    // 前进动画
+                    if (currentPage && currentPage !== targetPage) {
+                        currentPage.classList.remove('active');
+                        currentPage.classList.add('hidden');
+                    }
+                    targetPage.classList.remove('hidden');
+                    targetPage.classList.add('active');
+                    
+                    if (pageId !== currentPageId) {
+                        pageHistory.push(pageId);
+                    }
+                }
+            }
+
+            document.querySelectorAll('.quick-action-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetPageId = item.dataset.target;
+                    showPage(targetPageId);
+                });
+            });
+
+            document.querySelectorAll('.nav-back').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (pageHistory.length > 1) {
+                        const previousPageId = pageHistory[pageHistory.length - 2];
+                        showPage(previousPageId, true);
+                    }
+                });
+            });
+
+            // ===================================================================
+            // ===================== Order Selection Logic =======================
+            // ===================================================================
+            const selectedOrders = new Set();
+            const selectedCountEl = document.getElementById('selected-count');
+            const selectedAmountEl = document.getElementById('selected-amount');
+            const btnNextStep = document.getElementById('btn-next-step');
+
+            function updateSummary() {
+                let totalAmount = 0;
+                selectedOrders.forEach(orderId => {
+                    const orderCard = document.querySelector(`.order-card[data-order-id='${orderId}']`);
+                    if(orderCard) {
+                        totalAmount += parseFloat(orderCard.dataset.orderAmount);
+                    }
+                });
+
+                selectedCountEl.textContent = selectedOrders.size;
+                selectedAmountEl.textContent = totalAmount.toFixed(2);
+                
+                btnNextStep.disabled = selectedOrders.size === 0;
+            }
+
+            orderList.addEventListener('click', (e) => {
+                const card = e.target.closest('.order-card');
+                if (!card) return;
+
+                const orderId = card.dataset.orderId;
+                card.classList.toggle('selected');
+                const checkIcon = card.querySelector('.check-icon');
+                
+                if (card.classList.contains('selected')) {
+                    selectedOrders.add(orderId);
+                    checkIcon.classList.remove('border-gray-300');
+                    checkIcon.classList.add('bg-blue-500', 'border-blue-500');
+                } else {
+                    selectedOrders.delete(orderId);
+                    checkIcon.classList.add('border-gray-300');
+                    checkIcon.classList.remove('bg-blue-500', 'border-blue-500');
+                }
+                updateSummary();
+            });
+            
+            // ===================================================================
+            // ===================== Scan Code Simulation ========================
+            // ===================================================================
+            document.getElementById('simulate-scan-btn').addEventListener('click', () => {
+                const btn = document.getElementById('simulate-scan-btn');
+                btn.innerHTML = `<i data-lucide="loader-2" class="inline-block animate-spin mr-2"></i> 扫描中...`;
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    btn.classList.remove('bg-green-500');
+                    btn.classList.add('bg-blue-500');
+                    btn.innerHTML = `<i data-lucide="check-circle" class="inline-block mr-2"></i> 扫描成功！`;
+                    lucide.createIcons();
+
+                    setTimeout(() => {
+                        showPage('page-home', true);
+                        // 恢复按钮状态
+                        btn.classList.add('bg-green-500');
+                        btn.classList.remove('bg-blue-500');
+                        btn.innerHTML = '模拟扫描成功';
+                    }, 1500);
+
+                }, 1500);
+            });
+
+
+            // Initial Render
+            renderContent();
+        });
+    </script>
+</head>
+<body class="bg-gray-200 flex items-center justify-center min-h-screen">
+
+    <!-- 手机屏幕模拟容器 -->
+    <div id="app-container" class="mobile-screen bg-gray-50 rounded-3xl">
+
+        <!-- =================================================================== -->
+        <!-- ========================== 发票首页 (Home) ========================== -->
+        <!-- =================================================================== -->
+        <div id="page-home" class="page active">
+            <!-- 页面头部 -->
+            <header class="p-4 pt-8 bg-white/80 backdrop-blur-sm shadow-sm z-10">
+                <h1 class="text-2xl font-bold text-gray-800 text-center">我的发票</h1>
+            </header>
+
+            <!-- 页面内容 -->
+            <main class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+                <!-- 统计卡片区域 -->
+                <section class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white p-5 rounded-2xl shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <div class="text-center">
+                            <p class="text-sm opacity-80">累计开票 (张)</p>
+                            <p id="stats-total-count" class="text-2xl font-bold mt-1">128</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm opacity-80">累计金额 (元)</p>
+                            <p id="stats-total-amount" class="text-2xl font-bold mt-1">35,680.50</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm opacity-80">本月开票 (张)</p>
+                            <p id="stats-this-month-count" class="text-2xl font-bold mt-1">15</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 快捷操作区域 -->
+                <section>
+                    <div class="grid grid-cols-4 gap-4 text-center">
+                        <div class="quick-action-item cursor-pointer" data-target="page-order-select">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-14 h-14 flex items-center justify-center mx-auto shadow-sm transition-transform duration-200 hover:scale-105">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <p class="text-sm text-gray-700 mt-2">自助开票</p>
+                        </div>
+                        <div class="quick-action-item cursor-pointer" data-target="page-scan-code">
+                            <div class="bg-green-100 text-green-600 rounded-full w-14 h-14 flex items-center justify-center mx-auto shadow-sm transition-transform duration-200 hover:scale-105">
+                                <i data-lucide="scan-line"></i>
+                            </div>
+                            <p class="text-sm text-gray-700 mt-2">扫码开票</p>
+                        </div>
+                        <div class="quick-action-item cursor-pointer" data-target="page-records">
+                            <div class="bg-purple-100 text-purple-600 rounded-full w-14 h-14 flex items-center justify-center mx-auto shadow-sm transition-transform duration-200 hover:scale-105">
+                                <i data-lucide="history"></i>
+                            </div>
+                            <p class="text-sm text-gray-700 mt-2">开票记录</p>
+                        </div>
+                        <div class="quick-action-item cursor-pointer" data-target="page-header-manage">
+                            <div class="bg-orange-100 text-orange-600 rounded-full w-14 h-14 flex items-center justify-center mx-auto shadow-sm transition-transform duration-200 hover:scale-105">
+                                <i data-lucide="contact"></i>
+                            </div>
+                            <p class="text-sm text-gray-700 mt-2">抬头管理</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 最近开票记录 -->
+                <section>
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-gray-800">最近开票</h2>
+                        <button class="text-sm text-blue-500 font-medium quick-action-item" data-target="page-records">查看更多 &gt;</button>
+                    </div>
+                    <div id="recent-invoices-list" class="space-y-3">
+                        <!-- JS动态渲染 -->
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- ======================== 订单选择页 (Order Select) ======================== -->
+        <!-- =================================================================== -->
+        <div id="page-order-select" class="page hidden">
+            <header class="p-4 pt-8 bg-white flex items-center space-x-4 shadow-sm z-10">
+                <button class="nav-back"><i data-lucide="arrow-left"></i></button>
+                <h1 class="text-xl font-bold text-gray-800">选择开票订单</h1>
+            </header>
+            
+            <!-- 订单类型Tabs -->
+            <nav class="bg-white border-b">
+                <div class="flex space-x-6 px-4">
+                    <button class="py-3 text-sm font-medium text-gray-500 tab-active">全部 (8)</button>
+                    <button class="py-3 text-sm font-medium text-gray-500">加油 (3)</button>
+                    <button class="py-3 text-sm font-medium text-gray-500">商品 (5)</button>
+                </div>
+            </nav>
+
+            <main class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3">
+                <div id="order-list">
+                    <!-- JS动态渲染 -->
+                </div>
+            </main>
+
+            <!-- 底部汇总和操作栏 -->
+            <footer class="bottom-bar bg-white p-4 pt-3 border-t flex justify-between items-center">
+                <div>
+                    <p class="text-sm text-gray-600">已选 <span id="selected-count" class="font-bold text-blue-600">0</span> 单</p>
+                    <p class="text-lg font-bold text-gray-800">合计: ¥<span id="selected-amount">0.00</span></p>
+                </div>
+                <button id="btn-next-step" class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform duration-200 active:scale-95 disabled:bg-gray-300" disabled>
+                    下一步
+                </button>
+            </footer>
+        </div>
+        
+        <!-- =================================================================== -->
+        <!-- ======================== 扫码开票页 (Scan Code) ======================== -->
+        <!-- =================================================================== -->
+        <div id="page-scan-code" class="page hidden">
+            <header class="p-4 pt-8 bg-white flex items-center space-x-4 shadow-sm z-10">
+                <button class="nav-back"><i data-lucide="arrow-left"></i></button>
+                <h1 class="text-xl font-bold text-gray-800">扫码开票</h1>
+            </header>
+            <main class="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6">
+                 <div class="w-48 h-48 bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400">
+                    <i data-lucide="qr-code" class="w-24 h-24"></i>
+                 </div>
+                 <h2 class="text-lg font-semibold text-gray-800">请扫描收银小票上的二维码</h2>
+                 <p class="text-gray-500">将二维码放入框内，即可自动扫描并获取订单信息进行开票。</p>
+                 <button id="simulate-scan-btn" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-transform duration-200 active:scale-95">
+                    模拟扫描成功
+                 </button>
+            </main>
+        </div>
+        
+        <!-- =================================================================== -->
+        <!-- ======================== 开票记录页 (Records) ======================= -->
+        <!-- =================================================================== -->
+        <div id="page-records" class="page hidden">
+            <header class="p-4 pt-8 bg-white flex items-center space-x-4 shadow-sm z-10">
+                <button class="nav-back"><i data-lucide="arrow-left"></i></button>
+                <h1 class="text-xl font-bold text-gray-800">开票记录</h1>
+            </header>
+            <main class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-3">
+                <div id="all-invoices-list">
+                    <!-- JS动态渲染 -->
+                </div>
+            </main>
+        </div>
+
+        <!-- =================================================================== -->
+        <!-- ======================== 抬头管理页 (Header Manage) ================== -->
+        <!-- =================================================================== -->
+        <div id="page-header-manage" class="page hidden">
+            <header class="p-4 pt-8 bg-white flex items-center space-x-4 shadow-sm z-10">
+                <button class="nav-back"><i data-lucide="arrow-left"></i></button>
+                <h1 class="text-xl font-bold text-gray-800">抬头管理</h1>
+            </header>
+            <main class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
+                <div id="invoice-headers-list">
+                    <!-- JS动态渲染 -->
+                </div>
+            </main>
+            <footer class="p-4">
+                 <button class="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-transform duration-200 active:scale-95">
+                    <i data-lucide="plus" class="inline-block -mt-1 mr-2 w-5 h-5"></i>
+                    新增发票抬头
+                 </button>
+            </footer>
+        </div>
+
+    </div>
+</body>
+</html>
