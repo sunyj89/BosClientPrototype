@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿import React from 'react';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import React from 'react';
 import { Layout, Menu, Tooltip } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -45,6 +45,7 @@ import {
   ShareAltOutlined,
   TagOutlined,
   FileTextOutlined,
+  InboxOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -202,11 +203,6 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
         },
         {
-          key: 'goods_inventory',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="库存管理" link="/goods/inventory" />,
-        },
-        {
           key: 'goods_price',
           icon: <DollarOutlined />,
           label: <MenuItemLabel text="价格调整" link="/goods/price" />,
@@ -245,6 +241,33 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="油品损耗管理" link="/purchase/oil-loss" />,
         },
 
+      ],
+    },
+    {
+      key: 'inventory',
+      icon: <InboxOutlined />,
+      label: '库存管理',
+      children: [
+        {
+          key: 'inventory_oil_inventory',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="油品库存管理" link="/inventory/oil-inventory" />,
+        },
+        {
+          key: 'inventory_oil_transfer',
+          icon: <SwapOutlined />,
+          label: <MenuItemLabel text="油品调拨" link="/inventory/oil-transfer" />,
+        },
+        {
+          key: 'inventory_goods_inventory',
+          icon: <StockOutlined />,
+          label: <MenuItemLabel text="非油品库存管理" link="/inventory/goods-inventory" />,
+        },
+        {
+          key: 'inventory_goods_transfer',
+          icon: <BranchesOutlined />,
+          label: <MenuItemLabel text="非油品调拨" link="/inventory/goods-transfer" />,
+        },
       ],
     },
     {

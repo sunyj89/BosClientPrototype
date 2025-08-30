@@ -9,19 +9,15 @@ import {
   Tag,
   Modal,
   Form,
-  Upload,
   message,
   Row,
   Col,
-  Descriptions,
   InputNumber,
   TreeSelect,
-  Radio,
   Tooltip,
-  Spin,
   Switch,
-  Checkbox,
-  DatePicker
+  Popconfirm,
+  Checkbox
 } from 'antd';
 import {
   PlusOutlined,
@@ -30,12 +26,8 @@ import {
   EyeOutlined,
   DeleteOutlined,
   UploadOutlined,
-  CheckOutlined,
-  CloseOutlined,
-  ExclamationCircleOutlined,
-  SendOutlined,
-  StopOutlined,
-  PlayCircleOutlined
+  DownloadOutlined,
+  ReloadOutlined
 } from '@ant-design/icons';
 
 // 导入mock数据
@@ -44,7 +36,6 @@ import ProductViewModal from '../shared/ProductViewModal';
 import './index.css';
 
 const { Option } = Select;
-const { TextArea } = Input;
 
 const ProductMaintenance = () => {
   const [loading, setLoading] = useState(false);
@@ -56,6 +47,8 @@ const ProductMaintenance = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [dataSource, setDataSource] = useState([]);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
+  const [unitList, setUnitList] = useState([]); // 计量单位列表
+  const [baseUnit, setBaseUnit] = useState(''); // 基本单位
 
   useEffect(() => {
     // 从mock数据初始化
@@ -125,7 +118,7 @@ const ProductMaintenance = () => {
     }
   ];
 
-  // 单位选项
+  // 单位选项（保留作为参考）
   const unitOptions = [
     { value: 'piece', label: '个' },
     { value: 'bottle', label: '瓶' },
@@ -140,25 +133,6 @@ const ProductMaintenance = () => {
     { value: 'liter', label: '升' },
     { value: 'ml', label: '毫升' }
   ];
-
-  // 重量单位选项
-  const weightUnitOptions = [
-    { value: 'kg', label: '千克' },
-    { value: 'g', label: '克' },
-    { value: 'ton', label: '吨' }
-  ];
-
-  // 体积单位选项
-  const volumeUnitOptions = [
-    { value: 'cbm', label: '立方米' },
-    { value: 'liter', label: '升' },
-    { value: 'ml', label: '毫升' }
-  ];
-
-  // 判断商品是否可以编辑
-  const isEditable = (status) => {
-    return status === 'DRAFT' || status === 'INACTIVE';
-  };
 
   const columns = [
     {
@@ -258,13 +232,24 @@ const ProductMaintenance = () => {
       render: (status) => {
         const statusConfig = {
           DRAFT: { color: 'default', text: '草稿' },
-          PENDING: { color: 'warning', text: '待审核' },
-          ACTIVE: { color: 'success', text: '生效' },
-          INACTIVE: { color: 'error', text: '停用' }
+          ACTIVE: { color: 'success', text: '生效' }
         };
         const config = statusConfig[status] || statusConfig.DRAFT;
         return <Tag color={config.color}>{config.text}</Tag>;
       }
+    },
+    {
+      title: '状态开关',
+      key: 'statusSwitch',
+      width: 100,
+      render: (_, record) => (
+        <Switch
+          checked={record.status === 'ACTIVE'}
+          checkedChildren="开启"
+          unCheckedChildren="关闭"
+          onChange={(checked) => handleStatusChange(record, checked)}
+        />
+      )
     },
     {
       title: '创建信息',
@@ -282,11 +267,9 @@ const ProductMaintenance = () => {
     {
       title: '操作',
       key: 'action',
-      width: 200,
+      width: 160,
       fixed: 'right',
       render: (_, record) => {
-        const editable = isEditable(record.status);
-        
         return (
           <Space size="small">
             <Button
@@ -299,90 +282,35 @@ const ProductMaintenance = () => {
               查看
             </Button>
             
-            {editable ? (
-              <Button
-                type="primary"
-                size="small"
-                icon={<EditOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleEdit(record)}
-              >
-                编辑
-              </Button>
-            ) : (
-              <Tooltip title="只有草稿和停用状态的商品可以编辑">
-                <Button
-                  size="small"
-                  icon={<EditOutlined />}
-                  style={{ borderRadius: '2px' }}
-                  disabled
-                >
-                  编辑
-                </Button>
-              </Tooltip>
-            )}
+            <Button
+              type="primary"
+              size="small"
+              icon={<EditOutlined />}
+              style={{ borderRadius: '2px' }}
+              onClick={() => handleEdit(record)}
+            >
+              编辑
+            </Button>
 
-            {record.status === 'PENDING' && (
+            <Popconfirm
+              title="确定要删除这个SKU吗？"
+              onConfirm={() => handleDelete(record)}
+              okText="确定"
+              cancelText="取消"
+            >
               <Button
                 type="primary"
                 size="small"
-                icon={<CheckOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleApprove(record)}
-              >
-                审核
-              </Button>
-            )}
-
-            {record.status === 'DRAFT' && (
-              <Button
-                type="primary"
-                size="small"
-                icon={<SendOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleSubmitApproval(record)}
-              >
-                提交审核
-              </Button>
-            )}
-
-            {record.status === 'ACTIVE' && (
-              <Button
-                type="primary"
-                size="small"
-                danger
-                icon={<StopOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleDeactivate(record)}
-              >
-                停用
-              </Button>
-            )}
-
-            {record.status === 'INACTIVE' && (
-              <Button
-                type="primary"
-                size="small"
-                icon={<PlayCircleOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleActivate(record)}
-              >
-                激活
-              </Button>
-            )}
-
-            {(record.status === 'DRAFT' || record.status === 'INACTIVE') && (
-              <Button
-                type="primary"
-                size="small"
-                danger
                 icon={<DeleteOutlined />}
-                style={{ borderRadius: '2px' }}
-                onClick={() => handleDelete(record)}
+                style={{ 
+                  borderRadius: '2px',
+                  backgroundColor: '#ff4d4f',
+                  borderColor: '#ff4d4f'
+                }}
               >
                 删除
               </Button>
-            )}
+            </Popconfirm>
           </Space>
         );
       }
@@ -398,14 +326,15 @@ const ProductMaintenance = () => {
     setModalType('create');
     setCurrentRecord(null);
     productForm.resetFields();
+    setUnitList([]); // 清空计量单位列表
+    setBaseUnit(''); // 清空基本单位
     // 设置默认值
     productForm.setFieldsValue({
-      status: 'DRAFT',
+      status: false, // 开关默认为关闭状态（DRAFT）
       current_input_tax_rate: 13,
       current_output_tax_rate: 13,
       min_stock: 0,
-      base_unit_id: 'piece',
-      logistics_type: 'weight'
+      base_unit: ''
     });
     setModalVisible(true);
   };
@@ -413,7 +342,55 @@ const ProductMaintenance = () => {
   const handleEdit = (record) => {
     setModalType('edit');
     setCurrentRecord(record);
-    productForm.setFieldsValue(record);
+    
+    // 将状态转换为开关值
+    const formData = {
+      ...record,
+      status: record.status === 'ACTIVE' // 将状态转换为开关的checked值
+    };
+    
+    productForm.setFieldsValue(formData);
+    
+    // 加载计量单位数据（模拟数据，实际项目中从 API 获取）
+    if (record.base_unit_id) {
+      const baseUnitName = unitOptions.find(u => u.value === record.base_unit_id)?.label || record.base_unit_id;
+      setBaseUnit(baseUnitName);
+      productForm.setFieldsValue({ base_unit: baseUnitName });
+      
+      const mockUnits = [
+        {
+          id: 'base_unit',
+          unitName: baseUnitName,
+          conversionFactor: 1,
+          barcode: record.barcode || '', // 从记录中加载条码
+          salePrice: record.default_sale_price || 0, // 从记录中加载销售价格
+          isBase: true,
+          isSalesDefault: true,
+          isPurchaseDefault: false
+        }
+      ];
+      
+      // 如果有辅助单位，也加载
+      if (record.aux_unit_id && record.conversion_rate) {
+        const auxUnitName = unitOptions.find(u => u.value === record.aux_unit_id)?.label || record.aux_unit_id;
+        mockUnits.push({
+          id: 'aux_unit',
+          unitName: auxUnitName,
+          conversionFactor: record.conversion_rate,
+          barcode: '', // 辅助单位的条码初始化为空
+          salePrice: 0, // 辅助单位的销售价格初始化为0
+          isBase: false,
+          isSalesDefault: false,
+          isPurchaseDefault: true
+        });
+      }
+      
+      setUnitList(mockUnits);
+    } else {
+      setUnitList([]);
+      setBaseUnit('');
+    }
+    
     setModalVisible(true);
   };
 
@@ -428,63 +405,95 @@ const ProductMaintenance = () => {
   };
 
   const handleDelete = (record) => {
+    message.success('删除成功');
+    // 实际项目中这里会调用删除API
+  };
+
+  // 状态切换处理函数
+  const handleStatusChange = (record, checked) => {
+    const newStatus = checked ? 'ACTIVE' : 'DRAFT';
+    const statusText = checked ? '开启' : '关闭';
+    
     Modal.confirm({
-      title: '确认删除',
-      icon: <ExclamationCircleOutlined />,
-      content: `确定要删除SKU "${record.sku_name}" 吗？`,
+      title: `确认${statusText}商品`,
+      content: `确定要${statusText}商品“${record.sku_name}”吗？`,
       onOk() {
-        message.success('删除成功');
-        // 实际项目中这里会调用删除API
-      }
+        // 实际项目中这里会调用API更新状态
+        message.success(`商品状态已${statusText}`);
+        
+        // 更新本地数据（模拟）
+        setDataSource(prev => prev.map(item => 
+          item.id === record.id ? { ...item, status: newStatus } : item
+        ));
+      },
+      okText: '确认',
+      cancelText: '取消'
     });
   };
 
-  const handleApprove = (record) => {
-    Modal.confirm({
-      title: '审核商品',
-      icon: <CheckOutlined />,
-      content: `确认审核通过SKU "${record.sku_name}" 吗？`,
-      onOk() {
-        message.success('审核通过');
-        // 实际项目中这里会调用审核API
+  // 计量单位管理相关函数
+  const handleAddUnit = () => {
+    const newUnit = {
+      id: `unit_${Date.now()}`,
+      unitName: '',
+      conversionFactor: 1,
+      barcode: '', // 新增商品条码字段
+      salePrice: 0, // 新增销售价格字段
+      isBase: false,
+      isSalesDefault: false,
+      isPurchaseDefault: false
+    };
+    setUnitList(prev => [...prev, newUnit]);
+  };
+
+  const handleUnitChange = (id, field, value) => {
+    setUnitList(prev => prev.map(item => {
+      if (item.id === id) {
+        return { ...item, [field]: value };
       }
+      return item;
+    }));
+  };
+
+  const handleUnitTypeChange = (id, type, checked) => {
+    setUnitList(prev => {
+      if (type === 'sales') {
+        if (checked) {
+          // 只能有一个默认销售单位
+          return prev.map(unit => ({
+            ...unit,
+            isSalesDefault: unit.id === id
+          }));
+        } else {
+          return prev.map(unit => {
+            if (unit.id === id) {
+              return { ...unit, isSalesDefault: false };
+            }
+            return unit;
+          });
+        }
+      } else if (type === 'purchase') {
+        if (checked) {
+          // 只能有一个默认采购单位
+          return prev.map(unit => ({
+            ...unit,
+            isPurchaseDefault: unit.id === id
+          }));
+        } else {
+          return prev.map(unit => {
+            if (unit.id === id) {
+              return { ...unit, isPurchaseDefault: false };
+            }
+            return unit;
+          });
+        }
+      }
+      return prev;
     });
   };
 
-  const handleSubmitApproval = (record) => {
-    Modal.confirm({
-      title: '提交审核',
-      icon: <SendOutlined />,
-      content: `确认提交SKU "${record.sku_name}" 进行审核吗？`,
-      onOk() {
-        message.success('已提交审核');
-        // 实际项目中这里会调用API
-      }
-    });
-  };
-
-  const handleDeactivate = (record) => {
-    Modal.confirm({
-      title: '停用商品',
-      icon: <StopOutlined />,
-      content: `确认停用SKU "${record.sku_name}" 吗？`,
-      onOk() {
-        message.success('商品已停用');
-        // 实际项目中这里会调用API
-      }
-    });
-  };
-
-  const handleActivate = (record) => {
-    Modal.confirm({
-      title: '激活商品',
-      icon: <PlayCircleOutlined />,
-      content: `确认激活SKU "${record.sku_name}" 吗？`,
-      onOk() {
-        message.success('商品已激活');
-        // 实际项目中这里会调用API
-      }
-    });
+  const handleDeleteUnit = (id) => {
+    setUnitList(prev => prev.filter(item => item.id !== id));
   };
 
   const handleModalOk = () => {
@@ -512,7 +521,13 @@ const ProductMaintenance = () => {
   };
 
   const submitForm = (values) => {
-    console.log('表单数据:', values);
+    // 将开关状态转换为实际状态值
+    const submitData = {
+      ...values,
+      status: values.status ? 'ACTIVE' : 'DRAFT'
+    };
+    
+    console.log('表单数据:', submitData);
     setModalVisible(false);
     message.success(`${modalType === 'create' ? '创建' : '编辑'}成功`);
     // 实际项目中这里会调用API
@@ -542,142 +557,96 @@ const ProductMaintenance = () => {
     message.success('模板下载完成');
   };
 
-  const handleBatchSubmitApproval = () => {
-    const draftItems = dataSource.filter(item => 
-      selectedRowKeys.includes(item.id) && item.status === 'DRAFT'
-    );
-    
-    if (draftItems.length === 0) {
-      message.warning('只能提交状态为草稿的商品');
-      return;
-    }
-
-    Modal.confirm({
-      title: '批量提交审核',
-      icon: <SendOutlined />,
-      content: `确认提交 ${draftItems.length} 个草稿状态的商品进行审核吗？`,
-      onOk() {
-        message.success(`已批量提交 ${draftItems.length} 个商品进行审核`);
-        setSelectedRowKeys([]);
-        // 实际项目中这里会调用批量提交审核API
-      }
-    });
-  };
-
   const rowSelection = {
     selectedRowKeys,
     onChange: setSelectedRowKeys,
   };
 
   return (
-    <div className="product-maintenance-container">
-      <Card>
-        <Spin spinning={loading}>
-          {/* 搜索筛选区域 */}
-          <Card style={{ marginBottom: 16 }}>
-            <Form
-              form={searchForm}
-              layout="inline"
-              onFinish={handleSearch}
-            >
+    <div>
+      {/* 筛选区域 */}
+      <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+        <Form form={searchForm} onFinish={handleSearch}>
+          {/* 第一行：筛选条件 */}
+          <Row gutter={16} style={{ marginBottom: 16 }}>
+            <Col span={5}>
               <Form.Item name="keyword" label="关键词">
-                <Input placeholder="SKU名称/编码/条码" style={{ width: 200 }} />
+                <Input placeholder="SKU名称/编码/条码" style={{ width: '100%' }} allowClear />
               </Form.Item>
+            </Col>
+            <Col span={4}>
               <Form.Item name="category" label="商品分类">
                 <TreeSelect
-                  style={{ width: 200 }}
+                  style={{ width: '100%' }}
                   placeholder="请选择分类"
                   treeData={categoryTreeData}
                   allowClear
                 />
               </Form.Item>
+            </Col>
+            <Col span={4}>
               <Form.Item name="status" label="状态">
-                <Select placeholder="请选择状态" style={{ width: 120 }} allowClear>
+                <Select placeholder="请选择状态" style={{ width: '100%' }} allowClear>
                   <Option value="DRAFT">草稿</Option>
-                  <Option value="PENDING">待审核</Option>
                   <Option value="ACTIVE">生效</Option>
-                  <Option value="INACTIVE">停用</Option>
                 </Select>
               </Form.Item>
-
-              <Form.Item>
-                <Space>
-                  <Button type="primary" htmlType="submit" icon={<SearchOutlined />} style={{ borderRadius: '2px' }}>
-                    查询
-                  </Button>
-                  <Button onClick={() => searchForm.resetFields()} style={{ borderRadius: '2px' }}>
-                    重置
-                  </Button>
-                </Space>
+            </Col>
+            <Col span={4}>
+              <Form.Item name="unit" label="单位">
+                <Select placeholder="请选择单位" style={{ width: '100%' }} allowClear>
+                  {unitOptions.map(unit => (
+                    <Option key={unit.value} value={unit.value}>{unit.label}</Option>
+                  ))}
+                </Select>
               </Form.Item>
-            </Form>
-          </Card>
+            </Col>
+            <Col span={7} style={{ textAlign: 'right' }}>
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />} style={{ borderRadius: '2px' }}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={() => searchForm.resetFields()} style={{ borderRadius: '2px' }}>
+                  重置
+                </Button>
+              </Space>
+            </Col>
+          </Row>
+          
+          {/* 第二行：功能按钮 */}
+          <Row gutter={16}>
+            <Col span={24}>
+              <Space>
+                <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate} style={{ borderRadius: '2px' }}>
+                  新建SKU
+                </Button>
+                <Button icon={<UploadOutlined />} onClick={handleBatchImport} style={{ borderRadius: '2px' }}>
+                  批量导入
+                </Button>
+                <Button type="link" icon={<DownloadOutlined />} onClick={handleDownloadTemplate} style={{ borderRadius: '2px' }}>
+                  下载模板
+                </Button>
+              </Space>
+            </Col>
+          </Row>
+        </Form>
+      </div>
 
-          {/* 操作工具栏 */}
-          <Card style={{ marginBottom: 16 }}>
-            <Row justify="space-between" align="middle">
-              <Col>
-                <Space>
-                  <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate} style={{ borderRadius: '2px' }}>
-                    新建SKU
-                  </Button>
-                  <Button 
-                    type="default" 
-                    icon={<UploadOutlined />} 
-                    onClick={handleBatchImport}
-                    style={{ borderRadius: '2px' }}
-                  >
-                    批量导入
-                  </Button>
-                  <Button 
-                    type="default" 
-                    onClick={handleDownloadTemplate}
-                    style={{ borderRadius: '2px' }}
-                  >
-                    下载模板
-                  </Button>
-                  <Button 
-                    type="primary"
-                    ghost
-                    icon={<SendOutlined />}
-                    disabled={selectedRowKeys.length === 0}
-                    onClick={handleBatchSubmitApproval}
-                    style={{ borderRadius: '2px' }}
-                  >
-                    批量提交审核
-                  </Button>
-                </Space>
-              </Col>
-              <Col>
-                <Space>
-                  <span style={{ color: '#666' }}>
-                    已选择 {selectedRowKeys.length} 项
-                  </span>
-                </Space>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* 商品列表 */}
-          <Card>
-            <Table
-              columns={columns}
-              dataSource={dataSource}
-              rowKey="id"
-              loading={loading}
-              rowSelection={rowSelection}
-              scroll={{ x: 1500 }}
-              pagination={{
-                total: dataSource.length,
-                pageSize: 10,
-                showSizeChanger: true,
-                showQuickJumper: true,
-                showTotal: (total) => `共 ${total} 条记录`
-              }}
-            />
-          </Card>
-        </Spin>
-      </Card>
+      {/* 商品列表 */}
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        rowKey="id"
+        loading={loading}
+        rowSelection={rowSelection}
+        scroll={{ x: 'max-content' }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }}
+      />
 
       {/* 新建/编辑商品弹窗 */}
       <Modal
@@ -728,7 +697,7 @@ const ProductMaintenance = () => {
             </Form.Item>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="barcode"
                   label="条形码"
@@ -736,7 +705,7 @@ const ProductMaintenance = () => {
                   <Input placeholder="请输入条形码" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="category"
                   label="商品分类"
@@ -748,10 +717,7 @@ const ProductMaintenance = () => {
                   />
                 </Form.Item>
               </Col>
-            </Row>
-
-            <Row gutter={16}>
-              <Col span={12}>
+              <Col span={8}>
                 <Form.Item
                   name="specifications"
                   label="规格描述"
@@ -759,6 +725,9 @@ const ProductMaintenance = () => {
                   <Input placeholder="如：颜色:原色钛金属; 容量:256GB" />
                 </Form.Item>
               </Col>
+            </Row>
+
+            <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
                   name="default_sale_price"
@@ -773,150 +742,220 @@ const ProductMaintenance = () => {
                   />
                 </Form.Item>
               </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="status"
+                  label="商品状态"
+                  valuePropName="checked"
+                >
+                  <Switch 
+                    checkedChildren="开启"
+                    unCheckedChildren="关闭"
+                    onChange={(checked) => {
+                      productForm.setFieldsValue({ 
+                        status: checked ? 'ACTIVE' : 'DRAFT' 
+                      });
+                    }}
+                  />
+                </Form.Item>
+              </Col>
             </Row>
           </Card>
 
-          {/* 单位体系 */}
+          {/* 计量单位管理 */}
           <Card 
-            title="单位体系" 
+            title="计量单位" 
             size="small" 
             style={{ marginBottom: 16 }}
             headStyle={{ backgroundColor: '#f5f5f5', fontSize: '14px', fontWeight: 'bold' }}
           >
-            <Row gutter={16}>
+            <Row gutter={16} style={{ marginBottom: 16 }}>
               <Col span={12}>
                 <Form.Item
-                  name="base_unit_id"
-                  label="基本/库存单位"
-                  rules={[{ required: true, message: '请选择基本单位' }]}
+                  name="base_unit"
+                  label="基本单位/库存单位"
+                  rules={[{ required: true, message: '请输入基本单位' }]}
+                  help="所有库存都以此为准，设定后不可更改"
                 >
-                  <Select placeholder="请选择基本单位">
-                    {unitOptions.map(unit => (
-                      <Option key={unit.value} value={unit.value}>{unit.label}</Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="aux_unit_id"
-                  label="辅助单位"
-                >
-                  <Select placeholder="请选择辅助单位" allowClear>
-                    {unitOptions.map(unit => (
-                      <Option key={unit.value} value={unit.value}>{unit.label}</Option>
-                    ))}
-                  </Select>
+                  <Input 
+                    placeholder="请输入基本单位，如：瓶、个、克" 
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setBaseUnit(value);
+                      if (value) {
+                        // 自动创建基本单位记录
+                        const baseUnitRecord = {
+                          id: 'base_unit',
+                          unitName: value,
+                          conversionFactor: 1,
+                          barcode: '', // 新增商品条码字段
+                          salePrice: 0, // 新增销售价格字段
+                          isBase: true,
+                          isSalesDefault: true,
+                          isPurchaseDefault: false
+                        };
+                        setUnitList(prev => {
+                          const filtered = prev.filter(item => item.id !== 'base_unit');
+                          return [baseUnitRecord, ...filtered];
+                        });
+                      } else {
+                        setUnitList(prev => prev.filter(item => item.id !== 'base_unit'));
+                      }
+                    }}
+                  />
                 </Form.Item>
               </Col>
             </Row>
 
-            <Form.Item
-              name="conversion_rate"
-              label="固定单位换算比率"
-              help="仅用于固定转换，如 1箱 = 24个"
-            >
-              <InputNumber
-                style={{ width: '100%' }}
-                placeholder="请输入换算比率"
-                min={0}
-                precision={3}
+            {/* 单位列表 */}
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                <span style={{ fontWeight: 500 }}>单位列表</span>
+                <Button 
+                  type="primary" 
+                  size="small" 
+                  icon={<PlusOutlined />}
+                  onClick={handleAddUnit}
+                  disabled={!baseUnit}
+                >
+                  添加新单位
+                </Button>
+              </div>
+              
+              <Table
+                size="small"
+                dataSource={unitList}
+                rowKey="id"
+                pagination={false}
+                columns={[
+                  {
+                    title: '单位名称',
+                    dataIndex: 'unitName',
+                    key: 'unitName',
+                    width: 120,
+                    render: (text, record) => (
+                      record.isBase ? (
+                        <span style={{ fontWeight: 500 }}>{text} (基本单位)</span>
+                      ) : (
+                        <Input 
+                          size="small"
+                          value={text}
+                          placeholder="如：箱、打、件"
+                          onChange={(e) => handleUnitChange(record.id, 'unitName', e.target.value)}
+                        />
+                      )
+                    )
+                  },
+                  {
+                    title: '换算关系',
+                    key: 'conversion',
+                    width: 200,
+                    render: (_, record) => (
+                      record.isBase ? (
+                        <span>1 {record.unitName} = 1 基本单位</span>
+                      ) : (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span>1 {record.unitName || '新单位'} = </span>
+                          <InputNumber
+                            size="small"
+                            style={{ width: 80, margin: '0 4px' }}
+                            value={record.conversionFactor}
+                            min={0.001}
+                            precision={3}
+                            onChange={(value) => handleUnitChange(record.id, 'conversionFactor', value)}
+                          />
+                          <span>{baseUnit}</span>
+                        </div>
+                      )
+                    )
+                  },
+                  {
+                    title: '商品条码(Barcode)',
+                    key: 'barcode',
+                    width: 150,
+                    render: (_, record) => (
+                      record.isBase ? (
+                        <span style={{ color: '#666', fontSize: '13px' }}>
+                          {productForm.getFieldValue('barcode') || '未设置'}
+                          <div style={{ fontSize: '11px', color: '#999' }}>来自基本信息</div>
+                        </span>
+                      ) : (
+                        <Input 
+                          size="small"
+                          value={record.barcode || ''}
+                          placeholder="请输入商品条码"
+                          onChange={(e) => handleUnitChange(record.id, 'barcode', e.target.value)}
+                        />
+                      )
+                    )
+                  },
+                  {
+                    title: '销售价格(元)',
+                    key: 'salePrice',
+                    width: 120,
+                    render: (_, record) => (
+                      record.isBase ? (
+                        <span style={{ color: '#666', fontSize: '13px' }}>
+                          ¥{(productForm.getFieldValue('default_sale_price') || 0).toFixed(2)}
+                          <div style={{ fontSize: '11px', color: '#999' }}>来自基本信息</div>
+                        </span>
+                      ) : (
+                        <InputNumber
+                          size="small"
+                          style={{ width: '100%' }}
+                          value={record.salePrice}
+                          placeholder="0.00"
+                          min={0}
+                          precision={2}
+                          onChange={(value) => handleUnitChange(record.id, 'salePrice', value)}
+                        />
+                      )
+                    )
+                  },
+                  {
+                    title: '单位类型',
+                    key: 'type',
+                    width: 200,
+                    render: (_, record) => (
+                      <div>
+                        <Checkbox
+                          checked={record.isSalesDefault}
+                          disabled={record.isBase}
+                          onChange={(e) => handleUnitTypeChange(record.id, 'sales', e.target.checked)}
+                        >
+                          默认销售单位
+                        </Checkbox>
+                        <br />
+                        <Checkbox
+                          checked={record.isPurchaseDefault}
+                          onChange={(e) => handleUnitTypeChange(record.id, 'purchase', e.target.checked)}
+                        >
+                          默认采购单位
+                        </Checkbox>
+                      </div>
+                    )
+                  },
+                  {
+                    title: '操作',
+                    key: 'action',
+                    width: 60,
+                    render: (_, record) => (
+                      !record.isBase && (
+                        <Button
+                          type="text"
+                          size="small"
+                          danger
+                          icon={<DeleteOutlined />}
+                          onClick={() => handleDeleteUnit(record.id)}
+                        >
+                        </Button>
+                      )
+                    )
+                  }
+                ]}
+                locale={{ emptyText: '请先设置基本单位' }}
               />
-            </Form.Item>
-          </Card>
-
-          {/* 物流属性 */}
-          <Card 
-            title="物流属性" 
-            size="small" 
-            style={{ marginBottom: 16 }}
-            headStyle={{ backgroundColor: '#f5f5f5', fontSize: '14px', fontWeight: 'bold' }}
-          >
-            <Form.Item
-              name="logistics_type"
-              label="物流属性类型"
-            >
-              <Radio.Group>
-                <Radio value="weight">重量</Radio>
-                <Radio value="volume">体积</Radio>
-              </Radio.Group>
-            </Form.Item>
-
-            <Form.Item shouldUpdate>
-              {({ getFieldValue }) => {
-                const logisticsType = getFieldValue('logistics_type');
-                
-                if (logisticsType === 'weight') {
-                  return (
-                    <Row gutter={16}>
-                      <Col span={12}>
-                        <Form.Item
-                          name="weight"
-                          label="重量"
-                          rules={[{ required: true, message: '请输入重量' }]}
-                        >
-                          <InputNumber
-                            style={{ width: '100%' }}
-                            placeholder="请输入重量"
-                            min={0}
-                            precision={3}
-                          />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item
-                          name="weight_unit_id"
-                          label="重量单位"
-                          rules={[{ required: true, message: '请选择重量单位' }]}
-                        >
-                          <Select placeholder="请选择重量单位">
-                            {weightUnitOptions.map(unit => (
-                              <Option key={unit.value} value={unit.value}>{unit.label}</Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  );
-                }
-                
-                if (logisticsType === 'volume') {
-                  return (
-                    <Row gutter={16}>
-                      <Col span={12}>
-                        <Form.Item
-                          name="volume"
-                          label="体积"
-                          rules={[{ required: true, message: '请输入体积' }]}
-                        >
-                          <InputNumber
-                            style={{ width: '100%' }}
-                            placeholder="请输入体积"
-                            min={0}
-                            precision={3}
-                          />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item
-                          name="volume_unit_id"
-                          label="体积单位"
-                          rules={[{ required: true, message: '请选择体积单位' }]}
-                        >
-                          <Select placeholder="请选择体积单位">
-                            {volumeUnitOptions.map(unit => (
-                              <Option key={unit.value} value={unit.value}>{unit.label}</Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  );
-                }
-                
-                return null;
-              }}
-            </Form.Item>
+            </div>
           </Card>
 
           {/* 财务信息 */}
@@ -1115,8 +1154,10 @@ const ProductMaintenance = () => {
         <br />1. 新增了商品税收信息管理功能，包括税收分类（纯数字）、税率设置、免税开关等
         <br />2. 免税开关开启时，税率自动设为0且不可编辑；关闭时可手动设置税率
         <br />3. 新增ERP商品编码和ERP分类编码字段，便于与外部ERP系统集成
-        <br />4. 表单验证：税收分类仅支持纯数字，税率范围0-100%
-        <br />5. 演示时请重点展示税收信息的联动逻辑和验证规则
+        <br />4. <strong>新增一品多码管理：</strong>在计量单位管理中增加“商品条码”和“销售价格”列，基本单位自动显示基本信息中的数据，其他包装单位可独立设置
+        <br />5. <strong>新增状态开关管理：</strong>去掉停用状态，采用开关形式管理商品状态，列表页可直接切换，修改时有确认弹窗
+        <br />5. 表单验证：税收分类仅支持纯数字，税率范围0-100%，商品条码支持自定义输入
+        <br />6. 演示时请重点展示计量单位的一品多码管理功能和税收信息的联动逻辑
       </div>
     </div>
   );

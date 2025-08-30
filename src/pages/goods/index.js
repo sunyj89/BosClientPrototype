@@ -109,19 +109,6 @@ const GoodsManagement = () => {
           </Link>
         </Col>
         <Col xs={24} sm={12} md={8} lg={6}>
-          <Link to="/goods/inventory">
-            <Card hoverable className="function-card">
-              <div className="card-icon" style={{ backgroundColor: '#52c41a' }}>
-                <DatabaseOutlined />
-              </div>
-              <div className="card-content">
-                <h3>库存管理</h3>
-                <p>管理商品库存信息</p>
-              </div>
-            </Card>
-          </Link>
-        </Col>
-        <Col xs={24} sm={12} md={8} lg={6}>
           <Link to="/goods/price">
             <Card hoverable className="function-card">
               <div className="card-icon" style={{ backgroundColor: '#faad14' }}>

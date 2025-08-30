@@ -13,12 +13,12 @@ import PurchaseReceiving from './components/PurchaseReceiving';
 import ReturnManagement from './components/ReturnManagement';
 import StockTransfer from './components/StockTransfer';
 import IntelligentReplenishment from './components/IntelligentReplenishment';
-
-const { TabPane } = Tabs;
+import PurchaseRequisition from './components/PurchaseRequisition';
+import PurchaseRequisitionSummary from './components/PurchaseRequisitionSummary';
 
 const NonOilProcurement = () => {
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('price-maintenance');
+  const [activeTab, setActiveTab] = useState('purchase-requisition');
 
   useEffect(() => {
     // 页面初始化
@@ -30,41 +30,61 @@ const NonOilProcurement = () => {
     console.log('切换到Tab:', key);
   };
 
+  // Tab项配置
+  const tabItems = [
+    {
+      key: 'purchase-requisition',
+      label: '非油采购申请',
+      children: <PurchaseRequisition />
+    },
+    {
+      key: 'purchase-requisition-summary',
+      label: '采购申请汇总',
+      children: <PurchaseRequisitionSummary />
+    },
+    {
+      key: 'price-maintenance',
+      label: '价格维护',
+      children: <PriceMaintenance />
+    },
+    {
+      key: 'purchase-order',
+      label: '采购订单',
+      children: <PurchaseOrder />
+    },
+    {
+      key: 'purchase-receiving',
+      label: '采购入库',
+      children: <PurchaseReceiving />
+    },
+    {
+      key: 'return-management',
+      label: '退货管理',
+      children: <ReturnManagement />
+    },
+    {
+      key: 'stock-transfer',
+      label: '仓间调拨',
+      children: <StockTransfer />
+    },
+    {
+      key: 'intelligent-replenishment',
+      label: '智能补货',
+      children: <IntelligentReplenishment />
+    }
+  ];
+
   return (
-    <div className="non-oil-procurement-container">
-      <Card 
-      >
+    <div className="module-container">
+      <Card>
         <Spin spinning={loading}>
           <Tabs 
             activeKey={activeTab} 
             onChange={handleTabChange}
             size="large"
             tabBarStyle={{ marginBottom: '16px' }}
-          >
-            <TabPane tab="价格维护" key="price-maintenance">
-              <PriceMaintenance />
-            </TabPane>
-            
-            <TabPane tab="采购订单" key="purchase-order">
-              <PurchaseOrder />
-            </TabPane>
-            
-            <TabPane tab="采购入库" key="purchase-receiving">
-              <PurchaseReceiving />
-            </TabPane>
-            
-            <TabPane tab="退货管理" key="return-management">
-              <ReturnManagement />
-            </TabPane>
-            
-            <TabPane tab="仓间调拨" key="stock-transfer">
-              <StockTransfer />
-            </TabPane>
-            
-            <TabPane tab="智能补货" key="intelligent-replenishment">
-              <IntelligentReplenishment />
-            </TabPane>
-          </Tabs>
+            items={tabItems}
+          />
         </Spin>
       </Card>
     </div>

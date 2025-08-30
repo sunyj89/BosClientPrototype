@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Card,
   Tree,
   Button,
   Space,
@@ -14,8 +13,7 @@ import {
   Tag,
   Tooltip,
   Select,
-  InputNumber,
-  Spin
+  InputNumber
 } from 'antd';
 import {
   PlusOutlined,
@@ -37,7 +35,6 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const CategoryManagement = () => {
-  const [loading, setLoading] = useState(false);
   const [categoryForm] = Form.useForm();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState('create'); // create, edit
@@ -437,125 +434,122 @@ const CategoryManagement = () => {
     : null;
 
   return (
-    <div className="category-management-container">
-      <Card>
-        <Spin spinning={loading}>
-          <Row gutter={16}>
-            {/* 左侧分类树 */}
-            <Col span={12}>
-              <Card 
-                title="分类树" 
-                extra={
-                  <Button 
-                    type="primary" 
-                    icon={<PlusOutlined />} 
-                    style={{ borderRadius: '2px' }}
-                    onClick={handleAddRoot}
-                  >
-                    添加一级分类
-                  </Button>
-                }
+    <div>
+      <Row gutter={16}>
+        {/* 左侧分类树 */}
+        <Col span={12}>
+          <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+              <h3 style={{ margin: 0, fontSize: 16, fontWeight: 'bold' }}>分类树</h3>
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />} 
+                style={{ borderRadius: '2px' }}
+                onClick={handleAddRoot}
               >
-                {/* 搜索框 */}
-                <div style={{ marginBottom: 16 }}>
-                  <Input.Search
-                    placeholder="搜索分类名称或分类ID"
-                    allowClear
-                    value={searchValue}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    onSearch={handleSearch}
-                    style={{ width: '100%' }}
-                    enterButton={<SearchOutlined />}
-                    suffix={
-                      searchValue ? (
-                        <Tooltip title="清除搜索">
-                          <Button
-                            type="text"
-                            size="small"
-                            icon={<ClearOutlined />}
-                            onClick={handleClearSearch}
-                            style={{ border: 'none', padding: 0 }}
-                          />
-                        </Tooltip>
-                      ) : null
-                    }
-                  />
-                  {searchedKeys.length > 0 && (
-                    <div style={{ 
-                      marginTop: 8, 
-                      fontSize: '12px', 
-                      color: '#666',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}>
-                      <span>找到 {searchedKeys.length} 个匹配结果</span>
-                      <Button 
-                        type="link" 
-                        size="small" 
+                添加一级分类
+              </Button>
+            </div>
+            
+            {/* 搜索框 */}
+            <div style={{ marginBottom: 16 }}>
+              <Input.Search
+                placeholder="搜索分类名称或分类ID"
+                allowClear
+                value={searchValue}
+                onChange={(e) => handleSearch(e.target.value)}
+                onSearch={handleSearch}
+                style={{ width: '100%' }}
+                enterButton={<SearchOutlined />}
+                suffix={
+                  searchValue ? (
+                    <Tooltip title="清除搜索">
+                      <Button
+                        type="text"
+                        size="small"
+                        icon={<ClearOutlined />}
                         onClick={handleClearSearch}
-                        style={{ padding: 0, height: 'auto' }}
-                      >
-                        清除搜索
-                      </Button>
-                    </div>
-                  )}
+                        style={{ border: 'none', padding: 0 }}
+                      />
+                    </Tooltip>
+                  ) : null
+                }
+              />
+              {searchedKeys.length > 0 && (
+                <div style={{ 
+                  marginTop: 8, 
+                  fontSize: '12px', 
+                  color: '#666',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}>
+                  <span>找到 {searchedKeys.length} 个匹配结果</span>
+                  <Button 
+                    type="link" 
+                    size="small" 
+                    onClick={handleClearSearch}
+                    style={{ padding: 0, height: 'auto' }}
+                  >
+                    清除搜索
+                  </Button>
                 </div>
-                
-                <Tree
-                  showLine
-                  selectedKeys={selectedKeys}
-                  expandedKeys={expandedKeys}
-                  autoExpandParent={autoExpandParent}
-                  onSelect={onTreeSelect}
-                  onExpand={onTreeExpand}
-                  treeData={processTreeData(treeData)}
-                  style={{ minHeight: 500 }}
-                />
-              </Card>
-            </Col>
+              )}
+            </div>
+            
+            <Tree
+              showLine
+              selectedKeys={selectedKeys}
+              expandedKeys={expandedKeys}
+              autoExpandParent={autoExpandParent}
+              onSelect={onTreeSelect}
+              onExpand={onTreeExpand}
+              treeData={processTreeData(treeData)}
+              style={{ minHeight: 500 }}
+            />
+          </div>
+        </Col>
 
-            {/* 右侧分类详情 */}
-            <Col span={12}>
-              <Card title="分类详情">
-                {selectedCategory ? (
-                  <div>
+        {/* 右侧分类详情 */}
+        <Col span={12}>
+          <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+            <h3 style={{ margin: '0 0 16px 0', fontSize: 16, fontWeight: 'bold' }}>分类详情</h3>
+            {selectedCategory ? (
+              <div>
+                <Table
+                  columns={columns}
+                  dataSource={[selectedCategory]}
+                  pagination={false}
+                  rowKey="key"
+                  scroll={{ x: 'max-content' }}
+                />
+                
+                {/* 子分类列表 */}
+                {selectedCategory.level < 3 && (
+                  <div style={{ marginTop: 16 }}>
+                    <h4>子分类</h4>
                     <Table
                       columns={columns}
-                      dataSource={[selectedCategory]}
+                      dataSource={getFlatCategoryList(treeData).filter(item => 
+                        item.key.startsWith(selectedCategory.key + '-') &&
+                        item.key.split('-').length === selectedCategory.key.split('-').length + 1
+                      )}
                       pagination={false}
                       rowKey="key"
+                      size="small"
                       scroll={{ x: 'max-content' }}
                     />
-                    
-                    {/* 子分类列表 */}
-                    {selectedCategory.level < 3 && (
-                      <div style={{ marginTop: 16 }}>
-                        <h4>子分类</h4>
-                        <Table
-                          columns={columns}
-                          dataSource={getFlatCategoryList(treeData).filter(item => 
-                            item.key.startsWith(selectedCategory.key + '-') &&
-                            item.key.split('-').length === selectedCategory.key.split('-').length + 1
-                          )}
-                          pagination={false}
-                          rowKey="key"
-                          size="small"
-                          scroll={{ x: 'max-content' }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>
-                    请从左侧选择分类查看详情
                   </div>
                 )}
-              </Card>
-            </Col>
-          </Row>
-        </Spin>
-      </Card>
+              </div>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>
+                请从左侧选择分类查看详情
+              </div>
+            )}
+          </div>
+        </Col>
+      </Row>
 
       {/* 新建/编辑分类弹窗 */}
       <Modal
