@@ -102,6 +102,7 @@ const TankManagement = () => {
   const [orgTreeData, setOrgTreeData] = useState([]);
   const [selectedOrgs, setSelectedOrgs] = useState([]);
   const [selectedOilTypes, setSelectedOilTypes] = useState([]);
+  const [selectedStation, setSelectedStation] = useState(null);
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -164,6 +165,16 @@ const TankManagement = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // 处理查询
+  const handleSearch = () => {
+    loadTankList(1, 10, {
+      stationId: selectedStation,
+      oilType: selectedOilTypes[0],
+      status: selectedStatuses[0],
+      keyword:searchText
+    });
   };
 
   const loadTankList = async (page = 1, pageSize = 10, filters = {}) => {
@@ -243,38 +254,28 @@ const TankManagement = () => {
 
   // 筛选逻辑
   useEffect(() => {
-    let filtered = tankList;
 
-    // 按组织筛选
-    if (selectedOrgs.length > 0) {
-      filtered = filtered.filter(tank => {
-        return selectedOrgs.some(orgId => {
-          return tank.stationId === orgId || tank.organizationId === orgId;
-        });
-      });
-    }
+    // // 按油品类型筛选
+    // if (selectedOilTypes.length > 0) {
+    //   filtered = filtered.filter(tank => selectedOilTypes.includes(tank.oilType));
+    // }
 
-    // 按油品类型筛选
-    if (selectedOilTypes.length > 0) {
-      filtered = filtered.filter(tank => selectedOilTypes.includes(tank.oilType));
-    }
+    // // 按状态筛选
+    // if (selectedStatuses.length > 0) {
+    //   filtered = filtered.filter(tank => selectedStatuses.includes(tank.status));
+    // }
 
-    // 按状态筛选
-    if (selectedStatuses.length > 0) {
-      filtered = filtered.filter(tank => selectedStatuses.includes(tank.status));
-    }
+    // // 按关键字筛选
+    // if (searchText) {
+    //   filtered = filtered.filter(tank =>
+    //     (tank.tankCode && tank.tankCode.toLowerCase().includes(searchText.toLowerCase())) ||
+    //     tank.tankName.toLowerCase().includes(searchText.toLowerCase()) ||
+    //     tank.stationName.toLowerCase().includes(searchText.toLowerCase()) ||
+    //     tank.oilType.toLowerCase().includes(searchText.toLowerCase())
+    //   );
+    // }
 
-    // 按关键字筛选
-    if (searchText) {
-      filtered = filtered.filter(tank =>
-        (tank.tankCode && tank.tankCode.toLowerCase().includes(searchText.toLowerCase())) ||
-        tank.tankName.toLowerCase().includes(searchText.toLowerCase()) ||
-        tank.stationName.toLowerCase().includes(searchText.toLowerCase()) ||
-        tank.oilType.toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
-
-    setFilteredTankList(filtered);
+    // setFilteredTankList(filtered);
   }, [selectedOrgs, selectedOilTypes, selectedStatuses, searchText, tankList]);
 
   // 筛选处理函数
@@ -295,10 +296,11 @@ const TankManagement = () => {
   };
 
   const handleResetFilter = () => {
-    setSelectedOrgs([]);
+    setSelectedStation(null);
     setSelectedOilTypes([]);
     setSelectedStatuses([]);
     setSearchText('');
+    handleSearch();
   };
 
 
@@ -376,13 +378,19 @@ const TankManagement = () => {
       };
 
       if (editingTank) {
+        console.log(tankInfo);
         // 编辑
-        const updatedList = tankList.map(tank => 
-          tank.id === editingTank.id ? tankInfo : tank
-        );
-        setTankList(updatedList);
-        setFilteredTankList(updatedList);
-        message.success('油罐信息更新成功');
+        const response = await api.updateOilTank(tankInfo);
+        if (response.success) {
+          loadTankList();
+        }
+        // 编辑
+        // const updatedList = tankList.map(tank => 
+        //   tank.id === editingTank.id ? tankInfo : tank
+        // );
+        // setTankList(updatedList);
+        // setFilteredTankList(updatedList);
+        // message.success('油罐信息更新成功');
       } else {
         console.log(tankInfo);
         // 新增
@@ -397,7 +405,7 @@ const TankManagement = () => {
         message.success('油罐添加成功');
       }
       
-      closeModal();
+      // closeModal();
     } catch (error) {
       message.error('保存失败');
     } finally {
@@ -693,20 +701,11 @@ const TankManagement = () => {
               <Card style={{ marginBottom: 16 }}>
                 <Row gutter={16} style={{ marginBottom: 16 }}>
                   <Col span={5}>
-                    <TreeSelect
-                      treeData={orgTreeData}
-                      placeholder="请选择组织或油站"
-                      allowClear
-                      showSearch
-                      treeNodeFilterProp="title"
-                      multiple
-                      showCheckedStrategy={SHOW_PARENT}
-                      treeCheckable
-                      treeDefaultExpandAll
-                      style={{ width: '100%' }}
-                      value={selectedOrgs}
-                      onChange={handleOrgChange}
-                    />
+                    <Select placeholder="请选择油站" allowClear style={{ width: 200 }} value={selectedStation} onChange={setSelectedStation}>
+                      {stationList.map(station => (
+                        <Option key={station.id} value={station.id}>{station.stationName}</Option>
+                      ))}
+                    </Select>
                   </Col>
                   <Col span={4}>
                     <Select
@@ -751,7 +750,7 @@ const TankManagement = () => {
                   </Col>
                   <Col span={7} style={{ textAlign: 'right' }}>
                     <Space>
-                      <Button type="primary" icon={<SearchOutlined />}>
+                      <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
                         查询
                       </Button>
                       <Button icon={<ReloadOutlined />} onClick={handleResetFilter}>
@@ -962,19 +961,6 @@ const TankManagement = () => {
           </Row>
 
           <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="associatedGuns"
-                label="关联油枪"
-                rules={[{ required: true, message: '请选择关联油枪' }]}
-              >
-                <Select
-                  mode="multiple"
-                  placeholder="请选择关联油枪"
-                  options={generateGunOptions()}
-                />
-              </Form.Item>
-            </Col>
             <Col span={12}>
               <Form.Item
                 name="defaultDensity"
@@ -1229,7 +1215,6 @@ const TankManagement = () => {
               <Descriptions.Item label="最大罐容">{viewingTank.maxCapacity?.toLocaleString()} L</Descriptions.Item>
               <Descriptions.Item label="设计罐容">{viewingTank.designCapacity?.toLocaleString()} L</Descriptions.Item>
               <Descriptions.Item label="当前存量">{viewingTank.currentVolume?.toLocaleString()} L</Descriptions.Item>
-              <Descriptions.Item label="关联油枪">{viewingTank.associatedGunNames?.join(', ')}</Descriptions.Item>
               <Descriptions.Item label="默认密度">{viewingTank.defaultDensity} {viewingTank.densityUnit}</Descriptions.Item>
               <Descriptions.Item label="液位仪接口">{viewingTank.levelMeterInterface}</Descriptions.Item>
               <Descriptions.Item label="波特率">{viewingTank.baudRate ? `${viewingTank.baudRate} Hz` : '-'}</Descriptions.Item>
@@ -1327,4 +1312,4 @@ const TankManagement = () => {
   );
 };
 
-export default TankManagement; 
+export default TankManagement;
