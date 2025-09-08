@@ -35,7 +35,7 @@ function findNodeInTree(nodes, id) {
 export const getOrgTree = async () => {
   console.log('getOrgTree');
   let data = {
-    rootId: '2002'
+    rootId: '1'
   }
   const res = await get('/merchant/api/organization/tree-data',data);
   console.log(res);
