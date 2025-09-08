@@ -362,6 +362,37 @@ const OrganizationManagement = () => {
 
           
           <Form.Item
+            name="password"
+            label="密码"
+            rules={[
+              { required: true, message: '请输入密码' },
+              { min: 12, message: '密码长度不能低于12位' },
+              {
+                pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+                message: '密码必须包含大小写字母、数字和特殊字符'
+              }
+            ]}
+            extra="密码需要吅6个月更换一次，请妥善保管"
+          >
+            <Input.Password placeholder="请输入密码（不低于12位）" />
+          </Form.Item>
+          
+          <Form.Item
+            name="phoneNumber"
+            label="手机号"
+            rules={[
+              { required: true, message: '请输入手机号' },
+              {
+                pattern: /^1[3-9]\d{9}$/,
+                message: '请输入正确的手机号格式'
+              }
+            ]}
+            extra="用于双因素认证，请保持手机号码的有效性"
+          >
+            <Input placeholder="请输入手机号" />
+          </Form.Item>
+          
+          <Form.Item
             name="roleId"
             label="岗位/角色"
             rules={[{ required: true, message: '请选择岗位角色' }]}

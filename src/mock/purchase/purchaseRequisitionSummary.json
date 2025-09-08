@@ -1,0 +1,386 @@
+{
+  "purchaseRequisitionSummary": [
+    {
+      "id": "REQ202412010001",
+      "supplierName": "中国石油化工股份有限公司",
+      "totalProductCount": 819,
+      "totalPurchaseAmount": 51470.95,
+      "status": "已提交",
+      "createTime": "2024-12-01 09:30:00",
+      "creator": "张经理",
+      "products": [
+        {
+          "id": 1,
+          "productCode": "36514",
+          "productName": "长城福星SJ 10W 40汽油机油3.5kg",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 90.00,
+          "purchasePrice": 57.75,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 7 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 5 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 6 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 5 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 4 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 7 }
+          ],
+          "totalQuantity": 60,
+          "totalAmount": 3465.0
+        },
+        {
+          "id": 2,
+          "productCode": "34774",
+          "productName": "长城\\FD-2重负荷发动机冷却液4kg4L塑",
+          "specification": "4kg4L",
+          "packagingUnit": "桶",
+          "salePrice": 40.00,
+          "purchasePrice": 26.50,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 12 }
+          ],
+          "totalQuantity": 112,
+          "totalAmount": 2968.0
+        },
+        {
+          "id": 3,
+          "productCode": "31468",
+          "productName": "长城85W/90GL－5重车齿油3.5kg",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 85.00,
+          "purchasePrice": 72.45,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 5 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 4 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 3 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 6 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 5 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 4 }
+          ],
+          "totalQuantity": 27,
+          "totalAmount": 1956.15
+        },
+        {
+          "id": 4,
+          "productCode": "35289",
+          "productName": "长城卓力\\L-HM 46抗磨液压油(高压)\\3.5KG塑",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 80.00,
+          "purchasePrice": 57.75,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 6 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 5 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 6 }
+          ],
+          "totalQuantity": 43,
+          "totalAmount": 2483.25
+        },
+        {
+          "id": 5,
+          "productCode": "33768",
+          "productName": "长城尊龙T200CD15W－40柴机油塑3.5kg",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 70.00,
+          "purchasePrice": 43.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 14 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 9 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣北分公司", "stationName": "九江高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣北分公司", "stationName": "瑞昌高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣北分公司", "stationName": "德安高速服务区加油站", "quantity": 7 }
+          ],
+          "totalQuantity": 90,
+          "totalAmount": 3870.0
+        },
+        {
+          "id": 6,
+          "productCode": "33788",
+          "productName": "长城尊龙T200CD 20W-50柴油机油3.5kg",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 72.00,
+          "purchasePrice": 43.50,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 6 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 8 }
+          ],
+          "totalQuantity": 54,
+          "totalAmount": 2349.0
+        },
+        {
+          "id": 7,
+          "productCode": "30626",
+          "productName": "长城尊龙T300\\20W－50CF－4柴机油4L",
+          "specification": "4L",
+          "packagingUnit": "桶",
+          "salePrice": 95.00,
+          "purchasePrice": 64.05,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 12 }
+          ],
+          "totalQuantity": 82,
+          "totalAmount": 5252.1
+        },
+        {
+          "id": 8,
+          "productCode": "35754",
+          "productName": "长城金吉星J400\\10W-40SM汽油机油3.5KG",
+          "specification": "3.5KG",
+          "packagingUnit": "桶",
+          "salePrice": 94.00,
+          "purchasePrice": 58.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 20 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 16 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 14 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 12 }
+          ],
+          "totalQuantity": 95,
+          "totalAmount": 5510.0
+        },
+        {
+          "id": 9,
+          "productCode": "36383",
+          "productName": "长城金吉星J500\\SN10W-40汽油机油3.5kg",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 120.00,
+          "purchasePrice": 74.55,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 26 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 21 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 22 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 19 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 17 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 16 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 13 }
+          ],
+          "totalQuantity": 170,
+          "totalAmount": 12673.5
+        },
+        {
+          "id": 10,
+          "productCode": "36384",
+          "productName": "长城JUSTARJ600\\SN/CF5W-40通用油3.5kg塑",
+          "specification": "3.5kg",
+          "packagingUnit": "桶",
+          "salePrice": 145.00,
+          "purchasePrice": 104.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 10 },
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 8 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 6 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 5 }
+          ],
+          "totalQuantity": 86,
+          "totalAmount": 8944.0
+        }
+      ]
+    },
+    {
+      "id": "REQ202412010002",
+      "supplierName": "江西高速驿购",
+      "totalProductCount": 284,
+      "totalPurchaseAmount": 8500.0,
+      "status": "待提交",
+      "createTime": "2024-12-01 14:20:00",
+      "creator": "李主任",
+      "products": [
+        {
+          "id": 11,
+          "productCode": "JX001",
+          "productName": "高速公路专用机油SJ 5W-30 4L",
+          "specification": "4L",
+          "packagingUnit": "桶",
+          "salePrice": 85.00,
+          "purchasePrice": 55.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 15 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 12 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 10 }
+          ],
+          "totalQuantity": 37,
+          "totalAmount": 2035.0
+        },
+        {
+          "id": 12,
+          "productCode": "JX002",
+          "productName": "高速服务区专用清洁剂500ml",
+          "specification": "500ml",
+          "packagingUnit": "瓶",
+          "salePrice": 25.00,
+          "purchasePrice": 16.50,
+          "branchRequirements": [
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 20 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 15 }
+          ],
+          "totalQuantity": 53,
+          "totalAmount": 874.5
+        },
+        {
+          "id": 13,
+          "productCode": "JX003",
+          "productName": "高速公路专用防冻液5L",
+          "specification": "5L",
+          "packagingUnit": "桶",
+          "salePrice": 55.00,
+          "purchasePrice": 38.00,
+          "branchRequirements": [
+            { "branchName": "赣北分公司", "stationName": "九江高速服务区加油站", "quantity": 25 },
+            { "branchName": "赣北分公司", "stationName": "瑞昌高速服务区加油站", "quantity": 20 },
+            { "branchName": "赣北分公司", "stationName": "德安高速服务区加油站", "quantity": 18 }
+          ],
+          "totalQuantity": 63,
+          "totalAmount": 2394.0
+        },
+        {
+          "id": 14,
+          "productCode": "JX004",
+          "productName": "高速公路专用润滑剂500ml",
+          "specification": "500ml",
+          "packagingUnit": "瓶",
+          "salePrice": 32.00,
+          "purchasePrice": 22.00,
+          "branchRequirements": [
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 28 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 22 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 18 }
+          ],
+          "totalQuantity": 68,
+          "totalAmount": 1496.0
+        },
+        {
+          "id": 15,
+          "productCode": "JX005",
+          "productName": "高速公路专用汽油添加剂300ml",
+          "specification": "300ml",
+          "packagingUnit": "瓶",
+          "salePrice": 28.00,
+          "purchasePrice": 19.50,
+          "branchRequirements": [
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 26 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 22 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 18 }
+          ],
+          "totalQuantity": 66,
+          "totalAmount": 1287.0
+        }
+      ]
+    },
+    {
+      "id": "REQ202412010003",
+      "supplierName": "京东企业购",
+      "totalProductCount": 225,
+      "totalPurchaseAmount": 15680.0,
+      "status": "已提交",
+      "createTime": "2024-12-01 16:45:00",
+      "creator": "王采购",
+      "products": [
+        {
+          "id": 16,
+          "productCode": "JD001",
+          "productName": "京东专供机油SN 5W-30 4L",
+          "specification": "4L",
+          "packagingUnit": "桶",
+          "salePrice": 78.00,
+          "purchasePrice": 48.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 25 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 20 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 18 }
+          ],
+          "totalQuantity": 63,
+          "totalAmount": 3024.0
+        },
+        {
+          "id": 17,
+          "productCode": "JD002",
+          "productName": "京东专供尾气处理液20KG",
+          "specification": "20KG",
+          "packagingUnit": "桶",
+          "salePrice": 55.00,
+          "purchasePrice": 37.00,
+          "branchRequirements": [
+            { "branchName": "赣东北分公司", "stationName": "上饶高速服务区加油站", "quantity": 22 },
+            { "branchName": "赣东北分公司", "stationName": "鹰潭高速服务区加油站", "quantity": 18 },
+            { "branchName": "赣东北分公司", "stationName": "弋阳高速服务区加油站", "quantity": 15 }
+          ],
+          "totalQuantity": 55,
+          "totalAmount": 2035.0
+        },
+        {
+          "id": 18,
+          "productCode": "JD003",
+          "productName": "京东专供车用尿素溶液10KG",
+          "specification": "10KG",
+          "packagingUnit": "桶",
+          "salePrice": 30.00,
+          "purchasePrice": 21.60,
+          "branchRequirements": [
+            { "branchName": "赣南分公司", "stationName": "赣州高速服务区加油站", "quantity": 16 },
+            { "branchName": "赣南分公司", "stationName": "于都高速服务区加油站", "quantity": 14 },
+            { "branchName": "赣南分公司", "stationName": "信丰高速服务区加油站", "quantity": 12 }
+          ],
+          "totalQuantity": 42,
+          "totalAmount": 907.2
+        },
+        {
+          "id": 19,
+          "productCode": "JD004",
+          "productName": "京东专供防冻液散装",
+          "specification": "散装",
+          "packagingUnit": "升",
+          "salePrice": 2470.00,
+          "purchasePrice": 1620.00,
+          "branchRequirements": [
+            { "branchName": "赣中分公司", "stationName": "南昌高速服务区加油站", "quantity": 3 },
+            { "branchName": "赣中分公司", "stationName": "进贤高速服务区加油站", "quantity": 2 },
+            { "branchName": "赣中分公司", "stationName": "丰城高速服务区加油站", "quantity": 1 }
+          ],
+          "totalQuantity": 6,
+          "totalAmount": 9720.0
+        }
+      ]
+    }
+  ]
+}

@@ -20,7 +20,9 @@
       "alertDays": 90,
       "alertEmail": "zhangmanager@company.com",
       "alertPhone": "13812345678",
-      "remark": "分公司主体营业执照，每年年检一次"
+      "remark": "分公司主体营业执照，每年年检一次",
+      "certificateHolder": "张三",
+      "isLongTerm": false
     },
     {
       "id": "ARCH002",
@@ -31,18 +33,20 @@
       "documentName": "南昌高速服务区加油站营业执照",
       "documentNumber": "91360100MA35K8X456",
       "issueDate": "2020-05-01",
-      "expiryDate": "2025-04-30",
+      "expiryDate": "长期有效",
       "issuingAuthority": "南昌市市场监督管理局",
       "filePath": "/documents/business-license/ST001_business_license.pdf",
       "fileSize": "2.1MB",
       "uploadTime": "2024-11-15 14:30:00",
       "uploadPerson": "李站长",
-      "status": "即将到期",
-      "daysToExpiry": 93,
+      "status": "有效",
+      "daysToExpiry": 9999,
       "alertDays": 90,
       "alertEmail": "limanager@station.com",
       "alertPhone": "13987654321",
-      "remark": "加油站营业执照，即将到期需要续期"
+      "remark": "加油站营业执照，长期有效",
+      "certificateHolder": "李站长",
+      "isLongTerm": true
     },
     {
       "id": "ARCH003",
@@ -64,7 +68,9 @@
       "alertDays": 60,
       "alertEmail": "wangsafety@station.com",
       "alertPhone": "13765432109",
-      "remark": "年度职业健康检查报告，包含所有在岗员工健康状况"
+      "remark": "年度职业健康检查报告，包含所有在岗员工健康状况",
+      "certificateHolder": "李经理",
+      "isLongTerm": false
     },
     {
       "id": "ARCH004",
@@ -86,7 +92,9 @@
       "alertDays": 30,
       "alertEmail": "chenmanager@servicearea.com",
       "alertPhone": "13654321098",
-      "remark": "年度安全事故风险评估报告，包含整个服务区的安全状况分析"
+      "remark": "年度安全事故风险评估报告，包含整个服务区的安全状况分析",
+      "certificateHolder": "陈安全",
+      "isLongTerm": false
     },
     {
       "id": "ARCH005",
@@ -107,7 +115,9 @@
       "alertDays": 90,
       "alertEmail": "zhaostation@company.com",
       "alertPhone": "13543210987",
-      "remark": "营业执照已过期，需要立即办理续期手续"
+      "remark": "营业执照已过期，需要立即办理续期手续",
+      "certificateHolder": "赵站长",
+      "isLongTerm": false
     }
   ],
   "changeRecords": [

@@ -11,7 +11,6 @@ const SupplierRoutes = () => {
       <Route path="/" element={<Navigate to="/supplier/oil" />} />
       <Route path="/oil" element={<OilSupplierManagement />} />
       <Route path="/goods" element={<GoodsSupplierManagement />} />
-
       <Route path="/portal" element={<SupplierPortal />} />
       <Route path="/winning-quotation" element={<WinningQuotation />} />
     </Routes>

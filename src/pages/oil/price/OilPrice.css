@@ -1,0 +1,72 @@
+.oil-price-container {
+  padding: 24px;  /* 页面四周留白 */
+}
+
+.oil-price-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* 卡片阴影 */
+}
+
+.oil-price-container .ant-tabs-tab {
+  font-size: 14px;     /* Tab文字大小 */
+  font-weight: 500;    /* Tab文字粗细 */
+}
+
+.oil-price-container .ant-tabs-content-holder {
+  padding: 16px 0;     /* Tab内容区域内边距 */
+}
+
+.oil-price-container .ant-btn {
+  border-radius: 2px;
+}
+
+.oil-price-container .ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.oil-price-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light);
+  border-color: var(--primary-color-light);
+}
+
+/* 危险操作按钮样式 */
+.oil-price-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.oil-price-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.oil-price-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+/* 演示备注样式 */
+.demo-note {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.demo-note p {
+  margin: 0 0 8px 0;
+  color: #666;
+}
+
+.demo-note ul {
+  margin: 8px 0 0 20px;
+  color: #666;
+}
+
+.demo-note li {
+  margin-bottom: 4px;
+}

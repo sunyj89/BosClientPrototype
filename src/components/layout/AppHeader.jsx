@@ -68,7 +68,7 @@ const AppHeader = ({ collapsed, setCollapsed, onLogout }) => {
           style={{ fontSize: '16px', width: 64, height: 64 }}
         />
         <div style={{ marginLeft: 16, fontSize: 16, fontWeight: 'bold', color: '#32AF50' }}>
-          智慧能源系统BOS后台
+          智慧能源系统BOS端
         </div>
       </div>
       

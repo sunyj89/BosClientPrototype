@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Checkbox, Modal, Descriptions, Tag, message, Tooltip, DatePicker } from 'antd';
-import { SearchOutlined, ReloadOutlined, ExportOutlined, EyeOutlined, SettingOutlined } from '@ant-design/icons';
+import { Card, Tabs, Spin, Form, Row, Col, Input, Select, Button, Space, Table, Checkbox, Modal, Descriptions, Tag, message, Tooltip, DatePicker, Popconfirm, Badge, Timeline } from 'antd';
+import { SearchOutlined, ReloadOutlined, ExportOutlined, EyeOutlined, SettingOutlined, EditOutlined, DeleteOutlined, PlusOutlined, HistoryOutlined } from '@ant-design/icons';
 import ReactECharts from 'echarts-for-react';
 import moment from 'moment';
 import './index.css';
 import memberData from '../../mock/member/memberData.json';
+import memberChangeRecordData from '../../mock/member/memberChangeRecord.json';
 import * as XLSX from 'xlsx';
 
 const { Option } = Select;
@@ -19,10 +20,12 @@ const MemberCenter = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [memberDetailVisible, setMemberDetailVisible] = useState(false);
+  const [memberEditVisible, setMemberEditVisible] = useState(false);
   const [currentMember, setCurrentMember] = useState(null);
   const [columnSettingVisible, setColumnSettingVisible] = useState(false);
   const [consumptionForm] = Form.useForm();
   const [couponForm] = Form.useForm();
+  const [editForm] = Form.useForm();
   const [filteredConsumption, setFilteredConsumption] = useState([]);
   const [filteredCoupons, setFilteredCoupons] = useState([]);
   const [memberStatsData, setMemberStatsData] = useState([]);
@@ -31,10 +34,19 @@ const MemberCenter = () => {
   const [dateRange, setDateRange] = useState([]);
   const [selectedDailyRows, setSelectedDailyRows] = useState([]);
   const [selectedDailyRowKeys, setSelectedDailyRowKeys] = useState([]);
+
+  // Change Record State
+  const [recordDataSource, setRecordDataSource] = useState([]);
+  const [filteredRecordData, setFilteredRecordData] = useState([]);
+  const [recordSearchForm] = Form.useForm();
+  const [recordDetailVisible, setRecordDetailVisible] = useState(false);
+  const [currentRecord, setCurrentRecord] = useState(null);
+
   const [visibleColumns, setVisibleColumns] = useState({
     memberName: true,
     customerLevel: true,
     customerIdentity: true,
+    memberStatus: true,
     pointsBalance: true,
     cardNumber: true,
     storedValueBalance: true,
@@ -47,6 +59,8 @@ const MemberCenter = () => {
     setTimeout(() => {
       setDataSource(memberData);
       setFilteredData(memberData);
+      setRecordDataSource(memberChangeRecordData);
+      setFilteredRecordData(memberChangeRecordData);
       
       // 生成会员统计数据
       generateMemberStats();
@@ -188,6 +202,12 @@ const MemberCenter = () => {
           item.cardNumber && item.cardNumber.includes(values.cardNumber)
         );
       }
+
+      if (values.memberStatus) {
+        filtered = filtered.filter(item => 
+          item.memberStatus === values.memberStatus
+        );
+      }
       
       setFilteredData(filtered);
       setLoading(false);
@@ -210,6 +230,75 @@ const MemberCenter = () => {
     consumptionForm.resetFields();
     couponForm.resetFields();
     setMemberDetailVisible(true);
+  };
+
+  // 修改会员信息
+  const handleEditMember = (record) => {
+    setCurrentMember(record);
+    editForm.setFieldsValue({
+      phoneNumber: record.phoneNumber,
+      memberName: record.memberName,
+    });
+    setMemberEditVisible(true);
+  };
+
+  // 保存会员修改
+  const handleSaveMemberEdit = async (values) => {
+    try {
+      setLoading(true);
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // 更新数据源
+      const newDataSource = dataSource.map(item => {
+        if (item.memberId === currentMember.memberId) {
+          return {
+            ...item,
+            phoneNumber: values.phoneNumber,
+            memberName: values.memberName,
+          };
+        }
+        return item;
+      });
+      
+      setDataSource(newDataSource);
+      setFilteredData(newDataSource);
+      setMemberEditVisible(false);
+      editForm.resetFields();
+      message.success('会员信息修改成功');
+    } catch (error) {
+      message.error('修改失败，请重试');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 注销会员
+  const handleDeactivateMember = async (record) => {
+    try {
+      setLoading(true);
+      // 模拟API调用
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // 更新数据源
+      const newDataSource = dataSource.map(item => {
+        if (item.memberId === record.memberId) {
+          return {
+            ...item,
+            memberStatus: '注销',
+          };
+        }
+        return item;
+      });
+      
+      setDataSource(newDataSource);
+      setFilteredData(newDataSource);
+      message.success('会员已成功注销');
+    } catch (error) {
+      message.error('注销失败，请重试');
+    } finally {
+      setLoading(false);
+    }
   };
 
   // 筛选消费记录
@@ -282,6 +371,132 @@ const MemberCenter = () => {
     XLSX.writeFile(wb, `会员数据_${new Date().toISOString().split('T')[0]}.xlsx`);
     message.success('导出成功');
   };
+
+  // --- 修改记录相关函数 ---
+
+  // 搜索修改记录
+  const handleRecordSearch = (values) => {
+    setLoading(true);
+    setTimeout(() => {
+      let filtered = recordDataSource;
+      
+      if (values.keyword) {
+        filtered = filtered.filter(item => 
+          item.memberName.includes(values.keyword) ||
+          item.memberId.includes(values.keyword) ||
+          item.operator.includes(values.keyword)
+        );
+      }
+      
+      if (values.changeType) {
+        filtered = filtered.filter(item => item.changeType === values.changeType);
+      }
+
+      if (values.status) {
+        filtered = filtered.filter(item => item.status === values.status);
+      }
+
+      if (values.dateRange) {
+        const [startDate, endDate] = values.dateRange;
+        filtered = filtered.filter(record => {
+          const recordDate = moment(record.changeTime);
+          return recordDate.isBetween(startDate, endDate, 'day', '[]');
+        });
+      }
+      
+      setFilteredRecordData(filtered);
+      setLoading(false);
+    }, 300);
+  };
+
+  // 重置修改记录搜索
+  const handleRecordReset = () => {
+    recordSearchForm.resetFields();
+    setFilteredRecordData(recordDataSource);
+  };
+
+  // 查看修改记录详情
+  const handleViewRecordDetail = (record) => {
+    setCurrentRecord(record);
+    setRecordDetailVisible(true);
+  };
+
+  // 渲染变更对比
+  const renderValueComparison = (oldValue, newValue) => {
+    const allKeys = [...new Set([...Object.keys(oldValue), ...Object.keys(newValue)])];
+    
+    return allKeys.map(key => {
+      const oldVal = oldValue[key];
+      const newVal = newValue[key];
+
+      if (oldVal === newVal) {
+        return (
+          <div key={key}>
+            <strong>{key}:</strong> {newVal}
+          </div>
+        );
+      }
+
+      return (
+        <div key={key}>
+          <strong>{key}:</strong>
+          <Tag color="red" style={{ margin: '0 5px' }}>{oldVal === undefined ? '无' : String(oldVal)}</Tag>
+          {' -> '}
+          <Tag color="green" style={{ margin: '0 5px' }}>{newVal === undefined ? '无' : String(newVal)}</Tag>
+        </div>
+      );
+    });
+  };
+
+  // 渲染操作流程
+  const getTimelineItems = (record) => {
+    if (!record) return [];
+
+    const items = [
+      {
+        color: 'blue',
+        children: (
+          <>
+            <p>提交人: {record.operator} ({record.operatorId})</p>
+            <p>时间: {record.changeTime}</p>
+            <p>原因: {record.reason || '无'}</p>
+          </>
+        ),
+      }
+    ];
+
+    if (record.status === 'approved') {
+      items.push({
+        color: 'green',
+        children: (
+          <>
+            <p>审批通过</p>
+            <p>审批人: {record.approver}</p>
+            <p>时间: {moment(record.changeTime).add(1, 'hours').format('YYYY-MM-DD HH:mm:ss')}</p>
+          </>
+        ),
+      });
+    } else if (record.status === 'rejected') {
+      items.push({
+        color: 'red',
+        children: (
+          <>
+            <p>审批拒绝</p>
+            <p>审批人: {record.approver}</p>
+            <p>时间: {moment(record.changeTime).add(2, 'hours').format('YYYY-MM-DD HH:mm:ss')}</p>
+          </>
+        ),
+      });
+    } else {
+      items.push({
+        color: 'gray',
+        children: '等待审批...',
+      });
+    }
+
+    return items;
+  };
+
 
   // 手机号脱敏处理
   const maskPhoneNumber = (phoneNumber) => {
@@ -631,6 +846,21 @@ const MemberCenter = () => {
         visible: visibleColumns.customerIdentity,
       },
       {
+        title: '会员状态',
+        dataIndex: 'memberStatus',
+        key: 'memberStatus',
+        width: 100,
+        visible: visibleColumns.memberStatus,
+        render: (text) => {
+          const colorMap = {
+            '生效': 'green',
+            '冻结': 'orange',
+            '注销': 'red'
+          };
+          return <Tag color={colorMap[text] || 'default'}>{text}</Tag>;
+        },
+      },
+      {
         title: '积分余额',
         dataIndex: 'pointsBalance',
         key: 'pointsBalance',
@@ -666,17 +896,47 @@ const MemberCenter = () => {
     const operationColumn = {
       title: '操作',
       key: 'operation',
-      width: 100,
+      width: 200,
       fixed: 'right',
       render: (_, record) => (
-        <Button
-          type="primary"
-          size="small"
-          icon={<EyeOutlined />}
-          onClick={() => handleViewDetail(record)}
-        >
-          查看
-        </Button>
+        <Space size="small">
+          <Button
+            type="primary"
+            size="small"
+            icon={<EyeOutlined />}
+            onClick={() => handleViewDetail(record)}
+          >
+            查看
+          </Button>
+          <Button
+            type="primary"
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => handleEditMember(record)}
+            disabled={record.memberStatus === '注销'}
+          >
+            修改
+          </Button>
+          <Popconfirm
+            title="注销会员"
+            description="注销会员是危险操作，确定要注销此会员吗？"
+            okText="确定注销"
+            cancelText="取消"
+            okType="danger"
+            onConfirm={() => handleDeactivateMember(record)}
+            disabled={record.memberStatus === '注销'}
+          >
+            <Button
+              type="primary"
+              size="small"
+              danger
+              icon={<DeleteOutlined />}
+              disabled={record.memberStatus === '注销'}
+            >
+              注销
+            </Button>
+          </Popconfirm>
+        </Space>
       ),
     };
 
@@ -704,6 +964,95 @@ const MemberCenter = () => {
     },
   };
 
+  // 修改记录表格列配置
+  const changeRecordColumns = [
+    {
+      title: '变更时间',
+      dataIndex: 'changeTime',
+      key: 'changeTime',
+      width: 180,
+      sorter: (a, b) => moment(a.changeTime).unix() - moment(b.changeTime).unix(),
+      render: (text) => <b>{text}</b>,
+    },
+    {
+      title: '会员信息',
+      key: 'memberInfo',
+      width: 220,
+      render: (_, record) => (
+        <div>
+          <div>会员姓名: {record.memberName}</div>
+          <div style={{ fontSize: '12px', color: '#999' }}>会员ID: {record.memberId}</div>
+        </div>
+      ),
+    },
+    {
+      title: '变更类型',
+      dataIndex: 'changeType',
+      key: 'changeType',
+      width: 120,
+      render: (text) => {
+        const typeMap = {
+          create: { color: 'success', icon: <PlusOutlined />, text: '新建' },
+          update: { color: 'warning', icon: <EditOutlined />, text: '修改' },
+          delete: { color: 'error', icon: <DeleteOutlined />, text: '删除' },
+        };
+        const { color, icon, text: typeText } = typeMap[text] || {};
+        return <Tag color={color} icon={icon}>{typeText}</Tag>;
+      },
+    },
+    {
+      title: '变更字段',
+      dataIndex: 'changeField',
+      key: 'changeField',
+      width: 120,
+      render: (text) => <Tag color="blue">{text}</Tag>,
+    },
+    {
+      title: '操作人',
+      dataIndex: 'operator',
+      key: 'operator',
+      width: 120,
+    },
+    {
+      title: '审批人',
+      dataIndex: 'approver',
+      key: 'approver',
+      width: 120,
+      render: (text) => text || '-',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      key: 'status',
+      width: 100,
+      render: (text) => {
+        const statusMap = {
+          approved: { status: 'success', text: '已通过' },
+          pending: { status: 'warning', text: '待审批' },
+          rejected: { status: 'error', text: '已拒绝' },
+        };
+        const { status, text: statusText } = statusMap[text] || {};
+        return <Badge status={status} text={statusText} />;
+      },
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: 120,
+      fixed: 'right',
+      render: (_, record) => (
+        <Button
+          type="primary"
+          size="small"
+          icon={<HistoryOutlined />}
+          onClick={() => handleViewRecordDetail(record)}
+        >
+          查看详情
+        </Button>
+      ),
+    },
+  ];
+
   const tabItems = [
     {
       key: 'memberData',
@@ -725,6 +1074,13 @@ const MemberCenter = () => {
                   </Form.Item>
                   <Form.Item name="cardNumber" label="中石化IC卡号">
                     <Input placeholder="请输入卡号" style={{ width: 200 }} />
+                  </Form.Item>
+                  <Form.Item name="memberStatus" label="会员状态">
+                    <Select placeholder="请选择会员状态" style={{ width: 150 }} allowClear>
+                      <Option value="生效">生效</Option>
+                      <Option value="冻结">冻结</Option>
+                      <Option value="注销">注销</Option>
+                    </Select>
                   </Form.Item>
                 </Space>
               </Col>
@@ -907,6 +1263,65 @@ const MemberCenter = () => {
         </div>
       ),
     },
+    {
+      key: 'changeRecord',
+      label: '修改记录',
+      children: (
+        <div>
+          {/* 筛选区域 */}
+          <Card style={{ marginBottom: 16 }}>
+            <Form form={recordSearchForm} layout="inline" onFinish={handleRecordSearch}>
+              <Row gutter={16} style={{ width: '100%' }}>
+                <Col span={24}>
+                  <Space wrap>
+                    <Form.Item name="keyword" label="关键词">
+                      <Input placeholder="会员姓名/ID/操作人" style={{ width: 200 }} />
+                    </Form.Item>
+                    <Form.Item name="changeType" label="变更类型">
+                      <Select placeholder="请选择类型" style={{ width: 150 }} allowClear>
+                        <Option value="create">新建</Option>
+                        <Option value="update">修改</Option>
+                        <Option value="delete">删除</Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item name="status" label="状态">
+                      <Select placeholder="请选择状态" style={{ width: 150 }} allowClear>
+                        <Option value="approved">已通过</Option>
+                        <Option value="pending">待审批</Option>
+                        <Option value="rejected">已拒绝</Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item name="dateRange" label="变更时间">
+                      <RangePicker style={{ width: 250 }} />
+                    </Form.Item>
+                  </Space>
+                </Col>
+                <Col span={24}>
+                  <Space>
+                    <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>搜索</Button>
+                    <Button icon={<ReloadOutlined />} onClick={handleRecordReset}>重置</Button>
+                  </Space>
+                </Col>
+              </Row>
+            </Form>
+          </Card>
+
+          {/* 记录列表 */}
+          <Card>
+            <Table
+              columns={changeRecordColumns}
+              dataSource={filteredRecordData}
+              rowKey="id"
+              scroll={{ x: 'max-content' }}
+              pagination={{
+                pageSize: 10,
+                showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`,
+              }}
+            />
+          </Card>
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -948,6 +1363,15 @@ const MemberCenter = () => {
                 </Tag>
               </Descriptions.Item>
               <Descriptions.Item label="顾客身份">{currentMember.customerIdentity}</Descriptions.Item>
+              <Descriptions.Item label="会员状态">
+                <Tag color={
+                  currentMember.memberStatus === '生效' ? 'green' :
+                  currentMember.memberStatus === '冻结' ? 'orange' :
+                  currentMember.memberStatus === '注销' ? 'red' : 'default'
+                }>
+                  {currentMember.memberStatus}
+                </Tag>
+              </Descriptions.Item>
               <Descriptions.Item label="车牌号">{currentMember.licensePlate || '-'}</Descriptions.Item>
               <Descriptions.Item label="注册渠道">
                 <Tag color={
@@ -1064,6 +1488,107 @@ const MemberCenter = () => {
         )}
       </Modal>
 
+      {/* 会员修改弹窗 */}
+      <Modal
+        title="修改会员信息"
+        open={memberEditVisible}
+        onCancel={() => {
+          setMemberEditVisible(false);
+          editForm.resetFields();
+        }}
+        footer={null}
+        width={600}
+      >
+        {currentMember && (
+          <Form
+            form={editForm}
+            layout="vertical"
+            onFinish={handleSaveMemberEdit}
+          >
+            <Form.Item label="会员ID">
+              <Input value={currentMember.memberId} disabled />
+            </Form.Item>
+            
+            <Form.Item
+              name="memberName"
+              label="会员姓名"
+              rules={[
+                { required: true, message: '请输入会员姓名' },
+                { max: 20, message: '会员姓名不能超过20个字符' }
+              ]}
+            >
+              <Input placeholder="请输入会员姓名" />
+            </Form.Item>
+            
+            <Form.Item
+              name="phoneNumber"
+              label="手机号"
+              rules={[
+                { required: true, message: '请输入手机号' },
+                { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式' }
+              ]}
+            >
+              <Input placeholder="请输入手机号" maxLength={11} />
+            </Form.Item>
+            
+            <Form.Item>
+              <Space>
+                <Button type="primary" htmlType="submit" loading={loading}>
+                  保存修改
+                </Button>
+                <Button onClick={() => {
+                  setMemberEditVisible(false);
+                  editForm.resetFields();
+                }}>
+                  取消
+                </Button>
+              </Space>
+            </Form.Item>
+          </Form>
+        )}
+      </Modal>
+
+      {/* 修改记录详情弹窗 */}
+      <Modal
+        title={<span><HistoryOutlined /> 变更详情</span>}
+        open={recordDetailVisible}
+        onCancel={() => setRecordDetailVisible(false)}
+        footer={[
+          <Button key="close" onClick={() => setRecordDetailVisible(false)}>
+            关闭
+          </Button>
+        ]}
+        width={800}
+      >
+        {currentRecord && (
+          <Row gutter={16}>
+            <Col span={24}>
+              <Card bordered={false} style={{ marginBottom: 16 }}>
+                <Descriptions title="基本信息" column={2}>
+                  <Descriptions.Item label="记录ID">{currentRecord.id}</Descriptions.Item>
+                  <Descriptions.Item label="会员ID">{currentRecord.memberId}</Descriptions.Item>
+                  <Descriptions.Item label="会员姓名">{currentRecord.memberName}</Descriptions.Item>
+                  <Descriptions.Item label="操作人">{currentRecord.operator}</Descriptions.Item>
+                  <Descriptions.Item label="操作时间">{currentRecord.changeTime}</Descriptions.Item>
+                  <Descriptions.Item label="审批人">{currentRecord.approver || '-'}</Descriptions.Item>
+                  <Descriptions.Item label="变更原因" span={2}>{currentRecord.reason}</Descriptions.Item>
+                </Descriptions>
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card title="变更详情" bordered={false}>
+                {renderValueComparison(currentRecord.oldValue, currentRecord.newValue)}
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card title="操作流程" bordered={false}>
+                <Timeline items={getTimelineItems(currentRecord)} />
+              </Card>
+            </Col>
+          </Row>
+        )}
+      </Modal>
+
       {/* 列设置弹窗 */}
       <Modal
         title="自定义列显示"
@@ -1096,6 +1621,12 @@ const MemberCenter = () => {
               顾客身份
             </Checkbox>
             <Checkbox
+              checked={visibleColumns.memberStatus}
+              onChange={(e) => setVisibleColumns({...visibleColumns, memberStatus: e.target.checked})}
+            >
+              会员状态
+            </Checkbox>
+            <Checkbox
               checked={visibleColumns.pointsBalance}
               onChange={(e) => setVisibleColumns({...visibleColumns, pointsBalance: e.target.checked})}
             >
@@ -1122,6 +1653,22 @@ const MemberCenter = () => {
           </Space>
         </div>
       </Modal>
+
+      {/* 功能更新备注 */}
+      <div style={{ 
+        position: 'fixed', 
+        bottom: '10px', 
+        right: '20px', 
+        backgroundColor: '#f0f0f0', 
+        padding: '8px 12px', 
+        borderRadius: '4px', 
+        fontSize: '12px', 
+        color: '#666',
+        border: '1px solid #d9d9d9',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        📝 已更新：会员状态功能（生效、冻结、注销）- 2025年7月28日
+      </div>
     </div>
   );
 };

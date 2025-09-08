@@ -1658,6 +1658,8 @@ const PointsMall = () => {
 
   const handleEditCategory = (record) => {
     setEditingCategory(record);
+    
+    // 设置表单值
     categoryModalForm.setFieldsValue({
       ...record,
       status: record.status === 'ACTIVE',
@@ -1665,12 +1667,26 @@ const PointsMall = () => {
       level2Selection: record.level2Code,
       level3Selection: record.level3Code,
     });
+    
+    // 设置图片上传组件的初始值（如果有）
+    if (record.categoryIcon) {
+      categoryModalForm.setFieldsValue({
+        categoryIcon: [{
+          uid: '-1',
+          name: 'category-icon.png',
+          status: 'done',
+          url: record.categoryIcon,
+        }]
+      });
+    }
+    
     // 设置主数据分类选择状态
     setSelectedMainCategory({
       level1: record.level1Code,
       level2: record.level2Code,
       level3: record.level3Code
     });
+    
     setCategoryModalVisible(true);
   };
 
@@ -1694,10 +1710,33 @@ const PointsMall = () => {
     try {
       const values = await categoryModalForm.validateFields();
       
+      // 处理图标数据
+      let categoryIconUrl = '';
+      if (values.categoryIcon && values.categoryIcon.length > 0) {
+        // 如果是编辑操作且有原图标
+        if (values.categoryIcon[0].url) {
+          categoryIconUrl = values.categoryIcon[0].url;
+        } 
+        // 如果是新上传的图片，则会有response字段
+        else if (values.categoryIcon[0].response) {
+          categoryIconUrl = values.categoryIcon[0].response.url || '';
+        }
+      }
+      
+      // 构建提交数据
       const categoryData = {
         ...values,
+        categoryIcon: categoryIconUrl,
         status: values.status ? 'ACTIVE' : 'INACTIVE'
       };
+      
+      // 删除不需要提交的字段
+      delete categoryData.level1Code;
+      delete categoryData.level1Name;
+      delete categoryData.level2Code;
+      delete categoryData.level2Name;
+      delete categoryData.level3Code;
+      delete categoryData.level3Name;
       
       console.log('分类提交数据:', categoryData);
       
@@ -2090,6 +2129,14 @@ const PointsMall = () => {
       dataIndex: 'id',
       width: 60,
       render: (_, __, index) => (categoryPagination.current - 1) * categoryPagination.pageSize + index + 1,
+    },
+    {
+      title: '图标',
+      dataIndex: 'categoryIcon',
+      width: 80,
+      render: (text) => (
+        text ? <Image src={text} width={40} height={40} /> : <span>无图标</span>
+      ),
     },
     {
       title: '分类名称',
@@ -3851,62 +3898,35 @@ const PointsMall = () => {
             </Col>
           </Row>
 
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                name="level1Code"
-                label="一级分类编码"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-            <Col span={16}>
-              <Form.Item
-                name="level1Name"
-                label="一级分类名称"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                name="level2Code"
-                label="二级分类编码"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-            <Col span={16}>
-              <Form.Item
-                name="level2Name"
-                label="二级分类名称"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                name="level3Code"
-                label="三级分类编码"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-            <Col span={16}>
-              <Form.Item
-                name="level3Name"
-                label="三级分类名称"
-              >
-                <Input disabled placeholder="自动填充" />
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item
+            name="categoryIcon"
+            label="分类图标"
+            extra="(尺寸大小40x40，PNG/JPG格式，不超过100KB)"
+          >
+            <Upload
+              listType="picture-card"
+              maxCount={1}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={(file) => {
+                const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                if (!isJpgOrPng) {
+                  message.error('只能上传 JPG/PNG 格式的图片!');
+                  return false;
+                }
+                const isLt100k = file.size / 1024 < 100;
+                if (!isLt100k) {
+                  message.error('图片大小不能超过 100KB!');
+                  return false;
+                }
+                return true;
+              }}
+            >
+              <div>
+                <UploadOutlined />
+                <div style={{ marginTop: 8 }}>上传图标</div>
+              </div>
+            </Upload>
+          </Form.Item>
 
           <Row gutter={16}>
             <Col span={12}>
@@ -4448,4 +4468,5 @@ const PointsMall = () => {
   );
 };
 
+// 备注信息: 积分商城分类管理已更新，新增了分类图标上传功能（非必填），并移除了一级/二级/三级分类编码和名称的输入框。上传的图片尺寸40x40，仅支持PNG/JPG格式，大小不超过100KB。
 export default PointsMall; 

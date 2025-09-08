@@ -25,6 +25,12 @@ import NonOilProcurement from './pages/purchase/non-oil-procurement';
 // 物流管理
 import OilWarehouseDelivery from './pages/logistics/oil-warehouse-delivery';
 
+// 库存管理
+import OilInventoryManagement from './pages/inventory/oil-inventory';
+import OilTransfer from './pages/inventory/oil-transfer';
+import InventoryGoodsManagement from './pages/inventory/goods-inventory';
+import InventoryGoodsTransfer from './pages/inventory/goods-transfer';
+
 // 供应商管理
 import SupplierRoutes from './pages/supplier';
 
@@ -33,7 +39,6 @@ import GoodsManagement from './pages/goods';
 import CategoryManagement from './pages/goods/category';
 import ProductMaintenance from './pages/goods/maintenance';
 import ComboProduct from './pages/goods/combo';
-import GoodsInventoryManagement from './pages/goods/inventory';
 import GoodsPriceManagement from './pages/goods/pricing';
 import GoodsPurchaseManagement from './pages/goods/purchase';
 import ProductMasterData from './pages/goods/master-data';
@@ -57,9 +62,19 @@ import PointsRoutes from './pages/points';
 // 营销中心
 import CouponConfig from './pages/marketing/coupon-config';
 import ActivityConfig from './pages/marketing/activity-config';
+import PriceDiscountConfig from './pages/marketing/price-discount-config';
+import CreateDiscountConfig from './pages/marketing/price-discount-config/create';
+import EditDiscountConfig from './pages/marketing/price-discount-config/edit';
 import MemberReferral from './pages/marketing/member-referral';
 import ItemMarketing from './pages/marketing/item-marketing';
 import OrderMarketing from './pages/marketing/order-marketing';
+
+// 支付管理
+import PaymentAcceptanceConfig from './pages/payment/acceptance-config';
+
+// 发票管理
+import InvoiceManagement from './pages/invoice';
+import InvoiceSettings from './pages/invoice/settings';
 import MemberIdentity from './pages/marketing/member-identity';
 import MemberLevel from './pages/marketing/member-level';
 
@@ -85,12 +100,7 @@ import DispenserCalibration from './pages/equipment/dispenser-calibration';
 import GeneratorOperation from './pages/equipment/generator-operation';
 import WaterElectricityRecords from './pages/equipment/water-electricity';
 
-// 支付管理
-import PaymentMethods from './pages/payment/methods';
-import SettlementChannel from './pages/payment/settlement';
-import OneclickConfig from './pages/payment/oneclick';
-import ContactlessConfig from './pages/payment/contactless';
-import QRCodeConfig from './pages/payment/qrcode';
+
 
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
@@ -100,6 +110,9 @@ import RoleConfiguration from './pages/organization/role-configuration';
 import InspectionManagement from './pages/security/inspection-management';
 import ArchiveManagement from './pages/security/archive-management';
 import MaintenanceManagement from './pages/security/maintenance-management';
+import EmergencyDrillManagement from './pages/security/emergency-drill-management';
+import TrainingManagement from './pages/security/training-management';
+import KnowledgeExamManagement from './pages/security/knowledge-exam';
 
 // 损溢管理
 import LossManagement from './pages/loss';
@@ -133,6 +146,7 @@ import GunManagement from './pages/station/gun/index';
 
 import OilDensity from './pages/oil/density/index';
 import OilMasterData from './pages/oil/master-data/index';
+import OilPrice from './pages/oil/price/index';
 
 // 数据冲正管理
 import CorrectionManagement from './pages/sales/oil/correction/index';
@@ -208,6 +222,18 @@ const AppRouter = () => {
         <Route path="oil-warehouse-delivery" element={<OilWarehouseDelivery />} />
       </Route>
       
+      {/* 库存管理路由 */}
+      <Route path="/inventory">
+        {/* 油品库存管理 */}
+        <Route path="oil-inventory" element={<OilInventoryManagement />} />
+        {/* 油品调拨 */}
+        <Route path="oil-transfer" element={<OilTransfer />} />
+        {/* 非油品库存管理 */}
+        <Route path="goods-inventory" element={<InventoryGoodsManagement />} />
+        {/* 非油品调拨 */}
+        <Route path="goods-transfer" element={<InventoryGoodsTransfer />} />
+      </Route>
+      
       {/* 商品管理路由 */}
       <Route path="/goods">
         <Route index element={<GoodsManagement />} />
@@ -215,7 +241,6 @@ const AppRouter = () => {
         <Route path="maintenance" element={<ProductMaintenance />} />
         <Route path="combo" element={<ComboProduct />} />
         <Route path="master-data" element={<ProductMasterData />} />
-        <Route path="inventory" element={<GoodsInventoryManagement />} />
         <Route path="price" element={<GoodsPriceManagement />} />
         <Route path="purchase" element={<GoodsPurchaseManagement />} />
       </Route>
@@ -292,6 +317,7 @@ const AppRouter = () => {
       <Route path="/oil">
         <Route path="master-data" element={<OilMasterData />} />
         <Route path="density" element={<OilDensity />} />
+        <Route path="price" element={<OilPrice />} />
       </Route>
       
       {/* 报表管理路由 */}
@@ -314,20 +340,16 @@ const AppRouter = () => {
         </Route>
       </Route>
 
-      {/* 支付管理路由 */}
-      <Route path="/payment">
-        <Route path="methods" element={<PaymentMethods />} />
-        <Route path="settlement" element={<SettlementChannel />} />
-        <Route path="oneclick" element={<OneclickConfig />} />
-        <Route path="contactless" element={<ContactlessConfig />} />
-        <Route path="qrcode" element={<QRCodeConfig />} />
-      </Route>
+
 
       {/* 安全管理路由 */}
       <Route path="/security">
         <Route path="inspection-management" element={<InspectionManagement />} />
         <Route path="archive-management" element={<ArchiveManagement />} />
         <Route path="maintenance-management" element={<MaintenanceManagement />} />
+        <Route path="emergency-drill-management" element={<EmergencyDrillManagement />} />
+        <Route path="training-management" element={<TrainingManagement />} />
+        <Route path="knowledge-exam" element={<KnowledgeExamManagement />} />
       </Route>
       
       {/* 组织架构管理路由 */}
@@ -345,12 +367,25 @@ const AppRouter = () => {
       <Route path="/marketing">
         <Route path="coupon-config" element={<CouponConfig />} />
         <Route path="activity-config" element={<ActivityConfig />} />
-        <Route path="price-discount-config" element={<NotFound />} />
+        <Route path="price-discount-config" element={<PriceDiscountConfig />} />
+        <Route path="price-discount-config/create" element={<CreateDiscountConfig />} />
+        <Route path="price-discount-config/edit/:id" element={<EditDiscountConfig />} />
         <Route path="member-identity" element={<MemberIdentity />} />
         <Route path="member-level" element={<MemberLevel />} />
         <Route path="member-referral" element={<MemberReferral />} />
         <Route path="item-marketing" element={<ItemMarketing />} />
         <Route path="order-marketing" element={<OrderMarketing />} />
+      </Route>
+
+      {/* 支付管理路由 */}
+      <Route path="/payment">
+        <Route path="acceptance-config" element={<PaymentAcceptanceConfig />} />
+      </Route>
+
+      {/* 发票管理路由 */}
+      <Route path="/invoice">
+        <Route index element={<InvoiceManagement />} />
+        <Route path="settings" element={<InvoiceSettings />} />
       </Route>
 
       

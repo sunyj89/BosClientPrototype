@@ -1,10 +1,11 @@
 [
   {
-    "memberId": "M000001",
+    "memberId": "M2023A15B8C9F012",
     "phoneNumber": "13800138001",
     "memberName": "张三",
     "customerLevel": "金卡",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 12580,
     "cardNumber": "6288001234567890",
     "storedValueBalance": 1258.50,
@@ -68,11 +69,12 @@
     ]
   },
   {
-    "memberId": "M000002",
+    "memberId": "M2023C22D5E7G891",
     "phoneNumber": "13800138002",
     "memberName": "李四",
     "customerLevel": "银卡",
     "customerIdentity": "货拉拉",
+    "memberStatus": "生效",
     "pointsBalance": 8950,
     "cardNumber": "6288001234567891",
     "storedValueBalance": 680.30,
@@ -117,11 +119,12 @@
     ]
   },
   {
-    "memberId": "M000003",
+    "memberId": "M2022H08I3J4K567",
     "phoneNumber": "13800138003",
     "memberName": "王五",
     "customerLevel": "铂金",
     "customerIdentity": "合作车队A",
+    "memberStatus": "生效",
     "pointsBalance": 25670,
     "cardNumber": "6288001234567892",
     "storedValueBalance": 2150.80,
@@ -223,11 +226,12 @@
     ]
   },
   {
-    "memberId": "M000004",
+    "memberId": "M2024F15L8M9N004",
     "phoneNumber": "13800138004",
     "memberName": "赵六",
     "customerLevel": "普通",
     "customerIdentity": "普通会员",
+    "memberStatus": "冻结",
     "pointsBalance": 1250,
     "cardNumber": null,
     "storedValueBalance": 50.00,
@@ -259,11 +263,12 @@
     ]
   },
   {
-    "memberId": "M000005",
+    "memberId": "M2022E10P6Q7R528",
     "phoneNumber": "13800138005",
     "memberName": "钱七",
     "customerLevel": "钻石",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 45280,
     "cardNumber": "6288001234567893",
     "storedValueBalance": 3500.00,
@@ -344,11 +349,12 @@
     ]
   },
   {
-    "memberId": "M000006",
+    "memberId": "M2023G30S2T1U680",
     "phoneNumber": "13800138006",
     "memberName": "孙八",
     "customerLevel": "金卡",
     "customerIdentity": "货拉拉",
+    "memberStatus": "生效",
     "pointsBalance": 15680,
     "cardNumber": "6288001234567894",
     "storedValueBalance": 890.60,
@@ -395,11 +401,12 @@
     ]
   },
   {
-    "memberId": "M000007",
+    "memberId": "M2023I05V9W8X789",
     "phoneNumber": "13800138007",
     "memberName": "周九",
     "customerLevel": "银卡",
     "customerIdentity": "合作车队A",
+    "memberStatus": "冻结",
     "pointsBalance": 6890,
     "cardNumber": "6288001234567895",
     "storedValueBalance": 320.50,
@@ -436,11 +443,12 @@
     ]
   },
   {
-    "memberId": "M000008",
+    "memberId": "M2024J12Y4Z3A008",
     "phoneNumber": "13800138008",
     "memberName": "吴十",
     "customerLevel": "普通",
     "customerIdentity": "普通会员",
+    "memberStatus": "生效",
     "pointsBalance": 580,
     "cardNumber": null,
     "storedValueBalance": 120.00,
@@ -472,11 +480,12 @@
     ]
   },
   {
-    "memberId": "M000009",
+    "memberId": "M2023K28B7C6D975",
     "phoneNumber": "13800138009",
     "memberName": "郑十一",
     "customerLevel": "金卡",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 18750,
     "cardNumber": "6288001234567896",
     "storedValueBalance": 1580.80,
@@ -525,11 +534,12 @@
     ]
   },
   {
-    "memberId": "M000010",
+    "memberId": "M2022L15E1F2G058",
     "phoneNumber": "13800138010",
     "memberName": "王十二",
     "customerLevel": "铂金",
     "customerIdentity": "货拉拉",
+    "memberStatus": "生效",
     "pointsBalance": 32580,
     "cardNumber": "6288001234567897",
     "storedValueBalance": 2890.90,
@@ -589,11 +599,12 @@
     ]
   },
   {
-    "memberId": "M000011",
+    "memberId": "M2022M18H5I4J251",
     "phoneNumber": "13800138011",
     "memberName": "冯十三",
     "customerLevel": "银卡",
     "customerIdentity": "普通会员",
+    "memberStatus": "注销",
     "pointsBalance": 7250,
     "cardNumber": "6288001234567898",
     "storedValueBalance": 450.20,
@@ -626,11 +637,12 @@
     ]
   },
   {
-    "memberId": "M000012",
+    "memberId": "M2022N20K9L8M368",
     "phoneNumber": "13800138012",
     "memberName": "陈十四",
     "customerLevel": "钻石",
     "customerIdentity": "合作车队A",
+    "memberStatus": "生效",
     "pointsBalance": 52680,
     "cardNumber": "6288001234567899",
     "storedValueBalance": 4200.50,
@@ -717,11 +729,12 @@
     ]
   },
   {
-    "memberId": "M000013",
+    "memberId": "M2024O08P3Q2R139",
     "phoneNumber": "13800138013",
     "memberName": "楚十五",
     "customerLevel": "普通",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 980,
     "cardNumber": null,
     "storedValueBalance": 80.00,
@@ -749,11 +762,12 @@
     ]
   },
   {
-    "memberId": "M000014",
+    "memberId": "M2023P12S7T6U148",
     "phoneNumber": "13800138014",
     "memberName": "魏十六",
     "customerLevel": "金卡",
     "customerIdentity": "货拉拉",
+    "memberStatus": "生效",
     "pointsBalance": 16890,
     "cardNumber": "6288001234567800",
     "storedValueBalance": 1250.70,
@@ -803,11 +817,12 @@
     ]
   },
   {
-    "memberId": "M000015",
+    "memberId": "M2024Q20V1W0X157",
     "phoneNumber": "13800138015",
     "memberName": "蒋十七",
     "customerLevel": "银卡",
     "customerIdentity": "普通会员",
+    "memberStatus": "冻结",
     "pointsBalance": 5680,
     "cardNumber": "6288001234567801",
     "storedValueBalance": 290.80,
@@ -840,11 +855,12 @@
     ]
   },
   {
-    "memberId": "M000016",
+    "memberId": "M2022R03Y5Z4A802",
     "phoneNumber": "13800138016",
     "memberName": "沈十八",
     "customerLevel": "铂金",
     "customerIdentity": "合作车队A",
+    "memberStatus": "生效",
     "pointsBalance": 28950,
     "cardNumber": "6288001234567802",
     "storedValueBalance": 2380.60,
@@ -899,11 +915,12 @@
     ]
   },
   {
-    "memberId": "M000017",
+    "memberId": "M2023T10E3F2G180",
     "phoneNumber": "13800138017",
     "memberName": "韩十九",
     "customerLevel": "普通",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 1580,
     "cardNumber": null,
     "storedValueBalance": 100.00,
@@ -931,11 +948,12 @@
     ]
   },
   {
-    "memberId": "M000018",
+    "memberId": "M2022U15H7I6J190",
     "phoneNumber": "13800138018",
     "memberName": "杨二十",
     "customerLevel": "金卡",
     "customerIdentity": "货拉拉",
+    "memberStatus": "生效",
     "pointsBalance": 14580,
     "cardNumber": "6288001234567803",
     "storedValueBalance": 950.40,
@@ -973,11 +991,12 @@
     ]
   },
   {
-    "memberId": "M000019",
+    "memberId": "M2023V18K1L0M205",
     "phoneNumber": "13800138019",
     "memberName": "朱二一",
     "customerLevel": "钻石",
     "customerIdentity": "滴滴",
+    "memberStatus": "生效",
     "pointsBalance": 38750,
     "cardNumber": "6288001234567804",
     "storedValueBalance": 3100.20,
@@ -1074,11 +1093,12 @@
     ]
   },
   {
-    "memberId": "M000020",
+    "memberId": "M2022W18X7Y6Z195",
     "phoneNumber": "13800138020",
     "memberName": "秦二二",
     "customerLevel": "银卡",
     "customerIdentity": "合作车队A",
+    "memberStatus": "注销",
     "pointsBalance": 9250,
     "cardNumber": "6288001234567805",
     "storedValueBalance": 580.90,

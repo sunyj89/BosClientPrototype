@@ -37,20 +37,6 @@ const OilProcurementManagement = () => {
 
   const tabItems = [
     {
-      key: 'oil-price-adjustment',
-      label: (
-        <span>
-          油品维价
-        </span>
-      ),
-      children: (
-        <DevelopingComponent 
-          title="油品维价管理"
-          description="油品维价管理功能开发中..."
-        />
-      ),
-    },
-    {
       key: 'purchase-order',
       label: (
         <span>
@@ -106,4 +92,17 @@ const OilProcurementManagement = () => {
   );
 };
 
-export default OilProcurementManagement; 
+export default OilProcurementManagement;
+
+/*
+备注信息：
+1. 已删除"油品维价"tab页，不影响其他功能
+2. 保留的功能tab页：
+   - 油品采购申请
+   - 入库卸油  
+   - 油品调拨
+   - 操作记录
+3. 默认激活tab页：油品采购申请
+4. 页面遵循designrules.mdc设计规范
+5. 修改时间：2025年8月15日
+*/ 

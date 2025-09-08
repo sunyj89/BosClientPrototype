@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿import React from 'react';
 import { Layout, Menu, Tooltip } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -44,6 +44,8 @@ import {
   CrownOutlined,
   ShareAltOutlined,
   TagOutlined,
+  FileTextOutlined,
+  InboxOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -183,6 +185,11 @@ const AppSider = ({ collapsed }) => {
           icon: <StockOutlined />,
           label: <MenuItemLabel text="油品密度" link="/oil/density" />,
         },
+        {
+          key: 'oil_price',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="油价维护" link="/oil/price" />,
+        },
       ],
     },
     {
@@ -194,11 +201,6 @@ const AppSider = ({ collapsed }) => {
           key: 'goods_master_data',
           icon: <AppstoreOutlined />,
           label: <MenuItemLabel text="商品主数据" link="/goods/master-data" />,
-        },
-        {
-          key: 'goods_inventory',
-          icon: <DatabaseOutlined />,
-          label: <MenuItemLabel text="库存管理" link="/goods/inventory" />,
         },
         {
           key: 'goods_price',
@@ -242,6 +244,33 @@ const AppSider = ({ collapsed }) => {
       ],
     },
     {
+      key: 'inventory',
+      icon: <InboxOutlined />,
+      label: '库存管理',
+      children: [
+        {
+          key: 'inventory_oil_inventory',
+          icon: <DatabaseOutlined />,
+          label: <MenuItemLabel text="油品库存管理" link="/inventory/oil-inventory" />,
+        },
+        {
+          key: 'inventory_oil_transfer',
+          icon: <SwapOutlined />,
+          label: <MenuItemLabel text="油品调拨" link="/inventory/oil-transfer" />,
+        },
+        {
+          key: 'inventory_goods_inventory',
+          icon: <StockOutlined />,
+          label: <MenuItemLabel text="非油品库存管理" link="/inventory/goods-inventory" />,
+        },
+        {
+          key: 'inventory_goods_transfer',
+          icon: <BranchesOutlined />,
+          label: <MenuItemLabel text="非油品调拨" link="/inventory/goods-transfer" />,
+        },
+      ],
+    },
+    {
       key: 'logistics',
       icon: <TruckOutlined />,
       label: '物流管理',
@@ -282,14 +311,14 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="优惠券配置" link="/marketing/coupon-config" />,
         },
         {
-          key: 'marketing_activity_config',
-          icon: <TrophyOutlined />,
-          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
-        },
-        {
           key: 'marketing_price_discount_config',
           icon: <PercentageOutlined />,
           label: <MenuItemLabel text="价格优惠配置" link="/marketing/price-discount-config" />,
+        },
+        {
+          key: 'marketing_activity_config',
+          icon: <TrophyOutlined />,
+          label: <MenuItemLabel text="营销活动配置" link="/marketing/activity-config" />,
         },
         {
           key: 'marketing_member_identity',
@@ -445,38 +474,7 @@ const AppSider = ({ collapsed }) => {
       ],
     },
 
-    {
-      key: 'payment',
-      icon: <CreditCardOutlined />,
-      label: '支付管理',
-      children: [
-        {
-          key: 'payment_methods',
-          icon: <BankOutlined />,
-          label: <MenuItemLabel text="支付方式管理" link="/payment/methods" />,
-        },
-        {
-          key: 'payment_settlement',
-          icon: <SwapOutlined />,
-          label: <MenuItemLabel text="结算通道配置" link="/payment/settlement" />,
-        },
-        {
-          key: 'payment_oneclick',
-          icon: <DollarOutlined />,
-          label: <MenuItemLabel text="一键加油配置" link="/payment/oneclick" />,
-        },
-        {
-          key: 'payment_contactless',
-          icon: <DesktopOutlined />,
-          label: <MenuItemLabel text="无感支付通讯配置" link="/payment/contactless" />,
-        },
-        {
-          key: 'payment_qrcode',
-          icon: <ShareAltOutlined />,
-          label: <MenuItemLabel text="收款二维码配置" link="/payment/qrcode" />,
-        },
-      ],
-    },
+
 
     {
       key: 'security',
@@ -499,19 +497,19 @@ const AppSider = ({ collapsed }) => {
           label: <MenuItemLabel text="维修施工管理" link="/security/maintenance-management" />,
         },
         {
-          key: 'security_emergency_drill',
+          key: 'security_emergency_drill_management',
           icon: <SecurityScanOutlined />,
-          label: <MenuItemLabel text="应急演练和物资管理" link="#" tooltip="正在开发中" />,
+          label: <MenuItemLabel text="应急演练管理" link="/security/emergency-drill-management" />,
         },
         {
           key: 'security_training_management',
           icon: <TeamOutlined />,
-          label: <MenuItemLabel text="人员培训管理" link="#" tooltip="正在开发中" />,
+          label: <MenuItemLabel text="人员培训管理" link="/security/training-management" />,
         },
         {
           key: 'security_knowledge_exam',
           icon: <AuditOutlined />,
-          label: <MenuItemLabel text="安全知识和考试管理" link="#" tooltip="正在开发中" />,
+          label: <MenuItemLabel text="安全知识和考试管理" link="/security/knowledge-exam" />,
         },
       ],
     },
@@ -540,6 +538,37 @@ const AppSider = ({ collapsed }) => {
           key: 'analytics_dashboard',
           icon: <FundViewOutlined />,
           label: <MenuItemLabel text="大数据超脑大屏" link="/analytics/dashboard" />,
+        },
+      ],
+    },
+
+    {
+      key: 'payment',
+      icon: <CreditCardOutlined />,
+      label: '支付管理',
+      children: [
+        {
+          key: 'payment_acceptance_config',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="支付受理配置" link="/payment/acceptance-config" />,
+        },
+      ],
+    },
+
+    {
+      key: 'invoice',
+      icon: <FileTextOutlined />,
+      label: '发票管理',
+      children: [
+        {
+          key: 'invoice_records',
+          icon: <FileTextOutlined />,
+          label: <MenuItemLabel text="开票记录" link="/invoice" />,
+        },
+        {
+          key: 'invoice_settings',
+          icon: <SettingOutlined />,
+          label: <MenuItemLabel text="发票设置" link="/invoice/settings" />,
         },
       ],
     },

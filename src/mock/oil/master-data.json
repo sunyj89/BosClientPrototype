@@ -1,0 +1,624 @@
+{
+  "oilList": [
+    {
+      "key": "1",
+      "code": "100001",
+      "onlineCode": "OL2024001",
+      "name": "92号汽油国V",
+      "categoryKey": "1-1-1",
+      "category": "92号",
+      "categoryPath": "油品 > 汽油 > 92号",
+      "shortName": "92#汽油",
+      "oilType": "汽油",
+      "emissionLevel": "国V",
+      "status": "生效中",
+      "density": 0.75,
+      "input_tax_rate": 16.00,
+      "output_tax_rate": 13.00,
+      "tax_classification": "2060101",
+      "tax_rate": 13.00,
+      "erp_product_code": "ERPOIL001",
+      "erp_category_code": "ERPOILCAT001",
+      "createTime": "2024-01-15 10:30:00",
+      "updateTime": "2024-01-15 10:30:00",
+      "approver": "张经理"
+    },
+    {
+      "key": "2",
+      "code": "100002",
+      "onlineCode": "OL2024002",
+      "name": "92号汽油国VIA",
+      "categoryKey": "1-1-1",
+      "category": "92号",
+      "categoryPath": "油品 > 汽油 > 92号",
+      "shortName": "92#汽油VIA",
+      "oilType": "汽油",
+      "emissionLevel": "国VIA",
+      "status": "生效中",
+      "density": 0.75,
+      "input_tax_rate": 16.00,
+      "output_tax_rate": 13.00,
+      "tax_classification": "2060101",
+      "tax_rate": 13.00,
+      "erp_product_code": "ERPOIL002",
+      "erp_category_code": "ERPOILCAT001",
+      "createTime": "2024-01-16 14:20:00",
+      "updateTime": "2024-01-16 14:20:00",
+      "approver": "王主管"
+    },
+    {
+      "key": "3",
+      "code": "100003",
+      "onlineCode": "OL2024003",
+      "name": "95号汽油国V",
+      "categoryKey": "1-1-2",
+      "category": "95号",
+      "categoryPath": "油品 > 汽油 > 95号",
+      "shortName": "95#汽油",
+      "oilType": "汽油",
+      "emissionLevel": "国V",
+      "status": "审批中",
+      "density": 0.76,
+      "input_tax_rate": 16.00,
+      "output_tax_rate": 13.00,
+      "tax_classification": "2060102",
+      "tax_rate": 13.00,
+      "erp_product_code": "ERPOIL003",
+      "erp_category_code": "ERPOILCAT001",
+      "createTime": "2024-01-18 09:15:00",
+      "updateTime": "2024-01-18 09:15:00",
+      "approver": ""
+    },
+    {
+      "key": "4",
+      "code": "100004",
+      "onlineCode": "OL2024004",
+      "name": "95号汽油国VIA",
+      "categoryKey": "1-1-2",
+      "category": "95号",
+      "categoryPath": "油品 > 汽油 > 95号",
+      "shortName": "95#汽油VIA",
+      "oilType": "汽油",
+      "emissionLevel": "国VIA",
+      "status": "生效中",
+      "density": 0.76,
+      "createTime": "2024-01-20 11:45:00",
+      "updateTime": "2024-01-20 11:45:00",
+      "approver": "张经理"
+    },
+    {
+      "key": "5",
+      "code": "100005",
+      "onlineCode": "OL2024005",
+      "name": "98号汽油国V",
+      "categoryKey": "1-1-3",
+      "category": "98号",
+      "categoryPath": "油品 > 汽油 > 98号",
+      "shortName": "98#汽油",
+      "oilType": "汽油",
+      "emissionLevel": "国V",
+      "status": "未生效",
+      "density": 0.77,
+      "createTime": "2024-01-22 16:30:00",
+      "updateTime": "2024-01-22 16:30:00",
+      "approver": ""
+    },
+    {
+      "key": "6",
+      "code": "100006",
+      "onlineCode": "OL2024006",
+      "name": "0号柴油国V",
+      "categoryKey": "1-2-3",
+      "category": "0号",
+      "categoryPath": "油品 > 柴油 > 0号",
+      "shortName": "0#柴油",
+      "oilType": "柴油",
+      "emissionLevel": "国V",
+      "status": "生效中",
+      "density": 0.83,
+      "createTime": "2024-01-10 08:00:00",
+      "updateTime": "2024-01-10 08:00:00",
+      "approver": "王主管"
+    },
+    {
+      "key": "7",
+      "code": "100007",
+      "onlineCode": "OL2024007",
+      "name": "LNG液化天然气",
+      "categoryKey": "2-1-1",
+      "category": "LNG液化天然气",
+      "categoryPath": "天然气 > 车用天然气 > LNG液化天然气",
+      "shortName": "LNG",
+      "oilType": "天然气",
+      "emissionLevel": "",
+      "status": "生效中",
+      "density": 0.42,
+      "createTime": "2024-01-25 10:00:00",
+      "updateTime": "2024-01-25 10:00:00",
+      "approver": "李经理"
+    },
+    {
+      "key": "8",
+      "code": "100008",
+      "onlineCode": "OL2024008",
+      "name": "CNG压缩天然气",
+      "categoryKey": "2-1-2",
+      "category": "CNG压缩天然气",
+      "categoryPath": "天然气 > 车用天然气 > CNG压缩天然气",
+      "shortName": "CNG",
+      "oilType": "天然气",
+      "emissionLevel": "",
+      "status": "审批中",
+      "density": 0.65,
+      "createTime": "2024-01-26 14:30:00",
+      "updateTime": "2024-01-26 14:30:00",
+      "approver": ""
+    },
+    {
+      "key": "9",
+      "code": "100009",
+      "onlineCode": "OL2024009",
+      "name": "桶装车用尿素",
+      "categoryKey": "3-1-1",
+      "category": "桶装车用尿素",
+      "categoryPath": "尾气处理液 > 柴油机尾气处理液 > 桶装车用尿素",
+      "shortName": "桶装尿素",
+      "oilType": "尿素",
+      "emissionLevel": "",
+      "status": "生效中",
+      "density": 1.09,
+      "createTime": "2024-01-28 09:30:00",
+      "updateTime": "2024-01-28 09:30:00",
+      "approver": "张经理"
+    },
+    {
+      "key": "10",
+      "code": "100010",
+      "onlineCode": "OL2024010",
+      "name": "散装车用尿素",
+      "categoryKey": "3-1-2",
+      "category": "散装车用尿素",
+      "categoryPath": "尾气处理液 > 柴油机尾气处理液 > 散装车用尿素",
+      "shortName": "散装尿素",
+      "oilType": "尿素",
+      "emissionLevel": "",
+      "status": "未生效",
+      "density": 1.09,
+      "createTime": "2024-01-30 15:00:00",
+      "updateTime": "2024-01-30 15:00:00",
+      "approver": ""
+    }
+  ],
+  "categoryTree": [
+    {
+      "title": "油品",
+      "value": "1",
+      "categoryId": "OIL",
+      "level": 1,
+      "children": [
+        {
+          "title": "汽油",
+          "value": "1-1",
+          "categoryId": "GAS",
+          "level": 2,
+          "children": [
+            { "title": "92号", "value": "1-1-1", "categoryId": "GAS92", "level": 3 },
+            { "title": "95号", "value": "1-1-2", "categoryId": "GAS95", "level": 3 },
+            { "title": "98号", "value": "1-1-3", "categoryId": "GAS98", "level": 3 },
+            { "title": "101号", "value": "1-1-4", "categoryId": "GAS101", "level": 3 }
+          ]
+        },
+        {
+          "title": "柴油",
+          "value": "1-2",
+          "categoryId": "DIESEL",
+          "level": 2,
+          "children": [
+            { "title": "10号", "value": "1-2-1", "categoryId": "DIESEL10", "level": 3 },
+            { "title": "5号", "value": "1-2-2", "categoryId": "DIESEL5", "level": 3 },
+            { "title": "0号", "value": "1-2-3", "categoryId": "DIESEL0", "level": 3 },
+            { "title": "-10号", "value": "1-2-4", "categoryId": "DIESEL-10", "level": 3 },
+            { "title": "-20号", "value": "1-2-5", "categoryId": "DIESEL-20", "level": 3 },
+            { "title": "-35号", "value": "1-2-6", "categoryId": "DIESEL-35", "level": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "天然气",
+      "value": "2",
+      "categoryId": "NATURAL_GAS",
+      "level": 1,
+      "children": [
+        {
+          "title": "车用天然气",
+          "value": "2-1",
+          "categoryId": "VEHICLE_GAS",
+          "level": 2,
+          "children": [
+            { "title": "LNG液化天然气", "value": "2-1-1", "categoryId": "LNG", "level": 3 },
+            { "title": "CNG压缩天然气", "value": "2-1-2", "categoryId": "CNG", "level": 3 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "尾气处理液",
+      "value": "3",
+      "categoryId": "EXHAUST_FLUID",
+      "level": 1,
+      "children": [
+        {
+          "title": "柴油机尾气处理液",
+          "value": "3-1",
+          "categoryId": "DIESEL_EXHAUST_FLUID",
+          "level": 2,
+          "children": [
+            { "title": "桶装车用尿素", "value": "3-1-1", "categoryId": "BARREL_UREA", "level": 3 },
+            { "title": "散装车用尿素", "value": "3-1-2", "categoryId": "BULK_UREA", "level": 3 }
+          ]
+        }
+      ]
+    }
+  ],
+  "oilCategoryTree": [
+    {
+      "title": "油品",
+      "key": "1",
+      "categoryId": "OIL",
+      "level": 1,
+      "sort": 1,
+      "status": "active",
+      "parentCategoryId": null,
+      "parentCategoryName": null,
+      "children": [
+        {
+          "title": "汽油",
+          "key": "1-1",
+          "categoryId": "GAS",
+          "level": 2,
+          "sort": 1,
+          "status": "active",
+          "parentKey": "1",
+          "parentCategoryId": "OIL",
+          "parentCategoryName": "油品",
+          "children": [
+            {
+              "title": "92号",
+              "key": "1-1-1",
+              "categoryId": "GAS92",
+              "level": 3,
+              "sort": 1,
+              "status": "active",
+              "parentKey": "1-1",
+              "parentCategoryId": "GAS",
+              "parentCategoryName": "汽油",
+              "oilCodes": ["100001", "100002"],
+              "isLeaf": true
+            },
+            {
+              "title": "95号",
+              "key": "1-1-2",
+              "categoryId": "GAS95",
+              "level": 3,
+              "sort": 2,
+              "status": "active",
+              "parentKey": "1-1",
+              "parentCategoryId": "GAS",
+              "parentCategoryName": "汽油",
+              "oilCodes": ["100003", "100004"],
+              "isLeaf": true
+            },
+            {
+              "title": "98号",
+              "key": "1-1-3",
+              "categoryId": "GAS98",
+              "level": 3,
+              "sort": 3,
+              "status": "active",
+              "parentKey": "1-1",
+              "parentCategoryId": "GAS",
+              "parentCategoryName": "汽油",
+              "oilCodes": ["100005"],
+              "isLeaf": true
+            },
+            {
+              "title": "101号",
+              "key": "1-1-4",
+              "categoryId": "GAS101",
+              "level": 3,
+              "sort": 4,
+              "status": "active",
+              "parentKey": "1-1",
+              "parentCategoryId": "GAS",
+              "parentCategoryName": "汽油",
+              "oilCodes": [],
+              "isLeaf": true
+            }
+          ]
+        },
+        {
+          "title": "柴油",
+          "key": "1-2",
+          "categoryId": "DIESEL",
+          "level": 2,
+          "sort": 2,
+          "status": "active",
+          "parentKey": "1",
+          "parentCategoryId": "OIL",
+          "parentCategoryName": "油品",
+          "children": [
+            {
+              "title": "10号",
+              "key": "1-2-1",
+              "categoryId": "DIESEL10",
+              "level": 3,
+              "sort": 1,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": [],
+              "isLeaf": true
+            },
+            {
+              "title": "5号",
+              "key": "1-2-2",
+              "categoryId": "DIESEL5",
+              "level": 3,
+              "sort": 2,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": [],
+              "isLeaf": true
+            },
+            {
+              "title": "0号",
+              "key": "1-2-3",
+              "categoryId": "DIESEL0",
+              "level": 3,
+              "sort": 3,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": ["100006"],
+              "isLeaf": true
+            },
+            {
+              "title": "-10号",
+              "key": "1-2-4",
+              "categoryId": "DIESEL-10",
+              "level": 3,
+              "sort": 4,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": [],
+              "isLeaf": true
+            },
+            {
+              "title": "-20号",
+              "key": "1-2-5",
+              "categoryId": "DIESEL-20",
+              "level": 3,
+              "sort": 5,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": [],
+              "isLeaf": true
+            },
+            {
+              "title": "-35号",
+              "key": "1-2-6",
+              "categoryId": "DIESEL-35",
+              "level": 3,
+              "sort": 6,
+              "status": "active",
+              "parentKey": "1-2",
+              "parentCategoryId": "DIESEL",
+              "parentCategoryName": "柴油",
+              "oilCodes": [],
+              "isLeaf": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "天然气",
+      "key": "2",
+      "categoryId": "NATURAL_GAS",
+      "level": 1,
+      "sort": 2,
+      "status": "active",
+      "parentCategoryId": null,
+      "parentCategoryName": null,
+      "children": [
+        {
+          "title": "车用天然气",
+          "key": "2-1",
+          "categoryId": "VEHICLE_GAS",
+          "level": 2,
+          "sort": 1,
+          "status": "active",
+          "parentKey": "2",
+          "parentCategoryId": "NATURAL_GAS",
+          "parentCategoryName": "天然气",
+          "children": [
+            {
+              "title": "LNG液化天然气",
+              "key": "2-1-1",
+              "categoryId": "LNG",
+              "level": 3,
+              "sort": 1,
+              "status": "active",
+              "parentKey": "2-1",
+              "parentCategoryId": "VEHICLE_GAS",
+              "parentCategoryName": "车用天然气",
+              "oilCodes": ["100007"],
+              "isLeaf": true
+            },
+            {
+              "title": "CNG压缩天然气",
+              "key": "2-1-2",
+              "categoryId": "CNG",
+              "level": 3,
+              "sort": 2,
+              "status": "active",
+              "parentKey": "2-1",
+              "parentCategoryId": "VEHICLE_GAS",
+              "parentCategoryName": "车用天然气",
+              "oilCodes": ["100008"],
+              "isLeaf": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "尾气处理液",
+      "key": "3",
+      "categoryId": "EXHAUST_FLUID",
+      "level": 1,
+      "sort": 3,
+      "status": "active",
+      "parentCategoryId": null,
+      "parentCategoryName": null,
+      "children": [
+        {
+          "title": "柴油机尾气处理液",
+          "key": "3-1",
+          "categoryId": "DIESEL_EXHAUST_FLUID",
+          "level": 2,
+          "sort": 1,
+          "status": "active",
+          "parentKey": "3",
+          "parentCategoryId": "EXHAUST_FLUID",
+          "parentCategoryName": "尾气处理液",
+          "children": [
+            {
+              "title": "桶装车用尿素",
+              "key": "3-1-1",
+              "categoryId": "BARREL_UREA",
+              "level": 3,
+              "sort": 1,
+              "status": "active",
+              "parentKey": "3-1",
+              "parentCategoryId": "DIESEL_EXHAUST_FLUID",
+              "parentCategoryName": "柴油机尾气处理液",
+              "oilCodes": ["100009"],
+              "isLeaf": true
+            },
+            {
+              "title": "散装车用尿素",
+              "key": "3-1-2",
+              "categoryId": "BULK_UREA",
+              "level": 3,
+              "sort": 2,
+              "status": "active",
+              "parentKey": "3-1",
+              "parentCategoryId": "DIESEL_EXHAUST_FLUID",
+              "parentCategoryName": "柴油机尾气处理液",
+              "oilCodes": ["100010"],
+              "isLeaf": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "oilListForCategory": [
+    { "code": "100001", "name": "92号汽油国V", "category": "92号", "categoryKey": "1-1-1" },
+    { "code": "100002", "name": "92号汽油国VIA", "category": "92号", "categoryKey": "1-1-1" },
+    { "code": "100003", "name": "95号汽油国V", "category": "95号", "categoryKey": "1-1-2" },
+    { "code": "100004", "name": "95号汽油国VIA", "category": "95号", "categoryKey": "1-1-2" },
+    { "code": "100005", "name": "98号汽油国V", "category": "98号", "categoryKey": "1-1-3" },
+    { "code": "100006", "name": "0号柴油国V", "category": "0号", "categoryKey": "1-2-3" },
+    { "code": "100007", "name": "LNG液化天然气", "category": "LNG液化天然气", "categoryKey": "2-1-1" },
+    { "code": "100008", "name": "CNG压缩天然气", "category": "CNG压缩天然气", "categoryKey": "2-1-2" },
+    { "code": "100009", "name": "桶装车用尿素", "category": "桶装车用尿素", "categoryKey": "3-1-1" },
+    { "code": "100010", "name": "散装车用尿素", "category": "散装车用尿素", "categoryKey": "3-1-2" }
+  ],
+  "modifyRecordList": [
+    {
+      "id": 1,
+      "oilCode": "100001",
+      "oilName": "92号汽油国V",
+      "operationType": "编辑",
+      "operatorName": "张三",
+      "operateTime": "2024-01-20 14:30:25",
+      "approvalStatus": "审批中",
+      "changeFields": [
+        { "field": "默认密度", "oldValue": "0.720", "newValue": "0.725" },
+        { "field": "排放等级", "oldValue": "国IV", "newValue": "国V" }
+      ],
+      "reason": "更新排放标准和密度参数"
+    },
+    {
+      "id": 2,
+      "oilCode": "100002",
+      "oilName": "92号汽油国VIA",
+      "operationType": "新建",
+      "operatorName": "李四",
+      "operateTime": "2024-01-19 10:15:00",
+      "approvalStatus": "已审批",
+      "changeFields": [],
+      "reason": "新增92号汽油国VIA品种"
+    },
+    {
+      "id": 3,
+      "oilCode": "100003",
+      "oilName": "95号汽油国V",
+      "operationType": "编辑",
+      "operatorName": "王五",
+      "operateTime": "2024-01-18 16:45:30",
+      "approvalStatus": "已审批",
+      "changeFields": [
+        { "field": "油品简称", "oldValue": "95号", "newValue": "95#" }
+      ],
+      "reason": "统一简称命名规范"
+    },
+    {
+      "id": 4,
+      "oilCode": "100006",
+      "oilName": "0号柴油国V",
+      "operationType": "编辑",
+      "operatorName": "赵六",
+      "operateTime": "2024-01-17 09:20:15",
+      "approvalStatus": "已审批",
+      "changeFields": [
+        { "field": "分类", "oldValue": "柴油", "newValue": "0号" },
+        { "field": "排放等级", "oldValue": "国IV", "newValue": "国V" }
+      ],
+      "reason": "更新分类归属和排放标准"
+    },
+    {
+      "id": 5,
+      "oilCode": "100005",
+      "oilName": "98号汽油国V",
+      "operationType": "新建",
+      "operatorName": "孙七",
+      "operateTime": "2024-01-16 11:30:45",
+      "approvalStatus": "已拒绝",
+      "changeFields": [],
+      "reason": "新增98号汽油品种"
+    },
+    {
+      "id": 6,
+      "oilCode": "100007",
+      "oilName": "0号柴油国VIA",
+      "operationType": "新建",
+      "operatorName": "周八",
+      "operateTime": "2024-01-15 14:20:30",
+      "approvalStatus": "审批中",
+      "changeFields": [],
+      "reason": "新增0号柴油国VIA品种"
+    }
+  ]
+}

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Layout, ConfigProvider } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 
 // 导入组件
 import AppHeader from './components/layout/AppHeader';
@@ -13,6 +15,9 @@ import Login from './pages/Login';
 import AppRouter from './router';
 
 const { Content } = Layout;
+
+// Configure dayjs locale
+dayjs.locale('zh-cn');
 
 // 定义主题配置
 const themeConfig = {

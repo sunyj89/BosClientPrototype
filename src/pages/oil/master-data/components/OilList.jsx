@@ -24,6 +24,7 @@ import {
 } from '@ant-design/icons';
 import OilForm from './OilForm';
 import OilViewModal from './OilViewModal';
+import mockData from '../../../../mock/oil/master-data.json';
 
 const { Option } = Select;
 
@@ -34,256 +35,12 @@ const OilList = ({ setLoading }) => {
   const [modalType, setModalType] = useState('create'); // create, edit, view
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
-
-  // 模拟数据 - 包含新分类的油品
-  const mockData = [
-    {
-      key: '1',
-      code: '100001',
-      onlineCode: 'OL2024001',
-      name: '92号汽油国V',
-      categoryKey: '1-1-1',
-      category: '92号',
-      categoryPath: '油品 > 汽油 > 92号',
-      shortName: '92#汽油',
-      oilType: '汽油',
-      emissionLevel: '国V',
-      status: '生效中',
-      density: 0.75,
-      createTime: '2024-01-15 10:30:00',
-      updateTime: '2024-01-15 10:30:00',
-      approver: '张经理'
-    },
-    {
-      key: '2',
-      code: '100002',
-      onlineCode: 'OL2024002',
-      name: '92号汽油国VIA',
-      categoryKey: '1-1-1',
-      category: '92号',
-      categoryPath: '油品 > 汽油 > 92号',
-      shortName: '92#汽油VIA',
-      oilType: '汽油',
-      emissionLevel: '国VIA',
-      status: '生效中',
-      density: 0.75,
-      createTime: '2024-01-16 14:20:00',
-      updateTime: '2024-01-16 14:20:00',
-      approver: '王主管'
-    },
-    {
-      key: '3',
-      code: '100003',
-      onlineCode: 'OL2024003',
-      name: '95号汽油国V',
-      categoryKey: '1-1-2',
-      category: '95号',
-      categoryPath: '油品 > 汽油 > 95号',
-      shortName: '95#汽油',
-      oilType: '汽油',
-      emissionLevel: '国V',
-      status: '审批中',
-      density: 0.76,
-      createTime: '2024-01-18 09:15:00',
-      updateTime: '2024-01-18 09:15:00',
-      approver: ''
-    },
-    {
-      key: '4',
-      code: '100004',
-      onlineCode: 'OL2024004',
-      name: '95号汽油国VIA',
-      categoryKey: '1-1-2',
-      category: '95号',
-      categoryPath: '油品 > 汽油 > 95号',
-      shortName: '95#汽油VIA',
-      oilType: '汽油',
-      emissionLevel: '国VIA',
-      status: '生效中',
-      density: 0.76,
-      createTime: '2024-01-20 11:45:00',
-      updateTime: '2024-01-20 11:45:00',
-      approver: '张经理'
-    },
-    {
-      key: '5',
-      code: '100005',
-      onlineCode: 'OL2024005',
-      name: '98号汽油国V',
-      categoryKey: '1-1-3',
-      category: '98号',
-      categoryPath: '油品 > 汽油 > 98号',
-      shortName: '98#汽油',
-      oilType: '汽油',
-      emissionLevel: '国V',
-      status: '未生效',
-      density: 0.77,
-      createTime: '2024-01-22 16:30:00',
-      updateTime: '2024-01-22 16:30:00',
-      approver: ''
-    },
-    {
-      key: '6',
-      code: '100006',
-      onlineCode: 'OL2024006',
-      name: '0号柴油国V',
-      categoryKey: '1-2-3',
-      category: '0号',
-      categoryPath: '油品 > 柴油 > 0号',
-      shortName: '0#柴油',
-      oilType: '柴油',
-      emissionLevel: '国V',
-      status: '生效中',
-      density: 0.83,
-      createTime: '2024-01-10 08:00:00',
-      updateTime: '2024-01-10 08:00:00',
-      approver: '王主管'
-    },
-    {
-      key: '7',
-      code: '100007',
-      onlineCode: 'OL2024007',
-      name: 'LNG液化天然气',
-      categoryKey: '2-1-1',
-      category: 'LNG液化天然气',
-      categoryPath: '天然气 > 车用天然气 > LNG液化天然气',
-      shortName: 'LNG',
-      oilType: '天然气',
-      emissionLevel: '',
-      status: '生效中',
-      density: 0.42,
-      createTime: '2024-01-25 10:00:00',
-      updateTime: '2024-01-25 10:00:00',
-      approver: '李经理'
-    },
-    {
-      key: '8',
-      code: '100008',
-      onlineCode: 'OL2024008',
-      name: 'CNG压缩天然气',
-      categoryKey: '2-1-2',
-      category: 'CNG压缩天然气',
-      categoryPath: '天然气 > 车用天然气 > CNG压缩天然气',
-      shortName: 'CNG',
-      oilType: '天然气',
-      emissionLevel: '',
-      status: '审批中',
-      density: 0.65,
-      createTime: '2024-01-26 14:30:00',
-      updateTime: '2024-01-26 14:30:00',
-      approver: ''
-    },
-    {
-      key: '9',
-      code: '100009',
-      onlineCode: 'OL2024009',
-      name: '桶装车用尿素',
-      categoryKey: '3-1-1',
-      category: '桶装车用尿素',
-      categoryPath: '尾气处理液 > 柴油机尾气处理液 > 桶装车用尿素',
-      shortName: '桶装尿素',
-      oilType: '尿素',
-      emissionLevel: '',
-      status: '生效中',
-      density: 1.09,
-      createTime: '2024-01-28 09:30:00',
-      updateTime: '2024-01-28 09:30:00',
-      approver: '张经理'
-    },
-    {
-      key: '10',
-      code: '100010',
-      onlineCode: 'OL2024010',
-      name: '散装车用尿素',
-      categoryKey: '3-1-2',
-      category: '散装车用尿素',
-      categoryPath: '尾气处理液 > 柴油机尾气处理液 > 散装车用尿素',
-      shortName: '散装尿素',
-      oilType: '尿素',
-      emissionLevel: '',
-      status: '未生效',
-      density: 1.09,
-      createTime: '2024-01-30 15:00:00',
-      updateTime: '2024-01-30 15:00:00',
-      approver: ''
-    }
-  ];
-
-  // 分类树形数据 - 根据提示词记录修正分类结构
-  const categoryTreeData = [
-    {
-      title: '油品',
-      value: '1',
-      categoryId: 'OIL',
-      level: 1,
-      children: [
-        {
-          title: '汽油',
-          value: '1-1',
-          categoryId: 'GAS',
-          level: 2,
-          children: [
-            { title: '92号', value: '1-1-1', categoryId: 'GAS92', level: 3 },
-            { title: '95号', value: '1-1-2', categoryId: 'GAS95', level: 3 },
-            { title: '98号', value: '1-1-3', categoryId: 'GAS98', level: 3 },
-            { title: '101号', value: '1-1-4', categoryId: 'GAS101', level: 3 }
-          ]
-        },
-        {
-          title: '柴油',
-          value: '1-2',
-          categoryId: 'DIESEL',
-          level: 2,
-          children: [
-            { title: '10号', value: '1-2-1', categoryId: 'DIESEL10', level: 3 },
-            { title: '5号', value: '1-2-2', categoryId: 'DIESEL5', level: 3 },
-            { title: '0号', value: '1-2-3', categoryId: 'DIESEL0', level: 3 },
-            { title: '-10号', value: '1-2-4', categoryId: 'DIESEL-10', level: 3 },
-            { title: '-20号', value: '1-2-5', categoryId: 'DIESEL-20', level: 3 },
-            { title: '-35号', value: '1-2-6', categoryId: 'DIESEL-35', level: 3 }
-          ]
-        }
-      ]
-    },
-    {
-      title: '天然气',
-      value: '2',
-      categoryId: 'NATURAL_GAS',
-      level: 1,
-      children: [
-        {
-          title: '车用天然气',
-          value: '2-1',
-          categoryId: 'VEHICLE_GAS',
-          level: 2,
-          children: [
-            { title: 'LNG液化天然气', value: '2-1-1', categoryId: 'LNG', level: 3 },
-            { title: 'CNG压缩天然气', value: '2-1-2', categoryId: 'CNG', level: 3 }
-          ]
-        }
-      ]
-    },
-    {
-      title: '尾气处理液',
-      value: '3',
-      categoryId: 'EXHAUST_FLUID',
-      level: 1,
-      children: [
-        {
-          title: '柴油机尾气处理液',
-          value: '3-1',
-          categoryId: 'DIESEL_EXHAUST_FLUID',
-          level: 2,
-          children: [
-            { title: '桶装车用尿素', value: '3-1-1', categoryId: 'BARREL_UREA', level: 3 },
-            { title: '散装车用尿素', value: '3-1-2', categoryId: 'BULK_UREA', level: 3 }
-          ]
-        }
-      ]
-    }
-  ];
+  const [categoryTreeData, setCategoryTreeData] = useState([]);
 
   useEffect(() => {
+    // 从 mock 文件中获取数据
+    setDataSource(mockData.oilList);
+    setCategoryTreeData(mockData.categoryTree);
     loadData();
   }, []);
 
@@ -291,7 +48,7 @@ const OilList = ({ setLoading }) => {
     setLoading(true);
     // 模拟API调用
     setTimeout(() => {
-      setDataSource(mockData);
+      setDataSource(mockData.oilList);
       setLoading(false);
     }, 800);
   };
@@ -300,7 +57,7 @@ const OilList = ({ setLoading }) => {
     setLoading(true);
     // 模拟搜索
     setTimeout(() => {
-      let filteredData = [...mockData];
+      let filteredData = [...mockData.oilList];
       if (values.code) {
         filteredData = filteredData.filter(item => 
           item.code.includes(values.code)

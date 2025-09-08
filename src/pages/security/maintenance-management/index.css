@@ -30,6 +30,25 @@
   border-color: var(--primary-color-light, #4FC16A);
 }
 
+/* 危险操作按钮样式 */
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #fff;
+}
+
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous:hover {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
+.maintenance-management-container .ant-btn-primary.ant-btn-dangerous:focus {
+  background-color: var(--error-color-light);
+  border-color: var(--error-color-light);
+  color: #fff;
+}
+
 .maintenance-management-container .ant-select,
 .maintenance-management-container .ant-input,
 .maintenance-management-container .ant-picker {

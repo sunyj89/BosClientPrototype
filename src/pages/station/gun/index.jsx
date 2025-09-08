@@ -912,11 +912,12 @@ const GunManagement = () => {
               <Form.Item
                 name="deviceCode"
                 label="关联油机编号"
-                rules={[{ required: true, message: '请选择关联油机编号' }]}
+                tooltip="此数据来源于设备管理模块，可选配置"
               >
                 <Select
-                  placeholder="请选择关联油机编号"
+                  placeholder="请选择关联油机编号（可选）"
                   showSearch
+                  allowClear
                   filterOption={(input, option) =>
                     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
@@ -929,6 +930,9 @@ const GunManagement = () => {
                     ))
                   }
                 </Select>
+                <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+                  备注：油机设备信息来源于设备管理模块，如未选择则表示该油枪暂未关联具体油机设备
+                </div>
               </Form.Item>
             </Col>
             <Col span={12}>

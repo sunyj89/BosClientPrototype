@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Card,
   Table,
   Button,
   Space,
@@ -14,8 +13,6 @@ import {
   Col,
   InputNumber,
   Transfer,
-  Descriptions,
-  Image,
   Divider,
   Popconfirm,
   Tooltip
@@ -26,14 +23,7 @@ import {
   EditOutlined,
   EyeOutlined,
   DeleteOutlined,
-  ExclamationCircleOutlined,
-  AppstoreOutlined,
-  ShoppingOutlined,
-  CheckOutlined,
-  CloseOutlined,
-  SendOutlined,
-  PlayCircleOutlined,
-  StopOutlined
+  ReloadOutlined
 } from '@ant-design/icons';
 import './index.css';
 
@@ -195,17 +185,9 @@ const ComboProduct = () => {
     
     switch (action) {
       case 'edit':
-        return status === 'draft' || status === 'inactive';
-      case 'delete':
-        return status === 'draft' || status === 'inactive';
-      case 'submit':
         return status === 'draft';
-      case 'approve':
-        return status === 'pending';
-      case 'activate':
-        return status === 'inactive';
-      case 'deactivate':
-        return status === 'active';
+      case 'delete':
+        return status === 'draft';
       case 'view':
         return true;
       default:
@@ -304,7 +286,7 @@ const ComboProduct = () => {
     {
       title: '操作',
       key: 'action',
-      width: 300,
+      width: 180,
       fixed: 'right',
       render: (_, record) => (
         <Space size="small">
@@ -329,7 +311,7 @@ const ComboProduct = () => {
               编辑
             </Button>
           ) : (
-            <Tooltip title="只有草稿和停用状态的组合商品可以编辑">
+            <Tooltip title="只有草稿状态的组合商品可以编辑">
               <Button
                 size="small"
                 icon={<EditOutlined />}
@@ -341,66 +323,23 @@ const ComboProduct = () => {
             </Tooltip>
           )}
           
-          {checkPermission(record, 'submit') && (
-            <Button
-              type="primary"
-              size="small"
-              icon={<SendOutlined />}
-              style={{ borderRadius: '2px' }}
-              onClick={() => handleSubmitApproval(record)}
-            >
-              提交审核
-            </Button>
-          )}
-          
-          {checkPermission(record, 'approve') && (
-            <Button
-              type="primary"
-              size="small"
-              icon={<CheckOutlined />}
-              style={{ borderRadius: '2px' }}
-              onClick={() => handleApprove(record)}
-            >
-              审核
-            </Button>
-          )}
-          
-          {checkPermission(record, 'activate') && (
-            <Button
-              type="primary"
-              size="small"
-              icon={<PlayCircleOutlined />}
-              style={{ borderRadius: '2px' }}
-              onClick={() => handleActivate(record)}
-            >
-              激活
-            </Button>
-          )}
-          
-          {checkPermission(record, 'deactivate') && (
-            <Button
-              type="primary"
-              size="small"
-              danger
-              icon={<StopOutlined />}
-              style={{ borderRadius: '2px' }}
-              onClick={() => handleDeactivate(record)}
-            >
-              停用
-            </Button>
-          )}
-          
           {checkPermission(record, 'delete') && (
-            <Button
-              type="primary"
-              size="small"
-              danger
-              icon={<DeleteOutlined />}
-              style={{ borderRadius: '2px' }}
-              onClick={() => handleDelete(record)}
+            <Popconfirm
+              title="确定要删除这个组合商品吗？"
+              onConfirm={() => handleDelete(record)}
+              okText="确定"
+              cancelText="取消"
             >
-              删除
-            </Button>
+              <Button
+                type="primary"
+                size="small"
+                danger
+                icon={<DeleteOutlined />}
+                style={{ borderRadius: '2px' }}
+              >
+                删除
+              </Button>
+            </Popconfirm>
           )}
         </Space>
       )
@@ -515,112 +454,9 @@ const ComboProduct = () => {
   };
 
   const handleDelete = (record) => {
-    Modal.confirm({
-      title: '确认删除',
-      icon: <ExclamationCircleOutlined />,
-      content: `确定要删除组合商品 "${record.name}" 吗？`,
-      onOk() {
-        const newDataSource = dataSource.filter(item => item.id !== record.id);
-        setDataSource(newDataSource);
-        message.success('删除成功');
-      }
-    });
-  };
-
-  // 提交审核
-  const handleSubmitApproval = (record) => {
-    Modal.confirm({
-      title: '提交审核',
-      icon: <SendOutlined />,
-      content: `确认提交组合商品 "${record.name}" 进行审核吗？`,
-      onOk() {
-        const newDataSource = dataSource.map(item => {
-          if (item.id === record.id) {
-            return {
-              ...item,
-              status: 'pending',
-              statusName: '待审核',
-              submitTime: new Date().toLocaleString('zh-CN'),
-              submitter: '当前用户' // 实际应用中应该是当前登录用户
-            };
-          }
-          return item;
-        });
-        setDataSource(newDataSource);
-        message.success('提交审核成功');
-      }
-    });
-  };
-
-  // 审核
-  const handleApprove = (record) => {
-    Modal.confirm({
-      title: '审核组合商品',
-      icon: <CheckOutlined />,
-      content: `确认审核通过组合商品 "${record.name}" 吗？`,
-      onOk() {
-        const newDataSource = dataSource.map(item => {
-          if (item.id === record.id) {
-            return {
-              ...item,
-              status: 'active',
-              statusName: '生效',
-              approver: '当前用户', // 实际应用中应该是当前登录用户
-              approveTime: new Date().toLocaleString('zh-CN')
-            };
-          }
-          return item;
-        });
-        setDataSource(newDataSource);
-        message.success('审核通过');
-      }
-    });
-  };
-
-  // 激活
-  const handleActivate = (record) => {
-    Modal.confirm({
-      title: '激活组合商品',
-      icon: <PlayCircleOutlined />,
-      content: `确认激活组合商品 "${record.name}" 吗？`,
-      onOk() {
-        const newDataSource = dataSource.map(item => {
-          if (item.id === record.id) {
-            return {
-              ...item,
-              status: 'active',
-              statusName: '生效'
-            };
-          }
-          return item;
-        });
-        setDataSource(newDataSource);
-        message.success('激活成功');
-      }
-    });
-  };
-
-  // 停用
-  const handleDeactivate = (record) => {
-    Modal.confirm({
-      title: '停用组合商品',
-      icon: <StopOutlined />,
-      content: `确认停用组合商品 "${record.name}" 吗？`,
-      onOk() {
-        const newDataSource = dataSource.map(item => {
-          if (item.id === record.id) {
-            return {
-              ...item,
-              status: 'inactive',
-              statusName: '停用'
-            };
-          }
-          return item;
-        });
-        setDataSource(newDataSource);
-        message.success('停用成功');
-      }
-    });
+    const newDataSource = dataSource.filter(item => item.id !== record.id);
+    setDataSource(newDataSource);
+    message.success('删除成功');
   };
 
 
@@ -723,79 +559,86 @@ const ComboProduct = () => {
   };
 
   return (
-    <div className="combo-product-container">
-      {/* 搜索筛选区域 */}
-      <Card style={{ marginBottom: 16 }}>
-        <Form
-          form={searchForm}
-          layout="inline"
-          onFinish={handleSearch}
-        >
-          <Form.Item name="keyword" label="关键词">
-            <Input placeholder="组合商品名称/ID" style={{ width: 200 }} />
-          </Form.Item>
-          <Form.Item name="status" label="状态">
-            <Select placeholder="请选择状态" style={{ width: 120 }} allowClear>
-              <Option value="draft">草稿</Option>
-              <Option value="pending">待审核</Option>
-              <Option value="active">生效</Option>
-              <Option value="inactive">停用</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit" icon={<SearchOutlined />} style={{ borderRadius: '2px' }}>
-                搜索
-              </Button>
-              <Button onClick={() => searchForm.resetFields()} style={{ borderRadius: '2px' }}>
-                重置
-              </Button>
-            </Space>
-          </Form.Item>
+    <div>
+      {/* 筛选区域 */}
+      <div style={{ marginBottom: 16, background: '#fff', padding: '16px', borderRadius: '4px' }}>
+        <Form form={searchForm} onFinish={handleSearch}>
+          {/* 第一行：筛选条件 */}
+          <Row gutter={16} style={{ marginBottom: 16 }}>
+            <Col span={5}>
+              <Form.Item name="keyword" label="关键词">
+                <Input placeholder="组合商品名称/ID" style={{ width: '100%' }} allowClear />
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item name="category" label="商品分类">
+                <Select placeholder="请选择分类" style={{ width: '100%' }} allowClear>
+                  {categoryOptions.map(option => (
+                    <Option key={option.value} value={option.value}>{option.label}</Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item name="status" label="状态">
+                <Select placeholder="请选择状态" style={{ width: '100%' }} allowClear>
+                  <Option value="draft">草稿</Option>
+                  <Option value="active">生效</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={4}>
+              <Form.Item name="unit" label="单位">
+                <Select placeholder="请选择单位" style={{ width: '100%' }} allowClear>
+                  <Option value="组">组</Option>
+                  <Option value="套">套</Option>
+                  <Option value="份">份</Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={7} style={{ textAlign: 'right' }}>
+              <Space>
+                <Button type="primary" htmlType="submit" icon={<SearchOutlined />} style={{ borderRadius: '2px' }}>
+                  查询
+                </Button>
+                <Button icon={<ReloadOutlined />} onClick={() => searchForm.resetFields()} style={{ borderRadius: '2px' }}>
+                  重置
+                </Button>
+              </Space>
+            </Col>
+          </Row>
+          
+          {/* 第二行：功能按钮 */}
+          <Row gutter={16}>
+            <Col span={24}>
+              <Space>
+                <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate} style={{ borderRadius: '2px' }}>
+                  新建组合商品
+                </Button>
+                <Button disabled={selectedRowKeys.length === 0} style={{ borderRadius: '2px' }}>
+                  批量操作
+                </Button>
+              </Space>
+            </Col>
+          </Row>
         </Form>
-      </Card>
-
-      {/* 操作工具栏 */}
-      <Card style={{ marginBottom: 16 }}>
-        <Row justify="space-between" align="middle">
-          <Col>
-            <Space>
-              <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate} style={{ borderRadius: '2px' }}>
-                新建组合商品
-              </Button>
-              <Button disabled={selectedRowKeys.length === 0} style={{ borderRadius: '2px' }}>
-                批量操作
-              </Button>
-            </Space>
-          </Col>
-          <Col>
-            <Space>
-              <span style={{ color: '#666' }}>
-                已选择 {selectedRowKeys.length} 项
-              </span>
-            </Space>
-          </Col>
-        </Row>
-      </Card>
+      </div>
 
       {/* 组合商品列表 */}
-      <Card>
-        <Table
-          columns={columns}
-          dataSource={dataSource}
-          rowKey="id"
-          loading={loading}
-          rowSelection={rowSelection}
-          scroll={{ x: 1000 }}
-          pagination={{
-            total: dataSource.length,
-            pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条记录`
-          }}
-        />
-      </Card>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        rowKey="id"
+        loading={loading}
+        rowSelection={rowSelection}
+        scroll={{ x: 'max-content' }}
+        pagination={{
+          defaultPageSize: 10,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条/共 ${total} 条`
+        }}
+      />
 
       {/* 新建/编辑组合商品弹窗 */}
       <Modal
