@@ -165,6 +165,9 @@ import SalesRanking from './pages/sales/goods/ranking';
 import SalesPerformance from './pages/sales/goods/performance';
 import OrganizationTask from './pages/sales/goods/organization-task';
 
+// 油品批发管理
+import OilWholesaleManagement from './pages/sales/oil-wholesale';
+
 
 
 const AppRouter = () => {
@@ -311,6 +314,9 @@ const AppRouter = () => {
           <Route path="performance" element={<SalesPerformance />} />
           <Route path="organization-task" element={<OrganizationTask />} />
         </Route>
+        
+        {/* 油品批发管理 */}
+        <Route path="oil-wholesale" element={<OilWholesaleManagement />} />
       </Route>
       
       {/* 油品管理路由 */}
