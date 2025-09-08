@@ -55,22 +55,6 @@
   color: #fff;
 }
 
-/* 等级配置状态卡片样式 */
-.module-container .level-config-status {
-  background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
-  border-left: 4px solid var(--primary-color);
-}
-
-/* 等级列表表格样式 */
-.module-container .ant-table-thead > tr > th {
-  background-color: #fafafa;
-  font-weight: 600;
-}
-
-.module-container .ant-table-tbody > tr:hover > td {
-  background-color: #f5f5f5;
-}
-
 /* 筛选区域样式 */
 .module-container .filter-area {
   background: #fff;
@@ -88,30 +72,33 @@
   font-weight: 500;
 }
 
-/* 统计卡片样式 */
-.module-container .stats-card {
-  text-align: center;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+/* 表格样式 */
+.module-container .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
 }
 
-.module-container .stats-card .ant-statistic-title {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 8px;
+.module-container .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
 }
 
-.module-container .stats-card .ant-statistic-content {
-  font-size: 24px;
+/* 订单状态颜色 */
+.order-status-pending { color: #faad14; }
+.order-status-delivered { color: #1890ff; }
+.order-status-completed { color: #52c41a; }
+.order-status-cancelled { color: #f5222d; }
+
+/* 数量差异颜色 */
+.variance-positive { color: #52c41a; font-weight: bold; }
+.variance-negative { color: #f5222d; font-weight: bold; }
+.variance-zero { color: #666; }
+
+/* 金额高亮 */
+.amount-highlight {
+  color: #f5222d;
   font-weight: bold;
+  font-size: 14px;
 }
-
-/* 等级图标颜色 */
-.level-icon-normal { color: #8c8c8c; }
-.level-icon-silver { color: #c0c0c0; }
-.level-icon-gold { color: #ffd700; }
-.level-icon-diamond { color: #4169e1; }
-.level-icon-supreme { color: #800080; }
 
 /* 响应式布局调整 */
 @media (max-width: 768px) {

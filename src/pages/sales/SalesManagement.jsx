@@ -23,6 +23,14 @@ const SalesManagement = () => {
       onClick: () => navigate('/sales/goods'),
       color: '#f6ffed',
       borderColor: '#b7eb8f'
+    },
+    {
+      title: '油品批发管理',
+      icon: <DollarOutlined style={{ fontSize: '36px', color: '#fa8c16' }} />,
+      description: '管理油品批发订货通知单、收货确认单和修改记录',
+      onClick: () => navigate('/sales/oil-wholesale'),
+      color: '#fff7e6',
+      borderColor: '#ffb040'
     }
   ];
 

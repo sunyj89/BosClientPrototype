@@ -297,6 +297,11 @@ const AppSider = ({ collapsed }) => {
           icon: <ShoppingOutlined />,
           label: <MenuItemLabel text="商品销售管理" link="/sales/goods" />,
         },
+        {
+          key: 'sales_oil_wholesale',
+          icon: <DollarOutlined />,
+          label: <MenuItemLabel text="油品批发管理" link="/sales/oil-wholesale" />,
+        },
       ],
     },
 
