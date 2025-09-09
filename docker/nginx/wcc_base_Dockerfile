@@ -1,0 +1,27 @@
+FROM alpine:3.15.2
+ENV NG_VERSION nginx-1.21.6
+MAINTAINER weiche-bob <yiguo.shi@weicheche.cn>
+RUN set -x \
+    && echo "http://mirrors.huaweicloud.com/alpine/latest-stable/main/" > /etc/apk/repositories \
+    && echo "http://mirrors.huaweicloud.com/alpine/latest-stable/community/" >> /etc/apk/repositories \
+    && apk update \
+    && apk add --no-cache --virtual .build-deps gcc pcre pcre2 zip unzip libc-dev make perl-dev openssl-dev pcre-dev zlib-dev  \
+    && mkdir -p /usr/local/src \
+    && cd /usr/local/src \
+    && wget http://nginx.org/download/$NG_VERSION.tar.gz \
+    && tar -xf $NG_VERSION.tar.gz \
+    && cd /usr/local/src/$NG_VERSION/ \
+    && ./configure --user=www --group=www --prefix=/data/server/nginx --with-http_ssl_module --with-http_gzip_static_module  --with-http_stub_status_module \
+    && make && make install \
+    && apk del .build-deps \
+    && apk add --no-cache pcre-dev bash tzdata \
+    && rm -rf /usr/local/src* && mkdir -p /data/wwwroot /data/logs/nginx/access /data/logs/nginx/error \
+    && adduser -D -s /sbin/nologin www && chown -R www:www /data/wwwroot/ /data/logs/ \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+COPY docker/nginx/conf /data/server/nginx/conf
+WORKDIR /data/server/nginx/
+ENV PATH /data/server/nginx/sbin:$PATH
+EXPOSE 80/tcp
+ENTRYPOINT ["/data/server/nginx/sbin/nginx"]
+CMD ["-g","daemon off;"]

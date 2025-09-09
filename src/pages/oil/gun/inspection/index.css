@@ -1,0 +1,153 @@
+.gun-inspection {
+  background-color: #f0f2f5;
+  padding: 0;
+  min-height: calc(100vh - 64px - 32px);
+}
+
+.gun-inspection .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.gun-inspection .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.gun-inspection .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.gun-inspection .ant-tag {
+  border-radius: 2px;
+}
+
+.gun-inspection .ant-btn {
+  border-radius: 2px;
+}
+
+.gun-inspection .ant-input-search {
+  margin-right: 16px;
+}
+
+.gun-inspection .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.gun-inspection .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+.gun-inspection .ant-table-row:hover {
+  cursor: pointer;
+}
+
+.inspection-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.inspection-item .item-header {
+  margin-bottom: 8px;
+}
+
+.inspection-item h4 {
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.inspection-item .item-description {
+  margin: 0;
+  color: #666;
+  font-size: 12px;
+}
+
+/* 抽屉样式 */
+.inspection-detail {
+  padding: 0 8px;
+}
+
+.inspection-detail .ant-descriptions-title {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.inspection-detail .ant-descriptions-item-label {
+  font-weight: normal;
+  color: #666;
+}
+
+.inspection-detail .ant-descriptions-item-content {
+  font-weight: 500;
+  color: #333;
+}
+
+.inspection-detail .ant-divider {
+  margin: 24px 0 16px;
+}
+
+.inspection-detail .ant-table {
+  margin-top: 8px;
+}
+
+.inspection-detail .ant-tag .anticon {
+  margin-right: 4px;
+}
+
+@media (max-width: 768px) {
+  .detail-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 表单过滤器样式 */
+.gun-inspection .filter-form {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.gun-inspection .ant-tabs-content {
+  background: white;
+  padding: 0 16px 16px;
+  border-radius: 0 0 4px 4px;
+}
+
+.gun-inspection .ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+/* 审批相关样式 */
+.gun-inspection .ant-drawer-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.gun-inspection .ant-drawer-extra button {
+  margin-left: 8px;
+}
+
+.gun-inspection .ant-alert {
+  margin-bottom: 16px;
+}
+
+.gun-inspection .ant-alert .ant-tag {
+  margin-right: 0;
+}
+
+.gun-inspection .ant-radio-wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.gun-inspection .ant-radio-wrapper .ant-tag {
+  margin-right: 0;
+  margin-left: 4px;
+} 

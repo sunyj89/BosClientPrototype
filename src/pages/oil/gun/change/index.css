@@ -1,0 +1,75 @@
+.gun-change-management {
+  background-color: #f0f2f5;
+  padding: 0;
+  min-height: calc(100vh - 64px - 32px);
+}
+
+.gun-change-management .ant-card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.gun-change-management .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.gun-change-management .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+.gun-change-management .ant-tag {
+  border-radius: 2px;
+}
+
+.gun-change-management .ant-btn {
+  border-radius: 2px;
+}
+
+.gun-change-management .ant-input-search {
+  margin-right: 16px;
+}
+
+.gun-change-management .ant-form-item {
+  margin-bottom: 16px;
+}
+
+.gun-change-management .ant-modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 10px 16px;
+}
+
+.gun-change-management .ant-table-row:hover {
+  cursor: pointer;
+}
+
+.detail-info {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.detail-item .label {
+  width: 100px;
+  color: #666;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.detail-item .value {
+  flex: 1;
+  color: #333;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .detail-info {
+    grid-template-columns: 1fr;
+  }
+}

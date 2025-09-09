@@ -12,16 +12,16 @@ const UserList = ({ users, loading, selectedNode, onAddUser, onEditUser, onDelet
     },
     {
       title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'realName',
+      key: 'realName',
       width: 120,
     },
     {
       title: '岗位/角色',
-      key: 'role',
+      key: 'position',
       width: 120,
       render: (_, record) => (
-        <Tag color="blue">{record.role?.name}</Tag>
+        <Tag color="blue">{record.position}</Tag>
       ),
     },
     {
@@ -82,7 +82,7 @@ const UserList = ({ users, loading, selectedNode, onAddUser, onEditUser, onDelet
     <Card 
       title={title()} 
       style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-      bodyStyle={{ 
+      styles={{ 
         flex: 1, 
         padding: '16px', 
         display: 'flex', 

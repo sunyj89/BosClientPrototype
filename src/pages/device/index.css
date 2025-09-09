@@ -1,0 +1,51 @@
+.device-management-container {
+  padding: 24px;
+}
+
+.device-management-container .ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.device-name-link {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.device-name-link:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+.maintenance-count {
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.maintenance-count:hover {
+  color: #40a9ff;
+  text-decoration: underline;
+}
+
+.fault-count-normal {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.fault-count-error {
+  color: #f5222d;
+  font-weight: 600;
+}
+
+.device-management-container .ant-btn {
+  border-radius: 2px;
+}
+
+.device-management-container .ant-btn-primary {
+  background-color: var(--primary-color, #32AF50);
+  border-color: var(--primary-color, #32AF50);
+}
+
+.device-management-container .ant-btn-primary:hover {
+  background-color: var(--primary-color-light, #4FC16A);
+  border-color: var(--primary-color-light, #4FC16A);
+} 
