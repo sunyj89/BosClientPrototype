@@ -11,7 +11,9 @@
       "Bash(grep:*)",
       "Bash(tail:*)",
       "Bash(wc:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(xcopy:*)",
+      "Bash(cp:*)"
     ],
     "deny": []
   }

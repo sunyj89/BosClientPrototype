@@ -1,463 +1,292 @@
 {
-  "levelConfigInfo": {
-    "effectiveTime": "2025-01-01 00:00:00",
-    "effectiveEndTime": null,
-    "levelingCycle": {
-      "type": "month",
-      "value": 1,
-      "description": "按月定级，每个自然月为一个定级周期"
-    },
-    "levelingType": {
-      "basis": "consumption",
-      "description": "按加油消费金额定级",
-      "includeServices": ["fuel", "carWash", "convenience"]
-    },
-    "defaultLevel": "LEVEL001",
-    "upgradeRule": {
-      "type": "upgrade_downgrade",
-      "description": "根据上一周期消费情况升降级",
-      "protectedLevel": null
-    },
-    "status": "active",
-    "lastModified": "2025-01-20 16:20:00",
-    "modifiedBy": "张管理员"
-  },
-  "levelRules": [
+  "rules": [
     {
-      "id": "LEVEL001",
-      "levelName": "普通会员",
-      "levelCode": "NORMAL",
-      "levelOrder": 1,
-      "upgradeConditions": "注册即可获得",
-      "consumptionThreshold": 0,
-      "pointsThreshold": 0,
-      "privileges": ["基础积分获得", "生日优惠券", "会员专属价格"],
-      "privilegeDetails": {
-        "pointsEarning": "消费1元=1积分",
-        "birthdayDiscount": "生日当月享受专属优惠券",
-        "memberPrice": "享受会员专属商品价格",
-        "fuelDiscount": "无折扣",
-        "carWashDiscount": "无折扣"
+      "id": "RULE001",
+      "ruleName": "2025年Q1会员冲刺活动",
+      "effectivePeriod": {
+        "startTime": "2025-01-01 00:00:00",
+        "endTime": "2025-03-31 23:59:59"
       },
-      "discountRate": 0,
-      "pointsMultiplier": 1.0,
-      "validityPeriod": "永久有效",
-      "memberCount": 12580,
       "status": "active",
-      "levelTemplate": "/images/level/normal.png",
-      "createTime": "2024-12-01 10:00:00",
-      "updateTime": "2025-01-15 14:30:00"
+      "statusText": "生效中",
+      "createdTime": "2024-12-15 10:30:00",
+      "createdBy": "张管理员",
+      "description": "为提升Q1业绩，制定的会员等级激励规则",
+      "levelCount": 4,
+      "memberCount": 15230,
+      "config": {
+        "consumptionMetric": "fuelAmount",
+        "applicableStations": ["ST001", "ST002", "ST003"],
+        "excludedMemberGroups": ["MG003"],
+        "ratingPeriod": "naturalMonth",
+        "upgradeMode": "strictRevaluation"
+      },
+      "levels": [
+        {
+          "id": "LEVEL_001",
+          "levelName": "Lv1-普通会员",
+          "levelOrder": 1,
+          "levelIcon": "/images/level/normal.png",
+          "consumptionThreshold": 0,
+          "privileges": {
+            "coupons": ["C001"],
+            "priceRules": [],
+            "points": 100
+          }
+        },
+        {
+          "id": "LEVEL_002", 
+          "levelName": "Lv2-银牌会员",
+          "levelOrder": 2,
+          "levelIcon": "/images/level/silver.png",
+          "consumptionThreshold": 1000,
+          "privileges": {
+            "coupons": ["C001", "C002"],
+            "priceRules": ["PR001"],
+            "points": 500
+          }
+        },
+        {
+          "id": "LEVEL_003",
+          "levelName": "Lv3-黄金会员", 
+          "levelOrder": 3,
+          "levelIcon": "/images/level/gold.png",
+          "consumptionThreshold": 2500,
+          "privileges": {
+            "coupons": ["C002", "C003"],
+            "priceRules": ["PR001", "PR002"],
+            "points": 1000
+          }
+        },
+        {
+          "id": "LEVEL_004",
+          "levelName": "Lv4-钻石会员",
+          "levelOrder": 4,
+          "levelIcon": "/images/level/diamond.png", 
+          "consumptionThreshold": 5000,
+          "privileges": {
+            "coupons": ["C002", "C003", "C004"],
+            "priceRules": ["PR003"],
+            "points": 2000
+          }
+        }
+      ]
     },
     {
-      "id": "LEVEL002",
-      "levelName": "银牌会员",
-      "levelCode": "SILVER",
-      "levelOrder": 2,
-      "upgradeConditions": "定级周期内累计加油消费满1000元",
-      "consumptionThreshold": 1000,
-      "pointsThreshold": 500,
-      "privileges": ["油品95折", "双倍积分日", "免费洗车2次/月", "专属客服"],
-      "privilegeDetails": {
-        "pointsEarning": "消费1元=1.2积分",
-        "fuelDiscount": "92#、95#汽油享95折优惠",
-        "carWashService": "每月免费洗车服务2次",
-        "doublePointsDay": "每月指定日期双倍积分",
-        "customerService": "专属客服热线服务"
+      "id": "RULE002",
+      "ruleName": "2024年年终大促活动", 
+      "effectivePeriod": {
+        "startTime": "2024-11-01 00:00:00",
+        "endTime": "2024-12-31 23:59:59"
       },
-      "discountRate": 0.05,
-      "pointsMultiplier": 1.2,
-      "validityPeriod": "365天",
-      "memberCount": 3456,
-      "status": "active",
-      "levelTemplate": "/images/level/silver.png",
-      "createTime": "2024-12-01 10:00:00",
-      "updateTime": "2025-01-20 16:20:00"
+      "status": "ended",
+      "statusText": "已结束",
+      "createdTime": "2024-10-25 14:20:00",
+      "createdBy": "李经理",
+      "description": "年终促销期间的特殊等级规则",
+      "levelCount": 5,
+      "memberCount": 12800
     },
     {
-      "id": "LEVEL003",
-      "levelName": "金牌会员",
-      "levelCode": "GOLD",
-      "levelOrder": 3,
-      "upgradeConditions": "定级周期内累计加油消费满5000元",
-      "consumptionThreshold": 5000,
-      "pointsThreshold": 2500,
-      "privileges": ["油品9折", "三倍积分日", "免费洗车5次/月", "生日礼品", "优先加油"],
-      "privilegeDetails": {
-        "pointsEarning": "消费1元=1.5积分",
-        "fuelDiscount": "全品类油品享9折优惠",
-        "carWashService": "每月免费精品洗车服务5次",
-        "triplePointsDay": "每月指定日期三倍积分",
-        "birthdayGift": "生日月享受专属生日礼品",
-        "priorityService": "享受优先加油服务"
+      "id": "RULE003",
+      "ruleName": "春节特惠活动",
+      "effectivePeriod": {
+        "startTime": "2025-02-01 00:00:00", 
+        "endTime": "2025-02-28 23:59:59"
       },
-      "discountRate": 0.10,
-      "pointsMultiplier": 1.5,
-      "validityPeriod": "730天",
-      "memberCount": 856,
-      "status": "active",
-      "levelTemplate": "/images/level/gold.png",
-      "createTime": "2024-12-01 10:00:00",
-      "updateTime": "2025-01-18 11:45:00"
-    },
-    {
-      "id": "LEVEL004",
-      "levelName": "钻石会员",
-      "levelCode": "DIAMOND",
-      "levelOrder": 4,
-      "upgradeConditions": "定级周期内累计加油消费满20000元",
-      "consumptionThreshold": 20000,
-      "pointsThreshold": 10000,
-      "privileges": ["油品85折", "五倍积分日", "专车接送", "年度大礼包", "VIP专属通道"],
-      "privilegeDetails": {
-        "pointsEarning": "消费1元=2积分",
-        "fuelDiscount": "全品类油品享85折优惠",
-        "carWashService": "无限次免费精品洗车",
-        "fiveTimesPointsDay": "每月指定日期五倍积分",
-        "shuttleService": "提供专车接送服务（限本市）",
-        "annualGift": "年度会员大礼包",
-        "vipChannel": "VIP专属服务通道"
-      },
-      "discountRate": 0.15,
-      "pointsMultiplier": 2.0,
-      "validityPeriod": "1095天",
-      "memberCount": 234,
-      "status": "active",
-      "levelTemplate": "/images/level/diamond.png",
-      "createTime": "2024-12-01 10:00:00",
-      "updateTime": "2025-01-22 09:15:00"
-    },
-    {
-      "id": "LEVEL005",
-      "levelName": "至尊会员",
-      "levelCode": "SUPREME",
-      "levelOrder": 5,
-      "upgradeConditions": "定级周期内累计加油消费满50000元",
-      "consumptionThreshold": 50000,
-      "pointsThreshold": 25000,
-      "privileges": ["油品8折", "十倍积分日", "专属管家", "定制服务", "年度豪华旅游"],
-      "privilegeDetails": {
-        "pointsEarning": "消费1元=3积分",
-        "fuelDiscount": "全品类油品享8折优惠",
-        "carWashService": "无限次豪华洗车+美容服务",
-        "tenTimesPointsDay": "每月指定日期十倍积分",
-        "personalManager": "专属客户经理一对一服务",
-        "customService": "个性化定制服务方案",
-        "luxuryTravel": "年度豪华旅游套餐（全家）"
-      },
-      "discountRate": 0.20,
-      "pointsMultiplier": 3.0,
-      "validityPeriod": "永久有效",
-      "memberCount": 67,
-      "status": "inactive",
-      "levelTemplate": "/images/level/supreme.png",
-      "createTime": "2024-12-01 10:00:00",
-      "updateTime": "2024-12-25 15:30:00"
+      "status": "pending",
+      "statusText": "待生效",
+      "createdTime": "2025-01-20 16:45:00",
+      "createdBy": "王主管",
+      "description": "春节期间的会员等级优惠活动",
+      "levelCount": 3,
+      "memberCount": 0
     }
   ],
-  "statisticsData": {
-    "totalMembers": 17193,
+  "statistics": {
+    "totalMembers": 25680,
     "activeLevels": 4,
-    "levelDistribution": [
-      {
-        "levelName": "普通会员",
-        "memberCount": 12580,
-        "percentage": "73.2"
-      },
-      {
-        "levelName": "银牌会员",
-        "memberCount": 3456,
-        "percentage": "20.1"
-      },
-      {
-        "levelName": "金牌会员",
-        "memberCount": 856,
-        "percentage": "5.0"
-      },
-      {
-        "levelName": "钻石会员",
-        "memberCount": 234,
-        "percentage": "1.4"
-      },
-      {
-        "levelName": "至尊会员",
-        "memberCount": 67,
-        "percentage": "0.4"
-      }
-    ],
-    "monthlyUpgrades": [
-      {
-        "month": "2024-12",
-        "upgrades": 156,
-        "downgrades": 23
-      },
-      {
-        "month": "2025-01",
-        "upgrades": 189,
-        "downgrades": 18
-      }
-    ],
-    "avgConsumption": {
-      "normal": 156.8,
-      "silver": 890.5,
-      "gold": 2456.7,
-      "diamond": 8934.2,
-      "supreme": 15678.9
-    },
-    "fuelConsumptionStats": {
-      "92_gasoline": {
-        "totalVolume": 1245678.5,
-        "totalRevenue": 8456789.23,
-        "avgPricePerLiter": 6.79
-      },
-      "95_gasoline": {
-        "totalVolume": 987654.3,
-        "totalRevenue": 7234561.87,
-        "avgPricePerLiter": 7.32
-      },
-      "98_gasoline": {
-        "totalVolume": 123456.7,
-        "totalRevenue": 1098765.43,
-        "avgPricePerLiter": 8.90
-      },
-      "0_diesel": {
-        "totalVolume": 567890.1,
-        "totalRevenue": 3456789.01,
-        "avgPricePerLiter": 6.08
-      },
-      "urea": {
-        "totalVolume": 12345.6,
-        "totalRevenue": 98765.43,
-        "avgPricePerLiter": 8.00
-      }
-    }
+    "thisMonthUpgrades": 1289,
+    "thisMonthDowngrades": 523,
+    "averageConsumption": 1850.5,
+    "retentionRate": 87.5
   },
+  "levelDistribution": [
+    {
+      "levelName": "Lv1-普通会员",
+      "memberCount": 12580,
+      "percentage": 49.0,
+      "averageConsumption": 800.5,
+      "color": "#8c8c8c"
+    },
+    {
+      "levelName": "Lv2-银牌会员", 
+      "memberCount": 7850,
+      "percentage": 30.6,
+      "averageConsumption": 1650.8,
+      "color": "#c0c0c0"
+    },
+    {
+      "levelName": "Lv3-黄金会员",
+      "memberCount": 4200,
+      "percentage": 16.4, 
+      "averageConsumption": 2850.3,
+      "color": "#ffd700"
+    },
+    {
+      "levelName": "Lv4-钻石会员",
+      "memberCount": 1050,
+      "percentage": 4.0,
+      "averageConsumption": 5200.8,
+      "color": "#4169e1"
+    }
+  ],
   "modificationRecords": [
     {
-      "id": "LOG001",
-      "targetId": "CONFIG_BASE",
-      "targetName": "等级配置基础设置",
+      "id": "MOD001",
+      "changeTime": "2025-01-22 14:30:15",
+      "targetType": "rule",
+      "targetId": "RULE001",
+      "targetName": "2025年Q1会员冲刺活动",
       "changeType": "update",
-      "changeField": "定级周期",
-      "changeDescription": "调整定级周期从季度改为月度",
-      "operator": "系统管理员",
-      "operatorId": "SYSADMIN001",
-      "changeTime": "2025-01-25 10:30:00",
-      "approver": "总经理",
-      "status": "approved"
-    },
-    {
-      "id": "LOG002",
-      "targetId": "LEVEL002",
-      "targetName": "银牌会员等级规则",
-      "changeType": "update",
-      "changeField": "升级条件",
-      "changeDescription": "调整消费门槛从800元提升到1000元",
+      "changeField": "等级门槛", 
+      "changeDescription": "调整黄金会员消费门槛从2000元提升至2500元",
       "operator": "张管理员",
-      "operatorId": "ADMIN001",
-      "changeTime": "2025-01-20 16:20:00",
-      "approver": "李主管",
-      "status": "approved"
+      "operatorId": "USER001",
+      "approvalStatus": "approved",
+      "approvalBy": "李经理",
+      "approvalTime": "2025-01-22 15:45:20",
+      "oldValue": "2000元",
+      "newValue": "2500元",
+      "reason": "根据市场调研，提升门槛以优化会员结构",
+      "affectedMembers": 1250
     },
     {
-      "id": "LOG003",
-      "targetId": "LEVEL004",
-      "targetName": "钻石会员等级规则",
+      "id": "MOD002",
+      "changeTime": "2025-01-21 10:15:30",
+      "targetType": "level",
+      "targetId": "LEVEL003", 
+      "targetName": "Lv3-黄金会员",
       "changeType": "update",
       "changeField": "会员权益",
-      "changeDescription": "新增VIP专属通道服务权益",
-      "operator": "王管理员",
-      "operatorId": "ADMIN002",
-      "changeTime": "2025-01-22 09:15:00",
-      "approver": "赵主管",
-      "status": "approved"
+      "changeDescription": "新增洗车服务优惠券权益",
+      "operator": "王主管",
+      "operatorId": "USER002",
+      "approvalStatus": "pending",
+      "approvalBy": null,
+      "approvalTime": null,
+      "oldValue": "油品95折，双倍积分",
+      "newValue": "油品95折，双倍积分，月度洗车券",
+      "reason": "提升黄金会员权益吸引力",
+      "affectedMembers": 4200
     },
     {
-      "id": "LOG004",
-      "targetId": "LEVEL005",
-      "targetName": "至尊会员等级规则",
-      "changeType": "update",
-      "changeField": "状态",
-      "changeDescription": "暂停至尊会员等级，停止新用户升级",
-      "operator": "李管理员",
-      "operatorId": "ADMIN003",
-      "changeTime": "2024-12-25 15:30:00",
-      "approver": "张主管",
-      "status": "approved"
-    },
-    {
-      "id": "LOG005",
-      "targetId": "LEVEL003",
-      "targetName": "金牌会员等级规则",
-      "changeType": "update",
-      "changeField": "积分倍数",
-      "changeDescription": "调整积分倍数从1.3倍提升到1.5倍",
-      "operator": "赵管理员",
-      "operatorId": "ADMIN004",
-      "changeTime": "2025-01-18 11:45:00",
-      "approver": "王主管",
-      "status": "approved"
-    },
-    {
-      "id": "LOG006",
-      "targetId": "LEVEL001",
-      "targetName": "普通会员等级规则",
-      "changeType": "update",
-      "changeField": "会员权益",
-      "changeDescription": "新增会员专属价格权益",
-      "operator": "陈管理员",
-      "operatorId": "ADMIN005",
-      "changeTime": "2025-01-15 14:30:00",
-      "approver": "李主管",
-      "status": "approved"
-    },
-    {
-      "id": "LOG007",
-      "targetId": "CONFIG_RULE",
-      "targetName": "等级规则系统配置",
-      "changeType": "update",
-      "changeField": "升降级规则",
-      "changeDescription": "启用等级保护机制，设置最低等级保护",
-      "operator": "系统管理员",
-      "operatorId": "SYSADMIN002",
-      "changeTime": "2025-01-10 14:20:00",
-      "approver": "总经理",
-      "status": "approved"
-    },
-    {
-      "id": "LOG008",
-      "targetId": "CONFIG_TYPE",
-      "targetName": "等级配置定级类型",
-      "changeType": "update",
-      "changeField": "定级类型",
-      "changeDescription": "更新定级类型，增加便民店消费计入定级",
-      "operator": "业务管理员",
-      "operatorId": "BIZADMIN001",
-      "changeTime": "2025-01-08 16:45:00",
-      "approver": "业务经理",
-      "status": "approved"
+      "id": "MOD003",
+      "changeTime": "2025-01-20 16:45:00",
+      "targetType": "rule",
+      "targetId": "RULE001", 
+      "targetName": "2025年Q1会员冲刺活动",
+      "changeType": "create",
+      "changeField": "规则创建",
+      "changeDescription": "创建新的会员定级规则",
+      "operator": "张管理员",
+      "operatorId": "USER001",
+      "approvalStatus": "approved",
+      "approvalBy": "李经理",
+      "approvalTime": "2025-01-20 17:30:00",
+      "oldValue": null,
+      "newValue": "完整规则配置",
+      "reason": "2025年Q1业绩提升计划",
+      "affectedMembers": 25680
     }
   ],
-  "organizationData": {
-    "company": "江西交投化石能源公司",
-    "branches": [
-      {
-        "name": "赣中分公司",
-        "serviceAreas": [
-          {
-            "name": "赣中北服务区",
-            "gasStations": [
-              {
-                "name": "赣中北加油站A",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              },
-              {
-                "name": "赣中北加油站B",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              }
-            ]
-          },
-          {
-            "name": "赣中南服务区",
-            "gasStations": [
-              {
-                "name": "赣中南加油站A",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              },
-              {
-                "name": "赣中南加油站B",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "赣东北分公司",
-        "serviceAreas": [
-          {
-            "name": "赣东北东服务区",
-            "gasStations": [
-              {
-                "name": "赣东北东加油站A",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              },
-              {
-                "name": "赣东北东加油站B",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              }
-            ]
-          },
-          {
-            "name": "赣东北西服务区",
-            "gasStations": [
-              {
-                "name": "赣东北西加油站A",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              },
-              {
-                "name": "赣东北西加油站B",
-                "fuelTypes": ["92#", "95#", "98#", "0#", "尿素"],
-                "fuelGuns": {
-                  "92#": 2,
-                  "95#": 2,
-                  "98#": 2,
-                  "0#": 2,
-                  "urea": 1
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  "coupons": [
+    {
+      "id": "C001",
+      "name": "10元油品优惠券",
+      "type": "fuel",
+      "value": 10
+    },
+    {
+      "id": "C002", 
+      "name": "20元通用优惠券",
+      "type": "general",
+      "value": 20
+    },
+    {
+      "id": "C003",
+      "name": "免费洗车券", 
+      "type": "carwash",
+      "value": 0
+    },
+    {
+      "id": "C004",
+      "name": "5%折扣券",
+      "type": "percentage",
+      "value": 5
+    }
+  ],
+  "priceRules": [
+    {
+      "id": "PR001",
+      "name": "92#汽油9.5折",
+      "description": "92#汽油享受9.5折优惠"
+    },
+    {
+      "id": "PR002", 
+      "name": "95#汽油9.6折",
+      "description": "95#汽油享受9.6折优惠"
+    },
+    {
+      "id": "PR003",
+      "name": "全品类9.8折",
+      "description": "所有商品享受9.8折优惠"
+    }
+  ],
+  "stations": [
+    {
+      "id": "ST001",
+      "title": "赣中分公司-服务区A-油站001",
+      "value": "ST001",
+      "key": "ST001"
+    },
+    {
+      "id": "ST002",
+      "title": "赣中分公司-服务区A-油站002", 
+      "value": "ST002",
+      "key": "ST002"
+    },
+    {
+      "id": "ST003",
+      "title": "赣中分公司-服务区B-油站003",
+      "value": "ST003", 
+      "key": "ST003"
+    },
+    {
+      "id": "ST004",
+      "title": "赣东北分公司-服务区A-油站001",
+      "value": "ST004",
+      "key": "ST004"
+    }
+  ],
+  "memberGroups": [
+    {
+      "id": "MG001",
+      "title": "VIP客户组",
+      "value": "MG001", 
+      "key": "MG001"
+    },
+    {
+      "id": "MG002",
+      "title": "企业客户组",
+      "value": "MG002",
+      "key": "MG002"
+    },
+    {
+      "id": "MG003",
+      "title": "内部员工组",
+      "value": "MG003",
+      "key": "MG003"
+    }
+  ]
 }

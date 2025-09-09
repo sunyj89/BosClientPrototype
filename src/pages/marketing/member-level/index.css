@@ -1,4 +1,4 @@
-/* 全局配色变量 */
+/* 全局配色变量 - 符合BOS设计规范v2.0 */
 :root {
   --primary-color: #32AF50;        /* 主色调 - 绿色 */
   --primary-color-light: #4FC16A;  /* 主色调浅色 */
@@ -8,7 +8,7 @@
   --border-radius: 2px;            /* 统一圆角 */
 }
 
-/* 模块容器样式 */
+/* 模块容器样式 - 单层Card布局 */
 .module-container {
   padding: 24px;  /* 页面四周留白 */
 }
@@ -24,7 +24,12 @@
 }
 
 .module-container .ant-tabs-content-holder {
-  padding: 0; /* 移除内边距，因为内容区域已有自己的布局 */
+  padding: 0; /* Tab内容直接是组件，不再嵌套Card */
+}
+
+/* 禁止Tab内容区域嵌套Card */
+.module-container .ant-tabs-tabpane .ant-card {
+  display: none !important; /* 强制隐藏Tab内的嵌套Card */
 }
 
 /* 按钮样式规范 */

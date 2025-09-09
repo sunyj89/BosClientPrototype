@@ -15,16 +15,1071 @@
     "pageOperations": [
       {
         "id": "dashboard",
-        "name": "工作台",
+        "name": "仪表盘",
         "path": "/dashboard",
+        "type": "menu",
+        "sort": 1,
+        "icon": "DashboardOutlined",
         "operations": [
           { "id": "dashboard:view", "name": "查看" }
+        ]
+      },
+      {
+        "id": "supplier",
+        "name": "供应商管理",
+        "path": "/supplier",
+        "type": "directory",
+        "sort": 2,
+        "icon": "ContactsOutlined",
+        "operations": [
+          { "id": "supplier:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "supplier_oil",
+            "name": "油品供应商",
+            "path": "/supplier/oil",
+            "type": "menu",
+            "sort": 1,
+            "icon": "ShopOutlined",
+            "parentId": "supplier",
+            "operations": [
+              { "id": "supplier_oil:view", "name": "查看" },
+              { "id": "supplier_oil:add", "name": "新增" },
+              { "id": "supplier_oil:edit", "name": "编辑" },
+              { "id": "supplier_oil:delete", "name": "删除" },
+              { "id": "supplier_oil:approve", "name": "审批" }
+            ]
+          },
+          {
+            "id": "supplier_goods",
+            "name": "商品供应商",
+            "path": "/supplier/goods",
+            "type": "menu",
+            "sort": 2,
+            "icon": "ShoppingOutlined",
+            "parentId": "supplier",
+            "operations": [
+              { "id": "supplier_goods:view", "name": "查看" },
+              { "id": "supplier_goods:add", "name": "新增" },
+              { "id": "supplier_goods:edit", "name": "编辑" },
+              { "id": "supplier_goods:delete", "name": "删除" }
+            ]
+          },
+          {
+            "id": "supplier_portal",
+            "name": "供应商门户",
+            "path": "/supplier/portal",
+            "type": "menu",
+            "sort": 3,
+            "icon": "BankOutlined",
+            "parentId": "supplier",
+            "operations": [
+              { "id": "supplier_portal:view", "name": "查看" },
+              { "id": "supplier_portal:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "station",
+        "name": "油站管理",
+        "path": "/station",
+        "type": "directory",
+        "sort": 3,
+        "icon": "EnvironmentOutlined",
+        "operations": [
+          { "id": "station:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "station_list",
+            "name": "油站列表",
+            "path": "/station",
+            "type": "menu",
+            "sort": 1,
+            "icon": "BankOutlined",
+            "parentId": "station",
+            "operations": [
+              { "id": "station_list:view", "name": "查看" },
+              { "id": "station_list:add", "name": "新增" },
+              { "id": "station_list:edit", "name": "编辑" },
+              { "id": "station_list:delete", "name": "删除" }
+            ]
+          },
+          {
+            "id": "station_tank",
+            "name": "油罐列表",
+            "path": "/station/tank",
+            "type": "menu",
+            "sort": 2,
+            "icon": "DatabaseOutlined",
+            "parentId": "station",
+            "operations": [
+              { "id": "station_tank:view", "name": "查看" },
+              { "id": "station_tank:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "station_gun",
+            "name": "油枪列表",
+            "path": "/station/gun",
+            "type": "menu",
+            "sort": 3,
+            "icon": "ToolOutlined",
+            "parentId": "station",
+            "operations": [
+              { "id": "station_gun:view", "name": "查看" },
+              { "id": "station_gun:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "oil",
+        "name": "油品管理",
+        "path": "/oil",
+        "type": "directory",
+        "sort": 4,
+        "icon": "ShopOutlined",
+        "operations": [
+          { "id": "oil:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "oil_master_data",
+            "name": "油品主数据",
+            "path": "/oil/master-data",
+            "type": "menu",
+            "sort": 1,
+            "icon": "AppstoreOutlined",
+            "parentId": "oil",
+            "operations": [
+              { "id": "oil_master_data:view", "name": "查看" },
+              { "id": "oil_master_data:add", "name": "新增" },
+              { "id": "oil_master_data:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "oil_density",
+            "name": "油品密度",
+            "path": "/oil/density",
+            "type": "menu",
+            "sort": 2,
+            "icon": "StockOutlined",
+            "parentId": "oil",
+            "operations": [
+              { "id": "oil_density:view", "name": "查看" },
+              { "id": "oil_density:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "oil_price",
+            "name": "油价维护",
+            "path": "/oil/price",
+            "type": "menu",
+            "sort": 3,
+            "icon": "DollarOutlined",
+            "parentId": "oil",
+            "operations": [
+              { "id": "oil_price:view", "name": "查看" },
+              { "id": "oil_price:edit", "name": "编辑" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "goods",
+        "name": "商品管理",
+        "path": "/goods",
+        "type": "directory",
+        "sort": 5,
+        "icon": "ShoppingOutlined",
+        "operations": [
+          { "id": "goods:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "goods_master_data",
+            "name": "商品主数据",
+            "path": "/goods/master-data",
+            "type": "menu",
+            "sort": 1,
+            "icon": "AppstoreOutlined",
+            "parentId": "goods",
+            "operations": [
+              { "id": "goods_master_data:view", "name": "查看" },
+              { "id": "goods_master_data:add", "name": "新增" },
+              { "id": "goods_master_data:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "goods_price",
+            "name": "价格调整",
+            "path": "/goods/price",
+            "type": "menu",
+            "sort": 2,
+            "icon": "DollarOutlined",
+            "parentId": "goods",
+            "operations": [
+              { "id": "goods_price:view", "name": "查看" },
+              { "id": "goods_price:edit", "name": "编辑" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "purchase",
+        "name": "采购管理",
+        "path": "/purchase",
+        "type": "directory",
+        "sort": 6,
+        "icon": "ShoppingCartOutlined",
+        "operations": [
+          { "id": "purchase:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "purchase_oil_procurement_management",
+            "name": "油品采购管理",
+            "path": "/purchase/oil-procurement-management",
+            "type": "menu",
+            "sort": 1,
+            "icon": "ShoppingCartOutlined",
+            "parentId": "purchase",
+            "operations": [
+              { "id": "purchase_oil_procurement:view", "name": "查看" },
+              { "id": "purchase_oil_procurement:add", "name": "新增" },
+              { "id": "purchase_oil_procurement:edit", "name": "编辑" },
+              { "id": "purchase_oil_procurement:approve", "name": "审批" }
+            ]
+          },
+          {
+            "id": "purchase_non_oil_procurement",
+            "name": "非油商品采购管理",
+            "path": "/purchase/non-oil-procurement",
+            "type": "menu",
+            "sort": 2,
+            "icon": "ShoppingOutlined",
+            "parentId": "purchase",
+            "operations": [
+              { "id": "purchase_non_oil:view", "name": "查看" },
+              { "id": "purchase_non_oil:add", "name": "新增" },
+              { "id": "purchase_non_oil:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "purchase_oil_inquiry_management",
+            "name": "油品询价管理",
+            "path": "/purchase/oil-inquiry-management",
+            "type": "menu",
+            "sort": 3,
+            "icon": "AuditOutlined",
+            "parentId": "purchase",
+            "operations": [
+              { "id": "purchase_oil_inquiry:view", "name": "查看" },
+              { "id": "purchase_oil_inquiry:add", "name": "新增" },
+              { "id": "purchase_oil_inquiry:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "purchase_oil_delivery",
+            "name": "油品配送管理",
+            "path": "/purchase/oil-delivery",
+            "type": "menu",
+            "sort": 4,
+            "icon": "CarOutlined",
+            "parentId": "purchase",
+            "operations": [
+              { "id": "purchase_oil_delivery:view", "name": "查看" },
+              { "id": "purchase_oil_delivery:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "purchase_oil_loss",
+            "name": "油品损耗管理",
+            "path": "/purchase/oil-loss",
+            "type": "menu",
+            "sort": 5,
+            "icon": "LineChartOutlined",
+            "parentId": "purchase",
+            "operations": [
+              { "id": "purchase_oil_loss:view", "name": "查看" },
+              { "id": "purchase_oil_loss:analysis", "name": "分析" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "inventory",
+        "name": "库存管理",
+        "path": "/inventory",
+        "type": "directory",
+        "sort": 7,
+        "icon": "InboxOutlined",
+        "operations": [
+          { "id": "inventory:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "inventory_oil_inventory",
+            "name": "油品库存管理",
+            "path": "/inventory/oil-inventory",
+            "type": "menu",
+            "sort": 1,
+            "icon": "DatabaseOutlined",
+            "parentId": "inventory",
+            "operations": [
+              { "id": "inventory_oil:view", "name": "查看" },
+              { "id": "inventory_oil:adjust", "name": "调整" }
+            ]
+          },
+          {
+            "id": "inventory_oil_transfer",
+            "name": "油品调拨",
+            "path": "/inventory/oil-transfer",
+            "type": "menu",
+            "sort": 2,
+            "icon": "SwapOutlined",
+            "parentId": "inventory",
+            "operations": [
+              { "id": "inventory_oil_transfer:view", "name": "查看" },
+              { "id": "inventory_oil_transfer:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "inventory_goods_inventory",
+            "name": "非油品库存管理",
+            "path": "/inventory/goods-inventory",
+            "type": "menu",
+            "sort": 3,
+            "icon": "StockOutlined",
+            "parentId": "inventory",
+            "operations": [
+              { "id": "inventory_goods:view", "name": "查看" },
+              { "id": "inventory_goods:adjust", "name": "调整" }
+            ]
+          },
+          {
+            "id": "inventory_goods_transfer",
+            "name": "非油品调拨",
+            "path": "/inventory/goods-transfer",
+            "type": "menu",
+            "sort": 4,
+            "icon": "BranchesOutlined",
+            "parentId": "inventory",
+            "operations": [
+              { "id": "inventory_goods_transfer:view", "name": "查看" },
+              { "id": "inventory_goods_transfer:add", "name": "新增" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "logistics",
+        "name": "物流管理",
+        "path": "/logistics",
+        "type": "directory",
+        "sort": 8,
+        "icon": "TruckOutlined",
+        "operations": [
+          { "id": "logistics:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "logistics_oil_warehouse_delivery",
+            "name": "油库出库管理",
+            "path": "/logistics/oil-warehouse-delivery",
+            "type": "menu",
+            "sort": 1,
+            "icon": "CarOutlined",
+            "parentId": "logistics",
+            "operations": [
+              { "id": "logistics_oil_warehouse:view", "name": "查看" },
+              { "id": "logistics_oil_warehouse:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sales",
+        "name": "销售管理",
+        "path": "/sales",
+        "type": "directory",
+        "sort": 9,
+        "icon": "LineChartOutlined",
+        "operations": [
+          { "id": "sales:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "sales_oil",
+            "name": "油品销售管理",
+            "path": "/sales/oil",
+            "type": "menu",
+            "sort": 1,
+            "icon": "ShopOutlined",
+            "parentId": "sales",
+            "operations": [
+              { "id": "sales_oil:view", "name": "查看" },
+              { "id": "sales_oil:add", "name": "新增" },
+              { "id": "sales_oil:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "sales_goods",
+            "name": "商品销售管理",
+            "path": "/sales/goods",
+            "type": "menu",
+            "sort": 2,
+            "icon": "ShoppingOutlined",
+            "parentId": "sales",
+            "operations": [
+              { "id": "sales_goods:view", "name": "查看" },
+              { "id": "sales_goods:add", "name": "新增" },
+              { "id": "sales_goods:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "sales_oil_wholesale",
+            "name": "油品批发管理",
+            "path": "/sales/oil-wholesale",
+            "type": "menu",
+            "sort": 3,
+            "icon": "DollarOutlined",
+            "parentId": "sales",
+            "operations": [
+              { "id": "sales_oil_wholesale:view", "name": "查看" },
+              { "id": "sales_oil_wholesale:add", "name": "新增" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "marketing",
+        "name": "营销中心",
+        "path": "/marketing",
+        "type": "directory",
+        "sort": 10,
+        "icon": "SettingOutlined",
+        "operations": [
+          { "id": "marketing:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "marketing_coupon_config",
+            "name": "优惠券配置",
+            "path": "/marketing/coupon-config",
+            "type": "menu",
+            "sort": 1,
+            "icon": "GiftOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_coupon:view", "name": "查看" },
+              { "id": "marketing_coupon:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_price_discount_config",
+            "name": "价格优惠配置",
+            "path": "/marketing/price-discount-config",
+            "type": "menu",
+            "sort": 2,
+            "icon": "PercentageOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_price_discount:view", "name": "查看" },
+              { "id": "marketing_price_discount:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_activity_config",
+            "name": "营销活动配置",
+            "path": "/marketing/activity-config",
+            "type": "menu",
+            "sort": 3,
+            "icon": "TrophyOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_activity:view", "name": "查看" },
+              { "id": "marketing_activity:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_member_identity",
+            "name": "渠道会员认证",
+            "path": "/marketing/member-identity",
+            "type": "menu",
+            "sort": 4,
+            "icon": "IdcardOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_member_identity:view", "name": "查看" },
+              { "id": "marketing_member_identity:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_member_level",
+            "name": "会员等级",
+            "path": "/marketing/member-level",
+            "type": "menu",
+            "sort": 5,
+            "icon": "CrownOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_member_level:view", "name": "查看" },
+              { "id": "marketing_member_level:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_member_referral",
+            "name": "会员拉新",
+            "path": "/marketing/member-referral",
+            "type": "menu",
+            "sort": 6,
+            "icon": "ShareAltOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_member_referral:view", "name": "查看" },
+              { "id": "marketing_member_referral:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_item_marketing",
+            "name": "明细营销",
+            "path": "/marketing/item-marketing",
+            "type": "menu",
+            "sort": 7,
+            "icon": "TagOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_item:view", "name": "查看" },
+              { "id": "marketing_item:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "marketing_order_marketing",
+            "name": "整单营销",
+            "path": "/marketing/order-marketing",
+            "type": "menu",
+            "sort": 8,
+            "icon": "ShoppingCartOutlined",
+            "parentId": "marketing",
+            "operations": [
+              { "id": "marketing_order:view", "name": "查看" },
+              { "id": "marketing_order:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "loss",
+        "name": "损溢管理",
+        "path": "/loss",
+        "type": "directory",
+        "sort": 11,
+        "icon": "LineChartOutlined",
+        "operations": [
+          { "id": "loss:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "loss_station_summary",
+            "name": "各站损溢汇总查询",
+            "path": "/loss",
+            "type": "menu",
+            "sort": 1,
+            "icon": "BarChartOutlined",
+            "parentId": "loss",
+            "operations": [
+              { "id": "loss_station_summary:view", "name": "查看" },
+              { "id": "loss_station_summary:export", "name": "导出" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "member",
+        "name": "会员中心",
+        "path": "/member",
+        "type": "directory",
+        "sort": 12,
+        "icon": "UserOutlined",
+        "operations": [
+          { "id": "member:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "member_data",
+            "name": "会员数据",
+            "path": "/member",
+            "type": "menu",
+            "sort": 1,
+            "icon": "TeamOutlined",
+            "parentId": "member",
+            "operations": [
+              { "id": "member_data:view", "name": "查看" },
+              { "id": "member_data:export", "name": "导出" }
+            ]
+          },
+          {
+            "id": "personal_center_config",
+            "name": "会员规则配置",
+            "path": "/member/personal-center-config",
+            "type": "menu",
+            "sort": 2,
+            "icon": "SettingOutlined",
+            "parentId": "member",
+            "operations": [
+              { "id": "personal_center_config:view", "name": "查看" },
+              { "id": "personal_center_config:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "member_feedback_evaluation",
+            "name": "会员意见与评价",
+            "path": "/member/feedback-evaluation",
+            "type": "menu",
+            "sort": 3,
+            "icon": "CommentOutlined",
+            "parentId": "member",
+            "operations": [
+              { "id": "member_feedback_evaluation:view", "name": "查看" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "points",
+        "name": "积分管理",
+        "path": "/points",
+        "type": "directory",
+        "sort": 13,
+        "icon": "TrophyOutlined",
+        "operations": [
+          { "id": "points:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "points_dashboard",
+            "name": "积分看板",
+            "path": "/points",
+            "type": "menu",
+            "sort": 1,
+            "icon": "DashboardOutlined",
+            "parentId": "points",
+            "operations": [
+              { "id": "points_dashboard:view", "name": "查看" }
+            ]
+          },
+          {
+            "id": "points_details",
+            "name": "积分明细",
+            "path": "/points/details",
+            "type": "menu",
+            "sort": 2,
+            "icon": "FormOutlined",
+            "parentId": "points",
+            "operations": [
+              { "id": "points_details:view", "name": "查看" },
+              { "id": "points_details:export", "name": "导出" }
+            ]
+          },
+          {
+            "id": "points_mall",
+            "name": "积分商城",
+            "path": "/points/mall",
+            "type": "menu",
+            "sort": 3,
+            "icon": "ShoppingOutlined",
+            "parentId": "points",
+            "operations": [
+              { "id": "points_mall:view", "name": "查看" },
+              { "id": "points_mall:config", "name": "配置" }
+            ]
+          },
+          {
+            "id": "points_reports",
+            "name": "积分报表",
+            "path": "/points/reports",
+            "type": "menu",
+            "sort": 4,
+            "icon": "BarChartOutlined",
+            "parentId": "points",
+            "operations": [
+              { "id": "points_reports:view", "name": "查看" },
+              { "id": "points_reports:export", "name": "导出" }
+            ]
+          },
+          {
+            "id": "points_config",
+            "name": "积分配置",
+            "path": "/points/config",
+            "type": "menu",
+            "sort": 5,
+            "icon": "SettingOutlined",
+            "parentId": "points",
+            "operations": [
+              { "id": "points_config:view", "name": "查看" },
+              { "id": "points_config:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "report",
+        "name": "报表管理",
+        "path": "/report",
+        "type": "directory",
+        "sort": 14,
+        "icon": "BarChartOutlined",
+        "operations": [
+          { "id": "report:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "report_shift_handover",
+            "name": "加油站交接班报表",
+            "path": "/report/shift-handover",
+            "type": "menu",
+            "sort": 1,
+            "icon": "FormOutlined",
+            "parentId": "report",
+            "operations": [
+              { "id": "report_shift_handover:view", "name": "查看" },
+              { "id": "report_shift_handover:export", "name": "导出" }
+            ]
+          },
+          {
+            "id": "report_oil_sales",
+            "name": "油品销售报表",
+            "path": "/report/oil-sales",
+            "type": "menu",
+            "sort": 2,
+            "icon": "LineChartOutlined",
+            "parentId": "report",
+            "operations": [
+              { "id": "report_oil_sales:view", "name": "查看" },
+              { "id": "report_oil_sales:export", "name": "导出" }
+            ]
+          },
+          {
+            "id": "report_oil_inventory",
+            "name": "油品进销存日报",
+            "path": "/report/oil-inventory",
+            "type": "menu",
+            "sort": 3,
+            "icon": "StockOutlined",
+            "parentId": "report",
+            "operations": [
+              { "id": "report_oil_inventory:view", "name": "查看" },
+              { "id": "report_oil_inventory:export", "name": "导出" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "equipment",
+        "name": "设备管理",
+        "path": "/equipment",
+        "type": "directory",
+        "sort": 15,
+        "icon": "ToolOutlined",
+        "operations": [
+          { "id": "equipment:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "equipment_archive",
+            "name": "设备档案管理",
+            "path": "/equipment/archive",
+            "type": "menu",
+            "sort": 1,
+            "icon": "DatabaseOutlined",
+            "parentId": "equipment",
+            "operations": [
+              { "id": "equipment_archive:view", "name": "查看" },
+              { "id": "equipment_archive:add", "name": "新增" },
+              { "id": "equipment_archive:edit", "name": "编辑" }
+            ]
+          },
+          {
+            "id": "equipment_dispenser_calibration",
+            "name": "加油机校验记录",
+            "path": "/equipment/dispenser-calibration",
+            "type": "menu",
+            "sort": 2,
+            "icon": "SafetyCertificateOutlined",
+            "parentId": "equipment",
+            "operations": [
+              { "id": "equipment_dispenser_calibration:view", "name": "查看" },
+              { "id": "equipment_dispenser_calibration:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "equipment_generator_operation",
+            "name": "发电机运行记录",
+            "path": "/equipment/generator-operation",
+            "type": "menu",
+            "sort": 3,
+            "icon": "DesktopOutlined",
+            "parentId": "equipment",
+            "operations": [
+              { "id": "equipment_generator_operation:view", "name": "查看" },
+              { "id": "equipment_generator_operation:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "equipment_utility_records",
+            "name": "水电表记录",
+            "path": "/equipment/water-electricity",
+            "type": "menu",
+            "sort": 4,
+            "icon": "NodeIndexOutlined",
+            "parentId": "equipment",
+            "operations": [
+              { "id": "equipment_utility_records:view", "name": "查看" },
+              { "id": "equipment_utility_records:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "equipment_liquid_level_meter",
+            "name": "液位仪管理",
+            "path": "/equipment/liquid-level-meter",
+            "type": "menu",
+            "sort": 5,
+            "icon": "DatabaseOutlined",
+            "parentId": "equipment",
+            "operations": [
+              { "id": "equipment_liquid_level_meter:view", "name": "查看" },
+              { "id": "equipment_liquid_level_meter:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "name": "安全管理",
+        "path": "/security",
+        "type": "directory",
+        "sort": 16,
+        "icon": "SecurityScanOutlined",
+        "operations": [
+          { "id": "security:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "security_inspection_management",
+            "name": "现场巡检管理",
+            "path": "/security/inspection-management",
+            "type": "menu",
+            "sort": 1,
+            "icon": "SafetyCertificateOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_inspection_management:view", "name": "查看" },
+              { "id": "security_inspection_management:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "security_archive_management",
+            "name": "油站电子档案管理",
+            "path": "/security/archive-management",
+            "type": "menu",
+            "sort": 2,
+            "icon": "DatabaseOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_archive_management:view", "name": "查看" },
+              { "id": "security_archive_management:manage", "name": "管理" }
+            ]
+          },
+          {
+            "id": "security_maintenance_management",
+            "name": "维修施工管理",
+            "path": "/security/maintenance-management",
+            "type": "menu",
+            "sort": 3,
+            "icon": "ToolOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_maintenance_management:view", "name": "查看" },
+              { "id": "security_maintenance_management:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "security_emergency_drill_management",
+            "name": "应急演练管理",
+            "path": "/security/emergency-drill-management",
+            "type": "menu",
+            "sort": 4,
+            "icon": "SecurityScanOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_emergency_drill_management:view", "name": "查看" },
+              { "id": "security_emergency_drill_management:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "security_training_management",
+            "name": "人员培训管理",
+            "path": "/security/training-management",
+            "type": "menu",
+            "sort": 5,
+            "icon": "TeamOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_training_management:view", "name": "查看" },
+              { "id": "security_training_management:add", "name": "新增" }
+            ]
+          },
+          {
+            "id": "security_knowledge_exam",
+            "name": "安全知识和考试管理",
+            "path": "/security/knowledge-exam",
+            "type": "menu",
+            "sort": 6,
+            "icon": "AuditOutlined",
+            "parentId": "security",
+            "operations": [
+              { "id": "security_knowledge_exam:view", "name": "查看" },
+              { "id": "security_knowledge_exam:manage", "name": "管理" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "analytics",
+        "name": "数字化运营分析",
+        "path": "/analytics",
+        "type": "directory",
+        "sort": 17,
+        "icon": "BarChartOutlined",
+        "operations": [
+          { "id": "analytics:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "analytics_data_center",
+            "name": "数据分析中心",
+            "path": "/analytics/data-center",
+            "type": "menu",
+            "sort": 1,
+            "icon": "DashboardOutlined",
+            "parentId": "analytics",
+            "operations": [
+              { "id": "analytics_data_center:view", "name": "查看" }
+            ]
+          },
+          {
+            "id": "analytics_customer_center",
+            "name": "客户管理中心",
+            "path": "/analytics/customer-center",
+            "type": "menu",
+            "sort": 2,
+            "icon": "UserOutlined",
+            "parentId": "analytics",
+            "operations": [
+              { "id": "analytics_customer_center:view", "name": "查看" }
+            ]
+          },
+          {
+            "id": "analytics_risk_center",
+            "name": "风险监控中心",
+            "path": "/analytics/risk-center",
+            "type": "menu",
+            "sort": 3,
+            "icon": "SecurityScanOutlined",
+            "parentId": "analytics",
+            "operations": [
+              { "id": "analytics_risk_center:view", "name": "查看" }
+            ]
+          },
+          {
+            "id": "analytics_dashboard",
+            "name": "大数据超脑大屏",
+            "path": "/analytics/dashboard",
+            "type": "menu",
+            "sort": 4,
+            "icon": "FundViewOutlined",
+            "parentId": "analytics",
+            "operations": [
+              { "id": "analytics_dashboard:view", "name": "查看" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "payment",
+        "name": "支付管理",
+        "path": "/payment",
+        "type": "directory",
+        "sort": 18,
+        "icon": "CreditCardOutlined",
+        "operations": [
+          { "id": "payment:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "payment_acceptance_config",
+            "name": "支付受理配置",
+            "path": "/payment/acceptance-config",
+            "type": "menu",
+            "sort": 1,
+            "icon": "SettingOutlined",
+            "parentId": "payment",
+            "operations": [
+              { "id": "payment_acceptance_config:view", "name": "查看" },
+              { "id": "payment_acceptance_config:config", "name": "配置" }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "invoice",
+        "name": "发票管理",
+        "path": "/invoice",
+        "type": "directory",
+        "sort": 19,
+        "icon": "FileTextOutlined",
+        "operations": [
+          { "id": "invoice:view", "name": "查看" }
+        ],
+        "children": [
+          {
+            "id": "invoice_records",
+            "name": "开票记录",
+            "path": "/invoice",
+            "type": "menu",
+            "sort": 1,
+            "icon": "FileTextOutlined",
+            "parentId": "invoice",
+            "operations": [
+              { "id": "invoice_records:view", "name": "查看" }
+            ]
+          },
+          {
+            "id": "invoice_settings",
+            "name": "发票设置",
+            "path": "/invoice/settings",
+            "type": "menu",
+            "sort": 2,
+            "icon": "SettingOutlined",
+            "parentId": "invoice",
+            "operations": [
+              { "id": "invoice_settings:view", "name": "查看" },
+              { "id": "invoice_settings:config", "name": "配置" }
+            ]
+          }
         ]
       },
       {
         "id": "organization",
         "name": "组织架构管理",
         "path": "/organization",
+        "type": "directory",
+        "sort": 20,
+        "icon": "ApartmentOutlined",
         "operations": [
           { "id": "organization:view", "name": "查看" },
           { "id": "organization:add", "name": "新增组织" },
@@ -36,117 +1091,51 @@
         ],
         "children": [
           {
-            "id": "organization_role",
+            "id": "organization_structure",
+            "name": "组织架构",
+            "path": "/organization",
+            "type": "menu",
+            "sort": 1,
+            "icon": "ApartmentOutlined",
+            "parentId": "organization",
+            "operations": [
+              { "id": "organization_structure:view", "name": "查看" },
+              { "id": "organization_structure:add", "name": "新增" },
+              { "id": "organization_structure:edit", "name": "编辑" },
+              { "id": "organization_structure:delete", "name": "删除" }
+            ]
+          },
+          {
+            "id": "organization_role_config",
             "name": "角色配置",
             "path": "/organization/role-configuration",
+            "type": "menu",
+            "sort": 2,
+            "icon": "SettingOutlined",
+            "parentId": "organization",
             "operations": [
-              { "id": "organization_role:view", "name": "查看" },
-              { "id": "organization_role:add", "name": "新增角色" },
-              { "id": "organization_role:edit", "name": "编辑角色" },
-              { "id": "organization_role:delete", "name": "删除角色" },
-              { "id": "organization_role:copy", "name": "复制角色" }
+              { "id": "organization_role_config:view", "name": "查看" },
+              { "id": "organization_role_config:add", "name": "新增角色" },
+              { "id": "organization_role_config:edit", "name": "编辑角色" },
+              { "id": "organization_role_config:delete", "name": "删除角色" },
+              { "id": "organization_role_config:copy", "name": "复制角色" }
+            ]
+          },
+          {
+            "id": "organization_menu_management",
+            "name": "菜单管理",
+            "path": "/organization/menu-management",
+            "type": "menu",
+            "sort": 3,
+            "icon": "MenuOutlined",
+            "parentId": "organization",
+            "operations": [
+              { "id": "organization_menu_management:view", "name": "查看" },
+              { "id": "organization_menu_management:add", "name": "新增菜单" },
+              { "id": "organization_menu_management:edit", "name": "编辑菜单" },
+              { "id": "organization_menu_management:delete", "name": "删除菜单" }
             ]
           }
-        ]
-      },
-      {
-        "id": "supplier",
-        "name": "供应商管理",
-        "path": "/supplier",
-        "operations": [
-          { "id": "supplier:view", "name": "查看" },
-          { "id": "supplier:add", "name": "新增" },
-          { "id": "supplier:edit", "name": "编辑" },
-          { "id": "supplier:delete", "name": "删除" },
-          { "id": "supplier:approve", "name": "审批" },
-          { "id": "supplier:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "station",
-        "name": "油站管理",
-        "path": "/station",
-        "operations": [
-          { "id": "station:view", "name": "查看" },
-          { "id": "station:add", "name": "新增" },
-          { "id": "station:edit", "name": "编辑" },
-          { "id": "station:delete", "name": "删除" },
-          { "id": "station:config", "name": "配置" }
-        ]
-      },
-      {
-        "id": "device",
-        "name": "设备管理",
-        "path": "/device",
-        "operations": [
-          { "id": "device:view", "name": "查看" },
-          { "id": "device:add", "name": "新增" },
-          { "id": "device:edit", "name": "编辑" },
-          { "id": "device:delete", "name": "删除" },
-          { "id": "device:config", "name": "配置" }
-        ]
-      },
-      {
-        "id": "purchase",
-        "name": "采购管理",
-        "path": "/purchase",
-        "operations": [
-          { "id": "purchase:view", "name": "查看" },
-          { "id": "purchase:add", "name": "新增" },
-          { "id": "purchase:edit", "name": "编辑" },
-          { "id": "purchase:delete", "name": "删除" },
-          { "id": "purchase:approve", "name": "审批" },
-          { "id": "purchase:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "goods",
-        "name": "商品管理",
-        "path": "/goods",
-        "operations": [
-          { "id": "goods:view", "name": "查看" },
-          { "id": "goods:add", "name": "新增" },
-          { "id": "goods:edit", "name": "编辑" },
-          { "id": "goods:delete", "name": "删除" },
-          { "id": "goods:price_adjust", "name": "价格调整" },
-          { "id": "goods:export", "name": "导出" }
-        ]
-      },
-      
-      {
-        "id": "points",
-        "name": "积分管理",
-        "path": "/points",
-        "operations": [
-          { "id": "points:view", "name": "查看" },
-          { "id": "points:config", "name": "配置" },
-          { "id": "points:adjust", "name": "积分调整" },
-          { "id": "points:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "sales",
-        "name": "销售管理",
-        "path": "/sales",
-        "operations": [
-          { "id": "sales:view", "name": "查看" },
-          { "id": "sales:add", "name": "新增" },
-          { "id": "sales:edit", "name": "编辑" },
-          { "id": "sales:delete", "name": "删除" },
-          { "id": "sales:approve", "name": "审批" },
-          { "id": "sales:export", "name": "导出" }
-        ]
-      },
-      {
-        "id": "oil",
-        "name": "油品管理",
-        "path": "/oil",
-        "operations": [
-          { "id": "oil:view", "name": "查看" },
-          { "id": "oil:add", "name": "新增" },
-          { "id": "oil:edit", "name": "编辑" },
-          { "id": "oil:config", "name": "配置" },
-          { "id": "oil:export", "name": "导出" }
         ]
       }
     ],
@@ -172,7 +1161,7 @@
       "description": "集团CEO，拥有全部权限",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "organization:add", "organization:edit", "organization:delete", "organization:user_add", "organization:user_edit", "organization:user_delete", "organization_role:view", "organization_role:add", "organization_role:edit", "organization_role:delete", "organization_role:copy", "supplier:view", "supplier:add", "supplier:edit", "supplier:delete", "supplier:approve", "supplier:export", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "purchase:view", "purchase:add", "purchase:edit", "purchase:delete", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:price_adjust", "goods:export", "points:view", "points:config", "points:adjust", "points:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:approve", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
+        "pageOperations": ["dashboard:view", "organization:view", "organization:add", "organization:edit", "organization:delete", "organization:user_add", "organization:user_edit", "organization:user_delete", "organization_role_config:view", "organization_role_config:add", "organization_role_config:edit", "organization_role_config:delete", "organization_role_config:copy", "organization_menu_management:view", "organization_menu_management:add", "organization_menu_management:edit", "organization_menu_management:delete", "supplier_oil:view", "supplier_oil:add", "supplier_oil:edit", "supplier_oil:delete", "supplier_oil:approve", "supplier_goods:view", "supplier_goods:add", "supplier_goods:edit", "supplier_goods:delete", "supplier_portal:view", "supplier_portal:config", "station_list:view", "station_list:add", "station_list:edit", "station_list:delete", "station_tank:view", "station_tank:config", "station_gun:view", "station_gun:config", "oil_master_data:view", "oil_master_data:add", "oil_master_data:edit", "oil_density:view", "oil_density:config", "oil_price:view", "oil_price:edit", "goods_master_data:view", "goods_master_data:add", "goods_master_data:edit", "goods_price:view", "goods_price:edit", "purchase_oil_procurement:view", "purchase_oil_procurement:add", "purchase_oil_procurement:edit", "purchase_oil_procurement:approve", "purchase_non_oil:view", "purchase_non_oil:add", "purchase_non_oil:edit", "purchase_oil_inquiry:view", "purchase_oil_inquiry:add", "purchase_oil_inquiry:edit", "purchase_oil_delivery:view", "purchase_oil_delivery:config", "purchase_oil_loss:view", "purchase_oil_loss:analysis", "inventory_oil:view", "inventory_oil:adjust", "inventory_oil_transfer:view", "inventory_oil_transfer:add", "inventory_goods:view", "inventory_goods:adjust", "inventory_goods_transfer:view", "inventory_goods_transfer:add", "logistics_oil_warehouse:view", "logistics_oil_warehouse:config", "sales_oil:view", "sales_oil:add", "sales_oil:edit", "sales_goods:view", "sales_goods:add", "sales_goods:edit", "sales_oil_wholesale:view", "sales_oil_wholesale:add", "marketing_coupon:view", "marketing_coupon:config", "marketing_price_discount:view", "marketing_price_discount:config", "marketing_activity:view", "marketing_activity:config", "marketing_member_identity:view", "marketing_member_identity:config", "marketing_member_level:view", "marketing_member_level:config", "marketing_member_referral:view", "marketing_member_referral:config", "marketing_item:view", "marketing_item:config", "marketing_order:view", "marketing_order:config", "loss_station_summary:view", "loss_station_summary:export", "member_data:view", "member_data:export", "personal_center_config:view", "personal_center_config:config", "member_feedback_evaluation:view", "points_dashboard:view", "points_details:view", "points_details:export", "points_mall:view", "points_mall:config", "points_reports:view", "points_reports:export", "points_config:view", "points_config:config", "report_shift_handover:view", "report_shift_handover:export", "report_oil_sales:view", "report_oil_sales:export", "report_oil_inventory:view", "report_oil_inventory:export", "equipment_archive:view", "equipment_archive:add", "equipment_archive:edit", "equipment_dispenser_calibration:view", "equipment_dispenser_calibration:add", "equipment_generator_operation:view", "equipment_generator_operation:add", "equipment_utility_records:view", "equipment_utility_records:add", "equipment_liquid_level_meter:view", "equipment_liquid_level_meter:config", "security_inspection_management:view", "security_inspection_management:add", "security_archive_management:view", "security_archive_management:manage", "security_maintenance_management:view", "security_maintenance_management:add", "security_emergency_drill_management:view", "security_emergency_drill_management:add", "security_training_management:view", "security_training_management:add", "security_knowledge_exam:view", "security_knowledge_exam:manage", "analytics_data_center:view", "analytics_customer_center:view", "analytics_risk_center:view", "analytics_dashboard:view", "payment_acceptance_config:view", "payment_acceptance_config:config", "invoice_records:view", "invoice_settings:view", "invoice_settings:config"],
         "dataScope": "all",
         "posDevices": ["gun_config", "tank_config", "price_config", "device_control", "report_print"],
         "associatedStations": [15, 16, 18, 19, 21, 22, 24, 25]
@@ -188,7 +1177,7 @@
       "description": "部门总监，负责部门管理和业务监督",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "supplier:view", "supplier:add", "supplier:edit", "supplier:approve", "supplier:export", "purchase:view", "purchase:add", "purchase:edit", "purchase:approve", "purchase:export", "goods:view", "goods:add", "goods:edit", "goods:export", "sales:view", "sales:add", "sales:edit", "sales:approve", "sales:export"],
+        "pageOperations": ["dashboard:view", "organization:view", "supplier_oil:view", "supplier_oil:add", "supplier_oil:edit", "supplier_oil:approve", "supplier_goods:view", "supplier_goods:add", "supplier_goods:edit", "purchase_oil_procurement:view", "purchase_oil_procurement:add", "purchase_oil_procurement:edit", "purchase_oil_procurement:approve", "purchase_non_oil:view", "purchase_non_oil:add", "purchase_non_oil:edit", "goods_master_data:view", "goods_master_data:add", "goods_master_data:edit", "goods_price:view", "goods_price:edit", "sales_oil:view", "sales_oil:add", "sales_oil:edit", "sales_goods:view", "sales_goods:add", "sales_goods:edit"],
         "dataScope": "self_org",
         "posDevices": [],
         "associatedStations": []
@@ -204,7 +1193,7 @@
       "description": "分公司总经理，负责分公司全面管理",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "organization:view", "station:view", "station:add", "station:edit", "station:delete", "station:config", "device:view", "device:add", "device:edit", "device:delete", "device:config", "goods:view", "goods:add", "goods:edit", "goods:delete", "goods:export", "points:view", "points:config", "points:export", "sales:view", "sales:add", "sales:edit", "sales:delete", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:config", "oil:export"],
+        "pageOperations": ["dashboard:view", "organization:view", "station_list:view", "station_list:add", "station_list:edit", "station_list:delete", "station_tank:view", "station_tank:config", "station_gun:view", "station_gun:config", "oil_master_data:view", "oil_master_data:add", "oil_master_data:edit", "oil_density:view", "oil_density:config", "oil_price:view", "oil_price:edit", "goods_master_data:view", "goods_master_data:add", "goods_master_data:edit", "goods_price:view", "goods_price:edit", "inventory_oil:view", "inventory_oil:adjust", "inventory_oil_transfer:view", "inventory_oil_transfer:add", "inventory_goods:view", "inventory_goods:adjust", "sales_oil:view", "sales_oil:add", "sales_oil:edit", "sales_goods:view", "sales_goods:add", "sales_goods:edit", "points_dashboard:view", "points_config:view", "points_config:config"],
         "dataScope": "self_org",
         "posDevices": ["gun_config", "tank_config", "price_config", "device_control"],
         "associatedStations": [15, 16, 18, 19]
@@ -220,7 +1209,7 @@
       "description": "服务区经理，负责服务区运营管理",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "station:view", "station:add", "station:edit", "device:view", "device:add", "device:edit", "goods:view", "goods:add", "goods:edit", "goods:export", "sales:view", "sales:add", "sales:edit", "sales:export", "oil:view", "oil:add", "oil:edit", "oil:export"],
+        "pageOperations": ["dashboard:view", "station_list:view", "station_list:add", "station_list:edit", "station_tank:view", "station_tank:config", "station_gun:view", "station_gun:config", "oil_master_data:view", "oil_master_data:add", "oil_master_data:edit", "oil_price:view", "oil_price:edit", "goods_master_data:view", "goods_master_data:add", "goods_master_data:edit", "sales_oil:view", "sales_oil:add", "sales_oil:edit", "sales_goods:view", "sales_goods:add", "sales_goods:edit"],
         "dataScope": "self_org",
         "posDevices": ["gun_config", "tank_config", "price_config"],
         "associatedStations": [15, 16]
@@ -236,7 +1225,7 @@
       "description": "加油站站长，负责加油站日常运营",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "device:view", "device:config", "goods:view", "goods:add", "goods:edit", "sales:view", "sales:add", "sales:edit", "oil:view", "oil:add", "oil:edit"],
+        "pageOperations": ["dashboard:view", "station_tank:view", "station_tank:config", "station_gun:view", "station_gun:config", "equipment_archive:view", "equipment_dispenser_calibration:view", "equipment_generator_operation:view", "equipment_utility_records:view", "goods_master_data:view", "goods_master_data:add", "goods_master_data:edit", "sales_oil:view", "sales_oil:add", "sales_oil:edit", "sales_goods:view", "sales_goods:add", "sales_goods:edit", "oil_master_data:view", "oil_master_data:add", "oil_master_data:edit"],
         "dataScope": "self_org_only",
         "posDevices": ["price_config", "device_control", "report_print"],
         "associatedStations": [15]
@@ -252,7 +1241,7 @@
       "description": "普通员工，基础操作权限",
       "isSystemRole": true,
       "permissions": {
-        "pageOperations": ["dashboard:view", "goods:view", "sales:view"],
+        "pageOperations": ["dashboard:view", "goods_master_data:view", "sales_oil:view", "sales_goods:view"],
         "dataScope": "self",
         "posDevices": [],
         "associatedStations": []
@@ -500,4 +1489,4 @@
     { "id": 36, "name": "员工-3区1站2-1", "orgUnitId": 25, "role": { "id": 6, "name": "普通员工" } },
     { "id": 37, "name": "员工-3区1站2-2", "orgUnitId": 25, "role": { "id": 6, "name": "普通员工" } }
   ]
-} 
+}
