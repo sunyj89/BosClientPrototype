@@ -46,6 +46,7 @@ import {
   TagOutlined,
   FileTextOutlined,
   InboxOutlined,
+  MenuOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -592,6 +593,11 @@ const AppSider = ({ collapsed }) => {
           key: 'organization_role_config',
           icon: <SettingOutlined />,
           label: <MenuItemLabel text="角色配置" link="/organization/role-configuration" />,
+        },
+        {
+          key: 'organization_menu_management',
+          icon: <MenuOutlined />,
+          label: <MenuItemLabel text="菜单管理" link="/organization/menu-management" />,
         },
       ],
     },

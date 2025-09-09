@@ -1,4 +1,6 @@
 node_modules
+src_design
+重要文档
 
 # Playwright 测试相关文件
 /test-results/

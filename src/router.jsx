@@ -105,6 +105,7 @@ import WaterElectricityRecords from './pages/equipment/water-electricity';
 // 组织架构管理
 import OrganizationManagement from './pages/organization';
 import RoleConfiguration from './pages/organization/role-configuration';
+import MenuManagement from './pages/organization/menu-management';
 
 // 安全管理
 import InspectionManagement from './pages/security/inspection-management';
@@ -362,6 +363,7 @@ const AppRouter = () => {
       <Route path="/organization">
         <Route index element={<OrganizationManagement />} />
         <Route path="role-configuration" element={<RoleConfiguration />} />
+        <Route path="menu-management" element={<MenuManagement />} />
       </Route>
       
       {/* 损溢管理路由 */}

@@ -100,6 +100,88 @@
   font-size: 14px;
 }
 
+/* 收货状态样式 */
+.receipt-status-confirmed {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.receipt-status-pending {
+  color: #faad14;
+  font-weight: 500;
+}
+
+.receipt-status-rejected {
+  color: #f5222d;
+  font-weight: 500;
+}
+
+/* 重量数据样式 */
+.weight-data {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+/* 差异数据样式 */
+.variance-data {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* 变更类型标签样式 */
+.change-type-create {
+  background-color: #f6ffed;
+  border-color: #b7eb8f;
+  color: #52c41a;
+}
+
+.change-type-update {
+  background-color: #fff7e6;
+  border-color: #ffd591;
+  color: #fa8c16;
+}
+
+.change-type-delete {
+  background-color: #fff2f0;
+  border-color: #ffccc7;
+  color: #f5222d;
+}
+
+/* 弹窗表单样式 */
+.module-container .ant-modal-content {
+  border-radius: 8px;
+}
+
+.module-container .ant-modal-header {
+  border-radius: 8px 8px 0 0;
+}
+
+.module-container .ant-card-head {
+  background-color: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 上传组件样式 */
+.module-container .ant-upload-list-picture-card .ant-upload-list-item {
+  border-radius: var(--border-radius);
+}
+
+.module-container .ant-upload-select-picture-card {
+  border-radius: var(--border-radius);
+}
+
+/* 描述列表样式 */
+.module-container .ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: #fafafa;
+  font-weight: 500;
+}
+
+/* 时间线样式 */
+.module-container .ant-timeline-item-head {
+  background-color: #fff;
+}
+
 /* 响应式布局调整 */
 @media (max-width: 768px) {
   .module-container {
@@ -108,5 +190,45 @@
   
   .module-container .filter-area {
     padding: 12px;
+  }
+  
+  .module-container .ant-table {
+    font-size: 12px;
+  }
+  
+  .module-container .ant-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .module-container {
+    padding: 12px;
+  }
+  
+  .module-container .filter-area {
+    padding: 8px;
+  }
+  
+  .module-container .ant-form-item {
+    margin-bottom: 12px;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .module-container {
+    padding: 0;
+  }
+  
+  .module-container .filter-area,
+  .module-container .ant-pagination,
+  .module-container .ant-table-tbody .ant-btn {
+    display: none !important;
+  }
+  
+  .module-container .ant-table {
+    font-size: 12px;
   }
 }

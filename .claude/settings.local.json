@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ren:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}
