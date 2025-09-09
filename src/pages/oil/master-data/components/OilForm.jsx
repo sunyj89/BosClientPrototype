@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, InputNumber, Button, Space, Row, Col, TreeSelect, message } from 'antd';
+import * as api from '../../services/api';
 
 const { Option } = Select;
 
@@ -8,228 +9,13 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
   const [loading, setLoading] = useState(false);
   const [currentOilType, setCurrentOilType] = useState('');
   const isView = type === 'view';
-
-  // 模拟分类数据 - 根据提示词记录修正分类结构
-  const categoryTreeData = [
-    {
-      title: '油品',
-      value: '1',
-      categoryId: 'OIL',
-      level: 1,
-      children: [
-        {
-          title: '汽油',
-          value: '1-1',
-          categoryId: 'GAS',
-          level: 2,
-          parentCategoryId: 'OIL',
-          parentCategoryName: '油品',
-          children: [
-            {
-              title: '92号',
-              value: '1-1-1',
-              categoryId: 'GAS92',
-              level: 3,
-              parentCategoryId: 'GAS',
-              parentCategoryName: '汽油',
-              oilType: '汽油'
-            },
-            {
-              title: '95号',
-              value: '1-1-2',
-              categoryId: 'GAS95',
-              level: 3,
-              parentCategoryId: 'GAS',
-              parentCategoryName: '汽油',
-              oilType: '汽油'
-            },
-            {
-              title: '98号',
-              value: '1-1-3',
-              categoryId: 'GAS98',
-              level: 3,
-              parentCategoryId: 'GAS',
-              parentCategoryName: '汽油',
-              oilType: '汽油'
-            },
-            {
-              title: '101号',
-              value: '1-1-4',
-              categoryId: 'GAS101',
-              level: 3,
-              parentCategoryId: 'GAS',
-              parentCategoryName: '汽油',
-              oilType: '汽油'
-            }
-          ]
-        },
-        {
-          title: '柴油',
-          value: '1-2',
-          categoryId: 'DIESEL',
-          level: 2,
-          parentCategoryId: 'OIL',
-          parentCategoryName: '油品',
-          children: [
-            {
-              title: '10号',
-              value: '1-2-1',
-              categoryId: 'DIESEL10',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            },
-            {
-              title: '5号',
-              value: '1-2-2',
-              categoryId: 'DIESEL5',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            },
-            {
-              title: '0号',
-              value: '1-2-3',
-              categoryId: 'DIESEL0',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            },
-            {
-              title: '-10号',
-              value: '1-2-4',
-              categoryId: 'DIESEL-10',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            },
-            {
-              title: '-20号',
-              value: '1-2-5',
-              categoryId: 'DIESEL-20',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            },
-            {
-              title: '-35号',
-              value: '1-2-6',
-              categoryId: 'DIESEL-35',
-              level: 3,
-              parentCategoryId: 'DIESEL',
-              parentCategoryName: '柴油',
-              oilType: '柴油'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: '天然气',
-      value: '2',
-      categoryId: 'NATURAL_GAS',
-      level: 1,
-      children: [
-        {
-          title: '车用天然气',
-          value: '2-1',
-          categoryId: 'VEHICLE_GAS',
-          level: 2,
-          parentCategoryId: 'NATURAL_GAS',
-          parentCategoryName: '天然气',
-          children: [
-            {
-              title: 'LNG液化天然气',
-              value: '2-1-1',
-              categoryId: 'LNG',
-              level: 3,
-              parentCategoryId: 'VEHICLE_GAS',
-              parentCategoryName: '车用天然气',
-              oilType: '天然气'
-            },
-            {
-              title: 'CNG压缩天然气',
-              value: '2-1-2',
-              categoryId: 'CNG',
-              level: 3,
-              parentCategoryId: 'VEHICLE_GAS',
-              parentCategoryName: '车用天然气',
-              oilType: '天然气'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: '尾气处理液',
-      value: '3',
-      categoryId: 'EXHAUST_FLUID',
-      level: 1,
-      children: [
-        {
-          title: '柴油机尾气处理液',
-          value: '3-1',
-          categoryId: 'DIESEL_EXHAUST_FLUID',
-          level: 2,
-          parentCategoryId: 'EXHAUST_FLUID',
-          parentCategoryName: '尾气处理液',
-          children: [
-            {
-              title: '桶装车用尿素',
-              value: '3-1-1',
-              categoryId: 'BARREL_UREA',
-              level: 3,
-              parentCategoryId: 'DIESEL_EXHAUST_FLUID',
-              parentCategoryName: '柴油机尾气处理液',
-              oilType: '尿素'
-            },
-            {
-              title: '散装车用尿素',
-              value: '3-1-2',
-              categoryId: 'BULK_UREA',
-              level: 3,
-              parentCategoryId: 'DIESEL_EXHAUST_FLUID',
-              parentCategoryName: '柴油机尾气处理液',
-              oilType: '尿素'
-            }
-          ]
-        }
-      ]
-    }
-  ];
-
-  // 汽油排放标准
-  const gasolineStandards = [
-    { value: '国V', label: '国V' },
-    { value: '国VIA', label: '国VIA' },
-    { value: '国VIB', label: '国VIB' },
-    { value: '乙醇E10', label: '乙醇E10' }
-  ];
-
-  // 柴油排放标准
-  const dieselStandards = [
-    { value: '国V', label: '国V' },
-    { value: '国VIA', label: '国VIA' },
-    { value: '国VIB', label: '国VIB' }
-  ];
-
-  // 其他燃料排放标准
-  const otherStandards = [
-    { value: '国V', label: '国V' },
-    { value: '国VIA', label: '国VIA' }
-  ];
-
+  const [oilTypeData, setOilTypeData] = useState([]);
+  const [oilStandardData, setOilStandardData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  
   // 生成油品名称 - 支持新的分类类型
   const generateOilName = (categoryValue, oilType, emissionLevel) => {
     if (!categoryValue || !emissionLevel) return '';
-
-    const selectedCategory = findCategoryByValue(categoryTreeData, categoryValue);
-    if (!selectedCategory) return '';
 
     // 获取分类名称（去掉"号"字，因为后面会添加类型）
     let categoryName = selectedCategory.title;
@@ -254,6 +40,7 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
   };
 
   useEffect(() => {
+    loadInitData();
     if (visible) {
       if (type === 'create') {
         form.resetFields();
@@ -264,8 +51,6 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
           density: 0.75
         });
       } else if (data) {
-        const oilType = data.oilType || getOilTypeFromCategory(data.categoryKey);
-        setCurrentOilType(oilType);
         // 编辑时填充数据
         form.setFieldsValue({
           ...data,
@@ -277,11 +62,29 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
     }
   }, [visible, type, data, form]);
 
-  // 从分类获取油品类型
-  const getOilTypeFromCategory = (categoryValue) => {
-    const category = findCategoryByValue(categoryTreeData, categoryValue);
-    return category?.oilType || '';
-  };
+  const loadInitData = async () => {
+    // 查询油品类型
+    api.getDictList('oil_product_type').then(res => {
+      if (res.success) {
+        setOilTypeData(res.data);
+      }
+    });
+
+    // 获取油品标准列表
+    api.getOilStandardList().then(res => {
+      if (res.success) {
+        setOilStandardData(res.data);
+      }
+    });
+
+        // 从 API 获取油品分类列表
+    api.getOilCategoryList().then(res => {
+      if (res.success) {
+        setCategoryData(res.data);
+      }
+    });
+  }
+
 
   // 查找分类
   const findCategoryByValue = (treeData, value) => {
@@ -299,7 +102,7 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
 
   // 处理分类选择变化
   const handleCategoryChange = (value) => {
-    const selectedCategory = findCategoryByValue(categoryTreeData, value);
+
     if (selectedCategory && selectedCategory.oilType) {
       // 自动设置油品类型
       setCurrentOilType(selectedCategory.oilType);
@@ -354,43 +157,6 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
     }
   };
 
-  // 油品类型选项 - 增加新的类型
-  const oilTypeOptions = [
-    { label: '汽油', value: '汽油' },
-    { label: '柴油', value: '柴油' },
-    { label: '天然气', value: '天然气' },
-    { label: '尿素', value: '尿素' },
-    { label: '其他', value: '其他' }
-  ];
-
-  // 排放等级选项
-  const emissionLevelOptions = [
-    // 汽油排放标准
-    { label: '国V', value: '国V' },
-    { label: '国VIA', value: '国VIA' },
-    { label: '国VIB', value: '国VIB' },
-    { label: '乙醇E10', value: '乙醇E10' }
-  ];
-
-  // 柴油排放等级选项
-  const dieselEmissionOptions = [
-    { label: '国V', value: '国V' },
-    { label: '国VIA', value: '国VIA' },
-    { label: '国VIB', value: '国VIB' }
-  ];
-
-  // 根据油品类型获取排放等级选项
-  const getEmissionOptions = () => {
-    if (currentOilType === '柴油') {
-      return dieselEmissionOptions;
-    } else if (currentOilType === '汽油') {
-      return emissionLevelOptions;
-    } else {
-      // 天然气和尿素等其他类型不需要排放等级
-      return [];
-    }
-  };
-
   const handleSubmit = (values) => {
     // 验证财务信息业务逻辑
     if (!values.input_tax_rate) {
@@ -414,7 +180,6 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
     }
     
     onOk(values);
-    form.resetFields();
   };
 
   const handleCancel = () => {
@@ -460,13 +225,11 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
             label="油品分类"
             rules={[{ required: true, message: '请选择油品分类' }]}
           >
-            <TreeSelect
-              style={{ width: '100%' }}
-              placeholder="请选择油品分类"
-              treeData={categoryTreeData}
-              treeDefaultExpandAll
-              onChange={handleCategoryChange}
-            />
+            <Select placeholder="请选择油品分类" allowClear>
+              {categoryData.map(item => (
+                <Option key={item.id} value={item.id}>{item.name}</Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
       </Row>
@@ -478,12 +241,10 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
             label="油品类型"
             rules={[{ required: true, message: '请选择油品类型' }]}
           >
-            <Select placeholder="请选择油品类型" onChange={handleOilTypeChange}>
-              <Option value="汽油">汽油</Option>
-              <Option value="柴油">柴油</Option>
-              <Option value="天然气">天然气</Option>
-              <Option value="尿素">尿素</Option>
-              <Option value="其他">其他</Option>
+            <Select placeholder="请选择油品分类" allowClear>
+              {oilTypeData.map(item => (
+                <Option key={item.id} value={item.itemName}>{item.itemName}</Option>
+              ))}
             </Select>
           </Form.Item>
         </Col>
@@ -498,15 +259,9 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
               }
             ]}
           >
-            <Select 
-              placeholder="请选择排放等级"
-              onChange={handleEmissionLevelChange}
-              disabled={currentOilType !== '汽油' && currentOilType !== '柴油'}
-            >
-              {getEmissionOptions().map(standard => (
-                <Option key={standard.value} value={standard.value}>
-                  {standard.label}
-                </Option>
+            <Select placeholder="请选择排放等级" allowClear>
+              {oilStandardData.map(item => (
+                <Option key={item.id} value={item.name}>{item.name}</Option>
               ))}
             </Select>
           </Form.Item>
@@ -520,7 +275,7 @@ const OilForm = ({ visible, type, data, onOk, onCancel }) => {
             label="油品名称"
             rules={[{ required: true, message: '请输入油品名称' }]}
           >
-            <Input placeholder="系统将根据分类和排放等级自动生成" />
+            <Input placeholder="请输入油品名称" />
           </Form.Item>
         </Col>
       </Row>

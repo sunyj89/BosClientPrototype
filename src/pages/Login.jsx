@@ -43,7 +43,7 @@ const Login = ({ onLogin }) => {
       <Card 
         style={{ width: 400 }}
         title={
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center' , justifyContent: 'center' }}>
             <img src="/logo192.png" alt="Logo" style={{ height: 40, marginRight: 8 }} />
             <span style={{ fontSize: 20, fontWeight: 'bold' }}>BOS客户端系统</span>
           </div>
@@ -96,9 +96,9 @@ const Login = ({ onLogin }) => {
             </Button>
           </Form.Item>
         </Form>
-        <div style={{ textAlign: 'center' }}>
+        {/* <div style={{ textAlign: 'center' }}>
           <p>用户名: admin, 密码: admin</p>
-        </div>
+        </div> */}
       </Card>
     </div>
   );

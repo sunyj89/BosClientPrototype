@@ -25,6 +25,7 @@ import {
 import OilForm from './OilForm';
 import OilViewModal from './OilViewModal';
 import mockData from '../../../../mock/oil/master-data.json';
+import * as api from '../../services/api';
 
 const { Option } = Select;
 
@@ -35,67 +36,87 @@ const OilList = ({ setLoading }) => {
   const [modalType, setModalType] = useState('create'); // create, edit, view
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isViewModalVisible, setIsViewModalVisible] = useState(false);
-  const [categoryTreeData, setCategoryTreeData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [oilStandardData, setOilStandardData] = useState([]);
+  const [oilTypeData, setOilTypeData] = useState([]);
 
   useEffect(() => {
     // 从 mock 文件中获取数据
     setDataSource(mockData.oilList);
-    setCategoryTreeData(mockData.categoryTree);
     loadData();
   }, []);
 
   const loadData = () => {
     setLoading(true);
-    // 模拟API调用
-    setTimeout(() => {
-      setDataSource(mockData.oilList);
-      setLoading(false);
-    }, 800);
+
+    // 从 API 获取油品分类列表
+    api.getOilCategoryList().then(res => {
+      if (res.success) {
+        setCategoryData(res.data);
+      }
+    });
+
+    // 查询字典
+    api.getDictList('oil_product_type').then(res => {
+      if (res.success) {
+        setOilTypeData(res.data);
+      }
+    });
+
+    // 获取油品列表
+    api.getOilList().then(res => {
+      if (res.success) {
+        setDataSource(res.data.list);
+        setLoading(false);
+      }
+    });
+
+    // 获取油品标准列表
+    api.getOilStandardList().then(res => {
+      if (res.success) {
+        setOilStandardData(res.data);
+      }
+    });
+
+    // // 模拟API调用
+    // setTimeout(() => {
+    //   setDataSource(mockData.oilList);
+    //   setLoading(false);
+    // }, 800);
   };
 
   const handleSearch = (values) => {
     setLoading(true);
     // 模拟搜索
-    setTimeout(() => {
-      let filteredData = [...mockData.oilList];
+    console.log(values);
+      let params = {};
       if (values.code) {
-        filteredData = filteredData.filter(item => 
-          item.code.includes(values.code)
-        );
+        params.oilCode = values.code;
       }
       if (values.onlineCode) {
-        filteredData = filteredData.filter(item => 
-          item.onlineCode.includes(values.onlineCode)
-        );
+        params.onlineCode = values.onlineCode;
       }
       if (values.name) {
-        filteredData = filteredData.filter(item => 
-          item.name.includes(values.name)
-        );
+        params.oilName = values.name;
       }
       if (values.category) {
-        filteredData = filteredData.filter(item => 
-          item.category.includes(values.category)
-        );
+        params.categoryId = values.category;
       }
       if (values.oilType) {
-        filteredData = filteredData.filter(item => 
-          item.oilType === values.oilType
-        );
+        params.oilType = values.oilType;
       }
       if (values.emissionLevel) {
-        filteredData = filteredData.filter(item => 
-          item.emissionLevel === values.emissionLevel
-        );
+        params.oilStandardName = values.emissionLevel;
       }
       if (values.status) {
-        filteredData = filteredData.filter(item => 
-          item.status === values.status
-        );
+        params.status = values.status;
       }
-      setDataSource(filteredData);
-      setLoading(false);
-    }, 500);
+      api.getOilList(params).then(res => {
+        if (res.success) {
+          setDataSource(res.data.list);
+          setLoading(false);
+        }
+      });
   };
 
   const handleReset = () => {
@@ -146,32 +167,62 @@ const OilList = ({ setLoading }) => {
   };
 
   const handleModalOk = (values) => {
+
+    console.log(values);
+
     setLoading(true);
-    setTimeout(() => {
-      if (modalType === 'create') {
-        const newRecord = {
-          ...values,
-          key: Date.now().toString(),
-          createTime: new Date().toLocaleString(),
-          updateTime: new Date().toLocaleString(),
-          status: '审批中',
-          operator: '当前用户',
-          approver: ''
-        };
-        setDataSource([...dataSource, newRecord]);
-        message.success('创建成功，已提交审批');
-      } else if (modalType === 'edit') {
-        const updatedData = dataSource.map(item => 
-          item.key === selectedRecord.key 
-            ? { ...item, ...values, updateTime: new Date().toLocaleString(), status: '审批中' }
-            : item
-        );
-        setDataSource(updatedData);
-        message.success('编辑成功，已提交审批');
+    if (modalType === 'create') {
+      let data = {
+        "oilCode": values.code,
+        "onlineCode": values.onlineCode,
+        "oilName": values.name,
+        "oilShortName": values.shortName,
+        "oilNumber": values.number,
+        "categoryId": values.category,
+        "oilType": values.oilType,
+        "oilStandardName": values.emissionLevel,
+        "density": values.density,
+        "inputTaxRate": values.input_tax_rate,
+        "outputTaxRate": values.output_tax_rate,
+        "taxCategory": values.tax_classification,
+        "taxRate": values.tax_rate,
+        "erpProductCode": values.erp_product_code,
+        "erpCategoryCode": values.erp_category_code
       }
-      setIsModalVisible(false);
-      setLoading(false);
-    }, 800);
+      api.addOil(data).then(res => {
+        if (res.success) {
+          loadData();
+          setIsModalVisible(false);
+          setLoading(false);
+        }
+      });
+    }
+    // setTimeout(() => {
+    //   if (modalType === 'create') {
+    //     const newRecord = {
+    //       ...values,
+    //       key: Date.now().toString(),
+    //       createTime: new Date().toLocaleString(),
+    //       updateTime: new Date().toLocaleString(),
+    //       status: '审批中',
+    //       operator: '当前用户',
+    //       approver: ''
+    //     };
+    //     setDataSource([...dataSource, newRecord]);
+    //     message.success('创建成功，已提交审批');
+    //   } 
+    // else if (modalType === 'edit') {
+    //     const updatedData = dataSource.map(item => 
+    //       item.key === selectedRecord.key 
+    //         ? { ...item, ...values, updateTime: new Date().toLocaleString(), status: '审批中' }
+    //         : item
+    //     );
+    //     setDataSource(updatedData);
+    //     message.success('编辑成功，已提交审批');
+    //   }
+    //   setIsModalVisible(false);
+    //   setLoading(false);
+    // }, 800);
   };
 
   const handleModalCancel = () => {
@@ -194,8 +245,8 @@ const OilList = ({ setLoading }) => {
   const columns = [
     {
       title: '油品编号',
-      dataIndex: 'code',
-      key: 'code',
+      dataIndex: 'oilCode',
+      key: 'oilCode',
       width: 120,
       fixed: 'left'
     },
@@ -208,16 +259,16 @@ const OilList = ({ setLoading }) => {
     },
     {
       title: '油品名称',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'oilName',
+      key: 'oilName',
       width: 160,
       fixed: 'left'
     },
 
     {
       title: '油品简称',
-      dataIndex: 'shortName',
-      key: 'shortName',
+      dataIndex: 'oilShortName',
+      key: 'oilShortName',
       width: 100
     },
     {
@@ -238,8 +289,8 @@ const OilList = ({ setLoading }) => {
     },
     {
       title: '排放等级',
-      dataIndex: 'emissionLevel',
-      key: 'emissionLevel',
+      dataIndex: 'oilStandardName',
+      key: 'oilStandardName',
       width: 100,
       render: (text) => (
         text ? <Tag color="orange">{text}</Tag> : '-'
@@ -252,11 +303,12 @@ const OilList = ({ setLoading }) => {
       width: 100,
       render: (status) => {
         const colorMap = {
-          '生效中': 'success',
+          'active': 'success',
           '审批中': 'processing',
-          '未生效': 'default'
+          'inactive': 'default'
         };
-        return <Tag color={colorMap[status]}>{status}</Tag>;
+        const statusText = status === 'active' ? '使用中' : status === 'inactive' ? '已停用' : status === 'approved' ? '已审核' : status === 'pending' ? '挂起' : '草稿';
+        return <Tag color={colorMap[status]}>{statusText}</Tag>;
       }
     },
     {
@@ -268,8 +320,8 @@ const OilList = ({ setLoading }) => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      dataIndex: 'createdTime',
+      key: 'createdTime',
       width: 160
     },
     {
@@ -279,7 +331,7 @@ const OilList = ({ setLoading }) => {
       fixed: 'right',
       render: (_, record) => {
         const renderButtons = () => {
-          if (record.status === '生效中') {
+          if (record.status === 'active') {
             // 生效中：查看和编辑
             return (
               <>
@@ -301,7 +353,7 @@ const OilList = ({ setLoading }) => {
                 </Button>
               </>
             );
-          } else if (record.status === '审批中') {
+          } else if (record.status === 'pending') {
             // 审批中：仅查看
             return (
               <Button
@@ -313,7 +365,7 @@ const OilList = ({ setLoading }) => {
                 查看
               </Button>
             );
-          } else if (record.status === '未生效') {
+          } else if (record.status === 'draft' || record.status === 'inactive') {
             // 未生效：编辑和删除
             return (
               <>
@@ -375,14 +427,11 @@ const OilList = ({ setLoading }) => {
         />
       </Form.Item>
       <Form.Item name="category" label="油品分类">
-        <TreeSelect
-          style={{ width: 200 }}
-          placeholder="请选择分类"
-          allowClear
-          treeData={categoryTreeData}
-          showSearch
-          treeDefaultExpandAll
-        />
+        <Select placeholder="请选择油品分类" style={{ width: 150 }} allowClear>
+              {categoryData.map(item => (
+                <Option key={item.id} value={item.id}>{item.name}</Option>
+              ))}
+            </Select>
       </Form.Item>
       <Form.Item name="oilType" label="油品类型">
         <Select
@@ -390,11 +439,9 @@ const OilList = ({ setLoading }) => {
           style={{ width: 120 }}
           allowClear
         >
-          <Option value="汽油">汽油</Option>
-          <Option value="柴油">柴油</Option>
-          <Option value="天然气">天然气</Option>
-          <Option value="尿素">尿素</Option>
-          <Option value="其他">其他</Option>
+          {oilTypeData.map(item => (
+                <Option key={item.id} value={item.itemName}>{item.itemName}</Option>
+              ))}
         </Select>
       </Form.Item>
       <Form.Item name="emissionLevel" label="排放等级">
@@ -403,10 +450,9 @@ const OilList = ({ setLoading }) => {
           style={{ width: 120 }}
           allowClear
         >
-          <Option value="国V">国V</Option>
-          <Option value="国VIA">国VIA</Option>
-          <Option value="国VIB">国VIB</Option>
-          <Option value="乙醇E10">乙醇E10</Option>
+          {oilStandardData.map(item => (
+                <Option key={item.id} value={item.name}>{item.name}</Option>
+              ))}
         </Select>
       </Form.Item>
       <Form.Item name="status" label="油品状态">
@@ -415,14 +461,16 @@ const OilList = ({ setLoading }) => {
           style={{ width: 120 }}
           allowClear
         >
-          <Option value="生效中">生效中</Option>
-          <Option value="审批中">审批中</Option>
-          <Option value="未生效">未生效</Option>
+          <Option value="draft">草稿</Option>
+          <Option value="pending">挂起</Option>
+          <Option value="approved">已审核</Option>
+          <Option value="active">使用中</Option>
+          <Option value="inactive">已停用</Option>
         </Select>
       </Form.Item>
       <Form.Item style={{ marginLeft: 'auto' }}>
         <Space>
-          <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+          <Button type="primary" icon={<SearchOutlined />} htmlType="submit">
             查询
           </Button>
           <Button icon={<ReloadOutlined />} onClick={handleReset}>

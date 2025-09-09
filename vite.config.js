@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',
     port: 3000,
+    historyApiFallback: true,
     proxy: {
       '/merchant': {
         target: 'http://jxgs-newos-merchantmanage.zhihuiyouzhan.com:81',
@@ -15,6 +16,11 @@ export default defineConfig({
       },
       '/microservice-station': {
         target: 'http://jxgs-newos-station.zhihuiyouzhan.com:81',
+        changeOrigin: true,
+        logLevel: 'debug',
+      },
+      '/oil/api': {
+        target: 'http://jxgs-newos-oil.zhihuiyouzhan.com:81',
         changeOrigin: true,
         logLevel: 'debug',
       },
