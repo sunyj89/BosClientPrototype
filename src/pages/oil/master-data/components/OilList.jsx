@@ -39,10 +39,13 @@ const OilList = ({ setLoading }) => {
   const [categoryData, setCategoryData] = useState([]);
   const [oilStandardData, setOilStandardData] = useState([]);
   const [oilTypeData, setOilTypeData] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     // 从 mock 文件中获取数据
-    setDataSource(mockData.oilList);
+    // setDataSource(mockData.oilList);
     loadData();
   }, []);
 
@@ -64,12 +67,7 @@ const OilList = ({ setLoading }) => {
     });
 
     // 获取油品列表
-    api.getOilList().then(res => {
-      if (res.success) {
-        setDataSource(res.data.list);
-        setLoading(false);
-      }
-    });
+    getOilList();
 
     // 获取油品标准列表
     api.getOilStandardList().then(res => {
@@ -78,11 +76,23 @@ const OilList = ({ setLoading }) => {
       }
     });
 
-    // // 模拟API调用
-    // setTimeout(() => {
-    //   setDataSource(mockData.oilList);
-    //   setLoading(false);
-    // }, 800);
+  };
+
+  const getOilList = () => {
+    console.log('currentPage',currentPage);
+    console.log('pageSize',pageSize);
+    setLoading(true);
+    // 从 API 获取油品列表
+    api.getOilList({
+      page: currentPage,
+      pageSize: pageSize
+    }).then(res => {
+      if (res.success) {
+        setDataSource(res.data.list);
+        setTotal(res.data.total);
+        setLoading(false);
+      }
+    });
   };
 
   const handleSearch = (values) => {
@@ -111,6 +121,8 @@ const OilList = ({ setLoading }) => {
       if (values.status) {
         params.status = values.status;
       }
+      params.page = currentPage;
+      params.pageSize = pageSize;
       api.getOilList(params).then(res => {
         if (res.success) {
           setDataSource(res.data.list);
@@ -164,6 +176,15 @@ const OilList = ({ setLoading }) => {
         }, 500);
       }
     });
+  };
+
+  const handlePaginationChange = (page, pageSize) => {
+    console.log(page, pageSize);
+    setCurrentPage(page);
+    setPageSize(pageSize);
+    console.log('currentPage',currentPage);
+    console.log('pageSize',pageSize);
+    getOilList();
   };
 
   const handleModalOk = (values) => {
@@ -507,8 +528,14 @@ const OilList = ({ setLoading }) => {
           defaultPageSize: 10,
           showSizeChanger: true,
           showQuickJumper: true,
+          total,
+          current: currentPage,
+          pageSize: pageSize,
           showTotal: (total) => `共 ${total} 条记录`,
+          onShowSizeChange: handlePaginationChange,
+          onChange : handlePaginationChange
         }}
+        
         scroll={{ x: 'max-content' }}
       />
 
@@ -533,6 +560,7 @@ const OilList = ({ setLoading }) => {
       <OilViewModal
         visible={isViewModalVisible}
         data={selectedRecord}
+        categoryData={categoryData}
         onClose={handleViewModalClose}
       />
     </div>

@@ -1,8 +1,16 @@
 import React from 'react';
 import { Modal, Button, Descriptions, Tag } from 'antd';
 
-const OilViewModal = ({ visible, data, onClose }) => {
+const OilViewModal = ({ visible, data, onClose, categoryData  }) => {
   if (!data) return null;
+
+  // 获取油品分类名称
+  const getCategoryName = (id) => {
+    console.log(categoryData);
+    if (!categoryData) return '-';
+    const category = categoryData.find(c => c.id === id);
+    return category ? category.name : '-';
+  };
 
   // 获取状态颜色
   const getStatusColor = (status) => {
@@ -44,17 +52,19 @@ const OilViewModal = ({ visible, data, onClose }) => {
     >
       {/* 主要信息区域 */}
       <Descriptions column={2} bordered>
-        <Descriptions.Item label="油品编号">{data.code}</Descriptions.Item>
+        <Descriptions.Item label="油品编号">{data.oilCode}</Descriptions.Item>
         <Descriptions.Item label="线上油品编号">{data.onlineCode}</Descriptions.Item>
-        <Descriptions.Item label="油品名称">{data.name}</Descriptions.Item>
-        <Descriptions.Item label="油品简称">{data.shortName}</Descriptions.Item>
-        <Descriptions.Item label="油品分类">{data.categoryPath}</Descriptions.Item>
+        <Descriptions.Item label="油品名称">{data.oilName}</Descriptions.Item>
+        <Descriptions.Item label="油品简称">{data.oilShortName}</Descriptions.Item>
+        <Descriptions.Item label="油品分类">
+          {getCategoryName(data.categoryId)}
+        </Descriptions.Item>
         <Descriptions.Item label="油品类型">
           <Tag color={getOilTypeColor(data.oilType)}>{data.oilType}</Tag>
         </Descriptions.Item>
         <Descriptions.Item label="排放等级">
-          {data.emissionLevel ? (
-            <Tag color="orange">{data.emissionLevel}</Tag>
+          {data.oilStandardName ? (
+            <Tag color="orange">{data.oilStandardName}</Tag>
           ) : '-'}
         </Descriptions.Item>
         <Descriptions.Item label="默认密度">{data.density}</Descriptions.Item>
@@ -65,7 +75,7 @@ const OilViewModal = ({ visible, data, onClose }) => {
       </Descriptions>
 
       {/* 分段信息：创建和修改信息 */}
-      <div style={{ 
+      {/* <div style={{ 
         fontSize: 16, 
         fontWeight: 'bold', 
         marginTop: 24,
@@ -74,9 +84,9 @@ const OilViewModal = ({ visible, data, onClose }) => {
         paddingBottom: 8
       }}>
         操作记录信息
-      </div>
+      </div> */}
       
-      <Descriptions column={3} bordered size="small">
+      {/* <Descriptions column={3} bordered size="small">
         <Descriptions.Item label="创建时间">{data.createTime}</Descriptions.Item>
         <Descriptions.Item label="更新时间">{data.updateTime}</Descriptions.Item>
         <Descriptions.Item label="操作类型">
@@ -84,7 +94,7 @@ const OilViewModal = ({ visible, data, onClose }) => {
             <Tag color="blue">{data.operationType}</Tag>
           ) : '-'}
         </Descriptions.Item>
-      </Descriptions>
+      </Descriptions> */}
     </Modal>
   );
 };
