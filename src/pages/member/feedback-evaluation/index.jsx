@@ -1,69 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Tabs, Table, Button, Form, Input, Select, DatePicker, Space, Tag, Badge, Modal, Row, Col, Statistic, Progress, Spin, message, Tooltip, Switch, InputNumber, Divider, Rate } from 'antd';
-import { SearchOutlined, ReloadOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined, ExportOutlined, SettingOutlined, CommentOutlined, StarOutlined, BarChartOutlined, MessageOutlined, UserOutlined } from '@ant-design/icons';
+import { Card, Tabs, Table, Button, Form, Input, Select, DatePicker, Space, Modal, Row, Col, Statistic, Spin, message, Tooltip, Rate, Tag, Badge, Descriptions, Timeline } from 'antd';
+import { SearchOutlined, ReloadOutlined, EyeOutlined, ExportOutlined, StarOutlined, BarChartOutlined, UserOutlined, CommentOutlined, MessageOutlined, CheckOutlined, CloseOutlined, HistoryOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './index.css';
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
-const { TextArea } = Input;
 
 const MemberFeedbackEvaluation = () => {
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('feedback');
-  const [feedbackForm] = Form.useForm();
+  const [activeTab, setActiveTab] = useState('evaluation');
   const [evaluationForm] = Form.useForm();
   const [ruleForm] = Form.useForm();
   
   // 数据状态
-  const [feedbackData, setFeedbackData] = useState([]);
   const [evaluationData, setEvaluationData] = useState([]);
   const [statisticsData, setStatisticsData] = useState({});
-  const [evaluationRules, setEvaluationRules] = useState({});
+  const [modificationRecords, setModificationRecords] = useState([]);
   
   // 弹窗状态
-  const [feedbackModalVisible, setFeedbackModalVisible] = useState(false);
   const [evaluationModalVisible, setEvaluationModalVisible] = useState(false);
-  const [ruleModalVisible, setRuleModalVisible] = useState(false);
+  const [replyModalVisible, setReplyModalVisible] = useState(false);
+  const [batchReplyModalVisible, setBatchReplyModalVisible] = useState(false);
+  const [modificationDetailModalVisible, setModificationDetailModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
+  const [currentModificationRecord, setCurrentModificationRecord] = useState(null);
+  
+  // 批量选择状态
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+  
+  // 回复表单
+  const [replyForm] = Form.useForm();
+  const [batchReplyForm] = Form.useForm();
+  const [modificationSearchForm] = Form.useForm();
 
   useEffect(() => {
     loadMockData();
   }, []);
 
-  const loadMockData = () => {
+  const loadMockData = async () => {
+    console.log('开始加载数据...');
     setLoading(true);
-    setTimeout(() => {
-      // 加载Mock数据
-      const mockData = require('../../../mock/member/feedbackEvaluationData.json');
-      setFeedbackData(mockData.feedbackData);
-      setEvaluationData(mockData.evaluationData);
-      setStatisticsData(mockData.statisticsData);
-      setEvaluationRules(mockData.evaluationRules);
+    try {
+      // 使用动态导入加载Mock数据
+      const mockDataModule = await import('../../../mock/member/feedbackEvaluationData.json');
+      const mockData = mockDataModule.default;
+      console.log('成功加载数据:', mockData);
+      
+      setEvaluationData(mockData.evaluationData || []);
+      setStatisticsData(mockData.statisticsData || {});
+      setModificationRecords(mockData.modificationRecords || []);
+      console.log('数据设置完成');
+    } catch (error) {
+      console.error('Failed to load mock data:', error);
+      // 设置默认空数据，避免页面卡死
+      setEvaluationData([]);
+      setStatisticsData({});
+      setModificationRecords([]);
+    } finally {
       setLoading(false);
-    }, 500);
+      console.log('加载状态设置为false');
+    }
   };
 
   const handleTabChange = (key) => {
     setActiveTab(key);
   };
 
-  // 会员意见反馈明列表处理函数
-  const handleFeedbackSearch = (values) => {
-    console.log('搜索意见反馈:', values);
-  };
-
-  const handleFeedbackReset = () => {
-    feedbackForm.resetFields();
-  };
-
-  const handleViewFeedback = (record) => {
-    setCurrentRecord(record);
-    setFeedbackModalVisible(true);
-  };
-
-  const handleReplyFeedback = (record) => {
-    message.info('回复功能开发中');
-  };
 
   // 会员消费评价列表处理函数
   const handleEvaluationSearch = (values) => {
@@ -79,63 +82,145 @@ const MemberFeedbackEvaluation = () => {
     setEvaluationModalVisible(true);
   };
 
-  const handleOpenRuleSettings = () => {
-    setRuleModalVisible(true);
+  // 单个回复功能
+  const handleReplyEvaluation = (record) => {
+    setCurrentRecord(record);
+    setReplyModalVisible(true);
+    replyForm.resetFields();
   };
 
-  const handleSaveRules = (values) => {
-    console.log('保存评价规则:', values);
-    setEvaluationRules(values);
-    setRuleModalVisible(false);
-    message.success('评价规则保存成功');
+  const handleSubmitReply = (values) => {
+    console.log('回复评价:', currentRecord.evaluationId, values);
+    // 更新评价数据
+    const updatedData = evaluationData.map(item => {
+      if (item.evaluationId === currentRecord.evaluationId) {
+        return {
+          ...item,
+          replyStatus: '已回复',
+          replyContent: values.replyContent,
+          replyTime: new Date().toLocaleString('zh-CN'),
+          replyBy: '当前管理员'
+        };
+      }
+      return item;
+    });
+    setEvaluationData(updatedData);
+    setReplyModalVisible(false);
+    message.success('回复发送成功');
   };
 
-  // 会员意见反馈列定义
-  const feedbackColumns = [
+  // 批量选择功能
+  const handleSelectChange = (newSelectedRowKeys, newSelectedRows) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+    setSelectedRows(newSelectedRows);
+  };
+
+  // 批量回复功能
+  const handleBatchReply = () => {
+    if (selectedRowKeys.length === 0) {
+      message.warning('请先选择要回复的评价');
+      return;
+    }
+    setBatchReplyModalVisible(true);
+    batchReplyForm.resetFields();
+  };
+
+  const handleSubmitBatchReply = (values) => {
+    console.log('批量回复评价:', selectedRowKeys, values);
+    // 更新多个评价的数据
+    const updatedData = evaluationData.map(item => {
+      if (selectedRowKeys.includes(item.evaluationId)) {
+        return {
+          ...item,
+          replyStatus: '已回复',
+          replyContent: values.replyContent,
+          replyTime: new Date().toLocaleString('zh-CN'),
+          replyBy: '当前管理员'
+        };
+      }
+      return item;
+    });
+    setEvaluationData(updatedData);
+    setBatchReplyModalVisible(false);
+    setSelectedRowKeys([]);
+    setSelectedRows([]);
+    message.success(`成功回复 ${selectedRowKeys.length} 条评价`);
+  };
+
+  // 修改记录相关处理函数
+  const handleModificationSearch = (values) => {
+    console.log('搜索修改记录:', values);
+  };
+
+  const handleModificationReset = () => {
+    modificationSearchForm.resetFields();
+  };
+
+  const handleViewModificationDetail = (record) => {
+    setCurrentModificationRecord(record);
+    setModificationDetailModalVisible(true);
+  };
+
+
+  // 修改记录列定义
+  const modificationColumns = [
     {
-      title: '反馈ID',
-      dataIndex: 'feedbackId',
-      key: 'feedbackId',
-      width: 100,
+      title: '变更时间',
+      dataIndex: 'changeTime',
+      key: 'changeTime',
+      width: 150,
+      sorter: true,
+      render: (time) => <strong>{time}</strong>,
     },
     {
-      title: '会员信息',
-      key: 'memberInfo',
-      width: 150,
+      title: '评价信息',
+      key: 'evaluationInfo',
+      width: 180,
       render: (_, record) => (
         <div>
-          <div style={{ fontWeight: 500 }}>{record.memberName}</div>
-          <div style={{ color: '#666', fontSize: '12px' }}>{record.memberPhone}</div>
+          <div style={{ fontWeight: 500 }}>{record.evaluationId}</div>
+          <div style={{ color: '#666', fontSize: '12px' }}>{record.memberName}</div>
         </div>
       ),
     },
     {
-      title: '反馈类型',
-      dataIndex: 'feedbackType',
-      key: 'feedbackType',
+      title: '变更类型',
+      dataIndex: 'changeType',
+      key: 'changeType',
       width: 100,
       render: (type) => {
-        const colors = {
-          '服务投诉': 'red',
-          '功能建议': 'blue',
-          '系统问题': 'orange',
-          '其他': 'default'
+        const configs = {
+          'create': { color: 'success', icon: <PlusOutlined />, text: '新建' },
+          'update': { color: 'warning', icon: <EditOutlined />, text: '修改' },
+          'delete': { color: 'error', icon: <DeleteOutlined />, text: '删除' }
         };
-        return <Tag color={colors[type]}>{type}</Tag>;
+        const config = configs[type] || configs['update'];
+        return (
+          <Tag color={config.color} icon={config.icon}>
+            {config.text}
+          </Tag>
+        );
       },
     },
     {
-      title: '反馈内容',
-      dataIndex: 'content',
-      key: 'content',
-      width: 300,
+      title: '变更字段',
+      dataIndex: 'changeField',
+      key: 'changeField',
+      width: 120,
+      render: (field) => <Tag color="blue">{field}</Tag>,
+    },
+    {
+      title: '变更描述',
+      dataIndex: 'changeDescription',
+      key: 'changeDescription',
+      width: 200,
       render: (text) => (
         <Tooltip title={text}>
           <div style={{ 
             overflow: 'hidden', 
             textOverflow: 'ellipsis', 
             whiteSpace: 'nowrap',
-            maxWidth: '280px'
+            maxWidth: '180px'
           }}>
             {text}
           </div>
@@ -143,39 +228,30 @@ const MemberFeedbackEvaluation = () => {
       ),
     },
     {
-      title: '反馈时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
-      width: 150,
-    },
-    {
-      title: '处理状态',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (status) => {
-        const configs = {
-          '待处理': { color: 'orange', text: '待处理' },
-          '处理中': { color: 'blue', text: '处理中' },
-          '已回复': { color: 'green', text: '已回复' },
-          '已关闭': { color: 'default', text: '已关闭' }
-        };
-        return <Badge status={configs[status]?.color} text={configs[status]?.text} />;
-      },
+      title: '操作人',
+      key: 'operatorInfo',
+      width: 120,
+      render: (_, record) => (
+        <div>
+          <div style={{ fontWeight: 500 }}>{record.operator}</div>
+          <div style={{ color: '#666', fontSize: '12px' }}>{record.operatorId}</div>
+        </div>
+      ),
     },
     {
       title: '操作',
       key: 'action',
-      width: 200,
+      width: 100,
+      fixed: 'right',
       render: (_, record) => (
-        <Space size="small">
-          <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewFeedback(record)}>
-            查看
-          </Button>
-          <Button type="primary" size="small" icon={<MessageOutlined />} onClick={() => handleReplyFeedback(record)}>
-            回复
-          </Button>
-        </Space>
+        <Button 
+          type="primary" 
+          size="small" 
+          icon={<EyeOutlined />} 
+          onClick={() => handleViewModificationDetail(record)}
+        >
+          查看详情
+        </Button>
       ),
     },
   ];
@@ -211,6 +287,18 @@ const MemberFeedbackEvaluation = () => {
       ),
     },
     {
+      title: '分公司',
+      dataIndex: 'branchCompany',
+      key: 'branchCompany',
+      width: 120,
+    },
+    {
+      title: '油站',
+      dataIndex: 'stationName',
+      key: 'stationName',
+      width: 180,
+    },
+    {
       title: '评价星级',
       dataIndex: 'rating',
       key: 'rating',
@@ -242,83 +330,55 @@ const MemberFeedbackEvaluation = () => {
       width: 150,
     },
     {
-      title: '油站',
-      dataIndex: 'stationName',
-      key: 'stationName',
+      title: '回复状态',
+      dataIndex: 'replyStatus',
+      key: 'replyStatus',
+      width: 100,
+      render: (status) => {
+        const configs = {
+          '已回复': { color: 'green', icon: <CheckOutlined /> },
+          '未回复': { color: 'orange', icon: <CloseOutlined /> }
+        };
+        const config = configs[status] || configs['未回复'];
+        return (
+          <span style={{ color: config.color }}>
+            {config.icon} {status}
+          </span>
+        );
+      },
+    },
+    {
+      title: '回复时间',
+      dataIndex: 'replyTime',
+      key: 'replyTime',
       width: 150,
+      render: (time) => time || '-',
     },
     {
       title: '操作',
       key: 'action',
-      width: 100,
+      width: 160,
+      fixed: 'right',
       render: (_, record) => (
-        <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewEvaluation(record)}>
-          查看
-        </Button>
+        <Space size="small">
+          <Button type="primary" size="small" icon={<EyeOutlined />} onClick={() => handleViewEvaluation(record)}>
+            查看
+          </Button>
+          {record.replyStatus !== '已回复' && (
+            <Button 
+              type="primary" 
+              size="small" 
+              icon={<MessageOutlined />} 
+              onClick={() => handleReplyEvaluation(record)}
+            >
+              回复
+            </Button>
+          )}
+        </Space>
       ),
     },
   ];
 
-  // 渲染会员意见反馈明列表tab
-  const renderFeedbackList = () => (
-    <div>
-      <Card style={{ marginBottom: 16 }}>
-        <Form form={feedbackForm} layout="inline" onFinish={handleFeedbackSearch}>
-          <Form.Item name="feedbackType" label="反馈类型">
-            <Select placeholder="请选择反馈类型" style={{ width: 140 }} allowClear>
-              <Option value="服务投诉">服务投诉</Option>
-              <Option value="功能建议">功能建议</Option>
-              <Option value="系统问题">系统问题</Option>
-              <Option value="其他">其他</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="status" label="处理状态">
-            <Select placeholder="请选择处理状态" style={{ width: 140 }} allowClear>
-              <Option value="待处理">待处理</Option>
-              <Option value="处理中">处理中</Option>
-              <Option value="已回复">已回复</Option>
-              <Option value="已关闭">已关闭</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item name="memberName" label="会员姓名">
-            <Input placeholder="请输入会员姓名" style={{ width: 140 }} />
-          </Form.Item>
-          <Form.Item name="dateRange" label="反馈时间">
-            <RangePicker style={{ width: 240 }} />
-          </Form.Item>
-          <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-                查询
-              </Button>
-              <Button icon={<ReloadOutlined />} onClick={handleFeedbackReset}>
-                重置
-              </Button>
-              <Button type="primary" icon={<ExportOutlined />}>
-                导出
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
-      </Card>
-
-      <Card>
-        <Table
-          columns={feedbackColumns}
-          dataSource={feedbackData}
-          rowKey="feedbackId"
-          scroll={{ x: 'max-content' }}
-          pagination={{
-            total: feedbackData.length,
-            pageSize: 10,
-            showSizeChanger: true,
-            showQuickJumper: true,
-            showTotal: (total) => `共 ${total} 条记录`,
-          }}
-        />
-      </Card>
-    </div>
-  );
 
   // 渲染会员消费评价列表tab
   const renderEvaluationList = () => (
@@ -336,14 +396,28 @@ const MemberFeedbackEvaluation = () => {
                   <Option value={1}>1星</Option>
                 </Select>
               </Form.Item>
+              <Form.Item name="branchCompany" label="分公司">
+                <Select placeholder="请选择分公司" style={{ width: 120 }} allowClear>
+                  <Option value="赣中分公司">赣中分公司</Option>
+                  <Option value="赣东北分公司">赣东北分公司</Option>
+                  <Option value="赣东分公司">赣东分公司</Option>
+                  <Option value="赣东南分公司">赣东南分公司</Option>
+                </Select>
+              </Form.Item>
               <Form.Item name="stationName" label="油站">
                 <Select placeholder="请选择油站" style={{ width: 180 }} allowClear>
                   <Option value="南昌高速服务区加油站">南昌高速服务区加油站</Option>
                   <Option value="上饶高速服务区加油站">上饶高速服务区加油站</Option>
                 </Select>
               </Form.Item>
-              <Form.Item name="memberName" label="会员姓名">
-                <Input placeholder="请输入会员姓名" style={{ width: 140 }} />
+              <Form.Item name="replyStatus" label="回复状态">
+                <Select placeholder="请选择回复状态" style={{ width: 120 }} allowClear>
+                  <Option value="已回复">已回复</Option>
+                  <Option value="未回复">未回复</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item name="memberPhone" label="会员手机号">
+                <Input placeholder="请输入会员手机号" style={{ width: 140 }} />
               </Form.Item>
               <Form.Item name="dateRange" label="评价时间">
                 <RangePicker style={{ width: 240 }} />
@@ -359,14 +433,17 @@ const MemberFeedbackEvaluation = () => {
                   <Button type="primary" icon={<ExportOutlined />}>
                     导出
                   </Button>
+                  <Button 
+                    type="primary" 
+                    icon={<MessageOutlined />} 
+                    onClick={handleBatchReply}
+                    disabled={selectedRowKeys.length === 0}
+                  >
+                    批量回复 ({selectedRowKeys.length})
+                  </Button>
                 </Space>
               </Form.Item>
             </Form>
-          </Col>
-          <Col>
-            <Button type="primary" icon={<SettingOutlined />} onClick={handleOpenRuleSettings}>
-              评价规则设置
-            </Button>
           </Col>
         </Row>
       </Card>
@@ -377,6 +454,14 @@ const MemberFeedbackEvaluation = () => {
           dataSource={evaluationData}
           rowKey="evaluationId"
           scroll={{ x: 'max-content' }}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: handleSelectChange,
+            getCheckboxProps: (record) => ({
+              disabled: record.replyStatus === '已回复',
+              name: record.evaluationId,
+            }),
+          }}
           pagination={{
             total: evaluationData.length,
             pageSize: 10,
@@ -389,118 +474,60 @@ const MemberFeedbackEvaluation = () => {
     </div>
   );
 
-  // 渲染会员评价参与率和满意度统计tab
-  const renderStatistics = () => (
+  // 渲染修改记录tab
+  const renderModificationRecords = () => (
     <div>
-      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="总评价数"
-              value={statisticsData.totalEvaluations || 0}
-              prefix={<CommentOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="参与率"
-              value={statisticsData.participationRate || 0}
-              suffix="%"
-              prefix={<UserOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="平均满意度"
-              value={statisticsData.averageRating || 0}
-              precision={1}
-              suffix="星"
-              prefix={<StarOutlined />}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="好评率"
-              value={statisticsData.positiveRate || 0}
-              suffix="%"
-              prefix={<StarOutlined />}
-            />
-          </Card>
-        </Col>
-      </Row>
+      <Card style={{ marginBottom: 16 }}>
+        <Form form={modificationSearchForm} layout="inline" onFinish={handleModificationSearch}>
+          <Form.Item name="keyword" label="关键词">
+            <Input placeholder="评价ID、会员姓名、操作人" style={{ width: 200 }} />
+          </Form.Item>
+          <Form.Item name="changeType" label="变更类型">
+            <Select placeholder="请选择变更类型" style={{ width: 120 }} allowClear>
+              <Option value="create">新建</Option>
+              <Option value="update">修改</Option>
+              <Option value="delete">删除</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="changeField" label="变更字段">
+            <Select placeholder="请选择变更字段" style={{ width: 120 }} allowClear>
+              <Option value="回复信息">回复信息</Option>
+              <Option value="评价内容">评价内容</Option>
+              <Option value="状态信息">状态信息</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="dateRange" label="时间范围">
+            <RangePicker style={{ width: 240 }} />
+          </Form.Item>
+          <Form.Item>
+            <Space>
+              <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
+                搜索
+              </Button>
+              <Button icon={<ReloadOutlined />} onClick={handleModificationReset}>
+                重置
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Card>
 
-      <Row gutter={[16, 16]}>
-        <Col span={12}>
-          <Card title="评价星级分布">
-            <div style={{ height: '300px', padding: '20px' }}>
-              {/* 这里将放置星级分布图表 */}
-              <div style={{ textAlign: 'center', color: '#666', marginTop: '120px' }}>
-                评价星级分布图表区域
-              </div>
-            </div>
-          </Card>
-        </Col>
-        <Col span={12}>
-          <Card title="月度评价趋势">
-            <div style={{ height: '300px', padding: '20px' }}>
-              {/* 这里将放置月度趋势图表 */}
-              <div style={{ textAlign: 'center', color: '#666', marginTop: '120px' }}>
-                月度评价趋势图表区域
-              </div>
-            </div>
-          </Card>
-        </Col>
-      </Row>
+      <Card>
+        <Table
+          columns={modificationColumns}
+          dataSource={modificationRecords}
+          rowKey="id"
+          scroll={{ x: 'max-content' }}
+          pagination={{
+            total: modificationRecords.length,
+            pageSize: 10,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: (total) => `共 ${total} 条记录`,
+          }}
+        />
+      </Card>
     </div>
-  );
-
-  // 渲染意见反馈查看弹窗
-  const renderFeedbackModal = () => (
-    <Modal
-      title="意见反馈详情"
-      open={feedbackModalVisible}
-      onCancel={() => setFeedbackModalVisible(false)}
-      footer={[
-        <Button key="close" onClick={() => setFeedbackModalVisible(false)}>
-          关闭
-        </Button>,
-        <Button key="reply" type="primary" icon={<MessageOutlined />}>
-          回复
-        </Button>
-      ]}
-      width={800}
-    >
-      {currentRecord && (
-        <div>
-          <Row gutter={[16, 16]}>
-            <Col span={12}>
-              <div><strong>反馈ID：</strong>{currentRecord.feedbackId}</div>
-            </Col>
-            <Col span={12}>
-              <div><strong>反馈类型：</strong>{currentRecord.feedbackType}</div>
-            </Col>
-            <Col span={12}>
-              <div><strong>会员姓名：</strong>{currentRecord.memberName}</div>
-            </Col>
-            <Col span={12}>
-              <div><strong>联系电话：</strong>{currentRecord.memberPhone}</div>
-            </Col>
-            <Col span={24}>
-              <div><strong>反馈内容：</strong></div>
-              <div style={{ marginTop: 8, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
-                {currentRecord.content}
-              </div>
-            </Col>
-          </Row>
-        </div>
-      )}
-    </Modal>
   );
 
   // 渲染消费评价查看弹窗
@@ -535,6 +562,9 @@ const MemberFeedbackEvaluation = () => {
               <div><strong>评价星级：</strong><Rate disabled defaultValue={currentRecord.rating} /></div>
             </Col>
             <Col span={12}>
+              <div><strong>分公司：</strong>{currentRecord.branchCompany}</div>
+            </Col>
+            <Col span={12}>
               <div><strong>油站：</strong>{currentRecord.stationName}</div>
             </Col>
             <Col span={24}>
@@ -543,75 +573,212 @@ const MemberFeedbackEvaluation = () => {
                 {currentRecord.content || '用户未填写评价内容'}
               </div>
             </Col>
+            {currentRecord.replyStatus === '已回复' && (
+              <>
+                <Col span={24} style={{ marginTop: 16 }}>
+                  <div><strong>管理员回复：</strong></div>
+                  <div style={{ marginTop: 8, padding: 12, background: '#e6f7ff', borderRadius: 4, border: '1px solid #91d5ff' }}>
+                    {currentRecord.replyContent}
+                  </div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ color: '#666', fontSize: '12px' }}>
+                    <strong>回复时间：</strong>{currentRecord.replyTime}
+                  </div>
+                </Col>
+                <Col span={12}>
+                  <div style={{ color: '#666', fontSize: '12px' }}>
+                    <strong>回复人：</strong>{currentRecord.replyBy}
+                  </div>
+                </Col>
+              </>
+            )}
           </Row>
         </div>
       )}
     </Modal>
   );
 
-  // 渲染评价规则设置弹窗
-  const renderRuleModal = () => (
+  // 渲染单个回复弹窗
+  const renderReplyModal = () => (
     <Modal
-      title="评价规则设置"
-      open={ruleModalVisible}
-      onCancel={() => setRuleModalVisible(false)}
-      onOk={() => ruleForm.submit()}
+      title="回复评价"
+      open={replyModalVisible}
+      onCancel={() => setReplyModalVisible(false)}
+      onOk={() => replyForm.submit()}
       width={600}
     >
-      <Form form={ruleForm} layout="vertical" onFinish={handleSaveRules}>
-        <Form.Item name="enableAutoRequest" label="自动邀请评价" valuePropName="checked">
-          <Switch checkedChildren="开启" unCheckedChildren="关闭" />
-        </Form.Item>
-        <Form.Item name="requestDelay" label="邀请延迟时间">
-          <InputNumber
-            min={0}
-            max={24}
-            placeholder="请输入小时数"
-            addonAfter="小时"
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
-        <Form.Item name="reminderCount" label="提醒次数">
-          <InputNumber
-            min={0}
-            max={5}
-            placeholder="请输入提醒次数"
-            addonAfter="次"
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
-        <Form.Item name="incentivePoints" label="评价奖励积分">
-          <InputNumber
-            min={0}
-            placeholder="请输入奖励积分"
-            addonAfter="积分"
-            style={{ width: '100%' }}
-          />
-        </Form.Item>
-        <Form.Item name="validityPeriod" label="评价有效期">
-          <InputNumber
-            min={1}
-            max={30}
-            placeholder="请输入天数"
-            addonAfter="天"
-            style={{ width: '100%' }}
+      {currentRecord && (
+        <div style={{ marginBottom: 16 }}>
+          <div><strong>会员：</strong>{currentRecord.memberName}</div>
+          <div><strong>评价内容：</strong></div>
+          <div style={{ marginTop: 8, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+            {currentRecord.content || '用户未填写评价内容'}
+          </div>
+        </div>
+      )}
+      <Form form={replyForm} layout="vertical" onFinish={handleSubmitReply}>
+        <Form.Item 
+          name="replyContent" 
+          label="回复内容" 
+          rules={[{ required: true, message: '请输入回复内容' }]}
+        >
+          <Input.TextArea 
+            rows={4} 
+            placeholder="请输入回复内容..." 
+            maxLength={500}
+            showCount
           />
         </Form.Item>
       </Form>
     </Modal>
   );
 
+  // 渲染批量回复弹窗
+  const renderBatchReplyModal = () => (
+    <Modal
+      title={`批量回复 (${selectedRowKeys.length} 条)`}
+      open={batchReplyModalVisible}
+      onCancel={() => setBatchReplyModalVisible(false)}
+      onOk={() => batchReplyForm.submit()}
+      width={600}
+    >
+      <div style={{ marginBottom: 16 }}>
+        <div><strong>选中的评价：</strong></div>
+        <div style={{ maxHeight: 200, overflow: 'auto', border: '1px solid #d9d9d9', borderRadius: 4, padding: 12, marginTop: 8 }}>
+          {selectedRows.map(record => (
+            <div key={record.evaluationId} style={{ marginBottom: 8, padding: 8, background: '#f5f5f5', borderRadius: 4 }}>
+              <div><strong>{record.memberName}</strong> - {record.orderId}</div>
+              <div style={{ fontSize: '12px', color: '#666' }}>
+                {record.content || '用户未填写评价内容'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Form form={batchReplyForm} layout="vertical" onFinish={handleSubmitBatchReply}>
+        <Form.Item 
+          name="replyContent" 
+          label="批量回复内容" 
+          rules={[{ required: true, message: '请输入回复内容' }]}
+        >
+          <Input.TextArea 
+            rows={4} 
+            placeholder="请输入批量回复内容..." 
+            maxLength={500}
+            showCount
+          />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+
+  // 渲染修改记录详情弹窗
+  const renderModificationDetailModal = () => (
+    <Modal
+      title={<><HistoryOutlined /> 变更详情</>}
+      open={modificationDetailModalVisible}
+      onCancel={() => setModificationDetailModalVisible(false)}
+      footer={[
+        <Button key="close" onClick={() => setModificationDetailModalVisible(false)}>
+          关闭
+        </Button>
+      ]}
+      width={800}
+    >
+      {currentModificationRecord && (
+        <div>
+          <Card title="基本信息" style={{ marginBottom: 16 }}>
+            <Descriptions column={2}>
+              <Descriptions.Item label="记录ID">{currentModificationRecord.id}</Descriptions.Item>
+              <Descriptions.Item label="变更时间">{currentModificationRecord.changeTime}</Descriptions.Item>
+              <Descriptions.Item label="评价ID">{currentModificationRecord.evaluationId}</Descriptions.Item>
+              <Descriptions.Item label="会员姓名">{currentModificationRecord.memberName}</Descriptions.Item>
+              <Descriptions.Item label="变更类型">
+                <Tag color={currentModificationRecord.changeType === 'create' ? 'success' : 
+                           currentModificationRecord.changeType === 'update' ? 'warning' : 'error'}>
+                  {currentModificationRecord.changeType === 'create' ? '新建' : 
+                   currentModificationRecord.changeType === 'update' ? '修改' : '删除'}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="变更字段">
+                <Tag color="blue">{currentModificationRecord.changeField}</Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="操作人" span={2}>
+                {currentModificationRecord.operator} ({currentModificationRecord.operatorId})
+              </Descriptions.Item>
+              <Descriptions.Item label="变更原因" span={2}>
+                {currentModificationRecord.reason || '-'}
+              </Descriptions.Item>
+            </Descriptions>
+          </Card>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Card title="变更详情">
+                {currentModificationRecord.changeType === 'create' && (
+                  <div>
+                    <Tag color="success">新增</Tag>
+                    <div style={{ marginTop: 8, padding: 12, background: '#f6ffed', border: '1px solid #b7eb8f', borderRadius: 4 }}>
+                      {JSON.stringify(currentModificationRecord.newValue, null, 2)}
+                    </div>
+                  </div>
+                )}
+                {currentModificationRecord.changeType === 'update' && (
+                  <div>
+                    <div style={{ marginBottom: 12 }}>
+                      <Tag color="error">原值</Tag>
+                      <div style={{ marginTop: 8, padding: 12, background: '#fff2f0', border: '1px solid #ffccc7', borderRadius: 4 }}>
+                        {JSON.stringify(currentModificationRecord.oldValue, null, 2)}
+                      </div>
+                    </div>
+                    <div>
+                      <Tag color="success">新值</Tag>
+                      <div style={{ marginTop: 8, padding: 12, background: '#f6ffed', border: '1px solid #b7eb8f', borderRadius: 4 }}>
+                        {JSON.stringify(currentModificationRecord.newValue, null, 2)}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {currentModificationRecord.changeType === 'delete' && (
+                  <div>
+                    <Tag color="error">删除</Tag>
+                    <div style={{ marginTop: 8, padding: 12, background: '#fff2f0', border: '1px solid #ffccc7', borderRadius: 4 }}>
+                      {JSON.stringify(currentModificationRecord.oldValue, null, 2)}
+                    </div>
+                  </div>
+                )}
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card title="操作流程">
+                <Timeline
+                  items={[
+                    {
+                      color: 'blue',
+                      children: (
+                        <div>
+                          <div><strong>操作提交</strong></div>
+                          <div style={{ color: '#666', fontSize: '12px' }}>
+                            {currentModificationRecord.changeTime}
+                          </div>
+                          <div style={{ color: '#666', fontSize: '12px' }}>
+                            操作人: {currentModificationRecord.operator}
+                          </div>
+                        </div>
+                      ),
+                    }
+                  ]}
+                />
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      )}
+    </Modal>
+  );
+
   const tabItems = [
-    {
-      key: 'feedback',
-      label: (
-        <span>
-          <CommentOutlined />
-          会员意见反馈明列表
-        </span>
-      ),
-      children: renderFeedbackList(),
-    },
     {
       key: 'evaluation',
       label: (
@@ -623,14 +790,14 @@ const MemberFeedbackEvaluation = () => {
       children: renderEvaluationList(),
     },
     {
-      key: 'statistics',
+      key: 'modification',
       label: (
         <span>
-          <BarChartOutlined />
-          评价参与率和满意度统计
+          <HistoryOutlined />
+          修改记录
         </span>
       ),
-      children: renderStatistics(),
+      children: renderModificationRecords(),
     },
   ];
 
@@ -647,40 +814,66 @@ const MemberFeedbackEvaluation = () => {
           />
         </Spin>
       </Card>
-      {renderFeedbackModal()}
       {renderEvaluationModal()}
-      {renderRuleModal()}
+      {renderReplyModal()}
+      {renderBatchReplyModal()}
+      {renderModificationDetailModal()}
 
-      {/* 演示数据说明 */}
-      <Card title="演示数据说明" style={{ marginTop: 16 }}>
-        <ul>
-          <li>
-            <strong>功能概述：</strong>
-            <ul>
-              <li>会员意见反馈明列表：管理和查看会员提交的各类意见反馈</li>
-              <li>会员消费评价列表：查看会员对消费服务的星级评价和评价内容</li>
-              <li>评价参与率和满意度统计：统计分析会员评价的参与情况和满意度指标</li>
+      {/* 字段说明 */}
+      <Card title="字段说明" style={{ marginTop: 16 }}>
+        <Row gutter={[24, 16]}>
+          <Col span={8}>
+            <h4>基础信息</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>评价ID：</strong>系统自动生成的唯一标识</li>
+              <li><strong>会员信息：</strong>包含会员姓名和手机号</li>
+              <li><strong>订单信息：</strong>包含订单号和消费金额</li>
+              <li><strong>评价星级：</strong>1-5星评分，5星为最高</li>
+              <li><strong>评价内容：</strong>会员填写的文字评价</li>
+              <li><strong>评价时间：</strong>会员提交评价的时间</li>
             </ul>
-          </li>
-          <li>
-            <strong>主要功能：</strong>
-            <ul>
-              <li>支持按反馈类型、处理状态、会员信息、时间范围筛选</li>
-              <li>支持查看详细反馈内容和进行回复操作</li>
-              <li>支持设置评价规则（自动邀请、奖励积分等）</li>
-              <li>提供评价数据统计和可视化图表展示</li>
+          </Col>
+          <Col span={8}>
+            <h4>组织架构</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>分公司：</strong>油站所属的分公司</li>
+              <li><strong>油站：</strong>具体的加油站名称</li>
             </ul>
-          </li>
-          <li>
-            <strong>数据说明：</strong>
-            <ul>
-              <li>反馈类型：服务投诉、功能建议、系统问题、其他</li>
-              <li>处理状态：待处理、处理中、已回复、已关闭</li>
-              <li>评价星级：1-5星评价系统</li>
-              <li>统计指标：总评价数、参与率、平均满意度、好评率</li>
+            <h4>回复管理</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>回复状态：</strong>已回复/未回复</li>
+              <li><strong>回复时间：</strong>管理员回复的时间</li>
+              <li><strong>回复内容：</strong>管理员的回复文字</li>
+              <li><strong>回复人：</strong>执行回复操作的管理员</li>
             </ul>
-          </li>
-        </ul>
+          </Col>
+          <Col span={8}>
+            <h4>操作功能</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>查看：</strong>查看评价详情和回复记录</li>
+              <li><strong>回复：</strong>对未回复评价进行回复</li>
+              <li><strong>批量回复：</strong>选择多个评价统一回复</li>
+            </ul>
+            <h4>筛选条件</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>评价星级：</strong>按1-5星筛选</li>
+              <li><strong>分公司：</strong>按分公司筛选</li>
+              <li><strong>油站：</strong>按油站筛选</li>
+              <li><strong>回复状态：</strong>已回复/未回复</li>
+              <li><strong>会员手机号：</strong>精确查找会员</li>
+              <li><strong>评价时间：</strong>按时间范围筛选</li>
+            </ul>
+            <h4>修改记录</h4>
+            <ul style={{ paddingLeft: 16 }}>
+              <li><strong>变更时间：</strong>操作发生的时间</li>
+              <li><strong>变更类型：</strong>新建/修改/删除</li>
+              <li><strong>变更字段：</strong>具体变更的数据字段</li>
+              <li><strong>变更描述：</strong>操作的简要说明</li>
+              <li><strong>操作人：</strong>执行操作的用户</li>
+              <li><strong>变更对比：</strong>修改前后数据对比</li>
+            </ul>
+          </Col>
+        </Row>
       </Card>
     </div>
   );

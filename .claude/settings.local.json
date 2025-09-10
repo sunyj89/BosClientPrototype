@@ -3,7 +3,9 @@
     "allow": [
       "Bash(ren:*)",
       "Bash(mv:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm start)",
+      "Bash(node:*)"
     ],
     "deny": []
   }

@@ -1,102 +1,4 @@
 {
-  "feedbackData": [
-    {
-      "feedbackId": "FB202501001",
-      "memberName": "张三",
-      "memberPhone": "138****1234",
-      "feedbackType": "服务投诉",
-      "content": "昨天在南昌高速服务区加油站加油时，工作人员服务态度不好，没有主动提供发票，希望能够改进服务质量。",
-      "createTime": "2025-01-26 14:30:00",
-      "status": "待处理",
-      "stationName": "南昌高速服务区加油站",
-      "images": ["/images/feedback1.jpg"],
-      "urgencyLevel": "普通"
-    },
-    {
-      "feedbackId": "FB202501002",
-      "memberName": "李四",
-      "memberPhone": "139****5678",
-      "feedbackType": "功能建议",
-      "content": "建议在小程序中增加油价预测功能，这样可以帮助我们选择最佳的加油时机，提升用户体验。",
-      "createTime": "2025-01-26 10:15:00",
-      "status": "处理中",
-      "stationName": "",
-      "images": [],
-      "urgencyLevel": "普通"
-    },
-    {
-      "feedbackId": "FB202501003",
-      "memberName": "王五",
-      "memberPhone": "136****9876",
-      "feedbackType": "系统问题",
-      "content": "在使用积分兑换优惠券时，系统提示兑换失败，但积分已经扣除，请协助处理这个问题。",
-      "createTime": "2025-01-25 16:45:00",
-      "status": "已回复",
-      "stationName": "",
-      "images": ["/images/feedback3.jpg"],
-      "urgencyLevel": "紧急"
-    },
-    {
-      "feedbackId": "FB202501004",
-      "memberName": "赵六",
-      "memberPhone": "137****3456",
-      "feedbackType": "服务投诉",
-      "content": "加油过程中发现油枪计量不准确，实际加油量与显示量不符，希望检查设备。",
-      "createTime": "2025-01-25 09:20:00",
-      "status": "已关闭",
-      "stationName": "上饶高速服务区加油站",
-      "images": [],
-      "urgencyLevel": "重要"
-    },
-    {
-      "feedbackId": "FB202501005",
-      "memberName": "钱七",
-      "memberPhone": "135****7890",
-      "feedbackType": "其他",
-      "content": "希望能在服务区内增加更多的便民设施，比如母婴室、休息区等，提升整体服务水平。",
-      "createTime": "2025-01-24 11:30:00",
-      "status": "待处理",
-      "stationName": "南昌高速服务区加油站",
-      "images": [],
-      "urgencyLevel": "普通"
-    },
-    {
-      "feedbackId": "FB202501006",
-      "memberName": "孙八",
-      "memberPhone": "134****2468",
-      "feedbackType": "功能建议",
-      "content": "建议增加预约加油功能，可以提前预约时间段，避免高峰期排队等待。",
-      "createTime": "2025-01-24 08:45:00",
-      "status": "处理中",
-      "stationName": "",
-      "images": [],
-      "urgencyLevel": "普通"
-    },
-    {
-      "feedbackId": "FB202501007",
-      "memberName": "周九",
-      "memberPhone": "133****1357",
-      "feedbackType": "系统问题",
-      "content": "手机APP经常闪退，特别是在查看订单历史时，影响使用体验，请修复这个bug。",
-      "createTime": "2025-01-23 15:20:00",
-      "status": "已回复",
-      "stationName": "",
-      "images": ["/images/feedback7.jpg"],
-      "urgencyLevel": "重要"
-    },
-    {
-      "feedbackId": "FB202501008",
-      "memberName": "吴十",
-      "memberPhone": "132****9753",
-      "feedbackType": "服务投诉",
-      "content": "洗车服务质量不佳，洗完后车身还有污渍，工作人员态度敷衍，需要改进。",
-      "createTime": "2025-01-23 12:10:00",
-      "status": "待处理",
-      "stationName": "上饶高速服务区加油站",
-      "images": ["/images/feedback8.jpg"],
-      "urgencyLevel": "普通"
-    }
-  ],
   "evaluationData": [
     {
       "evaluationId": "EV202501001",
@@ -108,9 +10,14 @@
       "content": "服务很好，工作人员热情周到，加油速度快，环境干净整洁，会继续选择这里加油。",
       "createTime": "2025-01-26 15:30:00",
       "stationName": "南昌高速服务区加油站",
+      "branchCompany": "赣中分公司",
       "oilType": "92#汽油",
       "serviceItems": ["加油服务", "洗车服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "已回复",
+      "replyContent": "感谢您的好评，我们会继续努力提供优质服务！",
+      "replyTime": "2025-01-26 16:45:00",
+      "replyBy": "客服小李"
     },
     {
       "evaluationId": "EV202501002",
@@ -122,9 +29,14 @@
       "content": "整体不错，就是等待时间稍长，希望能提高服务效率。",
       "createTime": "2025-01-26 11:45:00",
       "stationName": "上饶高速服务区加油站",
+      "branchCompany": "赣东北分公司",
       "oilType": "95#汽油",
       "serviceItems": ["加油服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501003",
@@ -136,9 +48,14 @@
       "content": "服务一般，设施有些老旧，建议升级改造。",
       "createTime": "2025-01-25 17:20:00",
       "stationName": "南昌高速服务区加油站",
+      "branchCompany": "赣中分公司",
       "oilType": "0#柴油",
       "serviceItems": ["加油服务", "便利店"],
-      "hasReward": false
+      "hasReward": false,
+      "replyStatus": "已回复",
+      "replyContent": "感谢您的建议，我们会加快设施升级改造进度。",
+      "replyTime": "2025-01-25 18:30:00",
+      "replyBy": "站长王明"
     },
     {
       "evaluationId": "EV202501004",
@@ -150,9 +67,14 @@
       "content": "非常满意！工作人员专业、热情，服务质量很高，强烈推荐。",
       "createTime": "2025-01-25 13:15:00",
       "stationName": "上饶高速服务区加油站",
+      "branchCompany": "赣东北分公司",
       "oilType": "92#汽油",
       "serviceItems": ["加油服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501005",
@@ -164,9 +86,14 @@
       "content": "服务态度不好，等待时间过长，设施老旧，希望改进。",
       "createTime": "2025-01-24 16:30:00",
       "stationName": "南昌高速服务区加油站",
+      "branchCompany": "赣中分公司",
       "oilType": "95#汽油",
       "serviceItems": ["加油服务", "洗车服务"],
-      "hasReward": false
+      "hasReward": false,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501006",
@@ -178,9 +105,14 @@
       "content": "总体满意，加油速度快，价格合理，就是洗手间需要改善。",
       "createTime": "2025-01-24 10:45:00",
       "stationName": "上饶高速服务区加油站",
+      "branchCompany": "赣东北分公司",
       "oilType": "92#汽油",
       "serviceItems": ["加油服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "已回复",
+      "replyContent": "非常感谢您的评价，我们会继续改进洗手间设施。",
+      "replyTime": "2025-01-24 14:20:00",
+      "replyBy": "客服小张"
     },
     {
       "evaluationId": "EV202501007",
@@ -192,9 +124,14 @@
       "content": "优质服务，环境优美，工作人员训练有素，值得信赖。",
       "createTime": "2025-01-23 18:20:00",
       "stationName": "南昌高速服务区加油站",
+      "branchCompany": "赣中分公司",
       "oilType": "0#柴油",
       "serviceItems": ["加油服务", "便利店", "洗车服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501008",
@@ -206,9 +143,14 @@
       "content": "",
       "createTime": "2025-01-23 14:50:00",
       "stationName": "上饶高速服务区加油站",
+      "branchCompany": "赣东北分公司",
       "oilType": "95#汽油",
       "serviceItems": ["加油服务"],
-      "hasReward": false
+      "hasReward": false,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501009",
@@ -220,9 +162,14 @@
       "content": "服务不错，但是等待时间稍微有点长，总体还是满意的。",
       "createTime": "2025-01-22 20:15:00",
       "stationName": "南昌高速服务区加油站",
+      "branchCompany": "赣中分公司",
       "oilType": "92#汽油",
       "serviceItems": ["加油服务", "洗车服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "未回复",
+      "replyContent": "",
+      "replyTime": "",
+      "replyBy": ""
     },
     {
       "evaluationId": "EV202501010",
@@ -234,9 +181,14 @@
       "content": "非常棒的服务体验，工作人员态度好，设施完善，下次还会来。",
       "createTime": "2025-01-22 16:40:00",
       "stationName": "上饶高速服务区加油站",
+      "branchCompany": "赣东北分公司",
       "oilType": "92#汽油",
       "serviceItems": ["加油服务"],
-      "hasReward": true
+      "hasReward": true,
+      "replyStatus": "已回复",
+      "replyContent": "感谢您的认可，期待您的再次光临！",
+      "replyTime": "2025-01-22 18:15:00",
+      "replyBy": "站长刘强"
     }
   ],
   "statisticsData": {
@@ -284,5 +236,121 @@
     "enablePhotoUpload": true,
     "minRatingForReward": 3,
     "maxDailyRequests": 50
-  }
+  },
+  "modificationRecords": [
+    {
+      "id": "LOG202501001",
+      "evaluationId": "EV202501001",
+      "memberName": "张三",
+      "changeType": "update",
+      "changeField": "回复信息",
+      "changeDescription": "管理员回复用户评价",
+      "operator": "客服小李",
+      "operatorId": "USER001",
+      "changeTime": "2025-01-26 16:45:00",
+      "oldValue": {
+        "replyStatus": "未回复",
+        "replyContent": "",
+        "replyTime": "",
+        "replyBy": ""
+      },
+      "newValue": {
+        "replyStatus": "已回复",
+        "replyContent": "感谢您的好评，我们会继续努力提供优质服务！",
+        "replyTime": "2025-01-26 16:45:00",
+        "replyBy": "客服小李"
+      },
+      "reason": "及时回复用户好评，提升服务体验"
+    },
+    {
+      "id": "LOG202501002",
+      "evaluationId": "EV202501003",
+      "memberName": "王五",
+      "changeType": "update",
+      "changeField": "回复信息",
+      "changeDescription": "管理员回复用户建议",
+      "operator": "站长王明",
+      "operatorId": "USER002",
+      "changeTime": "2025-01-25 18:30:00",
+      "oldValue": {
+        "replyStatus": "未回复",
+        "replyContent": "",
+        "replyTime": "",
+        "replyBy": ""
+      },
+      "newValue": {
+        "replyStatus": "已回复",
+        "replyContent": "感谢您的建议，我们会加快设施升级改造进度。",
+        "replyTime": "2025-01-25 18:30:00",
+        "replyBy": "站长王明"
+      },
+      "reason": "回复用户改进建议，表达重视态度"
+    },
+    {
+      "id": "LOG202501003",
+      "evaluationId": "EV202501006",
+      "memberName": "孙八",
+      "changeType": "update",
+      "changeField": "回复信息",
+      "changeDescription": "管理员回复用户反馈",
+      "operator": "客服小张",
+      "operatorId": "USER003",
+      "changeTime": "2025-01-24 14:20:00",
+      "oldValue": {
+        "replyStatus": "未回复",
+        "replyContent": "",
+        "replyTime": "",
+        "replyBy": ""
+      },
+      "newValue": {
+        "replyStatus": "已回复",
+        "replyContent": "非常感谢您的评价，我们会继续改进洗手间设施。",
+        "replyTime": "2025-01-24 14:20:00",
+        "replyBy": "客服小张"
+      },
+      "reason": "回复用户设施改进建议"
+    },
+    {
+      "id": "LOG202501004",
+      "evaluationId": "EV202501010",
+      "memberName": "王十二",
+      "changeType": "update",
+      "changeField": "回复信息",
+      "changeDescription": "管理员回复用户好评",
+      "operator": "站长刘强",
+      "operatorId": "USER004",
+      "changeTime": "2025-01-22 18:15:00",
+      "oldValue": {
+        "replyStatus": "未回复",
+        "replyContent": "",
+        "replyTime": "",
+        "replyBy": ""
+      },
+      "newValue": {
+        "replyStatus": "已回复",
+        "replyContent": "感谢您的认可，期待您的再次光临！",
+        "replyTime": "2025-01-22 18:15:00",
+        "replyBy": "站长刘强"
+      },
+      "reason": "回复用户好评，增强用户粘性"
+    },
+    {
+      "id": "LOG202501005",
+      "evaluationId": "EV202501008",
+      "memberName": "吴十",
+      "changeType": "update",
+      "changeField": "评价内容",
+      "changeDescription": "系统自动修正评价内容格式",
+      "operator": "系统管理员",
+      "operatorId": "SYSTEM",
+      "changeTime": "2025-01-23 15:00:00",
+      "oldValue": {
+        "content": ""
+      },
+      "newValue": {
+        "content": "用户未填写评价内容"
+      },
+      "reason": "标准化空评价内容显示"
+    }
+  ]
 } 
